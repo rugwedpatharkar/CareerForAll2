@@ -28,3 +28,4 @@ public interface JobRepository extends JpaRepository<Job, Integer> {
 	@Query("SELECT j FROM Job j WHERE CONCAT(j.position, ' ', j.description, ' ', j.functions) LIKE %?1%")
 	public List<Job> findJobByIgnoreCase(String keyword);
 }
+ 
