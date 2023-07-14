@@ -29,6 +29,8 @@ import com.placementportal.service.CandidateService;
   
 @Controller
 public class MainController {
+	
+	// main conreoller
 	@Autowired
 	private JobService jobService;
 	
