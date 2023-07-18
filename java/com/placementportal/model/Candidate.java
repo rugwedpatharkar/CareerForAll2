@@ -28,7 +28,7 @@ public class Candidate {
 	
 	private String experience;
 	
-	private Integer no_of_years_work_ex;
+	private int no_of_years_work_ex;
 	
 	private String work_mode;
 	

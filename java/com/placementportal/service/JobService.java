@@ -1,11 +1,14 @@
 package com.placementportal.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.placementportal.model.Candidate;
 import com.placementportal.model.Job;
 import com.placementportal.repository.JobRepository;
 
@@ -14,6 +17,9 @@ public class JobService {
 
 	@Autowired
 	private JobRepository jobRepository;
+	
+	@Autowired
+	private CandidateService candidateService;
 
 	
 	public void saveJob(Job job) {
@@ -33,9 +39,37 @@ public class JobService {
 		return jobRepository.findAll();
 	}
 	
+	
+	
+	
+	public List<Candidate> findEligibleCandidates(int position_id, int minKeywordLength) {
+        Job job = jobRepository.findById(position_id).orElse(null);
+        if (job == null) {
+            return Collections.emptyList();
+        }
+
+        String[] jobKeywords = job.getDescription().split(" ");
+        List<Candidate> eligibleCandidates = new ArrayList<>();
+
+        for (String keyword : jobKeywords) {
+            if (keyword.length() > minKeywordLength) {
+                List<Candidate> candidates = candidateService.findCandidatesByPrimarySkills(keyword);
+                eligibleCandidates.addAll(candidates);
+            }
+        }
+
+        return eligibleCandidates;
+    }
+	
+	
+	
+	
+	
+	
+	
 	public List<Job> getJobByCriteria(Job job) {
-		return jobRepository.findJobByIgnoreCase(job.getPosition(),job.getCountry(), job.getCity(), job.getWork_mode(),
-				job.getNo_work_experience(), job.getDescription(), job.getPosition_type());
+		return jobRepository.findJobByIgnoreCase(job.getPosition(),job.getCountry(), job.getState(), job.getCity(), job.getWork_mode(),
+				job.getNoworkexperience(), job.getDescription(), job.getPosition_type());
 	}
 	
 	public Job getJobById(int position_id) {

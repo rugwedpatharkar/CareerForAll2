@@ -1,5 +1,5 @@
 package com.placementportal.controller;
-
+ 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,6 +17,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.placementportal.model.Company;
 import com.placementportal.model.Institute;
@@ -29,8 +30,6 @@ import com.placementportal.service.CandidateService;
   
 @Controller
 public class MainController {
-	
-	// main conreoller
 	@Autowired
 	private JobService jobService;
 	
@@ -61,18 +60,15 @@ public class MainController {
 		List<Job> listJob = jobService.jobsearch(keyword);
 		model.addAttribute("listJob", listJob);
 		model.addAttribute("keyword", keyword);
-		System.out.println(listJob);
-		System.out.println(keyword);
 		return "joblistfilters";
 	}
 	
-	@GetMapping("/joblistfilters/{position_id}")
-	public String getJobDetails(@PathVariable int position_id, Model model) {
+	@GetMapping("/joblistfilters/{position_id}/{minKeywordLength}")
+	public String getJobDetails(@PathVariable int position_id,@PathVariable int minKeywordLength, Model model) {
 		Job position = jobService.getJobById(position_id);
 		model.addAttribute("position", position);
-		List<Candidate> listcandidate = candidateService.getAllCandidates();
-		model.addAttribute("listcandidate", listcandidate);
-		System.out.println(listcandidate);
+		 List<Candidate> eligibleCandidates = jobService.findEligibleCandidates(position_id, minKeywordLength);
+	        model.addAttribute("listcandidate", eligibleCandidates);
 		return "candidatelistfilters";
 	}
 
@@ -105,13 +101,11 @@ public class MainController {
     
 	@GetMapping("/candidatelistfilters/{position_id}")
 	public String candidatesearch(Model model,@Param("keyword") String keyword,@PathVariable int position_id) {
-		List<Candidate> listJob = candidateService.candidatesearch(keyword);
+		List<Candidate> listcandidate = candidateService.candidatesearch(keyword);
 		Job position = jobService.getJobById(position_id);
 		model.addAttribute("position", position);
-		model.addAttribute("listJob", listJob);
+		model.addAttribute("listcandidate", listcandidate);
 		model.addAttribute("keyword", keyword);
-		System.out.println(listJob);
-		System.out.println(keyword);
 		return "candidatelistfilters";
 	}
 	
@@ -121,6 +115,16 @@ public class MainController {
 		model.addAttribute("listJob", listJob);
 		System.out.println(listJob);
 		return "joblistfilters";
+	}
+	
+	 
+	@GetMapping("/candidatefilter")
+	public String getCandidateByCriteria(@ModelAttribute("candidate") Candidate candidate, Model model,@RequestParam("position_id") int position_id) {
+		List<Candidate> listCandidate = candidateService.getCandidateByCriteria(candidate);
+		model.addAttribute("listCandidate", listCandidate);
+		Job position = jobService.getJobById(position_id);
+		model.addAttribute("position", position);
+		return "candidatelistfilters";
 	}
 	
 	@GetMapping("/index")

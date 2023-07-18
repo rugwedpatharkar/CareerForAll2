@@ -28,7 +28,12 @@ public class CandidateService  {
 		            
 	    }
 
-	   
+
+	    public List<Candidate> findCandidatesByPrimarySkills(String keyword) {
+	        return candidateRepository.findCandidatesByPrimarySkills(keyword);
+	    }
+	    
+	    
 	
 	
 	public List<Candidate> getCandidateByCriteria(Candidate candidate) {
@@ -36,6 +41,9 @@ public class CandidateService  {
 				candidate.getCandidate_city(), candidate.getNo_of_years_work_ex(),
 				candidate.getWork_mode(), candidate.getJob_or_internship());
 	}
+	
+	
+	
 	public List<Candidate> candidatesearch(String keyword) {
 		if (keyword != null) {
 			return candidateRepository.findCandidateByIgnoreCase(keyword);

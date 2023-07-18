@@ -508,3 +508,93 @@ items.forEach(item => {
 })
 
 
+// country dropdown generation------------------
+ fetch('https://www.universal-tutorial.com/api/countries/', {
+  headers: {
+    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ2emVuZGU4OUBnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ2OUlWQ0o4S0dKT3hzNFhhdXBXQzByRGtYRWxzZUVrc1ZJOE9TSTVZOS1jakVLNWJzWF9RUTRRZHotTlZoancxeGc4In0sImV4cCI6MTY4OTY2MzAyMX0.LckgY0m95RnmXOwBiK7VqSZX8OKpWIe05KCLlusWJk4',
+    'Accept': 'application/json'
+  }
+})
+.then(response => response.json())
+.then(data => {
+  // iterate over the list of countries and create a dropdown with the options
+  const countryDropdown = document.getElementById('country-dropdown');
+  countryDropdown.innerHTML = '<option value="" disabled selected>-- Please select country --</option>';
+  data.forEach(country => {
+    const option = document.createElement('option');
+    option.value = country.country_name;
+    option.textContent = country.country_name;
+    countryDropdown.appendChild(option);
+  });
+})
+.catch(error => console.error(error));
+
+// end of country dropdown generation------------------
+//populate the states dropdown based on the selected country----------------------------
+// Get the country dropdown element
+const countryDropdown = document.getElementById('country-dropdown');
+
+// Get the state dropdown element
+const stateDropdown = document.getElementById('state-Dropdown');
+
+// When the country dropdown value changes, populate the state dropdown
+countryDropdown.addEventListener('change', async () => {
+  // Get the selected country name
+  const countryName = countryDropdown.value;
+
+  // Get the list of states for the selected country
+  const response = await fetch(`https://www.universal-tutorial.com/api/states/${countryName}`, {
+    headers: {
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ2emVuZGU4OUBnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ2OUlWQ0o4S0dKT3hzNFhhdXBXQzByRGtYRWxzZUVrc1ZJOE9TSTVZOS1jakVLNWJzWF9RUTRRZHotTlZoancxeGc4In0sImV4cCI6MTY4OTY2MzAyMX0.LckgY0m95RnmXOwBiK7VqSZX8OKpWIe05KCLlusWJk4',
+      'Accept': 'application/json'
+    }
+  });
+
+  // Convert the response to JSON
+  const data = await response.json();
+
+  // Clear the state dropdown options
+  stateDropdown.innerHTML = '<option value="" disabled selected>-- Please select state --</option>';
+
+  // Populate the state dropdown with the list of states
+  data.forEach(state => {
+    const option = document.createElement('option');
+    option.value = state.state_name;
+    option.textContent = state.state_name;
+    stateDropdown.appendChild(option);
+  });
+});
+//end of populate the states dropdown based on the selected country----------------------------
+//populate cities based on state ------------------------
+// Get the city dropdown element
+const cityDropdown = document.getElementById("city-Dropdown");
+
+// Add an event listener to the state dropdown
+const newstateDropdown = document.getElementById("state-Dropdown");
+newstateDropdown.addEventListener("change", async (event) => {
+  // Get the selected state
+  const selectedState = event.target.value;
+
+  // Fetch the cities for the selected state
+  const response = await fetch(`https://www.universal-tutorial.com/api/cities/${selectedState}`, {
+    headers: {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ2emVuZGU4OUBnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ2OUlWQ0o4S0dKT3hzNFhhdXBXQzByRGtYRWxzZUVrc1ZJOE9TSTVZOS1jakVLNWJzWF9RUTRRZHotTlZoancxeGc4In0sImV4cCI6MTY4OTY2MzAyMX0.LckgY0m95RnmXOwBiK7VqSZX8OKpWIe05KCLlusWJk4",
+      "Accept": "application/json"
+    }
+  });
+  const cities = await response.json();
+
+  // Clear the city dropdown options
+  cityDropdown.innerHTML = '<option value="" disabled selected>-- Please select city --</option>';
+
+  // Populate the city dropdown with the fetched cities
+  cities.forEach(city => {
+    const option = document.createElement('option');
+    option.value = city.city_name;
+    option.text = city.city_name;
+    cityDropdown.add(option);
+  });
+});
+
+//--------end populate cities based on state
+
