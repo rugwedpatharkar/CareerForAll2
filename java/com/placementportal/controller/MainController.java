@@ -11,6 +11,8 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import java.io.IOException;
 import java.util.Optional;
 import org.springframework.data.repository.query.Param;
@@ -22,14 +24,30 @@ import org.springframework.web.servlet.ModelAndView;
 import com.placementportal.model.Company;
 import com.placementportal.model.Institute;
 import com.placementportal.model.Job;
+import com.placementportal.model.User;
+import com.placementportal.repository.UserRepository;
 import com.placementportal.model.Candidate;
 import com.placementportal.service.CompanyService;
 import com.placementportal.service.InstituteService;
 import com.placementportal.service.JobService;
+import com.placementportal.service.UserServiceImpl;
+
+import jakarta.servlet.http.HttpSession;
+
 import com.placementportal.service.CandidateService;
   
 @Controller
 public class MainController {
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private UserServiceImpl userServiceImpl;
+	
+	@Autowired
+	private BCryptPasswordEncoder bp;
+	
 	@Autowired
 	private JobService jobService;
 	
@@ -138,18 +156,7 @@ public class MainController {
 		ModelAndView mav = new ModelAndView("jobopening");
 		return mav;
 	}
-	
-	@GetMapping("/register")
-	public ModelAndView register() {
-		ModelAndView mav = new ModelAndView("register");
-		return mav;
-	}
-	@GetMapping("/login")
-	public ModelAndView login() {
-		ModelAndView mav = new ModelAndView("login");
-		return mav;
-	}
-	
+			
 	//Company Controllers
 	@PostMapping("/saveCompany")
 	public String saveCompany(@ModelAttribute("company") Company company) {
@@ -196,6 +203,56 @@ public class MainController {
 	public String saveCandidate(@ModelAttribute("candidate") Candidate candidate) {
 	    candidateService.saveCandidate(candidate);
 	    return "redirect:/candidate_registration";
+	}
+	
+	// Login Controller
+	
+//	@GetMapping("/login")
+//	public ModelAndView login() {
+//		ModelAndView mav = new ModelAndView("login");
+//		return mav;
+//	}
+	
+	@GetMapping("/login")
+	public String loginHome()
+	{
+		return "login";
+	}
+	
+	// Registration Controller
+	
+//	@GetMapping("/register")
+//	public ModelAndView register() {
+//		ModelAndView mav = new ModelAndView("register");
+//		return mav;
+//	}
+	
+	@GetMapping("/register")
+	public String home()
+	{
+		return "register";
+	}
+	
+	
+	@PostMapping("/register")
+	public String create(@ModelAttribute User user, HttpSession session)
+	{
+		
+		boolean u=userServiceImpl.checkEmail(user.getEmail());
+		if(u)
+		{
+			System.out.println("Email id already exist");
+		}else {
+			System.out.println(user);
+			//password encryption 
+			user.setPassword(bp.encode(user.getPassword()));
+			//user.setRole(user.getRole());
+			
+			session.setAttribute("msg", "Registration  successfully!");
+			userRepository.save(user);
+		}
+		
+		return "redirect:/register?success";
 	}
 	
 }
