@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
+
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<title>Placement Portal</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
+
+<link th:href="@{/img/favicon.png}" rel="icon">
+<link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+<!-- Google Fonts -->
+<link href="https://fonts.gstatic.com" rel="preconnect">
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+	rel="stylesheet">
+
+<!-- Vendor CSS Files -->
+<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet">
+<link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}"
+	rel="stylesheet">
+<link th:href="@{/vendor/boxicons/css/boxicons.min.css}"
+	rel="stylesheet">
+<link th:href="@{/vendor/quill/quill.snow.css}" rel="stylesheet">
+<link th:href="@{/vendor/quill/quill.bubble.css}" rel="stylesheet">
+<link th:href="@{/vendor/remixicon/remixicon.css}" rel="stylesheet">
+<link th:href="@{/vendor/simple-datatables/style.css}" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Template Main CSS File -->
+<link th:href="@{/css/style.css}" rel="stylesheet">
+
+<!-- Fontawesome CDN Link -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+<!-- Iconscout Link For Icons -->
+<link rel="stylesheet"
+	href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+
+</head>
+
+<body>
+
+
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+   <div class="d-flex align-items-center justify-content-between">
+     <i class="bi bi-list toggle-sidebar-btn" style="margin-left:-10px;margin-right:10px"></i>
+      <a th:href="@{/index}" class="logo d-flex align-items-center">
+        <img src="assets/img/logo.png" alt="">
+        <span class="d-none d-lg-block">Placement Portal</span>
+      </a>
+     
+    </div><!-- End Logo -->
+
+    <div class="search-bar">
+      <form class="search-form d-flex align-items-center" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+    
+    
+
+    
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-journal-text"></i><span>Startups</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+         
+         <ul>   
+          <li>
+            <a th:href="@{/startup_onboarding}">
+              <i class="bi bi-circle "></i><span>Onboarding</span>
+            </a>
+          </li>
+       
+          <li>
+            <a th:href="@{/jobopening}">
+              <i class="bi bi-circle"></i><span>Job Posting</span>
+            </a>
+          </li>
+          
+           <li>
+            <a th:href="@{/joblistfilters}">
+              <i class="bi bi-circle"></i><span>Job List</span>
+            </a>
+          </li>
+          
+             <li>
+            <a th:href="@{/joblistfilters}">
+              <i class="bi bi-circle"></i><span>Startup List</span>
+            </a>
+          </li>
+          
+          </ul>
+        </ul>
+        </li>
+          
+      
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-journal-text"></i><span>Institute</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+         
+       <ul>
+          <li>
+            <a th:href="@{/institute_onboarding}">
+              <i class="bi bi-circle"></i><span>Onboarding</span>
+            </a>
+          </li>
+
+          <li>
+            <a th:href="@{/candidate_registration}">
+              <i class="bi bi-circle"></i><span>Candidate Form</span>
+            </a>
+          </li>
+        </ul>
+        </ul>
+      </li>
+      
+
+      
+
+ <li class="nav-heading">Pages</li>
+
+     
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/register}">
+          <i class="bi bi-card-list"></i>
+          <span>Register</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/login}">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Login</span>
+        </a>
+      </li><!-- End Login Page Nav -->
+
+    </ul>
+
+  </aside>
+
+  <main id="main" class="main">
+
+
+
+
+ 
+
+		<div class="pagetitle">
+			<h1>Company Name</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">Home</li>
+					<li class="breadcrumb-item active">Management</li>
+				</ol>
+			</nav>
+		</div>
+
+	      	<div class="card info-card customers-card">
+				  				
+
+          		<div class="card-body">
+      						<h5 class="card-title">
+			          				Matching The Best ! <span>| Search Positions By Filters</span>
+						      </h5>
+ 
+<!--changes to be done-->
+	
+<form th:action="@{/jobfilter}"id="jobfilter">
+  			<div class="single-row">
+          <div class="single-column">
+              <div class="col-lx-3 col-lg-3 label"style="font-weight:600">Posted On :</div>
+            
+        &emsp;<input class="form-check-input" type="radio" name="no_of_years_work_ex" value="2"> 
+              <label class="form-check-label" for="gridRadios1"> Past 24 hours</label>
+                
+        &ensp;<input class="form-check-input" type="radio" name="no_of_years_work_ex" value="4"> 
+              <label class="form-check-label" for="gridRadios2"> Past Week</label>
+                
+        &ensp;<input class="form-check-input" type="radio" name="no_of_years_work_ex" value="6"> 
+              <label class="form-check-label" for="gridRadios2">Past Month</label>
+                
+        &ensp;<input class="form-check-input" type="radio" name="no_of_years_work_ex" value="6"> 
+              <label class="form-check-label" for="gridRadios2">Anytime</label>
+                
+              </div>
+    <div class="single-column">
+            <div class="col-lx-3 col-lg-3 label"style="font-weight:600">Position Type :</div>
+            
+          &emsp;<input class="form-check-input" type="radio"  value="Job"name="position_type"> 
+              <label class="form-check-label" for="gridRadios1">Job</label>
+								
+          &ensp;<input class="form-check-input" type="radio"   value="Internship"name="position_type"> 
+              <label class="form-check-label" for="gridRadios2">Internship</label>
+
+							</div>
+							</div>
+             
+<div class="single-row">
+              <div class="single-column">
+          <div class="col-lx-3 col-lg-3 label "style="font-weight:600">Required Work Experience :
+              <select class="form-select" name="noworkexperience"  aria-label="Default select example"style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline">
+
+                <option disabled selected>Select Work Experience</option>
+                <option value="0">0</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+                </select>
+
+                </div>
+              </div>
+		
+
+              <div class="single-column">
+              <div class="col-lx-3 col-lg-3 label"style="font-weight:600">Work Mode :</div>
+                  
+        &emsp;<input class="form-check-input" type="radio" value="Work From Home" name="work_mode"> 
+              <label class="form-check-label" >Work From Home</label>
+              
+        &ensp;<input class="form-check-input" type="radio" value="Work From Office" name="work_mode"> 
+              <label class="form-check-label" >Work From Office</label>
+              
+        &ensp;<input class="form-check-input" type="radio" value="Hybrid" name="work_mode"> 
+              <label class="form-check-label" >Hybrid</label>
+								
+			</div>
+			
+          </div>
+
+          <div class="single-row">    
+       
+          <div class="col-lx-3 col-lg-3 label ">Location :
+   &emsp;<select class="form-select" name="country"  id="country-dropdown" style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline" aria-label="Default select example">
+                       <option value="" disabled selected>-- Please select country --</option>
+         </select> 
+           &emsp;<select class="form-select" name="state"  id="state-Dropdown" style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline" aria-label="Default select example">
+                    <option value="" disabled selected>-- Please select state --</option>
+         </select> 
+                &ensp;<select class="form-select" name="city" id="city-Dropdown" aria-label="Default select example"style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline">
+                     <option value="" disabled selected>-- Please select state --</option>
+
+                </select>
+
+                </div>
+            
+       
+           
+						</div>
+						</form>
+<div class="single-row">    
+             
+						<form th:action="@{/joblistfilters}">
+                        <label class="col-lx-3 col-lg-3 label"style="font-weight:600">Search Position :</label>
+         <div class="select-btn"style="width: 280px; height:30px; padding:4px 0 4px 0; font-size:10px; display: inline">
+			 <input style="background: transparent; border: none; outline: none;"autocomplete="off" spellcheck="false" type="text" placeholder="Enter Details"name="keyword" >
+        					<button style="background: transparent; border: none; outline: none;" type="submit" title="Search"><i class="bi bi-search"></i></button>
+									
+								
+								</div>	</form>	
+                </div>	
+						
+	 		          <div class="single-row" >
+				           <div class="col-sm-10">
+							   
+    	                <input type="submit" value="Apply" class="btn btn-success"  form="jobfilter" style="width:60px; height:25px;  padding-top: 2px; font-size: 12px">
+								<a type="reset" th:href="@{/joblistfilters}" class="btn btn-primary"style="width:60px; height:25px;  padding-top: 2px; font-size: 12px">Reset</a> 
+			          </div>
+						</div>
+						
+					
+          <hr style="width: 100%; text-align: left; margin-left: 0;margin-top:20px">
+						
+
+        <div class="single-row" >    
+
+          <h5 class="card-title">
+            Position List<span style="margin-left:160px">Position Type</span><span style="margin-left:110px">Work Mode</span><span style="margin-left:110px"> Country</span><span  style="margin-left:110px"> State</span><span  style="margin-left:110px"> City</span>
+          </h5>
+          <div class="tab-pane fade show active profile-overview"
+            th:each="j : ${listJob}" style="height: auto">
+ <div class="single-column" style="display: inline;width:220px;margin:10px 0 10px 0">
+            <a th:href="@{/joblistfilters/{position_id}/{minKeywordLength}(position_id=${j.position_id}, minKeywordLength=3)}">
+              <h5 th:text="${j.position}"
+                style="text-decoration: underline;font-size:13px"
+                class="form-check-label card-title"></h5>
+            </a>
+</div> 
+            <div class="single-column" style="display: inline;width:180px;text-align: center;margin:10px 0 10px 0">
+              <div class="col-lg-9 col-md-8" th:text="${j.position_type}"></div>
+            </div>
+            <div class="single-column" style="display: inline;width:200px;text-align: center;margin:10px 0 10px 0">
+              <div class="col-lg-9 col-md-8" th:text="${j.work_mode}"></div>
+            </div>
+                <div class="single-column"style="display: inline;width:160px;text-align: center;margin:10px 0 10px 0">
+              <div class="col-lg-9 col-md-8" th:text="${j.country}"></div>
+            </div>
+            <div class="single-column" style="display: inline;width:160px;text-align: center;margin:10px 0 10px 0">
+              <div class="col-lg-9 col-md-8" th:text="${j.state}"></div>
+            </div>
+              <div class="single-column" style="display: inline;width:130px;text-align: center;margin:10px 0 10px 0">
+              <div class="col-lg-9 col-md-8" th:text="${j.city}"></div>
+            </div>
+            
+          </div>
+          </div>
+</div>	
+      
+      </div>
+
+    </section>
+
+  </main>
+ 
+	<!-- Vendor JS Files -->
+	<script th:src="@{/vendor/apexcharts/apexcharts.min.js}"></script>
+	<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/vendor/chart.js/chart.umd.js}"></script>
+	<script th:src="@{/vendor/echarts/echarts.min.js}"></script>
+	<script th:src="@{/vendor/quill/quill.min.js}"></script>
+	<script th:src="@{/vendor/simple-datatables/simple-datatables.js}"></script>
+	<script th:src="@{/vendor/tinymce/tinymce.min.js}"></script>
+	<script th:src="@{/vendor/php-email-form/validate.js}"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+		integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+		crossorigin="anonymous"></script>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+		integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+		crossorigin="anonymous"></script>
+	<script th:src="@{/js/main.js}"></script>
+
+</body>
+<style>
+	.card-body{
+		font-size:12px
+	}
+  .form-check-label {
+    display: inline;
+  }
+  
+  .col-form-label {
+    width: 100%;
+  }
+  
+  .single-row{
+    width: 100%;
+    clear: both;
+  }
+ 
+  .single-column{
+    width: 50%;
+    float:left;
+  }
+
+  .single-column input{
+    width: 90;
+  }
+
+  .single-row {
+    margin: 0 0 0 0;
+    padding: 6px 0 6px 0;
+  }
+  
+  .label {
+    width: 24%;
+    display: inline;
+  }
+
+
+  .col-md-8 {
+    width: 100%;
+  }
+  
+  select {
+    display: inline;
+    cursor: pointer;
+  }
+
+  
+  .col-sm-10 {
+    display: inline;
+    width: 100%;
+   }
+
+
+  </style>
+  <script>
+
+    //filter.js
+     $(document).ready(function() {
+         $('#filterForm').change(function() {
+             var inStock = $('#inStockCheckbox').is(':checked');
+             var category = $('#categorySelect').val();
+    
+             $.ajax({
+                 type: 'POST',
+                 url: '/products/filter',
+                 data: {
+                     inStock: inStock,
+                     category: category
+                 },
+                 success: function(data) {
+                     updateProductTable(data);
+                 }
+             });
+         });
+    
+         function updateProductTable(data) {
+             var tbody = $('table tbody');
+             tbody.empty();
+    
+             $.each(data, function(index, product) {
+                 var row = $('<tr>');
+                 row.append($('<td>').text(product.name));
+                 row.append($('<td>').text(product.inStock));
+                 row.append($('<td>').text(product.category));
+                 tbody.append(row);
+             });
+         }
+     });
+    
+     </script>
+</html>
