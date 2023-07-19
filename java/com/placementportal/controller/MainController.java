@@ -25,6 +25,7 @@ import com.placementportal.model.Job;
 import com.placementportal.model.Candidate;
 import com.placementportal.service.CompanyService;
 import com.placementportal.service.InstituteService;
+import com.placementportal.service.JobCandidateService;
 import com.placementportal.service.JobService;
 import com.placementportal.service.CandidateService;
   
@@ -36,11 +37,14 @@ public class MainController {
 	@Autowired
 	private CompanyService companyService;
 	
-	@Autowired(required = true)
+	@Autowired
 	private InstituteService institueService; 	
 
-	@Autowired(required = true)
+	@Autowired
 	private CandidateService candidateService;
+	
+	@Autowired
+	private JobCandidateService jobCandidateService;
 	  
 	@GetMapping("/")
 	public String startupjobDesc(Model model) {
@@ -117,11 +121,24 @@ public class MainController {
 		return "joblistfilters";
 	}
 	
-	 
+	@GetMapping("/candidatemapping/{position_id}/{minKeywordLength}")
+	public String mapCandidateToJob(@ModelAttribute("candidate") Candidate candidate,
+			@PathVariable int minKeywordLength ,
+			Model model,
+			@RequestParam("position_id") int position_id,
+			@RequestParam("candidate_id") long candidate_id) {
+		jobCandidateService.mapCandidateToJob(position_id, candidate_id);
+		Job position = jobService.getJobById(position_id);
+		model.addAttribute("position", position);
+		 List<Candidate> eligibleCandidates = jobService.findEligibleCandidates(position_id, minKeywordLength);
+	        model.addAttribute("listcandidate", eligibleCandidates);
+		return "candidatelistfilters";
+	}
+	
 	@GetMapping("/candidatefilter")
 	public String getCandidateByCriteria(@ModelAttribute("candidate") Candidate candidate, Model model,@RequestParam("position_id") int position_id) {
-		List<Candidate> listCandidate = candidateService.getCandidateByCriteria(candidate);
-		model.addAttribute("listCandidate", listCandidate);
+		List<Candidate> listcandidate = candidateService.getCandidateByCriteria(candidate);
+		model.addAttribute("listcandidate", listcandidate);
 		Job position = jobService.getJobById(position_id);
 		model.addAttribute("position", position);
 		return "candidatelistfilters";
