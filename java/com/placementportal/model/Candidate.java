@@ -4,9 +4,12 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 
 @Entity
@@ -16,7 +19,10 @@ public class Candidate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long candidate_id;
 	
+	
 	private String candidate_name;
+	
+	private String email;
 	
 	private byte[] cv_upload;
 	
@@ -38,16 +44,20 @@ public class Candidate {
 	
 	private String ic_or_manager;
 	
+	private String joborinternship;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "institute_id")
+	private Institute institute_name ;
+	
 	private String ctc_fixed;
 	
 	private BigDecimal ctc_variable;
 	
 	private BigDecimal ctc_total;
+ 
 	
-	private String joborinternship;
-	
-	
-
+ 
 	public Candidate() {
 		super();
 	}
@@ -74,6 +84,18 @@ public class Candidate {
 
 	public void setCandidate_name(String candidate_name) {
 		this.candidate_name = candidate_name;
+	}
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 
@@ -198,6 +220,30 @@ public class Candidate {
 
 
 
+	public String getJoborinternship() {
+		return joborinternship;
+	}
+
+
+
+	public void setJoborinternship(String joborinternship) {
+		this.joborinternship = joborinternship;
+	}
+
+
+
+	public Institute getInstitute_name() {
+		return institute_name;
+	}
+
+
+
+	public void setInstitute_name(Institute institute_name) {
+		this.institute_name = institute_name;
+	}
+
+
+
 	public String getCtc_fixed() {
 		return ctc_fixed;
 	}
@@ -234,41 +280,28 @@ public class Candidate {
 
 
 
-	public String getJoborinternship() {
-		return joborinternship;
-	}
-
-
-
-	public void setJoborinternship(String joborinternship) {
-		this.joborinternship = joborinternship;
-	}
-
-
-
 	@Override
 	public String toString() {
-		return "Candidate [candidate_id=" + candidate_id + ", candidate_name=" + candidate_name + ", cv_upload="
-				+ Arrays.toString(cv_upload) + ", other_relevant_upload=" + Arrays.toString(other_relevant_upload)
-				+ ", primary_skills=" + primary_skills + ", secondary_skills=" + secondary_skills + ", experience="
-				+ experience + ", noofyearsworkex=" + noofyearsworkex + ", workmode=" + workmode + ", gender=" + gender
-				+ ", candidate_city=" + candidate_city + ", ic_or_manager=" + ic_or_manager + ", ctc_fixed=" + ctc_fixed
-				+ ", ctc_variable=" + ctc_variable + ", ctc_total=" + ctc_total + ", joborinternship=" + joborinternship
-				+ ", getCandidate_id()=" + getCandidate_id() + ", getCandidate_name()=" + getCandidate_name()
-				+ ", getCv_upload()=" + Arrays.toString(getCv_upload()) + ", getOther_relevant_upload()="
+		return "Candidate [candidate_id=" + candidate_id + ", candidate_name=" + candidate_name + ", email=" + email
+				+ ", cv_upload=" + Arrays.toString(cv_upload) + ", other_relevant_upload="
+				+ Arrays.toString(other_relevant_upload) + ", primary_skills=" + primary_skills + ", secondary_skills="
+				+ secondary_skills + ", experience=" + experience + ", noofyearsworkex=" + noofyearsworkex
+				+ ", workmode=" + workmode + ", gender=" + gender + ", candidate_city=" + candidate_city
+				+ ", ic_or_manager=" + ic_or_manager + ", joborinternship=" + joborinternship + ", institute_name="
+				+ institute_name + ", ctc_fixed=" + ctc_fixed + ", ctc_variable=" + ctc_variable + ", ctc_total="
+				+ ctc_total + ", getCandidate_id()=" + getCandidate_id() + ", getCandidate_name()="
+				+ getCandidate_name() + ", getEmail()=" + getEmail() + ", getCv_upload()="
+				+ Arrays.toString(getCv_upload()) + ", getOther_relevant_upload()="
 				+ Arrays.toString(getOther_relevant_upload()) + ", getPrimary_skills()=" + getPrimary_skills()
 				+ ", getSecondary_skills()=" + getSecondary_skills() + ", getExperience()=" + getExperience()
 				+ ", getNoofyearsworkex()=" + getNoofyearsworkex() + ", getWorkmode()=" + getWorkmode()
 				+ ", getGender()=" + getGender() + ", getCandidate_city()=" + getCandidate_city()
-				+ ", getIc_or_manager()=" + getIc_or_manager() + ", getCtc_fixed()=" + getCtc_fixed()
-				+ ", getCtc_variable()=" + getCtc_variable() + ", getCtc_total()=" + getCtc_total()
-				+ ", getJoborinternship()=" + getJoborinternship() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
+				+ ", getIc_or_manager()=" + getIc_or_manager() + ", getJoborinternship()=" + getJoborinternship()
+				+ ", getInstitute_name()=" + getInstitute_name() + ", getCtc_fixed()=" + getCtc_fixed()
+				+ ", getCtc_variable()=" + getCtc_variable() + ", getCtc_total()=" + getCtc_total() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
-
-
-
-
+	
 	
 	
 }
