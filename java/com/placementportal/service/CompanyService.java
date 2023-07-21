@@ -1,5 +1,4 @@
 package com.placementportal.service;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.placementportal.model.Company;
 import com.placementportal.repository.CompanyRepository;
 @Service
-public class CompanyService{
+public class CompanyService {
 	@Autowired
 	private CompanyRepository companyRepository;
 	public List<Company> getAllCompanies() {
@@ -17,5 +16,12 @@ public class CompanyService{
 	public void saveCompany(Company company) {
 		this.companyRepository.save(company);	
 	}
-	
+	public Company getCompanyById(Long id) {
+	    return companyRepository.findById(id).orElse(null);
+	}
+	public void deleteCompanyById(Long id) {
+		this.companyRepository.deleteById(id);
+		
+	}
+
 }

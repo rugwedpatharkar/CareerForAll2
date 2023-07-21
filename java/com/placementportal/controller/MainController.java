@@ -54,6 +54,7 @@ public class MainController {
 	@Autowired
 	private CompanyService companyService;
 	
+	
 	@Autowired(required = true)
 	private InstituteService institueService; 	
 
@@ -156,12 +157,13 @@ public class MainController {
 		ModelAndView mav = new ModelAndView("jobopening");
 		return mav;
 	}
-			
+
+	//---------------------startup onboarding------------------------		
 	//Company Controllers
 	@PostMapping("/saveCompany")
 	public String saveCompany(@ModelAttribute("company") Company company) {
 		companyService.saveCompany(company);
-		return("redirect:/");
+		return("redirect:/CompanyList");
 	}
 	
 	@GetMapping("/CompanyList")
@@ -176,7 +178,45 @@ public class MainController {
 		model.addAttribute("company", company);
 		return("startup_onboarding"); 
 	}
+	@GetMapping("/editCompany/{id}")
+	public String editCompanyForm(@PathVariable("id") Long id, Model model) {
+	    Company company = companyService.getCompanyById(id);
+	    model.addAttribute("company", company);
+	    return "editCompany";
+	}
+	@PostMapping("/updateCompany")
+	public String updateCompany(@ModelAttribute("company") Company company) {
+	    companyService.saveCompany(company);
+	    return "redirect:/CompanyList";
+	}
+	@GetMapping("/deleteCompany/{id}")
+	public String deleteCompany(@PathVariable(value = "id") Long id) {
+		//call delete company method
+		this.companyService.deleteCompanyById(id);
+		return "redirect:/CompanyList";
+	}
+
+//	@Autowired
+//	private CompanyService companyService;
 	
+	//List of companies
+//	@GetMapping("/CompanyList")
+//	public String showCompany(Model model) {
+//		model.addAttribute("listCompanies",companyService.getAllCompanies());
+//		return "CompanyList";
+//	}
+//	@GetMapping("/")
+//	public String startupOnboarding(Model model) {
+//		Company company = new Company();
+//		model.addAttribute("company", company);
+//		return("startup_onboarding"); 
+//	}
+//	@PostMapping("/saveCompany")
+//	public String saveCompany(@ModelAttribute("company") Company company) {
+//		companyService.saveCompany(company);
+//		return("redirect:/");
+//	}
+	//---------------------end of startup onboarding------------------------
 	//Institute Controller
 	@GetMapping("/institute_onboarding")
 	public String institute_onboarding(Model model) {
