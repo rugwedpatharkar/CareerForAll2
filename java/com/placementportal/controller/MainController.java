@@ -19,6 +19,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.placementportal.model.Company;
@@ -217,6 +218,12 @@ public class MainController {
 	public String loginHome()
 	{
 		return "login";
+	}
+	
+	@GetMapping("/user/")
+	public String userHome()
+	{
+		return "profile"; 
 	}
 	
 	// Registration Controller
