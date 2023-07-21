@@ -39,7 +39,6 @@ public class MyConfig{
 		return dao;
 	}
 	
-	
 	//configure methods
 	
 	 @Bean
