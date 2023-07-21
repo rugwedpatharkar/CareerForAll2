@@ -1,41 +1,42 @@
 package com.placementportal.controller;
  
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.io.IOException;
-import java.util.Optional;
-import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.placementportal.model.Candidate;
 import com.placementportal.model.Company;
 import com.placementportal.model.Institute;
 import com.placementportal.model.Job;
 import com.placementportal.model.User;
 import com.placementportal.repository.UserRepository;
-import com.placementportal.model.Candidate;
+import com.placementportal.service.CandidateService;
 import com.placementportal.service.CompanyService;
 import com.placementportal.service.InstituteService;
+import com.placementportal.service.JobCandidateService;
 import com.placementportal.service.JobService;
 import com.placementportal.service.UserServiceImpl;
 
 import jakarta.servlet.http.HttpSession;
-
-import com.placementportal.service.CandidateService;
   
 @Controller
 public class MainController {
@@ -55,11 +56,14 @@ public class MainController {
 	@Autowired
 	private CompanyService companyService;
 	
-	@Autowired(required = true)
+	@Autowired
 	private InstituteService institueService; 	
 
-	@Autowired(required = true)
+	@Autowired
 	private CandidateService candidateService;
+	
+	@Autowired
+	private JobCandidateService jobCandidateService;
 	  
 	@GetMapping("/")
 	public String startupjobDesc(Model model) {
@@ -73,78 +77,8 @@ public class MainController {
 		jobService.saveJob(job);
 		return ("redirect:/jobopening");
 	}
-
-	@GetMapping("/joblistfilters")
-	public String joblistfilters(Model model,@Param("keyword") String keyword) {
-		List<Job> listJob = jobService.jobsearch(keyword);
-		model.addAttribute("listJob", listJob);
-		model.addAttribute("keyword", keyword);
-		return "joblistfilters";
-	}
 	
-	@GetMapping("/joblistfilters/{position_id}/{minKeywordLength}")
-	public String getJobDetails(@PathVariable int position_id,@PathVariable int minKeywordLength, Model model) {
-		Job position = jobService.getJobById(position_id);
-		model.addAttribute("position", position);
-		 List<Candidate> eligibleCandidates = jobService.findEligibleCandidates(position_id, minKeywordLength);
-	        model.addAttribute("listcandidate", eligibleCandidates);
-		return "candidatelistfilters";
-	}
-
-	@GetMapping("/cvdownload/{candidate_id}")
-	public ResponseEntity<Resource> downloadFile1(@PathVariable long candidate_id) throws IOException {
-        Optional<Candidate> fileEntityOptional = candidateService.getFileById(candidate_id);
-        if (fileEntityOptional.isPresent()) {
-        	Candidate candidate = fileEntityOptional.get();
-            ByteArrayResource resource = new ByteArrayResource(candidate.getCv_upload());
-
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION)
-                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                    .contentLength(candidate.getCv_upload().length)
-                    .body(resource);
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    @GetMapping(value = "/cvdownload/{candidate_id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    @ResponseBody
-    public byte[] downloadFileAsAttachment(@PathVariable Long candidate_id) throws IOException {
-        Optional<Candidate> fileEntityOptional = candidateService.getFileById(candidate_id);
-        if (fileEntityOptional.isPresent()) {
-            Candidate candidate = fileEntityOptional.get();
-            return candidate.getCv_upload();
-        }
-        return null;
-    }
-    
-	@GetMapping("/candidatelistfilters/{position_id}")
-	public String candidatesearch(Model model,@Param("keyword") String keyword,@PathVariable int position_id) {
-		List<Candidate> listcandidate = candidateService.candidatesearch(keyword);
-		Job position = jobService.getJobById(position_id);
-		model.addAttribute("position", position);
-		model.addAttribute("listcandidate", listcandidate);
-		model.addAttribute("keyword", keyword);
-		return "candidatelistfilters";
-	}
 	
-	@GetMapping("/jobfilter")
-	public String getJobByCriteria(@ModelAttribute("job") Job job, Model model) {
-		List<Job> listJob = jobService.getJobByCriteria(job);
-		model.addAttribute("listJob", listJob);
-		System.out.println(listJob);
-		return "joblistfilters";
-	}
-	
-	 
-	@GetMapping("/candidatefilter")
-	public String getCandidateByCriteria(@ModelAttribute("candidate") Candidate candidate, Model model,@RequestParam("position_id") int position_id) {
-		List<Candidate> listCandidate = candidateService.getCandidateByCriteria(candidate);
-		model.addAttribute("listCandidate", listCandidate);
-		Job position = jobService.getJobById(position_id);
-		model.addAttribute("position", position);
-		return "candidatelistfilters";
-	}
 	
 	@GetMapping("/index")
 	public ModelAndView homepage() {
@@ -248,6 +182,117 @@ public class MainController {
 		
 		return "redirect:/register?success";
 	}
+	
+	
+	
+	
+	//JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay wagh)
+	//start
+	//filters for jobs on joblistfilters
+		@GetMapping("/jobfilter")
+		public String getJobByCriteria(@ModelAttribute("job") Job job, Model model) {
+			List<Job> listJob = jobService.getJobByCriteria(job);
+			model.addAttribute("listJob", listJob);
+			System.out.println(listJob);
+			return "joblistfilters";
+		}
+		
+		
+	//Job Search on joblistfilters
+		@GetMapping("/joblistfilters")
+		public String joblistfilters(Model model,@Param("keyword") String keyword) {
+			List<Job> listJob = jobService.jobsearch(keyword);
+			model.addAttribute("listJob", listJob);
+			model.addAttribute("keyword", keyword);
+			return "joblistfilters";
+		}
+		//show eligible candidates on candidateslistfilters
+		@GetMapping("/joblistfilters/{position_id}/{minKeywordLength}")
+		public String getJobDetails(@PathVariable int position_id,@PathVariable int minKeywordLength, Model model) {
+			Job position = jobService.getJobById(position_id);
+			model.addAttribute("position", position);
+			 List<Candidate> eligibleCandidates = jobService.findEligibleCandidates(position_id, minKeywordLength);
+		        model.addAttribute("listcandidate", eligibleCandidates);
+			return "candidatelistfilters";
+		}
+	//CV download of candidates on candidatelistfilters
+		@GetMapping("/cvdownload/{candidate_id}")
+		public ResponseEntity<Resource> downloadFile1(@PathVariable long candidate_id) throws IOException {
+	        Optional<Candidate> fileEntityOptional = candidateService.getFileById(candidate_id);
+	        if (fileEntityOptional.isPresent()) {
+	        	Candidate candidate = fileEntityOptional.get();
+	            ByteArrayResource resource = new ByteArrayResource(candidate.getCv_upload());
+
+	            return ResponseEntity.ok()
+	                    .header(HttpHeaders.CONTENT_DISPOSITION)
+	                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+	                    .contentLength(candidate.getCv_upload().length)
+	                    .body(resource);
+	        }
+	        return ResponseEntity.notFound().build();
+	    }
+
+	    @GetMapping(value = "/cvdownload/{candidate_id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	    @ResponseBody
+	    public byte[] downloadFileAsAttachment(@PathVariable Long candidate_id) throws IOException {
+	        Optional<Candidate> fileEntityOptional = candidateService.getFileById(candidate_id);
+	        if (fileEntityOptional.isPresent()) {
+	            Candidate candidate = fileEntityOptional.get();
+	            return candidate.getCv_upload();
+	        }
+	        return null;
+	    }
+	    
+	    
+	    //seaech candidates in list of eligible candidates
+	    @GetMapping("/searchcandidates/{position_id}/{minKeywordLength}")
+	    public String searchCandidates(@PathVariable int position_id, @PathVariable int minKeywordLength,
+	            @RequestParam(required = false) String search,
+	                                Model model) {
+	        Job position = jobService.getJobById(position_id);
+	        model.addAttribute("position", position);
+
+	        List<Candidate> eligibleCandidates = candidateService.searchEligibleCandidates(position_id, minKeywordLength, search);
+	        model.addAttribute("listcandidate", eligibleCandidates);
+
+	        return "candidatelistfilters";
+	    }
+	    
+	    
+	//filters for candidates on candidatelistfilters
+		@GetMapping("/candidatelistfilters/{position_id}/{minKeywordLength}")
+	    public String getJobDetails1(@PathVariable int position_id, @PathVariable int minKeywordLength,
+	                                @RequestParam(required = false) String noofyearsworkex,
+	                                @RequestParam(required = false) String workmode,
+	                                @RequestParam(required = false) String joborinternship,
+	                                Model model) {
+	        Job position = jobService.getJobById(position_id);
+	        model.addAttribute("position", position);
+
+	        List<Candidate> eligibleCandidates = jobService.findEligibleCandidates(position_id, minKeywordLength, noofyearsworkex, workmode, joborinternship);
+	        model.addAttribute("listcandidate", eligibleCandidates);
+
+	        return "candidatelistfilters";
+	    }
+		
+		//candidates mapping to jobs
+		@GetMapping("/candidatemapping/{position_id}/{minKeywordLength}")
+		public String mapCandidateToJob(@ModelAttribute("candidate") Candidate candidate,
+				@PathVariable int minKeywordLength ,
+				Model model,
+				@RequestParam("position_id") int position_id,
+				@RequestParam("candidate_id") long candidate_id) {
+			jobCandidateService.mapCandidateToJob(position_id, candidate_id);
+			Job position = jobService.getJobById(position_id);
+			model.addAttribute("position", position);
+			 List<Candidate> eligibleCandidates = jobService.findEligibleCandidates(position_id, minKeywordLength);
+		        model.addAttribute("listcandidate", eligibleCandidates);
+			return "candidatelistfilters";
+		}
+		//end
+		//JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay wagh)
+
+		
 	
 }
 

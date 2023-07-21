@@ -8,28 +8,31 @@ import org.springframework.data.repository.query.Param;
 
 import com.placementportal.model.Candidate;
 
- 
+
 
 public interface CandidateRepository extends JpaRepository<Candidate,Long> {
 	@Query("SELECT c FROM Candidate c WHERE  c.candidate_name = :candidate_name "
-			+ "OR  c.candidate_city = :candidate_city "
-			+ "OR  c.no_of_years_work_ex= :no_of_years_work_ex "
-			+ "OR  c.work_mode = :work_mode "
-			+ "OR  c.job_or_internship = :job_or_internship ")
+			+ "AND  c.candidate_city = :candidate_city "
+			+ "OR  c.noofyearsworkex= :noofyearsworkex "
+			+ "OR  c.workmode = :workmode "
+			+ "OR  c.joborinternship = :joborinternship ")
 
 	
 	List<Candidate> findCandidateByIgnoreCase(@Param("candidate_name") String candidate_name,
 			 @Param("candidate_city") String candidate_city,
-			@Param("no_of_years_work_ex") int no_of_years_work_ex,
-			@Param("work_mode") String work_mode,
-			@Param("job_or_internship") String job_or_internship);
+			@Param("noofyearsworkex") String noofyearsworkex,
+			@Param("workmode") String workmode,
+			@Param("joborinternship") String joborinternship);
 	
 	
-	@Query("SELECT c FROM Candidate c WHERE CONCAT(c.candidate_name, ' ', c.primary_skills, ' ', c.secondary_skills) LIKE %?1%")
-	public List<Candidate> findCandidateByIgnoreCase(String keyword);
-	
+	 @Query("SELECT c FROM Candidate c WHERE LOWER(CONCAT(c.candidate_name, c.primary_skills, c.secondary_skills)) LIKE %:search%")
+	    List<Candidate> findCandidatesByKeyword(@Param("search") String search);
+
 	
 	  @Query("SELECT c FROM Candidate c WHERE c.primary_skills LIKE %:keyword%")
 	    List<Candidate> findCandidatesByPrimarySkills(@Param("keyword") String keyword);
+	  
+
+	   
 
 }

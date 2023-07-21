@@ -196,8 +196,7 @@
 		</div>
 
 		<section class="section dashboard">
-		<form th:action="@{/candidatefilter}" id="candidateFilter" method+"Get">
-			<input type="hidden" th:value="${position.position_id}" name="position_id" >
+		<form th:action="@{/candidatelistfilters/{position_id}/{minKeywordLength}(position_id=${position.position_id}, minKeywordLength=3)}" id="candidateFilter" method="get">
 			<div class="card info-card customers-card">
 				<div class="card-body"style="margin:10px 0 -15px 0">
 
@@ -253,23 +252,23 @@
         <div class="single-column">
 					<div class="col-lx-3 col-lg-3 label"style="font-weight:600">Preffered Work Mode :</div>
                   
-      &emsp;<input class="form-check-input" type="radio" value="Work From Home" name="work_mode"> 
+      &emsp;<input class="form-check-input" type="radio" value="Work From Home" name="workmode"> 
               <label class="form-check-label" >Work From Home</label>
               
-      &ensp;<input class="form-check-input" type="radio" value="Work From Office" name="work_mode"> 
+      &ensp;<input class="form-check-input" type="radio" value="Work From Office" name="workmode"> 
               <label class="form-check-label" >Work From Office</label>
               
-      &ensp;<input class="form-check-input" type="radio" value="Hybrid" name="work_mode"> 
+      &ensp;<input class="form-check-input" type="radio" value="Hybrid" name="workmode"> 
               <label class="form-check-label" >Hybrid</label>
               </div>
              
               <div class="single-column">
               <div class="col-lx-3 col-lg-3 label"style="font-weight:600">Preffered Position Type :</div>
             
-      &emsp;<input class="form-check-input" type="radio"  value="Job"name="job_or_internship"> 
+      &emsp;<input class="form-check-input" type="radio"  value="Job"name="joborinternship"> 
               <label class="form-check-label" for="gridRadios1">Job</label>
 								
-      &ensp;<input class="form-check-input" type="radio"   value="Internship"name="job_or_internship"> 
+      &ensp;<input class="form-check-input" type="radio"   value="Internship"name="joborinternship"> 
               <label class="form-check-label" for="gridRadios2">Internship</label>
 
              
@@ -285,13 +284,13 @@
 
               <div class="single-column"style="width:55%">
                  <div class="col-lx-3 col-lg-3 label "style="font-weight:600">Location :
-   &emsp;<select class="form-select"   id="country-dropdown" style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline" aria-label="Default select example">
+   &emsp;<select class="form-select" name="country"  id="country-dropdown" style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline" aria-label="Default select example">
                        <option value="" disabled selected>-- Please select country --</option>
          </select> 
-           &emsp;<select class="form-select" id="state-Dropdown" style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline" aria-label="Default select example">
+           &emsp;<select class="form-select" name="state"  id="state-Dropdown" style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline" aria-label="Default select example">
                     <option value="" disabled selected>-- Please select state --</option>
          </select> 
-                &ensp;<select class="form-select"  id="city-Dropdown" aria-label="Default select example"style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline">
+                &ensp;<select class="form-select" name="candidate_city" id="city-Dropdown" aria-label="Default select example"style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline">
                      <option value="" disabled selected>-- Please select state --</option>
 
                 </select>
@@ -302,7 +301,7 @@
               
           <div class="single-column"style="width:40%">
             <div class="col-lx-3 col-lg-3 label "style="font-weight:600">Preffered Work Experience :
-              <select class="form-select" name="no_of_years_work_ex"  aria-label="Default select example"style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline">
+              <select class="form-select" name="noofyearsworkex"  aria-label="Default select example"style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline">
 
                 <option disabled selected>Select Work Experience</option>
                 <option value="0">0</option>
@@ -320,12 +319,12 @@
 			
 
                	<div class="single-row">
-								    <form th:action="@{/candidatelistfilters}" >
+								    <form th:action="@{/searchcandidates/{position_id}/{minKeywordLength}(position_id=${position.position_id}, minKeywordLength=3)}" id="jobfilter1">
                         <label class="col-lx-3 col-lg-3 label"style="font-weight:600">Search Candidate (Name/Skill) :</label>
          <div class="select-btn"style="width: 280px; height:30px; padding:4px 0 4px 0; font-size:10px; display: inline">
-									<input style="background: transparent; border: none; outline: none;"autocomplete="off"
-										spellcheck="false" type="text" placeholder="Enter Details"name="keyword" >
-										<input type="hidden" th:value="${position.position_id}" name="position_id" >
+									<input style="background: transparent; border: none; outline: none;"
+										spellcheck="false" type="text" placeholder="Enter Details"name="search" >
+										
         					<button style="background: transparent; border: none; outline: none;" type="submit" title="Search"><i class="bi bi-search"></i></button>
 								
 								</div>	</form>	
@@ -336,14 +335,15 @@
 							
 	 		          <div class="single-row"style="margin-top:20px;">
 				           <div class="col-sm-10">
-    	                <input type="submit" value="Apply" class="btn btn-success"  form="candidateFilter" style="width:60px; height:25px;  padding-top: 2px; font-size: 12px";>
-				<form th:action="@{/candidatefilter}" method+"Get"><input type="hidden" th:value="${position.position_id}" name="position_id" ><input class="btn btn-primary"style="width:60px; height:25px;  padding-top: 2px; font-size: 12px"type="submit" value="Reset"></form>
+    	                <input type="submit" value="Apply" class="btn btn-success"  form="candidateFilter"id=" formSubmit" style="width:60px; height:25px;  padding-top: 2px; font-size: 12px";>
+    	                 <a th:href="@{/joblistfilters/{position_id}/{minKeywordLength}(position_id=${position.position_id}, minKeywordLength=3)}" class="btn btn-success" style="width:60px; height:25px; padding-top: 2px; font-size: 12px; background-color:#0d6efd">Reset</a>
 			          </div>
 						
-							 
+							
 						<hr style="width: 100%; text-align: center; margin-left: 0">
 
 						<h5 class="card-title" style="padding-top: 5px;">Candidate List</span></h5>
+					<form th:action="@{/candidatemapping/{position_id}/{minKeywordLength}(minKeywordLength=3)}" method="get">
 
 						<table class="table table-hover">
 							<thead>
@@ -365,8 +365,8 @@
 									<td th:text="${c.primary_skills}"></td>
 									<td th:text="${c.secondary_skills}"></td>
 									<td th:text="${c.candidate_city}"></td>
-									<td th:text="${c.no_of_years_work_ex}"></td>
-									<td><a class="btn btn-primary" style="width:90px; height:25px;  padding-top: 2px; font-size: 12px";>Download</a></td>
+									<td th:text="${c.noofyearsworkex}"></td>
+									<td><a class="btn btn-primary" th:href="@{/candidatelistfilters/{candidate_id}(candidate_id=${c.candidate_id})}"style="width:90px; height:25px;  padding-top: 2px; font-size: 12px";>Download</a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -376,7 +376,7 @@
 								<button type="button" class="btn btn-success" style="width:90px; height:25px;  padding-top: 2px; font-size: 12px";>Map Candidate</button>
 							</div>
 						</div>
-
+						</form>
 						</div>
 					</div>
 				</div>
@@ -389,7 +389,6 @@
 
 	</main>
 
-  
 	<!-- Vendor JS Files -->
 	<script th:src="@{/vendor/apexcharts/apexcharts.min.js}"></script>
 	<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
