@@ -208,12 +208,6 @@ public class MainController {
 	
 	// Login Controller
 	
-//	@GetMapping("/login")
-//	public ModelAndView login() {
-//		ModelAndView mav = new ModelAndView("login");
-//		return mav;
-//	}
-	
 	@GetMapping("/login")
 	public String loginHome()
 	{
@@ -225,15 +219,8 @@ public class MainController {
 	{
 		return "profile"; 
 	}
-	
+
 	// Registration Controller
-	
-//	@GetMapping("/register")
-//	public ModelAndView register() {
-//		ModelAndView mav = new ModelAndView("register");
-//		return mav;
-//	}
-	
 	@GetMapping("/register")
 	public String home()
 	{
