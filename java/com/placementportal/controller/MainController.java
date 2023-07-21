@@ -140,7 +140,7 @@ public class MainController {
 	    return "redirect:/candidate_registration";
 	}
 	
-	// Login Controller
+	// Login Controller (Prasad)
 	
 	@GetMapping("/login")
 	public String loginHome()
@@ -154,7 +154,7 @@ public class MainController {
 		return "profile"; 
 	}
 
-	// Registration Controller
+	// Registration Controller (Prasad)
 	@GetMapping("/register")
 	public String home()
 	{
@@ -182,8 +182,6 @@ public class MainController {
 		
 		return "redirect:/register?success";
 	}
-	
-	
 	
 	
 	//JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay wagh)
@@ -242,7 +240,6 @@ public class MainController {
 	        }
 	        return null;
 	    }
-	    
 	    
 	    //seaech candidates in list of eligible candidates
 	    @GetMapping("/searchcandidates/{position_id}/{minKeywordLength}")
