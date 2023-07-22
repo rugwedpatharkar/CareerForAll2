@@ -47,8 +47,7 @@ public class MyConfig{
 		 .authorizeHttpRequests((requests) -> requests
 		 .requestMatchers("/admin/**").hasRole("ADMIN")
 		 .requestMatchers("/user/**").hasRole("USER")
-		 .requestMatchers("/institute_onboarding").hasRole("PO")
-		 .requestMatchers("/candidate_registration").hasRole("PO")
+		 .requestMatchers("/placementofficer/**").hasRole("PO")
 		 .requestMatchers("/hr/**").hasRole("HR")
 		 .requestMatchers("/**").permitAll()
 		 .anyRequest().authenticated()
