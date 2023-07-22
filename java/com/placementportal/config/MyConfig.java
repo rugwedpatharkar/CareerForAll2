@@ -1,6 +1,5 @@
 package com.placementportal.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -39,7 +38,6 @@ public class MyConfig{
 		return dao;
 	}
 	
-	
 	//configure methods
 	
 	 @Bean
@@ -49,7 +47,8 @@ public class MyConfig{
 		 .authorizeHttpRequests((requests) -> requests
 		 .requestMatchers("/admin/**").hasRole("ADMIN")
 		 .requestMatchers("/user/**").hasRole("USER")
-		 .requestMatchers("/placementofficer/**").hasRole("PO")
+		 .requestMatchers("/institute_onboarding").hasRole("PO")
+		 .requestMatchers("/candidate_registration").hasRole("PO")
 		 .requestMatchers("/hr/**").hasRole("HR")
 		 .requestMatchers("/**").permitAll()
 		 .anyRequest().authenticated()

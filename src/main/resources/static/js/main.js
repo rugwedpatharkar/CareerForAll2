@@ -321,7 +321,7 @@
 })();
 
 //-----------------------------------------------------------------------Startup Onboarding JS-------------------------------------
-let tok = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ2emVuZGU4OUBnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ2OUlWQ0o4S0dKT3hzNFhhdXBXQzByRGtYRWxzZUVrc1ZJOE9TSTVZOS1jakVLNWJzWF9RUTRRZHotTlZoancxeGc4In0sImV4cCI6MTY5MDAwMTg2N30.zGuZI7OZQ1nAuI8cFwy_kB-DNwmbw6pKy0P8lRvjgKg';
+let tok = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ2emVuZGU4OUBnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ2OUlWQ0o4S0dKT3hzNFhhdXBXQzByRGtYRWxzZUVrc1ZJOE9TSTVZOS1jakVLNWJzWF9RUTRRZHotTlZoancxeGc4In0sImV4cCI6MTY5MDA4OTQ5Mn0.JRkoNGwj7YFe2gS_-uaLmdcEE-zXVZ0TT3fFkPqBCHA';
  fetch('https://www.universal-tutorial.com/api/countries/', {
   headers: {
     'Authorization': tok,
@@ -358,7 +358,7 @@ countryDropdown.addEventListener('change', async () => {
   // Get the list of states for the selected country
   const response = await fetch(`https://www.universal-tutorial.com/api/states/${countryName}`, {
     headers: {
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ2emVuZGU4OUBnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ2OUlWQ0o4S0dKT3hzNFhhdXBXQzByRGtYRWxzZUVrc1ZJOE9TSTVZOS1jakVLNWJzWF9RUTRRZHotTlZoancxeGc4In0sImV4cCI6MTY5MDAwMTg2N30.zGuZI7OZQ1nAuI8cFwy_kB-DNwmbw6pKy0P8lRvjgKg',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ2emVuZGU4OUBnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ2OUlWQ0o4S0dKT3hzNFhhdXBXQzByRGtYRWxzZUVrc1ZJOE9TSTVZOS1jakVLNWJzWF9RUTRRZHotTlZoancxeGc4In0sImV4cCI6MTY5MDA4OTQ5Mn0.JRkoNGwj7YFe2gS_-uaLmdcEE-zXVZ0TT3fFkPqBCHA',
       'Accept': 'application/json'
     }
   });
@@ -391,7 +391,7 @@ newstateDropdown.addEventListener("change", async (event) => {
   // Fetch the cities for the selected state
   const response = await fetch(`https://www.universal-tutorial.com/api/cities/${selectedState}`, {
     headers: {
-      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ2emVuZGU4OUBnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ2OUlWQ0o4S0dKT3hzNFhhdXBXQzByRGtYRWxzZUVrc1ZJOE9TSTVZOS1jakVLNWJzWF9RUTRRZHotTlZoancxeGc4In0sImV4cCI6MTY5MDAwMTg2N30.zGuZI7OZQ1nAuI8cFwy_kB-DNwmbw6pKy0P8lRvjgKg",
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ2emVuZGU4OUBnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ2OUlWQ0o4S0dKT3hzNFhhdXBXQzByRGtYRWxzZUVrc1ZJOE9TSTVZOS1jakVLNWJzWF9RUTRRZHotTlZoancxeGc4In0sImV4cCI6MTY5MDA4OTQ5Mn0.JRkoNGwj7YFe2gS_-uaLmdcEE-zXVZ0TT3fFkPqBCHA",
       "Accept": "application/json"
     }
   });

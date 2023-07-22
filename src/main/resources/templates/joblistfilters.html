@@ -438,40 +438,5 @@
 
 
   </style>
-  <script>
-
-    //filter.js
-     $(document).ready(function() {
-         $('#filterForm').change(function() {
-             var inStock = $('#inStockCheckbox').is(':checked');
-             var category = $('#categorySelect').val();
-    
-             $.ajax({
-                 type: 'POST',
-                 url: '/products/filter',
-                 data: {
-                     inStock: inStock,
-                     category: category
-                 },
-                 success: function(data) {
-                     updateProductTable(data);
-                 }
-             });
-         });
-    
-         function updateProductTable(data) {
-             var tbody = $('table tbody');
-             tbody.empty();
-    
-             $.each(data, function(index, product) {
-                 var row = $('<tr>');
-                 row.append($('<td>').text(product.name));
-                 row.append($('<td>').text(product.inStock));
-                 row.append($('<td>').text(product.category));
-                 tbody.append(row);
-             });
-         }
-     });
-    
-     </script>
+ 
 </html>
