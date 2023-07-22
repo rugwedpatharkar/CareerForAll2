@@ -227,12 +227,12 @@ public class MainController {
 	        Optional<Candidate> fileEntityOptional = candidateService.getFileById(candidate_id);
 	        if (fileEntityOptional.isPresent()) {
 	        	Candidate candidate = fileEntityOptional.get();
-	            ByteArrayResource resource = new ByteArrayResource(candidate.getCv_upload());
+	            ByteArrayResource resource = new ByteArrayResource(candidate.getCvupload());
 
 	            return ResponseEntity.ok()
 	                    .header(HttpHeaders.CONTENT_DISPOSITION)
 	                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
-	                    .contentLength(candidate.getCv_upload().length)
+	                    .contentLength(candidate.getCvupload().length)
 	                    .body(resource);
 	        }
 	        return ResponseEntity.notFound().build();
@@ -240,11 +240,11 @@ public class MainController {
 
 	    @GetMapping(value = "/cvdownload/{candidate_id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	    @ResponseBody
-	    public byte[] downloadFileAsAttachment(@PathVariable Long candidate_id) throws IOException {
-	        Optional<Candidate> fileEntityOptional = candidateService.getFileById(candidate_id);
+	    public byte[] downloadFileAsAttachment(@PathVariable Long candidateid) throws IOException {
+	        Optional<Candidate> fileEntityOptional = candidateService.getFileById(candidateid);
 	        if (fileEntityOptional.isPresent()) {
 	            Candidate candidate = fileEntityOptional.get();
-	            return candidate.getCv_upload();
+	            return candidate.getCvupload();
 	        }
 	        return null;
 	    }

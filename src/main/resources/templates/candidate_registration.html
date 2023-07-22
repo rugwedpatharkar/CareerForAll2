@@ -197,7 +197,7 @@
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label required">Candidate Name</label>
             <div class="col-sm-10">
-              <input type="text" th:field="*{candidate_name}" id="candidateName" class="form-control " spellcheck="false" required>            
+              <input type="text" th:field="*{candidatename}" id="candidateName" name="candidatename" class="form-control " spellcheck="false" required>            
               <div id="candidateNameError" class="invalid-feedback">
                 Please enter a valid candidate name.
               </div>           
@@ -207,7 +207,7 @@
            <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label required">Email</label>
             <div class="col-sm-10">
-              <input type="email" th:field="*{email}" id="candidateEmail" class="form-control " spellcheck="false" required>            
+              <input type="email" th:field="*{email}" name="email" id="candidateEmail" class="form-control " spellcheck="false" required>            
               <div id="candidateEmailError" class="invalid-feedback">
                 Please enter a valid candidate Email.
               </div>           
@@ -218,7 +218,7 @@
           <div class="row mb-3">
             <label for="inputEmail" class="col-sm-2 col-form-label">CV Upload</label>
             <div class="col-sm-10">
-              <input type="file" th:field="*{cv_upload}" id="cvUpload" class="form-control" accept=".pdf,.doc,.docx,.rtf,.txt,.jpg" max-size="5000000">
+              <input type="file" th:field="*{cvupload}" id="cvUpload" name="cvupload"lass="form-control" accept=".pdf,.doc,.docx,.rtf,.txt,.jpg" max-size="5000000">
               <div id="cvUploadError1" class="invalid-feedback">
                 Please select a file.
               </div>
@@ -236,7 +236,7 @@
           <div class="row mb-3">
             <label for="fileUpload" class="col-sm-2 col-form-label">Any other relevant information</label>
             <div class="col-sm-10">
-              <input type="file" th:field="*{other_relevant_upload}" id="fileUpload" class="form-control" accept=".pdf,.doc,.docx,.rtf,.txt,.jpg,.jpeg,.zip,.rar" multiple max-size="4000000">
+              <input type="file" th:field="*{otherrelevantupload}" id="fileUpload" name="otherrelevantupload" class="form-control" accept=".pdf,.doc,.docx,.rtf,.txt,.jpg,.jpeg,.zip,.rar" multiple max-size="4000000">
               <div id="fileUploadError" class="invalid-feedback"></div>
             </div>
           </div>
@@ -248,7 +248,7 @@
           <h5 class="card-title">Educational Details</h5>
   
          <div class="row mb-3">
-  <table class="_table" style="font-size: 16px; font-family: Open Sans, sans-serif;">
+  <table  style="font-size: 16px; font-family: Open Sans, sans-serif;">
     <thead>
       <tr>
         <th>Course</th>
@@ -290,7 +290,7 @@
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label required" >Core Area / Primary Skills</label>
             <div class="col-sm-10">
-              <input type="text" th:field="*{primary_skills}" id="primarySkills" class="form-control" required>
+              <input type="text" th:field="*{primaryskills}" id="primarySkills" name="primaryskills" class="form-control" required>
               <div id="primarySkillError" class="invalid-feedback">invalid</div>
                
             </div>
@@ -299,7 +299,7 @@
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label">Secondary Skills</label>
             <div class="col-sm-10">
-              <input type="text" th:field="*{secondary_skills}" id="secondarySkills" class="form-control">
+              <input type="text" th:field="*{secondaryskills}" id="secondarySkills" name="secondaryskills" class="form-control">
               <div id="secondarySkillError" class="invalid-feedback">invalid</div>
             </div>
           </div>
@@ -308,13 +308,13 @@
             <legend class="col-form-label col-sm-2 pt-0 required" >Experience</legend>
             <div class="col-sm-10">
               <div class="form-check">
-                <input class="form-check-input" th:field="*{experience}" type="radio" name="gridRadios" id="gridRadios1" value="Yes" checked>
+                <input class="form-check-input" th:field="*{experience}" name="experience" type="radio"  id="gridRadios1" value="Yes" checked>
                 <label class="form-check-label" for="gridRadios1">
                   Yes
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" th:field="*{experience}" type="radio" name="gridRadios" id="gridRadios2" value="No">
+                <input class="form-check-input" th:field="*{experience}"name="experience" type="radio"  id="gridRadios2" value="No">
                 <label class="form-check-label" for="gridRadios2">
                   No
                 </label>
@@ -326,7 +326,7 @@
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label required" >No. of Years of Work-Experience</label>
             <div class="col-sm-10">
-              <input type="number" th:field="*{no_of_years_work_ex}" class="form-control" min="0" max="55" required >
+              <input type="number" th:field="*{noofyearsworkex}" name="noofyearsworkex" class="form-control" min="0" max="55" required >
             </div>
           </div>
 
@@ -334,7 +334,7 @@
           <div class="row mb-3">
             <label for="inputDate" class="col-sm-2 col-form-label required" >Work Mode</label>
             <div class="col-sm-10">
-              <select th:field="*{work_mode}" class="form-select" aria-label="Default select example" required>
+              <select th:field="*{workmode}" class="form-select" name="workmode" aria-label="Default select example" required>
                 <option value="" selected>-- select Work Mode --</option>
                 <option value="Work From Home">Work From Home</option>
                 <option value="Work From Office">Work From Office</option>
@@ -367,7 +367,7 @@
           <div class="row mb-3">
             <label for="inputDate" class="col-sm-2 col-form-label required" >Candidate City</label>
             <div class="col-sm-10">
-              <select th:field="*{candidate_city}" class="form-select" aria-label="Default select example" >
+              <select th:field="*{candidatecity}" name="candidatecity" class="form-select" aria-label="Default select example" >
                 <option value="" selected>-- select Candidate City --</option>
                 <option value="Local">Local</option>
                 <option value="City">Other City</option>
@@ -378,7 +378,7 @@
           <div class="row mb-3">
             <label for="inputDate" class="col-sm-2 col-form-label">IC or Manager</label>
             <div class="col-sm-10">
-              <select th:field="*{ic_or_manager}" class="form-select" aria-label="Default select example">
+              <select th:field="*{icormanager}" name="icormanager" class="form-select" aria-label="Default select example">
                 <option value="" selected>-- select IC / Manager --</option>
                 <option value="IC">IC</option>
                 <option value="Manager">Manager</option>
@@ -389,7 +389,7 @@
           <div class="row mb-3">
             <label for="inputDate" class="col-sm-2 col-form-label required" >Interested in Job / Internship</label>
             <div class="col-sm-10">
-              <select th:field="*{job_or_internship}" class="form-select" aria-label="Default select example" >
+              <select th:field="*{joborinternship}" name="joborinternship" class="form-select" aria-label="Default select example" >
                 <option value=""  selected>--select Job / Internship --</option>
                 <option value="Job">Job</option>
                 <option value="Internship">Internship</option>
@@ -400,7 +400,7 @@
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label required" >Institute Name</label>
             <div class="col-sm-10">
-              <select  class="form-select" aria-label="Default select example" required>
+              <select  class="form-select" name="institutename" aria-label="Default select example" required>
                 <option value=""  selected>--select Institute Name --</option>
                 <option value="1">College 1</option>
                 <option value="2">College 2</option>
@@ -414,12 +414,12 @@
           <div class="row mb-3">
             <label for="inputDate" class="col-sm-2 col-form-label">CTC Fixed (INR LPA)</label>
             <div class="col-sm-10">
-              <select th:field="*{ctc_fixed}" class="form-select" aria-label="Default select example">
+              <select th:field="*{ctcfixed}" name="ctcfixed" class="form-select" aria-label="Default select example">
                 <option value=""  selected>--select CTC Fixed (INR LPA) --</option>
-                <option value="1">2 LPA to 4 LPA</option>
-                <option value="2">5 LPA to 10 LPA</option>
-                <option value="3">12 LPA to 25 LPA</option>
-                <option value="4">25 LPA and above</option>
+                <option value="2 LPA to 4 LPA">2 LPA to 4 LPA</option>
+                <option value="5 LPA to 10 LPA">5 LPA to 10 LPA</option>
+                <option value="12 LPA to 25 LPA">12 LPA to 25 LPA</option>
+                <option value="25 LPA and above">25 LPA and above</option>
               </select>
             </div>
           </div>
@@ -429,7 +429,7 @@
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label"> CTC Variable (INR LPA)</label>
             <div class="col-sm-10">
-              <input th:field="*{ctc_variable}" type="text" id="ctcVariable" class="form-control" required>
+              <input th:field="*{ctcvariable}" type="text" id="ctcVariable" name="ctcvariable" class="form-control" required>
               <div id="ctcVariableError" class="invalid-feedback">invalid</div>
             </div>
           </div>
@@ -437,7 +437,7 @@
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label">CTC Total (INR LPA)</label>
             <div class="col-sm-10">
-              <input th:field="*{ctc_total}" type="text" id="ctcTotal" class="form-control" required>
+              <input th:field="*{ctctotal}" name="ctctotal" type="text" id="ctcTotal" class="form-control" required>
               <div id="ctcTotalError" class="invalid-feedback">invalid</div>
             </div>
           </div>

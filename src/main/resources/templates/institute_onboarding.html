@@ -91,8 +91,7 @@
 
     
     
-
-    
+ 
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-journal-text"></i><span>Startups</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -146,6 +145,7 @@
       
 
       
+      
 
  <li class="nav-heading">Pages</li>
 
@@ -188,7 +188,7 @@
             <div class="row mb-3">
               <label for="inputText" class="col-sm-2 col-form-label required">Institute Name (registerted)</label>
               <div class="col-sm-10">
-                <input type="text" th:field="*{institute_name}" class="form-control" id="instituteName" required>
+                <input type="text" th:field="*{institutename}" class="form-control" id="instituteName" required>
                 <div id="instituteNameError" class="invalid-feedback">
                    Please enter a valid institute name.
                 </div>
@@ -199,7 +199,7 @@
              <div class="row mb-3">
               <label for="inputEmail" class="col-sm-2 col-form-label required">Brand Name</label>
               <div class="col-sm-10">
-                <input type="text"  th:field="*{brand_name}" class="form-control" required>
+                <input type="text"  th:field="*{brandname}" class="form-control" required>
               </div>
             </div>
 
@@ -207,7 +207,7 @@
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label required">Start Date</label>
               <div class="col-sm-10">
-                <input type="date" th:field="*{start_date}"  class="form-control" required>
+                <input type="date" th:field="*{startdate}"  class="form-control" required>
               </div>
             </div>
 
@@ -265,7 +265,7 @@
             <div class="row mb-3">
               <label for="inputNumber" class="col-sm-2 col-form-label required">Main Campus - City</label>
               <div class="col-sm-10">
-                <select th:field="*{main_campus_city}" class="form-select" aria-label="Default select example" id="city">
+                <select th:field="*{maincampuscity}" class="form-select" aria-label="Default select example" id="city">
                   <option value="">Select City</option>
 
    <script>
@@ -386,7 +386,7 @@
             <div class="row mb-3">
               <label for="inputDate" class="col-sm-2 col-form-label">Other Campus Cities (if any)</label>
               <div class="col-sm-10">
-                <input type="text" th:field="*{other_campus_city}" class="form-control">
+                <input type="text" th:field="*{othercampuscity}" class="form-control">
               </div>
             </div>
 
@@ -394,7 +394,7 @@
             <div class="row mb-3">
               <label for="inputTime" class="col-sm-2 col-form-label required">Founder Name</label>
               <div class="col-sm-10">
-                <input type="text" th:field="*{founder_name}" class="form-control" required>
+                <input type="text" th:field="*{foundername}" class="form-control" required>
               </div>
             </div>
 
@@ -402,7 +402,7 @@
             <div class="row mb-3">
               <label for="inputColor" class="col-sm-2 col-form-label required">Director/Principal</label>
               <div class="col-sm-10">
-                <input type="text" th:field="*{director_or_principle}" class="form-control" required>
+                <input type="text" th:field="*{directororprinciple}" class="form-control" required>
               </div>
             </div>
 
@@ -413,35 +413,35 @@
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label required">Company - Website</label>
               <div class="col-sm-10">
-                <input type="url" th:field="*{company_website}" class="form-control" >
+                <input type="url" th:field="*{companywebsite}" class="form-control" >
               </div>
             </div>
 
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label">Company - Linkedin</label>
               <div class="col-sm-10">
-                <input type="url"  th:field="*{company_linked_in}" class="form-control">
+                <input type="url"  th:field="*{companylinkedin}" class="form-control">
               </div>
             </div>
 
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label">Any other relevant link</label>
               <div class="col-sm-10">
-                <input type="url" th:field="*{any_other_relevant_link}" class="form-control">
+                <input type="url" th:field="*{anyotherrelevantlink}" class="form-control">
               </div>
             </div>
 
             <div class="row mb-3">
               <label for="inputNumber" class="col-sm-2 col-form-label required">Corporate Presentation</label>
               <div class="col-sm-10">
-                <input class="form-control" type="file" th:field="*{corporate_presentation}" id="formFile" required>
+                <input class="form-control" type="file" th:field="*{corporatepresentation}" id="formFile" required>
               </div>
             </div>
 
             <div class="row mb-3">
               <label for="inputNumber" class="col-sm-2 col-form-label">Any other file upload </label>
               <div class="col-sm-10">
-                <input class="form-control" type="file"  th:field="*{any_other_file_upload}" id="formFile">
+                <input class="form-control" type="file"  th:field="*{anyotherfileupload}" id="formFile">
               </div>
             </div>
 
@@ -462,7 +462,7 @@
            <div class="row mb-3">
               <label for="inputDate" class="col-sm-2 col-form-label required">Batch Size</label>
               <div class="col-sm-10">
-                <select th:field="*{batch_size}" class="form-select" aria-label="Default select example" required>
+                <select th:field="*{batchsize}" class="form-select" aria-label="Default select example" required>
                   <option value="" selected>Select an Option</option>
                   <option value="1">One</option>
                   <option value="2">Two</option>
@@ -474,35 +474,35 @@
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label required">No. of Campuses</label>
               <div class="col-sm-10">
-                <input type="number" th:field="*{no_of_campuses}" class="form-control" required>
+                <input type="number" th:field="*{noofcampuses}" class="form-control" required>
               </div>
             </div>
 
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label required">Median CTC</label>
               <div class="col-sm-10">
-                <input type="number"  th:field="*{median_ctc}" class="form-control" required>
+                <input type="number"  th:field="*{medianctc}" class="form-control" required>
               </div>
             </div>
 
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label required">Average CTC</label>
               <div class="col-sm-10">
-                <input type="number"  th:field="*{average_ctc}" class="form-control" required>
+                <input type="number"  th:field="*{averagectc}" class="form-control" required>
               </div>
             </div>
 
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label required">Summers Median CTC</label>
               <div class="col-sm-10">
-                <input type="number" th:field="*{summer_median_ctc}" class="form-control" required>
+                <input type="number" th:field="*{summermedianctc}" class="form-control" required>
               </div>
             </div>
 
             <div class="row mb-3">
               <label for="inputDate" class="col-sm-2 col-form-label required">Preferred Sectors</label>
               <div class="col-sm-10">
-                <select th:field="*{preferred_sectors}" class="form-select" aria-label="Default select example" required>
+                <select th:field="*{preferredsectors}" class="form-select" aria-label="Default select example" required>
                   <option value="" selected>Select an Option</option>
                   <option value="1">One</option>
                   <option value="2">Two</option>
@@ -516,28 +516,28 @@
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label required">Summers Placement </label>
               <div class="col-sm-10">
-                <input type="date" th:field="*{summer_placement}" class="form-control" required>
+                <input type="date" th:field="*{summerplacement}" class="form-control" required>
               </div>
             </div>
 
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label required">Final Placement </label>
               <div class="col-sm-10">
-                <input type="date" th:field="*{final_placement}" class="form-control" required>
+                <input type="date" th:field="*{finalplacement}" class="form-control" required>
               </div>
             </div>
 
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label required">Winter Projects </label>
               <div class="col-sm-10">
-                <input type="date" th:field="*{winter_placement}" class="form-control" required>
+                <input type="date" th:field="*{winterplacement}" class="form-control" required>
               </div>
             </div>
 
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label required">Live Projects </label>
               <div class="col-sm-10">
-                <input type="date" th:field="*{live_projects}" class="form-control" required>
+                <input type="date" th:field="*{liveprojects}" class="form-control" required>
               </div>
             </div>
             

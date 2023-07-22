@@ -14,7 +14,7 @@ public class Job {
  
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int position_id;
+	private int positionid;
 	private String position;
 	private String designation;
 	private String functions;
@@ -22,20 +22,20 @@ public class Job {
 	private String country;
 	private String state;
 	private String city;
-	private String core_area;
+	private String corearea;
 	private String experience;
 	private int noworkexperience;
-	private String work_mode;
+	private String workmode;
 	private String gender;
-	private String local_candidate;
-	private String ic_team_handling;
+	private String localcandidate;
+	private String icteamhandling;
 	private int stipend;
-	private int ctc_variable;
-	private String any_notable_perk;
+	private int ctcvariable;
+	private String anynotableperk;
 	private String description;
-	private byte[] relevent_file;
-	private String any_relevant_link;
-	private String position_type;
+	private byte[] releventfile;
+	private String anyrelevantlink; 
+	private String positiontype;
 	
 	
 	 
@@ -45,25 +45,25 @@ public class Job {
 
 	@Override
 	public String toString() {
-		return "Job [position_id=" + position_id + ", position=" + position + ", designation=" + designation
+		return "Job [positionid=" + positionid + ", position=" + position + ", designation=" + designation
 				+ ", functions=" + functions + ", department=" + department + ", country=" + country + ", state="
-				+ state + ", city=" + city + ", core_area=" + core_area + ", experience=" + experience
-				+ ", noworkexperience=" + noworkexperience + ", work_mode=" + work_mode + ", gender=" + gender
-				+ ", local_candidate=" + local_candidate + ", ic_team_handling=" + ic_team_handling + ", stipend="
-				+ stipend + ", ctc_variable=" + ctc_variable + ", any_notable_perk=" + any_notable_perk
-				+ ", description=" + description + ", relevent_file=" + Arrays.toString(relevent_file)
-				+ ", any_relevant_link=" + any_relevant_link + ", position_type=" + position_type
-				+ ", getPosition_id()=" + getPosition_id() + ", getPosition()=" + getPosition() + ", getDesignation()="
+				+ state + ", city=" + city + ", corearea=" + corearea + ", experience=" + experience
+				+ ", noworkexperience=" + noworkexperience + ", workmode=" + workmode + ", gender=" + gender
+				+ ", localcandidate=" + localcandidate + ", icteamhandling=" + icteamhandling + ", stipend="
+				+ stipend + ", ctcvariable=" + ctcvariable + ", anynotableperk=" + anynotableperk
+				+ ", description=" + description + ", releventfile=" + Arrays.toString(releventfile)
+				+ ", anyrelevantlink=" + anyrelevantlink + ", positiontype=" + positiontype
+				+ ", getPositionid()=" + getPositionid() + ", getPosition()=" + getPosition() + ", getDesignation()="
 				+ getDesignation() + ", getFunctions()=" + getFunctions() + ", getDepartment()=" + getDepartment()
 				+ ", getCountry()=" + getCountry() + ", getState()=" + getState() + ", getCity()=" + getCity()
-				+ ", getCore_area()=" + getCore_area() + ", getExperience()=" + getExperience()
-				+ ", getNoworkexperience()=" + getNoworkexperience() + ", getWork_mode()=" + getWork_mode()
-				+ ", getGender()=" + getGender() + ", getLocal_candidate()=" + getLocal_candidate()
-				+ ", getIc_team_handling()=" + getIc_team_handling() + ", getStipend()=" + getStipend()
-				+ ", getCtc_variable()=" + getCtc_variable() + ", getAny_notable_perk()=" + getAny_notable_perk()
-				+ ", getDescription()=" + getDescription() + ", getRelevent_file()="
-				+ Arrays.toString(getRelevent_file()) + ", getAny_relevant_link()=" + getAny_relevant_link()
-				+ ", getPosition_type()=" + getPosition_type() + ", getClass()=" + getClass() + ", hashCode()="
+				+ ", getCorearea()=" + getCorearea() + ", getExperience()=" + getExperience()
+				+ ", getNoworkexperience()=" + getNoworkexperience() + ", getWorkmode()=" + getWorkmode()
+				+ ", getGender()=" + getGender() + ", getLocalcandidate()=" + getLocalcandidate()
+				+ ", getIcteamhandling()=" + getIcteamhandling() + ", getStipend()=" + getStipend()
+				+ ", getCtcvariable()=" + getCtcvariable() + ", getAnynotableperk()=" + getAnynotableperk()
+				+ ", getDescription()=" + getDescription() + ", getReleventfile()="
+				+ Arrays.toString(getReleventfile()) + ", getAnyrelevantlink()=" + getAnyrelevantlink()
+				+ ", getPositiontype()=" + getPositiontype() + ", getClass()=" + getClass() + ", hashCode()="
 				+ hashCode() + ", toString()=" + super.toString() + "]";
 	}
 
@@ -73,8 +73,8 @@ public class Job {
 
 
 
-	public int getPosition_id() {
-		return position_id;
+	public int getPositionid() {
+		return positionid;
 	}
 
 
@@ -83,8 +83,8 @@ public class Job {
 
 
 
-	public void setPosition_id(int position_id) {
-		this.position_id = position_id;
+	public void setPositionid(int positionid) {
+		this.positionid = positionid;
 	}
 
 
@@ -233,8 +233,8 @@ public class Job {
 
 
 
-	public String getCore_area() {
-		return core_area;
+	public String getCorearea() {
+		return corearea;
 	}
 
 
@@ -243,8 +243,8 @@ public class Job {
 
 
 
-	public void setCore_area(String core_area) {
-		this.core_area = core_area;
+	public void setCorearea(String corearea) {
+		this.corearea = corearea;
 	}
 
 
@@ -293,8 +293,8 @@ public class Job {
 
 
 
-	public String getWork_mode() {
-		return work_mode;
+	public String getWorkmode() {
+		return workmode;
 	}
 
 
@@ -303,8 +303,8 @@ public class Job {
 
 
 
-	public void setWork_mode(String work_mode) {
-		this.work_mode = work_mode;
+	public void setWorkmode(String workmode) {
+		this.workmode = workmode;
 	}
 
 
@@ -333,8 +333,8 @@ public class Job {
 
 
 
-	public String getLocal_candidate() {
-		return local_candidate;
+	public String getLocalcandidate() {
+		return localcandidate;
 	}
 
 
@@ -343,8 +343,8 @@ public class Job {
 
 
 
-	public void setLocal_candidate(String local_candidate) {
-		this.local_candidate = local_candidate;
+	public void setLocalcandidate(String localcandidate) {
+		this.localcandidate = localcandidate;
 	}
 
 
@@ -353,8 +353,8 @@ public class Job {
 
 
 
-	public String getIc_team_handling() {
-		return ic_team_handling;
+	public String getIcteamhandling() {
+		return icteamhandling;
 	}
 
 
@@ -363,8 +363,8 @@ public class Job {
 
 
 
-	public void setIc_team_handling(String ic_team_handling) {
-		this.ic_team_handling = ic_team_handling;
+	public void setIcteamhandling(String icteamhandling) {
+		this.icteamhandling = icteamhandling;
 	}
 
 
@@ -393,8 +393,8 @@ public class Job {
 
 
 
-	public int getCtc_variable() {
-		return ctc_variable;
+	public int getCtcvariable() {
+		return ctcvariable;
 	}
 
 
@@ -403,8 +403,8 @@ public class Job {
 
 
 
-	public void setCtc_variable(int ctc_variable) {
-		this.ctc_variable = ctc_variable;
+	public void setCtcvariable(int ctcvariable) {
+		this.ctcvariable = ctcvariable;
 	}
 
 
@@ -413,8 +413,8 @@ public class Job {
 
 
 
-	public String getAny_notable_perk() {
-		return any_notable_perk;
+	public String getAnynotableperk() {
+		return anynotableperk;
 	}
 
 
@@ -423,8 +423,8 @@ public class Job {
 
 
 
-	public void setAny_notable_perk(String any_notable_perk) {
-		this.any_notable_perk = any_notable_perk;
+	public void setAnynotableperk(String anynotableperk) {
+		this.anynotableperk = anynotableperk;
 	}
 
 
@@ -453,8 +453,8 @@ public class Job {
 
 
 
-	public byte[] getRelevent_file() {
-		return relevent_file;
+	public byte[] getReleventfile() {
+		return releventfile;
 	}
 
 
@@ -463,8 +463,8 @@ public class Job {
 
 
 
-	public void setRelevent_file(byte[] relevent_file) {
-		this.relevent_file = relevent_file;
+	public void setReleventfile(byte[] releventfile) {
+		this.releventfile = releventfile;
 	}
 
 
@@ -473,8 +473,8 @@ public class Job {
 
 
 
-	public String getAny_relevant_link() {
-		return any_relevant_link;
+	public String getAnyrelevantlink() {
+		return anyrelevantlink;
 	}
 
 
@@ -483,8 +483,8 @@ public class Job {
 
 
 
-	public void setAny_relevant_link(String any_relevant_link) {
-		this.any_relevant_link = any_relevant_link;
+	public void setAnyrelevantlink(String anyrelevantlink) {
+		this.anyrelevantlink = anyrelevantlink;
 	}
 
 
@@ -493,8 +493,8 @@ public class Job {
 
 
 
-	public String getPosition_type() {
-		return position_type;
+	public String getPositiontype() {
+		return positiontype;
 	}
 
 
@@ -503,8 +503,8 @@ public class Job {
 
 
 
-	public void setPosition_type(String position_type) {
-		this.position_type = position_type;
+	public void setPositiontype(String positiontype) {
+		this.positiontype = positiontype;
 	}
 
 

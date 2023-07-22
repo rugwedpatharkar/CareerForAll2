@@ -11,24 +11,23 @@ import com.placementportal.model.Job;
 
 
 public interface JobRepository extends JpaRepository<Job, Integer> {
-	@Query("SELECT j FROM Job j WHERE  j.position = :position " + 
-"OR  j.country = :country "+ 
+	@Query("SELECT j FROM Job j WHERE  j.country = :country "+ 
 "AND  j.state = :state "+ 
 "AND  j.city = :city " + 
 "OR  j.noworkexperience = :noworkexperience "+ 
-"OR  j.work_mode = :work_mode " +
-"OR  j.description = :description " +
-"OR  j.position_type = :position_type ")
+"OR  j.workmode = :workmode " +
+"OR  j.positiontype = :positiontype ")
  
-	List<Job> findJobByIgnoreCase(@Param("position") String position, 
+	List<Job> findJobByIgnoreCase(
 			@Param("country") String country,
 			@Param("state") String state,
 			@Param("city") String city, 
-			@Param("work_mode") String work_mode,
+			@Param("workmode") String workmode,
 			@Param("noworkexperience") int noworkexperience,
-			@Param("description") String description,
-			@Param("position_type") String position_type);
+			@Param("positiontype") String positiontype);
 	
-	@Query("SELECT j FROM Job j WHERE (j.position) LIKE %?1%")
-	public List<Job> findJobByIgnoreCase(String keyword);
+
+	
+	 @Query("SELECT j FROM Job j WHERE LOWER(CONCAT(j.position, j.description, j.designation)) LIKE %:keyword%")
+	 public List<Job> findJobByIgnoreCase(@Param("keyword") String keyword);
 }

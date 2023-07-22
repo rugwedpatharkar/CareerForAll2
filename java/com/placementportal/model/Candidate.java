@@ -10,27 +10,27 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
+ 
 
 @Entity
 public class Candidate {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long candidate_id;
+    private Long candidateid;
 	
-	
-	private String candidate_name;
+	  
+	private String candidatename;
 	
 	private String email;
 	
-	private byte[] cv_upload;
+	private byte[] cvupload;
 	
-	private byte[] other_relevant_upload;
+	private byte[] otherrelevantupload;
 	
-	private String primary_skills;
-	
-	private String secondary_skills;
+	private String primaryskills;
+	 
+	private String secondaryskills;
 	
 	private String experience;
 	
@@ -40,21 +40,21 @@ public class Candidate {
 	
 	private String gender;
 	
-	private String candidate_city;
+	private String candidatecity;
 	
-	private String ic_or_manager;
+	private String icormanager;
 	
 	private String joborinternship;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "institute_id")
-	private Institute institute_name ;
+	@JoinColumn(name = "instituteid")
+	private Institute institutename ;
 	
-	private String ctc_fixed;
+	private String ctcfixed;
 	
-	private BigDecimal ctc_variable;
+	private BigDecimal ctcvariable;
 	
-	private BigDecimal ctc_total;
+	private BigDecimal ctctotal;
  
 	
  
@@ -64,29 +64,29 @@ public class Candidate {
 
 
 
-	public Long getCandidate_id() {
-		return candidate_id;
+	public Long getCandidateid() {
+		return candidateid;
 	}
 
 
 
-	public void setCandidate_id(Long candidate_id) {
-		this.candidate_id = candidate_id;
+	public void setCandidateid(Long candidateid) {
+		this.candidateid = candidateid;
 	}
 
 
 
-	public String getCandidate_name() {
-		return candidate_name;
+	public String getCandidatename() {
+		return candidatename;
 	}
 
 
 
-	public void setCandidate_name(String candidate_name) {
-		this.candidate_name = candidate_name;
+	public void setCandidatename(String candidatename) {
+		this.candidatename = candidatename;
 	}
 
-
+ 
 
 	public String getEmail() {
 		return email;
@@ -100,50 +100,50 @@ public class Candidate {
 
 
 
-	public byte[] getCv_upload() {
-		return cv_upload;
+	public byte[] getCvupload() {
+		return cvupload;
+	}
+
+ 
+
+	public void setCvupload(byte[] cvupload) {
+		this.cvupload = cvupload;
+	}
+    
+
+
+	public byte[] getOtherrelevantupload() {
+		return otherrelevantupload;
 	}
 
 
 
-	public void setCv_upload(byte[] cv_upload) {
-		this.cv_upload = cv_upload;
+	public void setOtherrelevantupload(byte[] otherrelevantupload) {
+		this.otherrelevantupload = otherrelevantupload;
 	}
 
 
 
-	public byte[] getOther_relevant_upload() {
-		return other_relevant_upload;
+	public String getPrimaryskills() {
+		return primaryskills;
 	}
 
 
 
-	public void setOther_relevant_upload(byte[] other_relevant_upload) {
-		this.other_relevant_upload = other_relevant_upload;
+	public void setPrimaryskills(String primaryskills) {
+		this.primaryskills = primaryskills;
 	}
 
 
 
-	public String getPrimary_skills() {
-		return primary_skills;
+	public String getSecondaryskills() {
+		return secondaryskills;
 	}
 
 
 
-	public void setPrimary_skills(String primary_skills) {
-		this.primary_skills = primary_skills;
-	}
-
-
-
-	public String getSecondary_skills() {
-		return secondary_skills;
-	}
-
-
-
-	public void setSecondary_skills(String secondary_skills) {
-		this.secondary_skills = secondary_skills;
+	public void setSecondaryskills(String secondaryskills) {
+		this.secondaryskills = secondaryskills;
 	}
 
 
@@ -196,26 +196,26 @@ public class Candidate {
 
 
 
-	public String getCandidate_city() {
-		return candidate_city;
+	public String getCandidatecity() {
+		return candidatecity;
 	}
 
 
 
-	public void setCandidate_city(String candidate_city) {
-		this.candidate_city = candidate_city;
+	public void setCandidatecity(String candidatecity) {
+		this.candidatecity = candidatecity;
 	}
 
 
 
-	public String getIc_or_manager() {
-		return ic_or_manager;
+	public String getIcormanager() {
+		return icormanager;
 	}
 
 
 
-	public void setIc_or_manager(String ic_or_manager) {
-		this.ic_or_manager = ic_or_manager;
+	public void setIcormanager(String icormanager) {
+		this.icormanager = icormanager;
 	}
 
 
@@ -232,76 +232,76 @@ public class Candidate {
 
 
 
-	public Institute getInstitute_name() {
-		return institute_name;
+	public Institute getInstitutename() {
+		return institutename;
 	}
 
 
 
-	public void setInstitute_name(Institute institute_name) {
-		this.institute_name = institute_name;
+	public void setInstitutename(Institute institutename) {
+		this.institutename = institutename;
 	}
 
 
 
-	public String getCtc_fixed() {
-		return ctc_fixed;
+	public String getCtcfixed() {
+		return ctcfixed;
 	}
 
 
 
-	public void setCtc_fixed(String ctc_fixed) {
-		this.ctc_fixed = ctc_fixed;
+	public void setCtcfixed(String ctcfixed) {
+		this.ctcfixed = ctcfixed;
 	}
 
 
 
-	public BigDecimal getCtc_variable() {
-		return ctc_variable;
-	}
-
-
-
-	public void setCtc_variable(BigDecimal ctc_variable) {
-		this.ctc_variable = ctc_variable;
-	}
-
-
-
-	public BigDecimal getCtc_total() {
-		return ctc_total;
-	}
-
-
-
-	public void setCtc_total(BigDecimal ctc_total) {
-		this.ctc_total = ctc_total;
+	public BigDecimal getCtcvariable() {
+		return ctcvariable;
 	}
 
 
 
 	@Override
 	public String toString() {
-		return "Candidate [candidate_id=" + candidate_id + ", candidate_name=" + candidate_name + ", email=" + email
-				+ ", cv_upload=" + Arrays.toString(cv_upload) + ", other_relevant_upload="
-				+ Arrays.toString(other_relevant_upload) + ", primary_skills=" + primary_skills + ", secondary_skills="
-				+ secondary_skills + ", experience=" + experience + ", noofyearsworkex=" + noofyearsworkex
-				+ ", workmode=" + workmode + ", gender=" + gender + ", candidate_city=" + candidate_city
-				+ ", ic_or_manager=" + ic_or_manager + ", joborinternship=" + joborinternship + ", institute_name="
-				+ institute_name + ", ctc_fixed=" + ctc_fixed + ", ctc_variable=" + ctc_variable + ", ctc_total="
-				+ ctc_total + ", getCandidate_id()=" + getCandidate_id() + ", getCandidate_name()="
-				+ getCandidate_name() + ", getEmail()=" + getEmail() + ", getCv_upload()="
-				+ Arrays.toString(getCv_upload()) + ", getOther_relevant_upload()="
-				+ Arrays.toString(getOther_relevant_upload()) + ", getPrimary_skills()=" + getPrimary_skills()
-				+ ", getSecondary_skills()=" + getSecondary_skills() + ", getExperience()=" + getExperience()
-				+ ", getNoofyearsworkex()=" + getNoofyearsworkex() + ", getWorkmode()=" + getWorkmode()
-				+ ", getGender()=" + getGender() + ", getCandidate_city()=" + getCandidate_city()
-				+ ", getIc_or_manager()=" + getIc_or_manager() + ", getJoborinternship()=" + getJoborinternship()
-				+ ", getInstitute_name()=" + getInstitute_name() + ", getCtc_fixed()=" + getCtc_fixed()
-				+ ", getCtc_variable()=" + getCtc_variable() + ", getCtc_total()=" + getCtc_total() + ", getClass()="
+		return "Candidate [candidateid=" + candidateid + ", candidatename=" + candidatename + ", email=" + email
+				+ ", cvupload=" + Arrays.toString(cvupload) + ", otherrelevantupload="
+				+ Arrays.toString(otherrelevantupload) + ", primaryskills=" + primaryskills + ", secondaryskills="
+				+ secondaryskills + ", experience=" + experience + ", noofyearsworkex=" + noofyearsworkex
+				+ ", workmode=" + workmode + ", gender=" + gender + ", candidatecity=" + candidatecity
+				+ ", icormanager=" + icormanager + ", joborinternship=" + joborinternship + ", institutename="
+				+ institutename + ", ctcfixed=" + ctcfixed + ", ctcvariable=" + ctcvariable + ", ctctotal=" + ctctotal
+				+ ", getCandidateid()=" + getCandidateid() + ", getCandidatename()=" + getCandidatename()
+				+ ", getEmail()=" + getEmail() + ", getCvupload()=" + Arrays.toString(getCvupload())
+				+ ", getOtherrelevantupload()=" + Arrays.toString(getOtherrelevantupload()) + ", getPrimaryskills()="
+				+ getPrimaryskills() + ", getSecondaryskills()=" + getSecondaryskills() + ", getExperience()="
+				+ getExperience() + ", getNoofyearsworkex()=" + getNoofyearsworkex() + ", getWorkmode()="
+				+ getWorkmode() + ", getGender()=" + getGender() + ", getCandidatecity()=" + getCandidatecity()
+				+ ", getIcormanager()=" + getIcormanager() + ", getJoborinternship()=" + getJoborinternship()
+				+ ", getInstitutename()=" + getInstitutename() + ", getCtcfixed()=" + getCtcfixed()
+				+ ", getCtcvariable()=" + getCtcvariable() + ", getCtctotal()=" + getCtctotal() + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
-	
-	
+
+
+
+	public void setCtcvariable(BigDecimal ctcvariable) {
+		this.ctcvariable = ctcvariable;
+	}
+
+
+
+	public BigDecimal getCtctotal() {
+		return ctctotal;
+	}
+
+
+
+	public void setCtctotal(BigDecimal ctctotal) {
+		this.ctctotal = ctctotal;
+	}
+
+
+
 	
 }

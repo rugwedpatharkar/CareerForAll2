@@ -19,11 +19,11 @@ public class JobCandidate {
     private Long jobcandidateid;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "position_id")
+    @JoinColumn(name = "positionid")
     private Job job;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "candidate_id")
+    @JoinColumn(name = "candidateid")
     private Candidate candidate;
 
   

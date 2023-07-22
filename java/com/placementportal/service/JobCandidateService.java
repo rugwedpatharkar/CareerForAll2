@@ -15,12 +15,12 @@ public class JobCandidateService {
   private JobCandidateRepository JobcandidateRepository;
 
 
-    public void mapCandidateToJob(int position_id, Long candidate_id) {
+    public void mapCandidateToJob(int positionid, Long candidateid) {
         Job job = new Job();
-        job.setPosition_id(position_id);
+        job.setPositionid(positionid);
 
         Candidate candidate = new Candidate();
-        candidate.setCandidate_id(candidate_id);
+        candidate.setCandidateid(candidateid);
 
         JobCandidate jobCandidate = new JobCandidate();
         jobCandidate.setJob(job);

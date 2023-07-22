@@ -15,67 +15,67 @@ import jakarta.persistence.Table;
 public class Institute {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long institute_id;		
-	private String institute_name;
-	private String brand_name;
-	private Date start_date;
+    private Long instituteid;		
+	private String institutename;
+	private String brandname;
+	private Date startdate;
 	private String state;
-	private String main_campus_city;
-	private String other_campus_city;
-	private String founder_name;
-	private String director_or_principle;
-	private String company_website;
-	private String company_linked_in;
-	private String any_other_relevant_link;
-	private byte[] corporate_presentation;
-	private byte[] any_other_file_upload;
+	private String maincampuscity;
+	private String othercampuscity;
+	private String foundername;
+	private String directororprinciple;
+	private String companywebsite;
+	private String companylinkedin;
+	private String anyotherrelevantlink;
+	private byte[] corporatepresentation;
+	private byte[] anyotherfileupload;
 	private String specialization;
-	private Integer batch_size;
-	private Integer no_of_campuses;
-	private BigDecimal median_ctc;
-	private BigDecimal average_ctc;
-	private BigDecimal summer_median_ctc;
-	private String preferred_sectors;
-	private Date summer_placement;
-	private Date final_placement;
-	private Date winter_placement;
-	private Date live_projects;
+	private Integer batchsize;
+	private Integer noofcampuses;
+	private BigDecimal medianctc;
+	private BigDecimal averagectc;
+	private BigDecimal summermedianctc;
+	private String preferredsectors;
+	private Date summerplacement;
+	private Date finalplacement;
+	private Date winterplacement;
+	private Date liveprojects;
 	
 	public Institute() {
 		super();
 		
 	}
 
-	public Long getInstitute_id() {
-		return institute_id;
+	public Long getInstituteid() {
+		return instituteid;
 	}
 
-	public void setInstitute_id(Long institute_id) {
-		this.institute_id = institute_id;
+	public void setInstituteid(Long instituteid) {
+		this.instituteid = instituteid;
 	}
 
-	public String getInstitute_name() {
-		return institute_name;
+	public String getInstitutename() {
+		return institutename;
 	}
 
-	public void setInstitute_name(String institute_name) {
-		this.institute_name = institute_name;
+	public void setInstitutename(String institutename) {
+		this.institutename = institutename;
 	}
 
-	public String getBrand_name() {
-		return brand_name;
+	public String getBrandname() {
+		return brandname;
 	}
 
-	public void setBrand_name(String brand_name) {
-		this.brand_name = brand_name;
+	public void setBrandname(String brandname) {
+		this.brandname = brandname;
 	}
 
-	public Date getStart_date() {
-		return start_date;
+	public Date getStartdate() {
+		return startdate;
 	}
 
-	public void setStart_date(Date start_date) {
-		this.start_date = start_date;
+	public void setStartdate(Date startdate) {
+		this.startdate = startdate;
 	}
 
 	public String getState() {
@@ -86,76 +86,76 @@ public class Institute {
 		this.state = state;
 	}
 
-	public String getMain_campus_city() {
-		return main_campus_city;
+	public String getMaincampuscity() {
+		return maincampuscity;
 	}
 
-	public void setMain_campus_city(String main_campus_city) {
-		this.main_campus_city = main_campus_city;
+	public void setMaincampuscity(String maincampuscity) {
+		this.maincampuscity = maincampuscity;
 	}
 
-	public String getOther_campus_city() {
-		return other_campus_city;
+	public String getOthercampuscity() {
+		return othercampuscity;
 	}
 
-	public void setOther_campus_city(String other_campus_city) {
-		this.other_campus_city = other_campus_city;
+	public void setOthercampuscity(String othercampuscity) {
+		this.othercampuscity = othercampuscity;
 	}
 
-	public String getFounder_name() {
-		return founder_name;
+	public String getFoundername() {
+		return foundername;
 	}
 
-	public void setFounder_name(String founder_name) {
-		this.founder_name = founder_name;
+	public void setFoundername(String foundername) {
+		this.foundername = foundername;
 	}
 
-	public String getDirector_or_principle() {
-		return director_or_principle;
+	public String getDirectororprinciple() {
+		return directororprinciple;
 	}
 
-	public void setDirector_or_principle(String director_or_principle) {
-		this.director_or_principle = director_or_principle;
+	public void setDirectororprinciple(String directororprinciple) {
+		this.directororprinciple = directororprinciple;
 	}
 
-	public String getCompany_website() {
-		return company_website;
+	public String getCompanywebsite() {
+		return companywebsite;
 	}
 
-	public void setCompany_website(String company_website) {
-		this.company_website = company_website;
+	public void setCompanywebsite(String companywebsite) {
+		this.companywebsite = companywebsite;
 	}
 
-	public String getCompany_linked_in() {
-		return company_linked_in;
+	public String getCompanylinkedin() {
+		return companylinkedin;
 	}
 
-	public void setCompany_linked_in(String company_linked_in) {
-		this.company_linked_in = company_linked_in;
+	public void setCompanylinkedin(String companylinkedin) {
+		this.companylinkedin = companylinkedin;
 	}
 
-	public String getAny_other_relevant_link() {
-		return any_other_relevant_link;
+	public String getAnyotherrelevantlink() {
+		return anyotherrelevantlink;
 	}
 
-	public void setAny_other_relevant_link(String any_other_relevant_link) {
-		this.any_other_relevant_link = any_other_relevant_link;
+	public void setAnyotherrelevantlink(String anyotherrelevantlink) {
+		this.anyotherrelevantlink = anyotherrelevantlink;
 	}
 
-	public byte[] getCorporate_presentation() {
-		return corporate_presentation;
+	public byte[] getCorporatepresentation() {
+		return corporatepresentation;
 	}
 
-	public void setCorporate_presentation(byte[] corporate_presentation) {
-		this.corporate_presentation = corporate_presentation;
+	public void setCorporatepresentation(byte[] corporatepresentation) {
+		this.corporatepresentation = corporatepresentation;
 	}
 
-	public byte[] getAny_other_file_upload() {
-		return any_other_file_upload;
+	public byte[] getAnyotherfileupload() {
+		return anyotherfileupload;
 	}
 
-	public void setAny_other_file_upload(byte[] any_other_file_upload) {
-		this.any_other_file_upload = any_other_file_upload;
+	public void setAnyotherfileupload(byte[] anyotherfileupload) {
+		this.anyotherfileupload = anyotherfileupload;
 	}
 
 	public String getSpecialization() {
@@ -166,114 +166,114 @@ public class Institute {
 		this.specialization = specialization;
 	}
 
-	public Integer getBatch_size() {
-		return batch_size;
+	public Integer getBatchsize() {
+		return batchsize;
 	}
 
-	public void setBatch_size(Integer batch_size) {
-		this.batch_size = batch_size;
+	public void setBatchsize(Integer batchsize) {
+		this.batchsize = batchsize;
 	}
 
-	public Integer getNo_of_campuses() {
-		return no_of_campuses;
+	public Integer getNoofcampuses() {
+		return noofcampuses;
 	}
 
-	public void setNo_of_campuses(Integer no_of_campuses) {
-		this.no_of_campuses = no_of_campuses;
+	public void setNoofcampuses(Integer noofcampuses) {
+		this.noofcampuses = noofcampuses;
 	}
 
-	public BigDecimal getMedian_ctc() {
-		return median_ctc;
+	public BigDecimal getMedianctc() {
+		return medianctc;
 	}
 
-	public void setMedian_ctc(BigDecimal median_ctc) {
-		this.median_ctc = median_ctc;
+	public void setMedianctc(BigDecimal medianctc) {
+		this.medianctc = medianctc;
 	}
 
-	public BigDecimal getAverage_ctc() {
-		return average_ctc;
+	public BigDecimal getAveragectc() {
+		return averagectc;
 	}
 
-	public void setAverage_ctc(BigDecimal average_ctc) {
-		this.average_ctc = average_ctc;
+	public void setAveragectc(BigDecimal averagectc) {
+		this.averagectc = averagectc;
 	}
 
-	public BigDecimal getSummer_median_ctc() {
-		return summer_median_ctc;
+	public BigDecimal getSummermedianctc() {
+		return summermedianctc;
 	}
 
-	public void setSummer_median_ctc(BigDecimal summer_median_ctc) {
-		this.summer_median_ctc = summer_median_ctc;
+	public void setSummermedianctc(BigDecimal summermedianctc) {
+		this.summermedianctc = summermedianctc;
 	}
 
-	public String getPreferred_sectors() {
-		return preferred_sectors;
+	public String getPreferredsectors() {
+		return preferredsectors;
 	}
 
-	public void setPreferred_sectors(String preferred_sectors) {
-		this.preferred_sectors = preferred_sectors;
+	public void setPreferredsectors(String preferredsectors) {
+		this.preferredsectors = preferredsectors;
 	}
 
-	public Date getSummer_placement() {
-		return summer_placement;
+	public Date getSummerplacement() {
+		return summerplacement;
 	}
 
-	public void setSummer_placement(Date summer_placement) {
-		this.summer_placement = summer_placement;
+	public void setSummerplacement(Date summerplacement) {
+		this.summerplacement = summerplacement;
 	}
 
-	public Date getFinal_placement() {
-		return final_placement;
+	public Date getFinalplacement() {
+		return finalplacement;
 	}
 
-	public void setFinal_placement(Date final_placement) {
-		this.final_placement = final_placement;
+	public void setFinalplacement(Date finalplacement) {
+		this.finalplacement = finalplacement;
 	}
 
-	public Date getWinter_placement() {
-		return winter_placement;
+	public Date getWinterplacement() {
+		return winterplacement;
 	}
 
-	public void setWinter_placement(Date winter_placement) {
-		this.winter_placement = winter_placement;
+	public void setWinterplacement(Date winterplacement) {
+		this.winterplacement = winterplacement;
 	}
 
-	public Date getLive_projects() {
-		return live_projects;
+	public Date getLiveprojects() {
+		return liveprojects;
 	}
 
-	public void setLive_projects(Date live_projects) {
-		this.live_projects = live_projects;
+	public void setLiveprojects(Date liveprojects) {
+		this.liveprojects = liveprojects;
 	}
 
 	@Override
 	public String toString() {
-		return "Institute [institute_id=" + institute_id + ", institute_name=" + institute_name + ", brand_name="
-				+ brand_name + ", start_date=" + start_date + ", state=" + state + ", main_campus_city="
-				+ main_campus_city + ", other_campus_city=" + other_campus_city + ", founder_name=" + founder_name
-				+ ", director_or_principle=" + director_or_principle + ", company_website=" + company_website
-				+ ", company_linked_in=" + company_linked_in + ", any_other_relevant_link=" + any_other_relevant_link
-				+ ", corporate_presentation=" + Arrays.toString(corporate_presentation) + ", any_other_file_upload="
-				+ Arrays.toString(any_other_file_upload) + ", specialization=" + specialization + ", batch_size="
-				+ batch_size + ", no_of_campuses=" + no_of_campuses + ", median_ctc=" + median_ctc + ", average_ctc="
-				+ average_ctc + ", summer_median_ctc=" + summer_median_ctc + ", preferred_sectors=" + preferred_sectors
-				+ ", summer_placement=" + summer_placement + ", final_placement=" + final_placement
-				+ ", winter_placement=" + winter_placement + ", live_projects=" + live_projects + ", getInstitute_id()="
-				+ getInstitute_id() + ", getInstitute_name()=" + getInstitute_name() + ", getBrand_name()="
-				+ getBrand_name() + ", getStart_date()=" + getStart_date() + ", getState()=" + getState()
-				+ ", getMain_campus_city()=" + getMain_campus_city() + ", getOther_campus_city()="
-				+ getOther_campus_city() + ", getFounder_name()=" + getFounder_name() + ", getDirector_or_principle()="
-				+ getDirector_or_principle() + ", getCompany_website()=" + getCompany_website()
-				+ ", getCompany_linked_in()=" + getCompany_linked_in() + ", getAny_other_relevant_link()="
-				+ getAny_other_relevant_link() + ", getCorporate_presentation()="
-				+ Arrays.toString(getCorporate_presentation()) + ", getAny_other_file_upload()="
-				+ Arrays.toString(getAny_other_file_upload()) + ", getSpecialization()=" + getSpecialization()
-				+ ", getBatch_size()=" + getBatch_size() + ", getNo_of_campuses()=" + getNo_of_campuses()
-				+ ", getMedian_ctc()=" + getMedian_ctc() + ", getAverage_ctc()=" + getAverage_ctc()
-				+ ", getSummer_median_ctc()=" + getSummer_median_ctc() + ", getPreferred_sectors()="
-				+ getPreferred_sectors() + ", getSummer_placement()=" + getSummer_placement()
-				+ ", getFinal_placement()=" + getFinal_placement() + ", getWinter_placement()=" + getWinter_placement()
-				+ ", getLive_projects()=" + getLive_projects() + ", getClass()=" + getClass() + ", hashCode()="
+		return "Institute [instituteid=" + instituteid + ", institutename=" + institutename + ", brandname="
+				+ brandname + ", startdate=" + startdate + ", state=" + state + ", maincampuscity="
+				+ maincampuscity + ", othercampuscity=" + othercampuscity + ", foundername=" + foundername
+				+ ", directororprinciple=" + directororprinciple + ", companywebsite=" + companywebsite
+				+ ", companylinkedin=" + companylinkedin + ", anyotherrelevantlink=" + anyotherrelevantlink
+				+ ", corporatepresentation=" + Arrays.toString(corporatepresentation) + ", anyotherfileupload="
+				+ Arrays.toString(anyotherfileupload) + ", specialization=" + specialization + ", batchsize="
+				+ batchsize + ", noofcampuses=" + noofcampuses + ", medianctc=" + medianctc + ", averagectc="
+				+ averagectc + ", summermedianctc=" + summermedianctc + ", preferredsectors=" + preferredsectors
+				+ ", summerplacement=" + summerplacement + ", finalplacement=" + finalplacement
+				+ ", winterplacement=" + winterplacement + ", liveprojects=" + liveprojects + ", getInstituteid()="
+				+ getInstituteid() + ", getInstitutename()=" + getInstitutename() + ", getBrandname()="
+				+ getBrandname() + ", getStartdate()=" + getStartdate() + ", getState()=" + getState()
+				+ ", getMaincampuscity()=" + getMaincampuscity() + ", getOthercampuscity()="
+				+ getOthercampuscity() + ", getFoundername()=" + getFoundername() + ", getDirectororprinciple()="
+				+ getDirectororprinciple() + ", getCompanywebsite()=" + getCompanywebsite()
+				+ ", getCompanylinkedin()=" + getCompanylinkedin() + ", getAnyotherrelevantlink()="
+				+ getAnyotherrelevantlink() + ", getCorporatepresentation()="
+				+ Arrays.toString(getCorporatepresentation()) + ", getAnyotherfileupload()="
+				+ Arrays.toString(getAnyotherfileupload()) + ", getSpecialization()=" + getSpecialization()
+				+ ", getBatchsize()=" + getBatchsize() + ", getNoofcampuses()=" + getNoofcampuses()
+				+ ", getMedianctc()=" + getMedianctc() + ", getAveragectc()=" + getAveragectc()
+				+ ", getSummermedianctc()=" + getSummermedianctc() + ", getPreferredsectors()="
+				+ getPreferredsectors() + ", getSummerplacement()=" + getSummerplacement()
+				+ ", getFinalplacement()=" + getFinalplacement() + ", getWinterplacement()=" + getWinterplacement()
+				+ ", getLiveprojects()=" + getLiveprojects() + ", getClass()=" + getClass() + ", hashCode()="
 				+ hashCode() + ", toString()=" + super.toString() + "]";
 	}
 

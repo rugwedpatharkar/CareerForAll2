@@ -210,26 +210,26 @@
           <div class="single-column">
               <div class="col-lx-3 col-lg-3 label"style="font-weight:600">Posted On :</div>
             
-        &emsp;<input class="form-check-input" type="radio" name="no_of_years_work_ex" value="2"> 
+        &emsp;<input class="form-check-input" type="radio" name="noofyearsworkex" value="2"> 
               <label class="form-check-label" for="gridRadios1"> Past 24 hours</label>
                 
-        &ensp;<input class="form-check-input" type="radio" name="no_of_years_work_ex" value="4"> 
+        &ensp;<input class="form-check-input" type="radio" name="noofyearsworkex" value="4"> 
               <label class="form-check-label" for="gridRadios2"> Past Week</label>
                 
-        &ensp;<input class="form-check-input" type="radio" name="no_of_years_work_ex" value="6"> 
+        &ensp;<input class="form-check-input" type="radio" name="noofyearsworkex" value="6"> 
               <label class="form-check-label" for="gridRadios2">Past Month</label>
                 
-        &ensp;<input class="form-check-input" type="radio" name="no_of_years_work_ex" value="6"> 
+        &ensp;<input class="form-check-input" type="radio" name="noofyearsworkex" value="6"> 
               <label class="form-check-label" for="gridRadios2">Anytime</label>
                 
               </div>
     <div class="single-column">
             <div class="col-lx-3 col-lg-3 label"style="font-weight:600">Position Type :</div>
             
-          &emsp;<input class="form-check-input" type="radio"  value="Job"name="position_type"> 
+          &emsp;<input class="form-check-input" type="radio"  value="Job"name="positiontype"> 
               <label class="form-check-label" for="gridRadios1">Job</label>
 								
-          &ensp;<input class="form-check-input" type="radio"   value="Internship"name="position_type"> 
+          &ensp;<input class="form-check-input" type="radio"   value="Internship"name="positiontype"> 
               <label class="form-check-label" for="gridRadios2">Internship</label>
 
 							</div>
@@ -255,13 +255,13 @@
               <div class="single-column">
               <div class="col-lx-3 col-lg-3 label"style="font-weight:600">Work Mode :</div>
                   
-        &emsp;<input class="form-check-input" type="radio" value="Work From Home" name="work_mode"> 
+        &emsp;<input class="form-check-input" type="radio" value="Work From Home" name="workmode"> 
               <label class="form-check-label" >Work From Home</label>
               
-        &ensp;<input class="form-check-input" type="radio" value="Work From Office" name="work_mode"> 
+        &ensp;<input class="form-check-input" type="radio" value="Work From Office" name="workmode"> 
               <label class="form-check-label" >Work From Office</label>
               
-        &ensp;<input class="form-check-input" type="radio" value="Hybrid" name="work_mode"> 
+        &ensp;<input class="form-check-input" type="radio" value="Hybrid" name="workmode"> 
               <label class="form-check-label" >Hybrid</label>
 								
 			</div>
@@ -320,17 +320,17 @@
           <div class="tab-pane fade show active profile-overview"
             th:each="j : ${listJob}" style="height: auto">
  <div class="single-column" style="display: inline;width:220px;margin:10px 0 10px 0">
-            <a th:href="@{/joblistfilters/{position_id}/{minKeywordLength}(position_id=${j.position_id}, minKeywordLength=3)}">
+            <a th:href="@{/joblistfilters/{positionid}/{minKeywordLength}(positionid=${j.positionid}, minKeywordLength=3)}">
               <h5 th:text="${j.position}"
                 style="text-decoration: underline;font-size:13px"
                 class="form-check-label card-title"></h5>
             </a>
 </div> 
             <div class="single-column" style="display: inline;width:180px;text-align: center;margin:10px 0 10px 0">
-              <div class="col-lg-9 col-md-8" th:text="${j.position_type}"></div>
+              <div class="col-lg-9 col-md-8" th:text="${j.positiontype}"></div>
             </div>
             <div class="single-column" style="display: inline;width:200px;text-align: center;margin:10px 0 10px 0">
-              <div class="col-lg-9 col-md-8" th:text="${j.work_mode}"></div>
+              <div class="col-lg-9 col-md-8" th:text="${j.workmode}"></div>
             </div>
                 <div class="single-column"style="display: inline;width:160px;text-align: center;margin:10px 0 10px 0">
               <div class="col-lg-9 col-md-8" th:text="${j.country}"></div>
