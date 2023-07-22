@@ -396,7 +396,6 @@ newstateDropdown.addEventListener("change", async (event) => {
     }
   });
   const cities = await response.json();
-
   // Clear the city dropdown options
   cityDropdown.innerHTML = '<option value="" disabled selected>-- Please select city --</option>';
 
