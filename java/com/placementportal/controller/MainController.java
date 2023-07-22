@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -55,6 +56,8 @@ public class MainController {
 	@Autowired
 	private CompanyService companyService;
 	
+	
+
 	@Autowired
 	private InstituteService institueService; 	
 
@@ -90,12 +93,13 @@ public class MainController {
 		ModelAndView mav = new ModelAndView("jobopening");
 		return mav;
 	}
-			
+
+	//---------------------startup onboarding------------------------		
 	//Company Controllers
 	@PostMapping("/saveCompany")
 	public String saveCompany(@ModelAttribute("company") Company company) {
 		companyService.saveCompany(company);
-		return("redirect:/");
+		return("redirect:/CompanyList");
 	}
 	
 	@GetMapping("/CompanyList")
@@ -110,7 +114,45 @@ public class MainController {
 		model.addAttribute("company", company);
 		return("startup_onboarding"); 
 	}
+	@GetMapping("/editCompany/{id}")
+	public String editCompanyForm(@PathVariable("id") Long id, Model model) {
+	    Company company = companyService.getCompanyById(id);
+	    model.addAttribute("company", company);
+	    return "editCompany";
+	}
+	@PostMapping("/updateCompany")
+	public String updateCompany(@ModelAttribute("company") Company company) {
+	    companyService.saveCompany(company);
+	    return "redirect:/CompanyList";
+	}
+	@GetMapping("/deleteCompany/{id}")
+	public String deleteCompany(@PathVariable(value = "id") Long id) {
+		//call delete company method
+		this.companyService.deleteCompanyById(id);
+		return "redirect:/CompanyList";
+	}
+
+//	@Autowired
+//	private CompanyService companyService;
 	
+	//List of companies
+//	@GetMapping("/CompanyList")
+//	public String showCompany(Model model) {
+//		model.addAttribute("listCompanies",companyService.getAllCompanies());
+//		return "CompanyList";
+//	}
+//	@GetMapping("/")
+//	public String startupOnboarding(Model model) {
+//		Company company = new Company();
+//		model.addAttribute("company", company);
+//		return("startup_onboarding"); 
+//	}
+//	@PostMapping("/saveCompany")
+//	public String saveCompany(@ModelAttribute("company") Company company) {
+//		companyService.saveCompany(company);
+//		return("redirect:/");
+//	}
+	//---------------------end of startup onboarding------------------------
 	//Institute Controller
 	@GetMapping("/institute_onboarding")
 	public String institute_onboarding(Model model) {
@@ -139,13 +181,7 @@ public class MainController {
 	    return "redirect:/candidate_registration";
 	}
 	
-	// Login Controller
-	
-//	@GetMapping("/login")
-//	public ModelAndView login() {
-//		ModelAndView mav = new ModelAndView("login");
-//		return mav;
-//	}
+	// Login Controller (Prasad)
 	
 	@GetMapping("/login")
 	public String loginHome()
@@ -153,14 +189,13 @@ public class MainController {
 		return "login";
 	}
 	
-	// Registration Controller
-	
-//	@GetMapping("/register")
-//	public ModelAndView register() {
-//		ModelAndView mav = new ModelAndView("register");
-//		return mav;
-//	}
-	
+	@GetMapping("/user/")
+	public String userHome()
+	{
+		return "profile"; 
+	}
+
+	// Registration Controller (Prasad)
 	@GetMapping("/register")
 	public String home()
 	{
@@ -188,8 +223,6 @@ public class MainController {
 		
 		return "redirect:/register?success";
 	}
-	
-	
 	
 	
 	//JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay wagh)
@@ -248,7 +281,6 @@ public class MainController {
 	        }
 	        return null;
 	    }
-	    
 	    
 	    //seaech candidates in list of eligible candidates
 	    @GetMapping("/searchcandidates/{position_id}/{minKeywordLength}")

@@ -320,6 +320,406 @@
 
 })();
 
+//-----------------------------------------------------------------------Startup Onboarding JS-------------------------------------
+let tok = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ2emVuZGU4OUBnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ2OUlWQ0o4S0dKT3hzNFhhdXBXQzByRGtYRWxzZUVrc1ZJOE9TSTVZOS1jakVLNWJzWF9RUTRRZHotTlZoancxeGc4In0sImV4cCI6MTY5MDA4OTQ5Mn0.JRkoNGwj7YFe2gS_-uaLmdcEE-zXVZ0TT3fFkPqBCHA';
+ fetch('https://www.universal-tutorial.com/api/countries/', {
+  headers: {
+    'Authorization': tok,
+    'Accept': 'application/json'
+  }
+})
+.then(response => response.json())
+.then(data => {
+  // iterate over the list of countries and create a dropdown with the options
+  const countryDropdown = document.getElementById('country-dropdown');
+  countryDropdown.innerHTML = '<option value="" disabled selected>-- Please select country --</option>';
+  data.forEach(country => {
+    const option = document.createElement('option');
+    option.value = country.country_name;
+    option.textContent = country.country_name;
+    countryDropdown.appendChild(option);
+  });
+})
+.catch(error => console.error(error));
+
+// end of country dropdown generation------------------
+//populate the states dropdown based on the selected country----------------------------
+// Get the country dropdown element
+const countryDropdown = document.getElementById('country-dropdown');
+
+// Get the state dropdown element
+const stateDropdown = document.getElementById('state-Dropdown');
+
+// When the country dropdown value changes, populate the state dropdown
+countryDropdown.addEventListener('change', async () => {
+  // Get the selected country name
+  const countryName = countryDropdown.value;
+
+  // Get the list of states for the selected country
+  const response = await fetch(`https://www.universal-tutorial.com/api/states/${countryName}`, {
+    headers: {
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ2emVuZGU4OUBnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ2OUlWQ0o4S0dKT3hzNFhhdXBXQzByRGtYRWxzZUVrc1ZJOE9TSTVZOS1jakVLNWJzWF9RUTRRZHotTlZoancxeGc4In0sImV4cCI6MTY5MDA4OTQ5Mn0.JRkoNGwj7YFe2gS_-uaLmdcEE-zXVZ0TT3fFkPqBCHA',
+      'Accept': 'application/json'
+    }
+  });
+
+  // Convert the response to JSON
+  const data = await response.json();
+
+  // Clear the state dropdown options
+  stateDropdown.innerHTML = '<option value="" disabled selected>-- Please select state --</option>';
+
+  // Populate the state dropdown with the list of states
+  data.forEach(state => {
+    const option = document.createElement('option');
+    option.value = state.state_name;
+    option.textContent = state.state_name;
+    stateDropdown.appendChild(option);
+  });
+});
+//end of populate the states dropdown based on the selected country----------------------------
+//populate cities based on state ------------------------
+// Get the city dropdown element
+const cityDropdown = document.getElementById("city-Dropdown");
+
+// Add an event listener to the state dropdown
+const newstateDropdown = document.getElementById("state-Dropdown");
+newstateDropdown.addEventListener("change", async (event) => {
+  // Get the selected state
+  const selectedState = event.target.value;
+
+  // Fetch the cities for the selected state
+  const response = await fetch(`https://www.universal-tutorial.com/api/cities/${selectedState}`, {
+    headers: {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ2emVuZGU4OUBnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ2OUlWQ0o4S0dKT3hzNFhhdXBXQzByRGtYRWxzZUVrc1ZJOE9TSTVZOS1jakVLNWJzWF9RUTRRZHotTlZoancxeGc4In0sImV4cCI6MTY5MDA4OTQ5Mn0.JRkoNGwj7YFe2gS_-uaLmdcEE-zXVZ0TT3fFkPqBCHA",
+      "Accept": "application/json"
+    }
+  });
+  const cities = await response.json();
+  // Clear the city dropdown options
+  cityDropdown.innerHTML = '<option value="" disabled selected>-- Please select city --</option>';
+
+  // Populate the city dropdown with the fetched cities
+  cities.forEach(city => {
+    const option = document.createElement('option');
+    option.value = city.city_name;
+    option.text = city.city_name;
+    cityDropdown.add(option);
+  });
+});
+
+//--------end populate cities based on state
+  //validation of presentation file--------------------
+document.getElementById('presentation').addEventListener('change', validateFile);
+var presentationSizeError = document.getElementById("presentationSizeError");
+var presentationTypeError = document.getElementById("presentationTypeError");
+function validateFile() {
+    const fileInput = document.getElementById('presentation');
+    const file = fileInput.files[0];
+    const fileSize = file.size;
+    const maxSize = 2097152; // 2 MB in bytes
+    const allowedTypes = ['pdf', 'ppt', 'pptx', 'doc'];
+    const fileType = file.name.split('.').pop();
+
+    if (fileSize > maxSize) {
+        presentationSizeError.style.display = "block";
+        fileInput.value = ''; // Reset the file input element
+        return false;
+    }
+
+    if (!allowedTypes.includes(fileType)) {
+        presentationTypeError.style.display = "block";
+        fileInput.value = ''; // Reset the file input element
+        return false;
+    }
+	presentationSizeError.style.display = "none";
+	presentationTypeError.style.display = "none";
+    return true;
+}
+//end of validation of presentation file--------------------
+
+//other file validation--------------------------
+document.getElementById('otherfile').addEventListener('change', validateOtherFile);
+var otherfileSizeError = document.getElementById("otherfileSizeError");
+var otherfileTypeError = document.getElementById("otherfileTypeError");
+function validateOtherFile() {
+    const fileInput = document.getElementById('otherfile');
+    const file = fileInput.files[0];
+    const fileSize = file.size;
+    const maxSize = 2097152; // 2 MB in bytes
+    const allowedTypes = ['pdf', 'ppt', 'pptx', 'doc'];
+    const fileType = file.name.split('.').pop();
+
+    if (fileSize > maxSize) {
+        otherfileSizeError.style.display = "block";
+        fileInput.value = ''; // Reset the file input element
+        return false;
+    }
+
+    if (!allowedTypes.includes(fileType)) {
+        otherfileTypeError.style.display = "block";
+        fileInput.value = ''; // Reset the file input element
+        return false;
+    }
+	otherfileSizeError.style.display = "none";
+	otherfileTypeError.style.display = "none";
+    return true;
+}
+//end of other file validation----------------------
+
+ //auto increment companyId--------
+ var nameInput = document.getElementById("companyId");
+ nameInput.addEventListener("input", incrementInput);
+	function incrementInput() {
+		console.log("incrementInput called");
+  var input = document.getElementById("companyId");
+  input.value++;
+}
+//end of autoincrement companyId-------
+
+//---------------validate Company name (with numbers)---------------
+var nameInput = document.getElementById("companyName");
+// Add an event listener to the name input field
+nameInput.addEventListener("input", validateCompanyName);
+function validateCompanyName() {
+	//console.log("validate companyname called");
+  var name = document.getElementById("companyName").value;
+  var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+(([',. -][a-zA-Z ])?[a-zA-Z0-9]*)*$/;
+  var companyNameError = document.getElementById("companyNameError");
+  if (!nameRegex.test(name)) {
+//    alert("Please enter a valid company name.");
+	companyNameError.style.display = "block";
+    return false;
+  } else {
+	companyNameError.style.display = "none";
+    return true;
+  }
+}
+//end of validate company name--------
+
+//validate Brand name (with numbers)-------
+var nameInput = document.getElementById("brandName");
+
+// Add an event listener to the name input field
+nameInput.addEventListener("input", validateBrandName);
+
+function validateBrandName() {
+	//console.log("validate brandname called");
+  var name = document.getElementById("brandName").value;
+  var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+(([',. -][a-zA-Z ])?[a-zA-Z0-9]*)*$/;
+  var brandNameError = document.getElementById("brandNameError");
+  if (!nameRegex.test(name)) {
+    brandNameError.style.display = "block";
+    return false;
+  } else {
+	brandNameError.style.display = "none";
+    return true;
+  }
+}
+//end of validate Brand name--------
+
+//founder name validation (without numbers)---------------
+var nameInput = document.getElementById("founderName");
+
+// Add an event listener to the name input field
+nameInput.addEventListener("input", validateFounderName);
+
+function validateFounderName() {
+  var name = document.getElementById("founderName").value;
+  var nameRegex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
+  var founderNameError = document.getElementById("founderNameError");
+  if (!nameRegex.test(name)) {
+    founderNameError.style.display = "block";
+    return false;
+  } else {
+	  founderNameError.style.display = "none";
+    return true;
+  }
+}
+//end of founder name valdation----------------
+
+//ceo/md name validation (without numbers)---------------
+var nameInput = document.getElementById("ceoName");
+
+// Add an event listener to the name input field
+nameInput.addEventListener("input", validateCeoName);
+
+function validateCeoName() {
+  var name = document.getElementById("ceoName").value;
+  var nameRegex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
+  var ceoNameError = document.getElementById("ceoNameError");
+  if (!nameRegex.test(name)) {
+    ceoNameError.style.display = "block";
+    return false;
+  } else {
+	ceoNameError.style.display = "none";
+    return true;
+  }
+}
+//end of ceo/md name valdation----------------
+
+//company website validation------------
+var websiteInput = document.getElementById("companyWebsite");
+
+// Add an event listener to the company website input field
+websiteInput.addEventListener("blur", validateWebsite);
+
+function validateWebsite() {
+  var website = document.getElementById("companyWebsite").value;
+  var websiteRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+  var companyWebsiteError = document.getElementById("companyWebsiteError");
+  if (!websiteRegex.test(website)) {
+    companyWebsiteError.style.display = "block";
+    return false;
+  } else {
+	companyWebsiteError.style.display = "none";
+    return true;
+  }
+}
+// end of company website validation--------------
+
+//company linkedin validation--------------
+var linkedinInput = document.getElementById("companyLinkedin");
+// Add an event listener to the LinkedIn input field
+linkedinInput.addEventListener("blur", validateLinkedin);
+
+function validateLinkedin() {
+  var linkedin = document.getElementById("companyLinkedin").value;
+  var linkedinRegex = /^(http(s)?:\/\/)?([\w]+\.)?linkedin\.com\/company\/[\w-]+(\/.*)?$/;
+  var companyLinkedinError = document.getElementById("companyLinkedinError");
+  if (!linkedinRegex.test(linkedin)) {
+    companyLinkedinError.style.display = "block";
+    return false;
+  } else {
+	companyLinkedinError.style.display = "none";
+    return true;
+  }
+}
+//end of company linkedin validation------------
+
+//other link validation------------
+var relevantLinkInput = document.getElementById("relevantLink");
+
+// Add an event listener to the relevant link input field
+relevantLinkInput.addEventListener("blur", validateRelevantLink);
+
+function validateRelevantLink() {
+  var relevantLink = document.getElementById("relevantLink").value;
+  var urlRegex = /^(http(s)?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w- ;,./?%&=]*)?$/i;
+  var relevantLinkError = document.getElementById("relevantLinkError");
+  if (!urlRegex.test(relevantLink)) {
+    relevantLinkError.style.display = "block";
+    return false;
+  } else {
+	relevantLinkError.style.display = "none";
+    return true;
+  }
+}
+//end of other link validation--------
+
+//future date validation---------------
+ // Get the current date in the format yyyy-mm-dd
+  const currentDate = new Date().toISOString().split('T')[0];
+  // Set the max attribute of the input element to the current date
+  document.querySelector('#startDate').setAttribute('max', currentDate);
+//end of future date validation----------
+
+//add other country dropdown-------------
+//var other = document.getElementById("otherCountryDropdown");
+//// Add an event listener to the relevant link input field
+//other.addEventListener("blur", showOtherOption);
+//
+//function showOtherOption() {
+//	//console.log("otherdrop called");
+//  var dropdown = document.getElementById("otherCountryDropdown");
+//  var otherOptionDiv = document.getElementById("otherCountryOption");
+//  if (dropdown.value === "other") {
+//    otherOptionDiv.style.display = "block";
+//  } else {
+//    otherOptionDiv.style.display = "none";
+//  }
+//}
+//end of add other country dropdown-----------
+
+//other city--------------
+//var other = document.getElementById("cityDropdown");
+//		// Add an event listener to the relevant link input field
+//		other.addEventListener("blur", showOtherCityOption);
+//		function showOtherCityOption() {
+//		  	var dropdown = document.getElementById("cityDropdown");
+//		  	var otherOptionDiv = document.getElementById("otherCityOption");
+//		  	if (dropdown.value === "other") {
+//		    otherOptionDiv.style.display = "block";
+//		  	} else {
+//		    otherOptionDiv.style.display = "none";
+//			}
+//  		}
+//end of other city-------------
+
+//reset form-----------
+var reset = document.getElementById("resetForm");
+// Add an event listener to the relevant link input field
+reset.addEventListener("blur", resetForm);
+function resetForm() {
+  document.getElementById("StartupOnboarding").reset();
+}
+//end of reset form---------------
+
+//Validate submission------------------
+const form = document.getElementById('onboarding'); // replace 'myForm' with the ID of your form element 
+form.addEventListener('submit', function(event) {
+  const presentationValid = validateFile();
+  if (!presentationValid) {
+    event.preventDefault();
+    return;
+  }
+  const otherFileValid = validateOtherFile();
+  if (!otherFileValid) {
+    event.preventDefault();
+    return;
+  }
+  const CompanyNameValid = validateCompanyName();
+  if (!CompanyNameValid) {
+    event.preventDefault();
+    return;
+  }
+  const BrandNameValid = validateBrandName();
+  if (!BrandNameValid) {
+    event.preventDefault();
+    return;
+  }
+  const FounderNameValid = validateFounderName();
+  if (!FounderNameValid) {
+    event.preventDefault();
+    return;
+  }
+  const CeoNameValid = validateCeoName();
+  if (!CeoNameValid) {
+    event.preventDefault();
+    return;
+  }
+  const WebsiteValid = validateWebsite();
+  if (!WebsiteValid) {
+    event.preventDefault();
+    return;
+  }
+  const LinkedinValid = validateLinkedin();
+  if (!LinkedinValid) {
+    event.preventDefault();
+    return;
+  }
+  const RelevantLinkValid = validateRelevantLink();
+  if (!RelevantLinkValid) {
+    event.preventDefault();
+    return;
+  }
+});
+//End of validate submission----------------
+
+/*
+--------------------------------------------------end of customized js-------------------------------------------------------------
+ //-----------------------------------------------------------------------Startup Onboarding JS-------------------------------------
+ */
 
 
 /*Location state and city*/
@@ -506,99 +906,6 @@ items.forEach(item => {
             }
     });
 })
-
-
-// country dropdown generation------------------
- fetch('https://www.universal-tutorial.com/api/countries/', {
-  headers: {
-    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ2emVuZGU4OUBnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ2OUlWQ0o4S0dKT3hzNFhhdXBXQzByRGtYRWxzZUVrc1ZJOE9TSTVZOS1jakVLNWJzWF9RUTRRZHotTlZoancxeGc4In0sImV4cCI6MTY4OTY2MzAyMX0.LckgY0m95RnmXOwBiK7VqSZX8OKpWIe05KCLlusWJk4',
-    'Accept': 'application/json'
-  }
-})
-.then(response => response.json())
-.then(data => {
-  // iterate over the list of countries and create a dropdown with the options
-  const countryDropdown = document.getElementById('country-dropdown');
-  countryDropdown.innerHTML = '<option value="" disabled selected>-- Please select country --</option>';
-  data.forEach(country => {
-    const option = document.createElement('option');
-    option.value = country.country_name;
-    option.textContent = country.country_name;
-    countryDropdown.appendChild(option);
-  });
-})
-.catch(error => console.error(error));
-
-// end of country dropdown generation------------------
-//populate the states dropdown based on the selected country----------------------------
-// Get the country dropdown element
-const countryDropdown = document.getElementById('country-dropdown');
-
-// Get the state dropdown element
-const stateDropdown = document.getElementById('state-Dropdown');
-
-// When the country dropdown value changes, populate the state dropdown
-countryDropdown.addEventListener('change', async () => {
-  // Get the selected country name
-  const countryName = countryDropdown.value;
-
-  // Get the list of states for the selected country
-  const response = await fetch(`https://www.universal-tutorial.com/api/states/${countryName}`, {
-    headers: {
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ2emVuZGU4OUBnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ2OUlWQ0o4S0dKT3hzNFhhdXBXQzByRGtYRWxzZUVrc1ZJOE9TSTVZOS1jakVLNWJzWF9RUTRRZHotTlZoancxeGc4In0sImV4cCI6MTY4OTY2MzAyMX0.LckgY0m95RnmXOwBiK7VqSZX8OKpWIe05KCLlusWJk4',
-      'Accept': 'application/json'
-    }
-  });
-
-  // Convert the response to JSON
-  const data = await response.json();
-
-  // Clear the state dropdown options
-  stateDropdown.innerHTML = '<option value="" disabled selected>-- Please select state --</option>';
-
-  // Populate the state dropdown with the list of states
-  data.forEach(state => {
-    const option = document.createElement('option');
-    option.value = state.state_name;
-    option.textContent = state.state_name;
-    stateDropdown.appendChild(option);
-  });
-});
-//end of populate the states dropdown based on the selected country----------------------------
-//populate cities based on state ------------------------
-// Get the city dropdown element
-const cityDropdown = document.getElementById("city-Dropdown");
-
-// Add an event listener to the state dropdown
-const newstateDropdown = document.getElementById("state-Dropdown");
-newstateDropdown.addEventListener("change", async (event) => {
-  // Get the selected state
-  const selectedState = event.target.value;
-
-  // Fetch the cities for the selected state
-  const response = await fetch(`https://www.universal-tutorial.com/api/cities/${selectedState}`, {
-    headers: {
-      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ2emVuZGU4OUBnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ2OUlWQ0o4S0dKT3hzNFhhdXBXQzByRGtYRWxzZUVrc1ZJOE9TSTVZOS1jakVLNWJzWF9RUTRRZHotTlZoancxeGc4In0sImV4cCI6MTY4OTY2MzAyMX0.LckgY0m95RnmXOwBiK7VqSZX8OKpWIe05KCLlusWJk4",
-      "Accept": "application/json"
-    }
-  });
-  const cities = await response.json();
-
-  // Clear the city dropdown options
-  cityDropdown.innerHTML = '<option value="" disabled selected>-- Please select city --</option>';
-
-  // Populate the city dropdown with the fetched cities
-  cities.forEach(city => {
-    const option = document.createElement('option');
-    option.value = city.city_name;
-    option.text = city.city_name;
-    cityDropdown.add(option);
-  });
-});
-
-//--------end populate cities based on state
-
-
 
 
 
