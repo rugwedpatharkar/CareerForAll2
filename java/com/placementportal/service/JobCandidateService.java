@@ -10,24 +10,22 @@ import com.placementportal.repository.JobCandidateRepository;
 
 @Service
 public class JobCandidateService {
-  
-  @Autowired
-  private JobCandidateRepository JobcandidateRepository;
 
+	@Autowired
+	private JobCandidateRepository jobCandidateRepository;
 
-    public void mapCandidateToJob(int positionid, Long candidateid) {
-        Job job = new Job();
-        job.setPositionid(positionid);
+	public void mapCandidateToJob(int positionid, Long candidateid) {
+		Job job = new Job();
+		job.setPositionid(positionid);
 
-        Candidate candidate = new Candidate();
-        candidate.setCandidateid(candidateid);
+		Candidate candidate = new Candidate();
+		candidate.setCandidateid(candidateid);
 
-        JobCandidate jobCandidate = new JobCandidate();
-        jobCandidate.setJob(job);
-        jobCandidate.setCandidate(candidate);
+		JobCandidate jobCandidate = new JobCandidate();
+		jobCandidate.setJob(job);
+		jobCandidate.setCandidate(candidate);
 
-        JobcandidateRepository.save(jobCandidate);
-    }
- 
+		jobCandidateRepository.save(jobCandidate);
+	}
 
 }

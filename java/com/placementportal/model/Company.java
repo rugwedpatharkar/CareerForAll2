@@ -1,6 +1,5 @@
 package com.placementportal.model;
 
-
 import java.time.LocalDate;
 import java.util.Arrays;
 
@@ -15,79 +14,79 @@ import jakarta.persistence.Table;
 @Table(name = "company")
 
 public class Company {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long company_ID;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long company_ID;
 
 	@Column(nullable = false)
-    private String company_name;
+	private String company_name;
 
 	@Column(nullable = false)
-    private String brand_name;
+	private String brand_name;
 
 	@Column(nullable = false)
-    private LocalDate start_date;
+	private LocalDate start_date;
 
 	@Column(nullable = false)
-    private String head_office_country;
+	private String head_office_country;
 
 	@Column(nullable = false)
-    private String head_office_state;
+	private String head_office_state;
 
 	@Column(nullable = false)
-    private String head_office_city;
+	private String head_office_city;
 
 	@Column(nullable = false)
-    private String founder_name;
+	private String founder_name;
 
 	@Column(nullable = false)
-    private String ceo_md_name;
+	private String ceo_md_name;
 
 	@Column(nullable = false)
-    private String company_website;
+	private String company_website;
 
 	@Column(nullable = false)
-    private String company_linkedin;
+	private String company_linkedin;
 
 	@Column
-    private String other_relevant_link;
+	private String other_relevant_link;
 
 	@Column
-    private byte[] corporate_presentation;
+	private byte[] corporate_presentation;
 
 	@Column
-    private byte[] other_file_upload;
+	private byte[] other_file_upload;
 
 	@Column(nullable = false)
-    private String revenue;
+	private String revenue;
 
 	@Column(nullable = false)
-    private int operating_cities;
+	private int operating_cities;
 
 	@Column(nullable = false)
-    private String sector;
+	private String sector;
 
 	@Column(nullable = false)
-    private String industry;
+	private String industry;
 
 	@Column(nullable = false)
-    private String business_model;
+	private String business_model;
 
 	@Column
-    private String competitor;
+	private String competitor;
 
 	@Column(nullable = false)
-    private String current_employee_count;
+	private String current_employee_count;
 
 	@Column(nullable = false)
-    private int projected_employee_count;
+	private int projected_employee_count;
 
 	@Column(nullable = false)
-    private int yearly_no_of_hires;
+	private int yearly_no_of_hires;
 
 	@Column(nullable = false)
-    private int avg_tenure_of_employee;
+	private int avg_tenure_of_employee;
 
 	public Long getCompany_ID() {
 		return company_ID;
@@ -105,7 +104,6 @@ public class Company {
 		this.company_name = company_name;
 	}
 
-	
 	public String getBrand_name() {
 		return brand_name;
 	}
@@ -312,11 +310,8 @@ public class Company {
 				+ ", toString()=" + super.toString() + "]";
 	}
 
-	
-	
 	public Company() {
 		super();
 	}
-    
-}
 
+}
