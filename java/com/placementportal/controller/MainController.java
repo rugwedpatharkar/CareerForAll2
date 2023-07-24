@@ -326,7 +326,7 @@ public class MainController {
 		model.addAttribute("listcandidate", eligibleCandidates);
 		return "candidatelistfilters";
 	}
-
+ 
 	// end
 	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
 	// wagh)
