@@ -313,7 +313,7 @@ public class MainController {
 		model.addAttribute("listcandidate", eligibleCandidates);
 		return "candidatelistfilters";
 	}
-
+    
 	// candidates mapping to jobs
 	@GetMapping("/candidatemapping/{position_id}/{minKeywordLength}")
 	public String oldmapCandidateToJob(@ModelAttribute("candidate") Candidate candidate,
