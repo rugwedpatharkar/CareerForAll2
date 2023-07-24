@@ -55,7 +55,7 @@ public class MyConfig{
 		 .formLogin((form) -> form
 				 .loginPage("/login")
 				 .loginProcessingUrl("/login")
-				 .defaultSuccessUrl("/user/")
+				 .defaultSuccessUrl("/user/profile")
 				 .permitAll()
 		)
 		 .logout((logout) -> logout.permitAll())

@@ -184,8 +184,9 @@ public class MainController {
 	// Login Controller (Prasad)
 	
 	@GetMapping("/login")
-	public String loginHome()
+	public String loginHome(Model model)
 	{
+		
 		return "login";
 	}
 	
@@ -194,7 +195,8 @@ public class MainController {
 	{
 		return "profile"; 
 	}
-
+	
+	
 	// Registration Controller (Prasad)
 	@GetMapping("/register")
 	public String home()
