@@ -150,7 +150,10 @@ public class JobService {
 
 		return jobRepository.findAllByPostedonGreaterThanEqual(pastMonth);
 	}
-
+	 public Job getJobbyId(int positionid) {
+	        return jobRepository.findById(positionid)
+	                .orElseThrow(() -> new IllegalArgumentException("Job not found with ID: " + positionid));
+	    }
 	// end
 	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
 	// wagh)

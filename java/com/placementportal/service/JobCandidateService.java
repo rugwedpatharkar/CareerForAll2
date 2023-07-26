@@ -3,8 +3,6 @@ package com.placementportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.placementportal.model.Candidate;
-import com.placementportal.model.Job;
 import com.placementportal.model.JobCandidate;
 import com.placementportal.repository.JobCandidateRepository;
 
@@ -13,19 +11,13 @@ public class JobCandidateService {
 
 	@Autowired
 	private JobCandidateRepository jobCandidateRepository;
+	
+	
+	
+	
+	   public JobCandidate saveJobCandidate(JobCandidate jobCandidate) {
+	        return jobCandidateRepository.save(jobCandidate);
+	    }
 
-	public void mapCandidateToJob(int positionid, Long candidateid) {
-		Job job = new Job();
-		job.setPositionid(positionid);
-
-		Candidate candidate = new Candidate();
-		candidate.setCandidateid(candidateid);
-
-		JobCandidate jobCandidate = new JobCandidate();
-		jobCandidate.setJob(job);
-		jobCandidate.setCandidate(candidate);
-
-		jobCandidateRepository.save(jobCandidate);
-	}
 
 }

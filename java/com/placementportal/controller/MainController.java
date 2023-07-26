@@ -25,6 +25,7 @@ import com.placementportal.model.Candidate;
 import com.placementportal.model.Company;
 import com.placementportal.model.Institute;
 import com.placementportal.model.Job;
+import com.placementportal.model.JobCandidate;
 import com.placementportal.model.User;
 import com.placementportal.repository.UserRepository;
 import com.placementportal.service.CandidateService;
@@ -303,7 +304,7 @@ public class MainController {
 
 		return "candidatelistfilters";
 	}
-
+ 
 	@GetMapping("/eligiblecandidates/{positionid}/{minKeywordLength}")
 	public String showEligibleCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
 			Model model) {
@@ -315,18 +316,28 @@ public class MainController {
 	}
 
 	// candidates mapping to jobs
-	@GetMapping("/candidatemapping/{position_id}/{minKeywordLength}")
-	public String oldmapCandidateToJob(@ModelAttribute("candidate") Candidate candidate,
-			@PathVariable int minKeywordLength, Model model, @RequestParam("positionid") int positionid,
-			@RequestParam("candidateid") long candidateid) {
-		jobCandidateService.mapCandidateToJob(positionid, candidateid);
-		Job position = jobService.getJobById(positionid);
-		model.addAttribute("position", position);
-		List<Candidate> eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength);
-		model.addAttribute("listcandidate", eligibleCandidates);
-		return "candidatelistfilters";
-	}
+	 
+	@PostMapping("/mapcandidatetojob/{positionid}/{minKeywordLength}")
+	    public String mapCandidatestoJob( @PathVariable int minKeywordLength,
+				Model model,
+				@RequestParam("positionid") int positionid,
+	            @RequestParam("candidateids") List<Long> candidateids) {
+	        Job job = jobService.getJobbyId(positionid);
+	        List<Candidate> selectedCandidates = candidateService.getCandidatesByIds(candidateids);
 
+	        for (Candidate candidate : selectedCandidates) {
+	            JobCandidate jobCandidate = new JobCandidate();
+	            jobCandidate.setJob(job);
+	            jobCandidate.setCandidate(candidate);
+	            jobCandidateService.saveJobCandidate(jobCandidate);
+	            Job position = jobService.getJobById(positionid);
+	    		model.addAttribute("position", position);
+	    		List<Candidate> eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength);
+	    		model.addAttribute("listcandidate", eligibleCandidates);
+	        }
+ 
+	        return "candidatelistfilters";
+	    }
 	// end
 	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
 	// wagh)

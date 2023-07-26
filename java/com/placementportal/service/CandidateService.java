@@ -67,6 +67,14 @@ public class CandidateService {
 		List<Candidate> listcandidate = candidateRepository.findCandidatesByKeyword("%" + search.toLowerCase() + "%");
 		return listcandidate;
 	}
+	 public Candidate getCandidateById(Long candidateid) {
+	        return candidateRepository.findById(candidateid)
+	                .orElseThrow(() -> new IllegalArgumentException("Candidate not found with ID: " + candidateid));
+	    }
+
+	    public List<Candidate> getCandidatesByIds(List<Long> candidateids) {
+	        return candidateRepository.findAllById(candidateids);
+	    }
 	// end
 	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
 	// wagh)
