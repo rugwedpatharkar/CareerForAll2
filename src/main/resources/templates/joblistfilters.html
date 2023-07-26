@@ -119,7 +119,7 @@
           </li>
           
            <li>
-            <a th:href="@{/joblistfilters}">
+            <a th:href="@{/joblist}">
               <i class="bi bi-circle"></i><span>Job List</span>
             </a>
           </li>        
@@ -191,6 +191,8 @@
 				</ol>
 			</nav>
 		</div>
+		<section class="section dashboard">
+<form th:action="@{/joblistfilters}"id="jobfilter">
 
 	      	<div class="card info-card customers-card">
 				  				
@@ -202,22 +204,21 @@
  
 <!--changes to be done-->
 	
-<form th:action="@{/jobfilter}"id="jobfilter">
   			<div class="single-row">
           <div class="single-column">
               <div class="col-lx-3 col-lg-3 label"style="font-weight:600">Posted On :</div>
             
-        &emsp;<input class="form-check-input" type="radio" name="noofyearsworkex" value="2"> 
+        &emsp;<input class="form-check-input" type="radio" name="timeRange" value="past24hours"> 
               <label class="form-check-label" for="gridRadios1"> Past 24 hours</label>
                 
-        &ensp;<input class="form-check-input" type="radio" name="noofyearsworkex" value="4"> 
+        &ensp;<input class="form-check-input" type="radio" name="timeRange" value="pastweek"> 
               <label class="form-check-label" for="gridRadios2"> Past Week</label>
                 
-        &ensp;<input class="form-check-input" type="radio" name="noofyearsworkex" value="6"> 
+        &ensp;<input class="form-check-input" type="radio" name="timeRange" value="pastmonth"> 
               <label class="form-check-label" for="gridRadios2">Past Month</label>
-                
-        &ensp;<input class="form-check-input" type="radio" name="noofyearsworkex" value="6"> 
-              <label class="form-check-label" for="gridRadios2">Anytime</label>
+              
+               
+       
                 
               </div>
     <div class="single-column">
@@ -281,24 +282,22 @@
 
                 </div>
        	</div>
-						</form>
+						
 <div class="single-row">    
              
-						<form th:action="@{/joblistfilters}">
                         <label class="col-lx-3 col-lg-3 label"style="font-weight:600">Search Position :</label>
          <div class="select-btn"style="width: 280px; height:30px; padding:4px 0 4px 0; font-size:10px; display: inline">
 			 <input style="background: transparent; border: none; outline: none;"autocomplete="off" spellcheck="false" type="text" placeholder="Enter Details"name="keyword" >
-        					<button style="background: transparent; border: none; outline: none;" type="submit" title="Search"><i class="bi bi-search"></i></button>
 									
 								
-								</div>	</form>	
+								</div>	
                 </div>	
 						
 	 		          <div class="single-row" >
 				           <div class="col-sm-10">
 							   
     	                <input type="submit" value="Apply" class="btn btn-success"  form="jobfilter" style="width:60px; height:25px;  padding-top: 2px; font-size: 12px">
-								<a type="reset" th:href="@{/joblistfilters}" class="btn btn-primary"style="width:60px; height:25px;  padding-top: 2px; font-size: 12px">Reset</a> 
+								<a type="reset" th:href="@{/joblist}" class="btn btn-primary"style="width:60px; height:25px;  padding-top: 2px; font-size: 12px">Reset</a> 
 			          </div>
 						</div>
 						
@@ -309,12 +308,12 @@
         <div class="single-row" >    
 
           <h5 class="card-title">
-            Position List<span style="margin-left:160px">Position Type</span><span style="margin-left:110px">Work Mode</span><span style="margin-left:110px"> Country</span><span  style="margin-left:110px"> State</span><span  style="margin-left:110px"> City</span>
+            Position List<span style="margin-left:100px">Position Type</span><span style="margin-left:105px">Work Mode</span><span style="margin-left:105px"> Country</span><span  style="margin-left:110px"> State</span><span  style="margin-left:110px"> City</span>
           </h5>
           <div class="tab-pane fade show active profile-overview"
-            th:each="j : ${listJob}" style="height: auto">
- <div class="single-column" style="display: inline;width:220px;margin:10px 0 10px 0">
-            <a th:href="@{/joblistfilters/{positionid}/{minKeywordLength}(positionid=${j.positionid}, minKeywordLength=3)}">
+            th:each="j : ${listJob}" style="height: auto"id="jobList">
+ <div class="single-column" style="display: inline;width:160px;margin:10px 0 10px 0">
+            <a th:href="@{/eligiblecandidates/{positionid}/{minKeywordLength}(positionid=${j.positionid}, minKeywordLength=3)}">
               <h5 th:text="${j.position}"
                 style="text-decoration: underline;font-size:13px"
                 class="form-check-label card-title"></h5>
@@ -339,10 +338,11 @@
           </div>
           </div>
           </div>
+          
 </div>	
       
       </div>
-
+</form>	
     </section>
 
   </main>
@@ -436,5 +436,5 @@
 
 
   </style>
- 
+  
 </html>

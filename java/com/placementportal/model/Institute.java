@@ -14,8 +14,8 @@ import jakarta.persistence.Table;
 @Table(name = "institute")
 public class Institute {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long instituteid;		
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long instituteid;
 	private String institutename;
 	private String brandname;
 	private Date startdate;
@@ -40,10 +40,10 @@ public class Institute {
 	private Date finalplacement;
 	private Date winterplacement;
 	private Date liveprojects;
-	
+
 	public Institute() {
 		super();
-		
+
 	}
 
 	public Long getInstituteid() {
@@ -248,38 +248,31 @@ public class Institute {
 
 	@Override
 	public String toString() {
-		return "Institute [instituteid=" + instituteid + ", institutename=" + institutename + ", brandname="
-				+ brandname + ", startdate=" + startdate + ", state=" + state + ", maincampuscity="
-				+ maincampuscity + ", othercampuscity=" + othercampuscity + ", foundername=" + foundername
-				+ ", directororprinciple=" + directororprinciple + ", companywebsite=" + companywebsite
-				+ ", companylinkedin=" + companylinkedin + ", anyotherrelevantlink=" + anyotherrelevantlink
-				+ ", corporatepresentation=" + Arrays.toString(corporatepresentation) + ", anyotherfileupload="
-				+ Arrays.toString(anyotherfileupload) + ", specialization=" + specialization + ", batchsize="
-				+ batchsize + ", noofcampuses=" + noofcampuses + ", medianctc=" + medianctc + ", averagectc="
-				+ averagectc + ", summermedianctc=" + summermedianctc + ", preferredsectors=" + preferredsectors
-				+ ", summerplacement=" + summerplacement + ", finalplacement=" + finalplacement
-				+ ", winterplacement=" + winterplacement + ", liveprojects=" + liveprojects + ", getInstituteid()="
-				+ getInstituteid() + ", getInstitutename()=" + getInstitutename() + ", getBrandname()="
-				+ getBrandname() + ", getStartdate()=" + getStartdate() + ", getState()=" + getState()
-				+ ", getMaincampuscity()=" + getMaincampuscity() + ", getOthercampuscity()="
+		return "Institute [instituteid=" + instituteid + ", institutename=" + institutename + ", brandname=" + brandname
+				+ ", startdate=" + startdate + ", state=" + state + ", maincampuscity=" + maincampuscity
+				+ ", othercampuscity=" + othercampuscity + ", foundername=" + foundername + ", directororprinciple="
+				+ directororprinciple + ", companywebsite=" + companywebsite + ", companylinkedin=" + companylinkedin
+				+ ", anyotherrelevantlink=" + anyotherrelevantlink + ", corporatepresentation="
+				+ Arrays.toString(corporatepresentation) + ", anyotherfileupload=" + Arrays.toString(anyotherfileupload)
+				+ ", specialization=" + specialization + ", batchsize=" + batchsize + ", noofcampuses=" + noofcampuses
+				+ ", medianctc=" + medianctc + ", averagectc=" + averagectc + ", summermedianctc=" + summermedianctc
+				+ ", preferredsectors=" + preferredsectors + ", summerplacement=" + summerplacement
+				+ ", finalplacement=" + finalplacement + ", winterplacement=" + winterplacement + ", liveprojects="
+				+ liveprojects + ", getInstituteid()=" + getInstituteid() + ", getInstitutename()=" + getInstitutename()
+				+ ", getBrandname()=" + getBrandname() + ", getStartdate()=" + getStartdate() + ", getState()="
+				+ getState() + ", getMaincampuscity()=" + getMaincampuscity() + ", getOthercampuscity()="
 				+ getOthercampuscity() + ", getFoundername()=" + getFoundername() + ", getDirectororprinciple()="
-				+ getDirectororprinciple() + ", getCompanywebsite()=" + getCompanywebsite()
-				+ ", getCompanylinkedin()=" + getCompanylinkedin() + ", getAnyotherrelevantlink()="
-				+ getAnyotherrelevantlink() + ", getCorporatepresentation()="
-				+ Arrays.toString(getCorporatepresentation()) + ", getAnyotherfileupload()="
-				+ Arrays.toString(getAnyotherfileupload()) + ", getSpecialization()=" + getSpecialization()
-				+ ", getBatchsize()=" + getBatchsize() + ", getNoofcampuses()=" + getNoofcampuses()
-				+ ", getMedianctc()=" + getMedianctc() + ", getAveragectc()=" + getAveragectc()
-				+ ", getSummermedianctc()=" + getSummermedianctc() + ", getPreferredsectors()="
-				+ getPreferredsectors() + ", getSummerplacement()=" + getSummerplacement()
-				+ ", getFinalplacement()=" + getFinalplacement() + ", getWinterplacement()=" + getWinterplacement()
-				+ ", getLiveprojects()=" + getLiveprojects() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
+				+ getDirectororprinciple() + ", getCompanywebsite()=" + getCompanywebsite() + ", getCompanylinkedin()="
+				+ getCompanylinkedin() + ", getAnyotherrelevantlink()=" + getAnyotherrelevantlink()
+				+ ", getCorporatepresentation()=" + Arrays.toString(getCorporatepresentation())
+				+ ", getAnyotherfileupload()=" + Arrays.toString(getAnyotherfileupload()) + ", getSpecialization()="
+				+ getSpecialization() + ", getBatchsize()=" + getBatchsize() + ", getNoofcampuses()="
+				+ getNoofcampuses() + ", getMedianctc()=" + getMedianctc() + ", getAveragectc()=" + getAveragectc()
+				+ ", getSummermedianctc()=" + getSummermedianctc() + ", getPreferredsectors()=" + getPreferredsectors()
+				+ ", getSummerplacement()=" + getSummerplacement() + ", getFinalplacement()=" + getFinalplacement()
+				+ ", getWinterplacement()=" + getWinterplacement() + ", getLiveprojects()=" + getLiveprojects()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
 	}
 
-	
-	
-
-	
-	
 }

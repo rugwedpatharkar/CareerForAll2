@@ -11,19 +11,16 @@ import com.placementportal.repository.InstituteRepository;
 @Service
 public class InstituteService {
 
-
-	
-	
 	@Autowired
 	private InstituteRepository instituteRepository;
 
 	public List<Institute> getAllInstitute() {
-	
+
 		return instituteRepository.findAll();
 	}
 
 	public void saveInstitute(Institute institute) {
-		
+
 		instituteRepository.save(institute);
 	}
 }
