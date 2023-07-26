@@ -139,7 +139,7 @@ public class JobService {
 		Date pastWeek = calendar.getTime();
 
 		return jobRepository.findAllByPostedonGreaterThanEqual(pastWeek);
-	}
+	} 
 
 	public List<Job> getJobsPostedPastMonth() {
 		Date now = new Date();

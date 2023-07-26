@@ -39,7 +39,26 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
+<<<<<<< HEAD
 
+=======
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private UserServiceImpl userServiceImpl;
+	
+	@Autowired
+	private BCryptPasswordEncoder bp;
+	
+	@Autowired
+	private JobService jobService;
+	
+	@Autowired
+	private CompanyService companyService;
+	
+>>>>>>> branch 'main' of https://github.com/rugwedpatharkar/CareerForAll2.git
 	@Autowired
 	private UserRepository userRepository;
 
@@ -182,15 +201,30 @@ public class MainController {
 	// Login Controller (Prasad)
 
 	@GetMapping("/login")
+<<<<<<< HEAD
 	public String loginHome() {
+=======
+	public String loginHome(Model model)
+	{
+		
+>>>>>>> branch 'main' of https://github.com/rugwedpatharkar/CareerForAll2.git
 		return "login";
 	}
+<<<<<<< HEAD
 
 	@GetMapping("/user/")
 	public String userHome() {
 		return "profile";
+=======
+	
+	@GetMapping("/userhome")
+	public String userHome()
+	{
+		return "userhome"; 
+>>>>>>> branch 'main' of https://github.com/rugwedpatharkar/CareerForAll2.git
 	}
-
+	
+	
 	// Registration Controller (Prasad)
 	@GetMapping("/register")
 	public String home() {
