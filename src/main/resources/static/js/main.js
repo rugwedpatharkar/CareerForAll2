@@ -467,8 +467,7 @@ function validateOtherFile() {
     return true;
 }
 //end of other file validation----------------------
-
- //auto increment companyId--------
+//auto increment companyId--------
  var nameInput = document.getElementById("companyId");
  nameInput.addEventListener("input", incrementInput);
 	function incrementInput() {
