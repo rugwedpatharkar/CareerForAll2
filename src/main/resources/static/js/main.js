@@ -320,7 +320,7 @@
 
 })();
 
-//-----------------------------------------------------------------------Startup Onboarding JS-------------------------------------
+//----------------------------------------------------------Startup Onboarding & Startup List JS-------------------------------------
 //country state city dropdowns-----------------------------------------------
 // Function to get the access token from site for API request
 async function getAccessToken() {
@@ -499,7 +499,6 @@ function validateCompanyName() {
 
 //validate Brand name (with numbers)-------
 var nameInput = document.getElementById("brandName");
-
 // Add an event listener to the name input field
 nameInput.addEventListener("input", validateBrandName);
 
@@ -718,7 +717,7 @@ form.addEventListener('submit', function(event) {
 
 /*
 --------------------------------------------------end of customized js-------------------------------------------------------------
- //-----------------------------------------------------------------------Startup Onboarding JS-------------------------------------
+ //---------------------------------------------------end of Startup Onboarding & Startup List JS-------------------------------------
  */
 
 
