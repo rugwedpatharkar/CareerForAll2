@@ -405,7 +405,6 @@ async function populateCitiesDropdown() {
     });
   });
 }
-
 // Call the functions to populate the dropdowns
 populateCountriesDropdown();
 populateStatesDropdown();
