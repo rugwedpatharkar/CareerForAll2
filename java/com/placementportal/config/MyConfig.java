@@ -46,7 +46,7 @@ public class MyConfig{
 		 http.csrf().disable()
 		 .authorizeHttpRequests((requests) -> requests
 		 .requestMatchers("/admin/**").hasRole("ADMIN")
-		 .requestMatchers("/user/**").hasRole("USER")
+		 .requestMatchers("/user/userhome.html").hasRole("USER")
 		 .requestMatchers("/placementofficer/**").hasRole("PO")
 		 .requestMatchers("/hr/**").hasRole("HR")
 		 .requestMatchers("/**").permitAll()
@@ -55,7 +55,7 @@ public class MyConfig{
 		 .formLogin((form) -> form
 				 .loginPage("/login")
 				 .loginProcessingUrl("/login")
-				 .defaultSuccessUrl("/user/profile")
+				 .defaultSuccessUrl("/userhome")
 				 .permitAll()
 		)
 		 .logout((logout) -> logout.permitAll())

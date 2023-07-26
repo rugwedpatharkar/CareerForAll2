@@ -56,8 +56,6 @@ public class MainController {
 	@Autowired
 	private CompanyService companyService;
 	
-	
-
 	@Autowired
 	private InstituteService institueService; 	
 
@@ -190,10 +188,10 @@ public class MainController {
 		return "login";
 	}
 	
-	@GetMapping("/user/")
+	@GetMapping("/userhome")
 	public String userHome()
 	{
-		return "profile"; 
+		return "userhome"; 
 	}
 	
 	
