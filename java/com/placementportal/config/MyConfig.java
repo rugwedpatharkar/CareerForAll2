@@ -33,7 +33,7 @@ public class MyConfig {
 		dao.setPasswordEncoder(getPassword());
 		return dao;
 	}
-<<<<<<< HEAD
+
 
 	// configure methods
 
@@ -53,7 +53,6 @@ public class MyConfig {
 
 		return http.build();
 	}
-=======
 	
 	//configure methods
 	
@@ -82,6 +81,5 @@ public class MyConfig {
 		 
 	        return http.build();
 	    }
->>>>>>> branch 'main' of https://github.com/rugwedpatharkar/CareerForAll2.git
 
 }
