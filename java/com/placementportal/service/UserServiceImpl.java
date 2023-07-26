@@ -7,8 +7,8 @@ import com.placementportal.model.User;
 import com.placementportal.repository.UserRepository;
 
 @Service
-public class UserServiceImpl implements UserService{
-	
+public class UserServiceImpl implements UserService {
+
 	@Autowired
 	private UserRepository urepo;
 
@@ -20,15 +20,14 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean checkEmail(String email) {
-		
+
 		return urepo.existsByEmail(email);
 	}
-	
+
 //	public User login(String email, String password) {
 //		User user=urepo.findByEmailAndPassword(email,password);
 //		return user;
-//	
+//
 //	}
-	
-	
+
 }

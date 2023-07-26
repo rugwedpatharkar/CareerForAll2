@@ -6,5 +6,4 @@ import com.placementportal.model.Institute;
 
 public interface InstituteRepository extends JpaRepository<Institute, Long> {
 
-	
 }

@@ -9,35 +9,32 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-
 @Configuration
 @EnableWebSecurity
-public class MyConfig{
+public class MyConfig {
 
 	@Bean
-	public UserDetailsService getUserDetailsService()
-	{
+	public UserDetailsService getUserDetailsService() {
 		return new CustomUserDetailsService();
 	}
-	
+
 	@Bean
-	public BCryptPasswordEncoder getPassword()
-	{
-		 return new BCryptPasswordEncoder();
+	public BCryptPasswordEncoder getPassword() {
+		return new BCryptPasswordEncoder();
 	}
-	
+
 	// diffrent type provider in spring perform into database
-	
+
 	@Bean
-	public DaoAuthenticationProvider daoAuthenticationProvider()
-	{
-		DaoAuthenticationProvider dao=new DaoAuthenticationProvider();
+	public DaoAuthenticationProvider daoAuthenticationProvider() {
+		DaoAuthenticationProvider dao = new DaoAuthenticationProvider();
 		// set userdetailservice object
 		dao.setUserDetailsService(getUserDetailsService());
 		dao.setPasswordEncoder(getPassword());
 		return dao;
 	}
-	
+
+		
 	//configure methods
 	
 	 @Bean
@@ -46,7 +43,7 @@ public class MyConfig{
 		 http.csrf().disable()
 		 .authorizeHttpRequests((requests) -> requests
 		 .requestMatchers("/admin/**").hasRole("ADMIN")
-		 .requestMatchers("/user/**").hasRole("USER")
+		 .requestMatchers("/user/userhome.html").hasRole("USER")
 		 .requestMatchers("/placementofficer/**").hasRole("PO")
 		 .requestMatchers("/hr/**").hasRole("HR")
 		 .requestMatchers("/**").permitAll()
@@ -55,7 +52,7 @@ public class MyConfig{
 		 .formLogin((form) -> form
 				 .loginPage("/login")
 				 .loginProcessingUrl("/login")
-				 .defaultSuccessUrl("/user/")
+				 .defaultSuccessUrl("/userhome")
 				 .permitAll()
 		)
 		 .logout((logout) -> logout.permitAll())

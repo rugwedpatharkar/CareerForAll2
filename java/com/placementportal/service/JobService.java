@@ -1,7 +1,9 @@
 package com.placementportal.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,30 +27,16 @@ public class JobService {
 	@Autowired
 	private CandidateService candidateService;
 
-
-	
 	public void saveJob(Job job) {
 		this.jobRepository.save(job);
 	}
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay wagh)
-	//start
+	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
+	// wagh)
+	// start
 
 	public List<Job> findJobList() {
-		
+
 		return jobRepository.findAll();
 	}
 
@@ -58,73 +46,72 @@ public class JobService {
 		}
 		return jobRepository.findAll();
 	}
-	
-	
+
 	public List<Candidate> findEligibleCandidates(int positionid, int minKeywordLength) {
-        Job job = jobRepository.findById(positionid).orElse(null);
-        if (job == null) {
-            return Collections.emptyList();
-        }
+		Job job = jobRepository.findById(positionid).orElse(null);
+		if (job == null) {
+			return Collections.emptyList();
+		}
 
-        String[] jobKeywords = job.getDescription().split(" ");
-        List<Candidate> eligibleCandidates = new ArrayList<>();
+		String[] jobKeywords = job.getDescription().split(" ");
+		List<Candidate> eligibleCandidates = new ArrayList<>();
 
-        for (String keyword : jobKeywords) {
-            if (keyword.length() > minKeywordLength) {
-                List<Candidate> candidates = candidateService.findCandidatesByPrimarySkills(keyword);
-                eligibleCandidates.addAll(candidates);
-            }
-        }
+		for (String keyword : jobKeywords) {
+			if (keyword.length() > minKeywordLength) {
+				List<Candidate> candidates = candidateService.findCandidatesByPrimarySkills(keyword);
+				eligibleCandidates.addAll(candidates);
+			}
+		}
 
-        return eligibleCandidates;
-    }
-	
-	
-	 public List<Candidate> findEligibleCandidates(int positionId, int minKeywordLength, String noofyearsworkex, String workmode, String joborinternship) {
-	        Job job = jobRepository.findById(positionId).orElse(null);
-	        if (job == null) {
-	            return Collections.emptyList();
-	        }
+		return eligibleCandidates;
+	}
 
-	        String[] jobKeywords = job.getDescription().split(" ");
-	        List<Candidate> eligibleCandidates = new ArrayList<>();
+	public List<Candidate> findEligibleCandidates(int positionId, int minKeywordLength, String noofyearsworkex,
+			String workmode, String joborinternship) {
+		Job job = jobRepository.findById(positionId).orElse(null);
+		if (job == null) {
+			return Collections.emptyList();
+		}
 
-	        for (String keyword : jobKeywords) {
-	            if (keyword.length() > minKeywordLength) {
-	                List<Candidate> candidates = candidateRepository.findCandidatesByPrimarySkills(keyword);
-	                eligibleCandidates.addAll(candidates);
-	            }
-	        }
+		String[] jobKeywords = job.getDescription().split(" ");
+		List<Candidate> eligibleCandidates = new ArrayList<>();
 
-	        eligibleCandidates = filterCandidates(eligibleCandidates, noofyearsworkex, workmode, joborinternship);
+		for (String keyword : jobKeywords) {
+			if (keyword.length() > minKeywordLength) {
+				List<Candidate> candidates = candidateRepository.findCandidatesByPrimarySkills(keyword);
+				eligibleCandidates.addAll(candidates);
+			}
+		}
 
-	        return eligibleCandidates;
-	    }
-	 
+		eligibleCandidates = filterCandidates(eligibleCandidates, noofyearsworkex, workmode, joborinternship);
 
-	    private List<Candidate> filterCandidates(List<Candidate> candidates, String noofyearsworkex, String workmode, String joborinternship) {
-	        List<Candidate> listcandidate = new ArrayList<>(candidates);
+		return eligibleCandidates;
+	}
 
-	        if (StringUtils.isNotBlank(noofyearsworkex)) {
-	        	listcandidate.removeIf(candidate -> candidate.getNoofyearsworkex().equalsIgnoreCase(noofyearsworkex));
-	        }
-	        if (StringUtils.isNotBlank(workmode)) {
-	        	listcandidate.removeIf(candidate -> !candidate.getWorkmode().equalsIgnoreCase(workmode));
-	        }
+	private List<Candidate> filterCandidates(List<Candidate> candidates, String noofyearsworkex, String workmode,
+			String joborinternship) {
+		List<Candidate> listcandidate = new ArrayList<>(candidates);
 
-	        if (StringUtils.isNotBlank(joborinternship)) {
-	        	listcandidate.removeIf(candidate -> !candidate.getJoborinternship().equalsIgnoreCase(joborinternship));
-	        }
+		if (StringUtils.isNotBlank(noofyearsworkex)) {
+			listcandidate.removeIf(candidate -> candidate.getNoofyearsworkex().equalsIgnoreCase(noofyearsworkex));
+		}
+		if (StringUtils.isNotBlank(workmode)) {
+			listcandidate.removeIf(candidate -> !candidate.getWorkmode().equalsIgnoreCase(workmode));
+		}
 
-	        return listcandidate;
-	    }
-	
-	    
+		if (StringUtils.isNotBlank(joborinternship)) {
+			listcandidate.removeIf(candidate -> !candidate.getJoborinternship().equalsIgnoreCase(joborinternship));
+		}
+
+		return listcandidate;
+	}
+
 	public List<Job> getJobByCriteria(Job job) {
+
 		return jobRepository.findJobByIgnoreCase(job.getCountry(), job.getState(), job.getCity(), job.getWorkmode(),
 				job.getNoworkexperience(), job.getPositiontype());
 	}
-	
+
 	public Job getJobById(int positionid) {
 		Optional<Job> j = jobRepository.findById(positionid);
 
@@ -133,11 +120,42 @@ public class JobService {
 		}
 		return null;
 	}
-	
-	
-	
-			 	//end
-				//JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay wagh)
+
+	public List<Job> getJobsPostedPast24Hours() {
+		Date now = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(now);
+		calendar.add(Calendar.DAY_OF_YEAR, -1);
+		Date past24Hours = calendar.getTime();
+
+		return jobRepository.findAllByPostedonGreaterThanEqual(past24Hours);
+	}
+
+	public List<Job> getJobsPostedPastWeek() {
+		Date now = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(now);
+		calendar.add(Calendar.WEEK_OF_YEAR, -1);
+		Date pastWeek = calendar.getTime();
+
+		return jobRepository.findAllByPostedonGreaterThanEqual(pastWeek);
+	} 
+
+	public List<Job> getJobsPostedPastMonth() {
+		Date now = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(now);
+		calendar.add(Calendar.MONTH, -1);
+		Date pastMonth = calendar.getTime();
+
+		return jobRepository.findAllByPostedonGreaterThanEqual(pastMonth);
+	}
+	 public Job getJobbyId(int positionid) {
+	        return jobRepository.findById(positionid)
+	                .orElseThrow(() -> new IllegalArgumentException("Job not found with ID: " + positionid));
+	    }
+	// end
+	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
+	// wagh)
 
 }
- 
