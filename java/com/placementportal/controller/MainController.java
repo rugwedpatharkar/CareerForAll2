@@ -185,16 +185,11 @@ public class MainController {
 	// Login Controller (Prasad)
 
 	@GetMapping("/login")
-	public String loginHome() {
-	public String loginHome(Model model)
+		public String loginHome(Model model)
 	{
 				return "login";
 	}
 
-	@GetMapping("/user/")
-	public String userHome() {
-		return "profile";
-	}
 	@GetMapping("/userhome")
 	public String userHome()
 	{
