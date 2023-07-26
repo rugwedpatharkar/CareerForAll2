@@ -45,6 +45,7 @@ public class MyConfig {
 		 .requestMatchers("/admin/**").hasRole("ADMIN")
 		 .requestMatchers("/user/userhome.html").hasRole("USER")
 		 .requestMatchers("/placementofficer/**").hasRole("PO")
+		 
 		 .requestMatchers("/hr/**").hasRole("HR")
 		 .requestMatchers("/**").permitAll()
 		 .anyRequest().authenticated()
