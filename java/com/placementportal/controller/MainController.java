@@ -182,7 +182,7 @@ public class MainController {
 		return "redirect:/candidate_registration";
 	}
 
-	// Login Controller (Prasad)
+	// ************************ User Login And Registration  **************************
 
 	@GetMapping("/login")
 		public String loginHome(Model model)
@@ -194,6 +194,21 @@ public class MainController {
 	public String userHome()
 	{
 		return "userhome"; 
+	}
+	@GetMapping("/adminhome")
+	public String adminhome()
+	{
+		return "adminhome"; 
+	}
+	@GetMapping("/profile")
+	public String hrhome()
+	{
+		return "profile"; 
+	}
+	@GetMapping("/pohome")
+	public String pohome()
+	{
+		return "pohome"; 
 	}
 	
 	
@@ -221,6 +236,8 @@ public class MainController {
 
 		return "redirect:/register?success";
 	}
+	
+	// ************************ End of User Login And Registration  **************************
 
 	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
 	// wagh)

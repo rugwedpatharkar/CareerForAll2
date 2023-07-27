@@ -1,5 +1,6 @@
 package com.placementportal.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -8,11 +9,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
 public class MyConfig {
-
+	
+	@Autowired
+	private AuthenticationSuccessHandler customAuthenticationSuccessHandler;
+	
 	@Bean
 	public UserDetailsService getUserDetailsService() {
 		return new CustomUserDetailsService();
@@ -42,18 +47,17 @@ public class MyConfig {
 	        
 		 http.csrf().disable()
 		 .authorizeHttpRequests((requests) -> requests
-		 .requestMatchers("/admin/**").hasRole("ADMIN")
+		 .requestMatchers("/admin/adminhome.html").hasRole("ADMIN")
 		 .requestMatchers("/user/userhome.html").hasRole("USER")
-		 .requestMatchers("/placementofficer/**").hasRole("PO")
-		 
-		 .requestMatchers("/hr/**").hasRole("HR")
+		 .requestMatchers("/placementofficer/pohome.html*").hasRole("PO")
+		 .requestMatchers("/hr/profile.html").hasRole("HR")
 		 .requestMatchers("/**").permitAll()
 		 .anyRequest().authenticated()
 		 )
 		 .formLogin((form) -> form
 				 .loginPage("/login")
 				 .loginProcessingUrl("/login")
-				 .defaultSuccessUrl("/userhome")
+				 .successHandler(customAuthenticationSuccessHandler)
 				 .permitAll()
 		)
 		 .logout((logout) -> logout.permitAll())
