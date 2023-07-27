@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.placementportal.model.Candidate;
+import com.placementportal.model.Company;
 import com.placementportal.model.Job;
 import com.placementportal.repository.CandidateRepository;
 import com.placementportal.repository.JobRepository;
@@ -30,6 +31,24 @@ public class CandidateService {
 		this.candidateRepository.save(candidate);
 	}
 
+//	public Candidate getCandidateById(Long id) {
+//		return candidateRepository.findById(id).orElse(null);
+//	}
+
+	public void deleteCandidateById(Long id) {
+		this.candidateRepository.deleteById(id);
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
 	// wagh)
 //start
