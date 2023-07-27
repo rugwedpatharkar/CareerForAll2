@@ -30,6 +30,7 @@
 <link th:href="@{/vendor/quill/quill.bubble.css}" rel="stylesheet">
 <link th:href="@{/vendor/remixicon/remixicon.css}" rel="stylesheet">
 <link th:href="@{/vendor/simple-datatables/style.css}" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Template Main CSS File -->
 <link th:href="@{/css/style.css}" rel="stylesheet">
@@ -280,19 +281,19 @@
           	<div class="single-row">
 
               <div class="single-column"style="width:55%">
-                 <div class="col-lx-3 col-lg-3 label "style="font-weight:600">Location :
-   &emsp;<select class="form-select" name="country"  id="country-dropdown" style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline" aria-label="Default select example">
+                   <div class="col-lx-3 col-lg-3 label ">Location :
+   &emsp;<select class="form-select"  name="country" id="country-dropdown" style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline" aria-label="Default select example">
                        <option value="" disabled selected>-- Please select country --</option>
          </select> 
            &emsp;<select class="form-select" name="state"  id="state-Dropdown" style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline" aria-label="Default select example">
                     <option value="" disabled selected>-- Please select state --</option>
          </select> 
-                &ensp;<select class="form-select" name="candidatecity" id="city-Dropdown" aria-label="Default select example"style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline">
+                &ensp;<select class="form-select" name="city" id="city-Dropdown" aria-label="Default select example"style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline">
                      <option value="" disabled selected>-- Please select state --</option>
 
                 </select>
-								
-						</div>
+
+                </div>
           </div>
 
               
@@ -338,7 +339,7 @@
 						<hr style="width: 100%; text-align: center; margin-left: 0">
 
 						<h5 class="card-title" style="padding-top: 5px;">Candidate List</span></h5>
-					<form th:action="@{/mapcandidatetojob/{positionid}/{minKeywordLength}(minKeywordLength=3)}" th:object="${selectedCandidatesForm}" method="post">
+					<form id="mapcandidateform" th:action="@{/mapcandidatetojob/{positionid}/{minKeywordLength}(minKeywordLength=3)}" th:object="${selectedCandidatesForm}" method="post">
 
 						<table class="table datatable">
 							<thead>
@@ -365,13 +366,16 @@
 								</tr>
 							</tbody>
 						</table>
-						  <input type="hidden"name="positionid"  th:value="${position.positionid}">
+					 <input type="hidden"name="positionid"  th:value="${position.positionid}">
+					
+						</form>
 						<div class="row mb-3">
 							<div class="col-sm-10">
-								<button type="submit" class="btn btn-success" style="width:90px; height:25px;  padding-top: 2px; font-size: 12px";>Map Candidate</button>
+								<button type="submit" class="btn btn-success" form="mapcandidateform" style="width:90px; height:25px;  padding-top: 2px; font-size: 12px";>Map Candidate</button>
 							</div>
+							
 						</div>
-						</form>
+						
 						</div>
 					</div>
 				</div>

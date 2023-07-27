@@ -91,10 +91,11 @@ public class JobService {
 	private List<Candidate> filterCandidates(List<Candidate> candidates, String noofyearsworkex, String workmode,
 			String joborinternship) {
 		List<Candidate> listcandidate = new ArrayList<>(candidates);
-
 		if (StringUtils.isNotBlank(noofyearsworkex)) {
-			listcandidate.removeIf(candidate -> candidate.getNoofyearsworkex().equalsIgnoreCase(noofyearsworkex));
+		    listcandidate.removeIf(candidate -> !candidate.getNoofyearsworkex().equals(noofyearsworkex));
 		}
+
+		
 		if (StringUtils.isNotBlank(workmode)) {
 			listcandidate.removeIf(candidate -> !candidate.getWorkmode().equalsIgnoreCase(workmode));
 		}
@@ -139,7 +140,7 @@ public class JobService {
 		Date pastWeek = calendar.getTime();
 
 		return jobRepository.findAllByPostedonGreaterThanEqual(pastWeek);
-	} 
+	}
 
 	public List<Job> getJobsPostedPastMonth() {
 		Date now = new Date();
@@ -150,10 +151,11 @@ public class JobService {
 
 		return jobRepository.findAllByPostedonGreaterThanEqual(pastMonth);
 	}
-	 public Job getJobbyId(int positionid) {
-	        return jobRepository.findById(positionid)
-	                .orElseThrow(() -> new IllegalArgumentException("Job not found with ID: " + positionid));
-	    }
+
+	public Job getJobbyId(int positionid) {
+		return jobRepository.findById(positionid)
+				.orElseThrow(() -> new IllegalArgumentException("Job not found with ID: " + positionid));
+	}
 	// end
 	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
 	// wagh)

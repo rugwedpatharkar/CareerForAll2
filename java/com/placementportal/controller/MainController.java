@@ -40,23 +40,20 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class MainController {
 
-	
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private UserServiceImpl userServiceImpl;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder bp;
-	
+
 	@Autowired
 	private JobService jobService;
-	
+
 	@Autowired
 	private CompanyService companyService;
-	
-	
 
 	@Autowired
 	private InstituteService institueService;
@@ -171,6 +168,8 @@ public class MainController {
 	// Candidate COntroller
 	@GetMapping("/candidate_registration")
 	public String candidateregistration(Model model) {
+		List<Institute> institutes = institueService.getAllInstitute();
+		model.addAttribute("institutes", institutes);
 		Candidate candidate = new Candidate();
 		model.addAttribute("candidate", candidate);
 		return ("candidate_registration");
@@ -185,18 +184,15 @@ public class MainController {
 	// Login Controller (Prasad)
 
 	@GetMapping("/login")
-		public String loginHome(Model model)
-	{
-				return "login";
+	public String loginHome(Model model) {
+		return "login";
 	}
 
 	@GetMapping("/userhome")
-	public String userHome()
-	{
-		return "userhome"; 
+	public String userHome() {
+		return "userhome";
 	}
-	
-	
+
 	// Registration Controller (Prasad)
 	@GetMapping("/register")
 	public String home() {
@@ -310,7 +306,7 @@ public class MainController {
 
 		return "candidatelistfilters";
 	}
- 
+
 	@GetMapping("/eligiblecandidates/{positionid}/{minKeywordLength}")
 	public String showEligibleCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
 			Model model) {
@@ -322,28 +318,26 @@ public class MainController {
 	}
 
 	// candidates mapping to jobs
-	 
-	@PostMapping("/mapcandidatetojob/{positionid}/{minKeywordLength}")
-	    public String mapCandidatestoJob( @PathVariable int minKeywordLength,
-				Model model,
-				@RequestParam("positionid") int positionid,
-	            @RequestParam("candidateids") List<Long> candidateids) {
-	        Job job = jobService.getJobbyId(positionid);
-	        List<Candidate> selectedCandidates = candidateService.getCandidatesByIds(candidateids);
 
-	        for (Candidate candidate : selectedCandidates) {
-	            JobCandidate jobCandidate = new JobCandidate();
-	            jobCandidate.setJob(job);
-	            jobCandidate.setCandidate(candidate);
-	            jobCandidateService.saveJobCandidate(jobCandidate);
-	            Job position = jobService.getJobById(positionid);
-	    		model.addAttribute("position", position);
-	    		List<Candidate> eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength);
-	    		model.addAttribute("listcandidate", eligibleCandidates);
-	        }
- 
-	        return "candidatelistfilters";
-	    }
+	@PostMapping("/mapcandidatetojob/{positionid}/{minKeywordLength}")
+	public String mapCandidatestoJob(@PathVariable int minKeywordLength, Model model,
+			@RequestParam("positionid") int positionid, @RequestParam("candidateids") List<Long> candidateids) {
+		Job job = jobService.getJobbyId(positionid);
+		List<Candidate> selectedCandidates = candidateService.getCandidatesByIds(candidateids);
+
+		for (Candidate candidate : selectedCandidates) {
+			JobCandidate jobCandidate = new JobCandidate();
+			jobCandidate.setJob(job);
+			jobCandidate.setCandidate(candidate);
+			jobCandidateService.saveJobCandidate(jobCandidate);
+			Job position = jobService.getJobById(positionid);
+			model.addAttribute("position", position);
+			List<Candidate> eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength);
+			model.addAttribute("listcandidate", eligibleCandidates);
+		}
+
+		return "candidatelistfilters";
+	}
 	// end
 	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
 	// wagh)

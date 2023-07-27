@@ -34,33 +34,23 @@ public class MyConfig {
 		return dao;
 	}
 
-		
-	//configure methods
-	
-	 @Bean
-	    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-	        
-		 http.csrf().disable()
-		 .authorizeHttpRequests((requests) -> requests
-		 .requestMatchers("/admin/**").hasRole("ADMIN")
-		 .requestMatchers("/user/userhome.html").hasRole("USER")
-		 .requestMatchers("/placementofficer/**").hasRole("PO")
-		 .requestMatchers("/hr/**").hasRole("HR")
-		 .requestMatchers("/**").permitAll()
-		 .anyRequest().authenticated()
-		 )
-		 .formLogin((form) -> form
-				 .loginPage("/login")
-				 .loginProcessingUrl("/login")
-				 .defaultSuccessUrl("/userhome")
-				 .permitAll()
-		)
-		 .logout((logout) -> logout.permitAll())
-         .exceptionHandling().accessDeniedPage("/access-denied");
-		 
-		 http.authenticationProvider(daoAuthenticationProvider());
-		 
-	        return http.build();
-	    }
+	// configure methods
+
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+		http.csrf().disable()
+				.authorizeHttpRequests((requests) -> requests.requestMatchers("/admin/**").hasRole("ADMIN")
+						.requestMatchers("/user/userhome.html").hasRole("USER").requestMatchers("/placementofficer/**")
+						.hasRole("PO").requestMatchers("/hr/**").hasRole("HR").requestMatchers("/**").permitAll()
+						.anyRequest().authenticated())
+				.formLogin((form) -> form.loginPage("/login").loginProcessingUrl("/login")
+						.defaultSuccessUrl("/userhome").permitAll())
+				.logout((logout) -> logout.permitAll()).exceptionHandling().accessDeniedPage("/access-denied");
+
+		http.authenticationProvider(daoAuthenticationProvider());
+
+		return http.build();
+	}
 
 }

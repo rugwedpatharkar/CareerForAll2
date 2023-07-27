@@ -11,13 +11,9 @@ public class JobCandidateService {
 
 	@Autowired
 	private JobCandidateRepository jobCandidateRepository;
-	
-	
-	
-	
-	   public JobCandidate saveJobCandidate(JobCandidate jobCandidate) {
-	        return jobCandidateRepository.save(jobCandidate);
-	    }
 
+	public JobCandidate saveJobCandidate(JobCandidate jobCandidate) {
+		return jobCandidateRepository.save(jobCandidate);
+	}
 
 }

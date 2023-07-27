@@ -406,10 +406,8 @@
             <div class="col-sm-10">
               <select  class="form-select" name="institutename" aria-label="Default select example" required>
                 <option value=""  selected>--select Institute Name --</option>
-                <option value="1">College 1</option>
-                <option value="2">College 2</option>
-                <option value="3">College 3</option>
-                <option value="4">College 4</option>
+                <option th:each="institute : ${institutes}" th:value="${institute.instituteid}"
+                    th:text="${institute.institutename}"></option>
               </select>
             </div>
           </div>
