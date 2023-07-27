@@ -97,17 +97,19 @@ public class MainController {
 		return ("redirect:/CompanyList");
 	}
 
-	@GetMapping("/CompanyList")
-	public String showCompany(Model model) {
-		model.addAttribute("listCompanies", companyService.getAllCompanies());
-		return "CompanyList";
-	}
 
 	@GetMapping("/startup_onboarding")
 	public String startup_onboarding(Model model) {
 		Company company = new Company();
 		model.addAttribute("company", company);
 		return ("startup_onboarding");
+	}
+
+	
+	@GetMapping("/CompanyList")
+	public String showCompany(Model model) {
+		model.addAttribute("listCompanies", companyService.getAllCompanies());
+		return "CompanyList";
 	}
 
 	@GetMapping("/editCompany/{id}")
@@ -180,6 +182,35 @@ public class MainController {
 		candidateService.saveCandidate(candidate);
 		return "redirect:/candidate_registration";
 	}
+	
+	@GetMapping("/CandidateList")
+	public String showCandidate(Model model) {
+		model.addAttribute("listCandidates", candidateService.getAllCandidates());
+		return "CandidateList";
+	}
+
+	@GetMapping("/editCandiadte/{id}")
+	public String editCandidateForm(@PathVariable("id") Long id, Model model) {
+		Candidate candidate = candidateService.getCandidateById(id);
+		model.addAttribute("candidate",candidate);
+		return "editCandidate";
+	}
+
+	@PostMapping("/updateCandidate")
+	public String updateCandiadte(@ModelAttribute("candidate") Candidate candidate) {
+		candidateService.saveCandidate(candidate);
+		return "redirect:/CandidateList";
+	}
+
+	@GetMapping("/deleteCandidate/{id}")
+	public String deleteCandidate(@PathVariable(value = "id") Long id) {
+		this.candidateService.deleteCandidateById(id);
+		return "redirect:/CandidateList";
+	}
+
+	
+	
+	
 
 	// Login Controller (Prasad)
 
