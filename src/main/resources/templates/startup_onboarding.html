@@ -202,6 +202,15 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
+                                <label for="inputText" class="col-sm-2 col-form-label required">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="text" th:field="*{companyemail}" class="form-control" id="companyEmail" name="companyEmail" required>
+                                    <div id="companyEmailError" class="invalid-feedback">
+                                        Please enter a valid email id.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
                                 <label for="inputDate" class="col-sm-2 col-form-label required">Start Date</label>
                                 <div class="col-sm-10">
                                     <input type="date" th:field="*{start_date}" class="form-control" id="startDate" required max="">
@@ -455,7 +464,7 @@
 		                  <div class="row mb-3 d-none"><!-- to hide field d-none -->
 		                      <label for="inputPassword" class="col-sm-2 col-form-label required">CompanyID</label>
 		                      <div class="col-sm-10">
-		                          <input type="text" id="companyId" value="100" th:field="*{company_ID}" class="form-control" readonly>
+		                          <input type="text" id="companyId" value="100" th:field="*{companyid}" class="form-control" readonly>
 		                      </div>
 		                  </div>
 		                  <div class="d-flex justify-content-center mt-5">

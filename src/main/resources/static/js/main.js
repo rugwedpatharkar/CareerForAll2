@@ -410,6 +410,25 @@ populateCountriesDropdown();
 populateStatesDropdown();
 populateCitiesDropdown();
 //end of country state city dropdowns-----------------------------------------------
+//------------------company email validation----------------
+var emailInput = document.getElementById("companyEmail");
+
+// Add an event listener to the email input field
+emailInput.addEventListener("input", validateCompanyEmail);
+
+function validateCompanyEmail() {
+  var email = document.getElementById("companyEmail").value;
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email regex
+  var companyEmailError = document.getElementById("companyEmailError");
+  if (!emailRegex.test(email)) {
+    companyEmailError.style.display = "block";
+    return false;
+  } else {
+    companyEmailError.style.display = "none";
+    return true;
+  }
+}
+//------------------end of company email validation----------------
 //validation of presentation file--------------------
 document.getElementById('presentation').addEventListener('change', validateFile);
 var presentationSizeError = document.getElementById("presentationSizeError");
