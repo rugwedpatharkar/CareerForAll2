@@ -18,19 +18,19 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler{
 			Authentication authentication) throws IOException, ServletException {
 		
 		if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ADMIN"))) {
-            response.sendRedirect("/adminhome"); // Redirect to admin page for users with ROLE_ADMIN
+            response.sendRedirect("/adminhome"); // Redirect to admin page for users with ROLE ADMIN
         } else if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("USER"))) {
-            response.sendRedirect("/userhome"); // Redirect to user page for users with ROLE_USER
+            response.sendRedirect("/userhome"); // Redirect to user page for users with ROLE USER
         }else if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("HR"))) {
-            response.sendRedirect("/profile"); // Redirect to user page for users with ROLE_USER
+            response.sendRedirect("/profile"); // Redirect to user page for users with ROLE HR
         }
         else if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("PO"))) {
-            response.sendRedirect("/pohome"); // Redirect to user page for users with ROLE_USER
+            response.sendRedirect("/pohome"); // Redirect to user page for users with ROLE PO
         }
         else{
             response.sendRedirect("/"); // Default redirect for other roles or unauthenticated users
         }
-		
+				
 	}
 	
 }
