@@ -215,7 +215,7 @@ public class MainController {
 	
 	
 
-	// Login Controller (Prasad)
+	// ************************ User Login And Registration  **************************
 
 	@GetMapping("/login")
 	public String loginHome(Model model) {
@@ -226,7 +226,27 @@ public class MainController {
 	public String userHome() {
 		return "userhome";
 	}
+<<<<<<< HEAD
 
+=======
+	@GetMapping("/adminhome")
+	public String adminhome()
+	{
+		return "adminhome"; 
+	}
+	@GetMapping("/profile")
+	public String hrhome()
+	{
+		return "profile"; 
+	}
+	@GetMapping("/pohome")
+	public String pohome()
+	{
+		return "pohome"; 
+	}
+	
+	
+>>>>>>> branch 'main' of https://github.com/rugwedpatharkar/CareerForAll2.git
 	// Registration Controller (Prasad)
 	@GetMapping("/register")
 	public String home() {
@@ -251,6 +271,8 @@ public class MainController {
 
 		return "redirect:/register?success";
 	}
+	
+	// ************************ End of User Login And Registration  **************************
 
 	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
 	// wagh)

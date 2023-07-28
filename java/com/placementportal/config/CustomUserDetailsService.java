@@ -26,26 +26,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 		}
 		throw new UsernameNotFoundException("User not available");
 
-		/*
-		 * try {
-		 *
-		 * User user=userRepository.findByEmail(email); if(user==null) { throw new
-		 * UsernameNotFoundException("No User Found"); }else { return new
-		 * CustomUserDetails(user); }
-		 *
-		 *
-		 * } catch (Exception e) { e.printStackTrace(); }
-		 */
-
-//		User user=userRepository.getUserByEmail(email);
-//
-//		if(user==null) {
-//			throw new UsernameNotFoundException("Colud not found user!! ");
-//		}
-//
-//		CustomUserDetails customUserDetails=new CustomUserDetails(user);
-//	return customUserDetails;
-
 	}
 
 }
