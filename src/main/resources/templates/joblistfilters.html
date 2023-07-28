@@ -342,7 +342,32 @@
             </div>
             
           </div>
+            <!-- Add the pagination controls below the job list -->
+   
           </div>
+           <div class="single-row" style="text-align: center; margin: auto;width: 30%">  
+           <div if="${totalPages > 1}">
+        <ul class="pagination">
+            <li th:class="${currentPage == 0 ? 'page-item disabled' : 'page-item'}">
+                <a class="page-link" th:href="@{/joblist(page=0)}">First</a>
+            </li>
+            <li th:class="${currentPage > 0 ? 'page-item' : 'page-item disabled'}">
+                <a class="page-link" th:href="@{/joblist(page=${currentPage - 1})}">Previous</a>
+            </li>
+
+            <li th:each="page : ${#numbers.sequence(0, totalPages-1)}" th:class="${currentPage == page ? 'page-item active' : 'page-item'}">
+                <a class="page-link" th:href="@{/joblist(page=${page})}" th:text="${page + 1}"></a>
+            </li>
+
+            <li th:class="${currentPage < totalPages - 1 ? 'page-item' : 'page-item disabled'}">
+                <a class="page-link" th:href="@{/joblist(page=${currentPage + 1})}">Next</a>
+            </li>
+            <li th:class="${currentPage == totalPages - 1 ? 'page-item disabled' : 'page-item'}">
+                <a class="page-link" th:href="@{/joblist(page=${totalPages - 1})}">Last</a>
+            </li>
+        </ul>
+    </div>
+    </div>
           </div>
           
 </div>	
