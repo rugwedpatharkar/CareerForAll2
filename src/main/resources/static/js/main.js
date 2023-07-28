@@ -925,8 +925,26 @@ items.forEach(item => {
     });
 })
 
+//-------------------------------User Email Validation -----------------
 
+var emailInput = document.getElementById("email");
 
+// Add an event listener to the email input field
+emailInput.addEventListener("input", validateUserEmail);
+
+function validateUserEmail() {
+  var email = document.getElementById("email").value;
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email regex
+  var userEmailError = document.getElementById("emailError");
+  if (!emailRegex.test(email)) {
+    userEmailError.style.display = "block";
+    return false;
+  } else {
+    userEmailError.style.display = "none";
+    return true;
+  }
+}
+//------------------End Of User Email Validation----------------
 
 
 

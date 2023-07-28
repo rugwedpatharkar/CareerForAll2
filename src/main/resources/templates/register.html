@@ -116,19 +116,18 @@
 <!--             </a> -->
 <!--           </li> -->
           
-<<<<<<< HEAD
-           <li>
-            <a th:href="@{/joblist}">
-              <i class="bi bi-circle"></i><span>Job List</span>
-            </a>
-          </li>
-=======
+
+<!--            <li> -->
+<!--             <a th:href="@{/joblist}"> -->
+<!--               <i class="bi bi-circle"></i><span>Job List</span> -->
+<!--             </a> -->
+<!--           </li> -->
+
 <!--            <li> -->
 <!--             <a th:href="@{/joblistfilters}"> -->
 <!--               <i class="bi bi-circle"></i><span>Job List</span> -->
 <!--             </a> -->
 <!--           </li> -->
->>>>>>> branch 'main' of https://github.com/rugwedpatharkar/CareerForAll2.git
           
 <!--           </ul> -->
 <!--         </ul> -->
@@ -222,7 +221,7 @@
                   <form class="row g-3 needs-validation" novalidate th:action="@{/register}" method="post">
                     <div class="col-12">
                       <label for="yourName" class="form-label" >UserName</label>
-                      <input type="text"  class="form-control" id="fullname" name="fullname" required autofocus="autofocus"/>
+                      <input type="text"  class="form-control" id="fullname" name="fullname"  autofocus="autofocus" required/>
                       <div class="invalid-feedback">Please, enter your name!</div>
                     </div>
                     				
@@ -230,7 +229,7 @@
                    	<div class="col-12">
                   <label class="col-sm-12 col-form-label">Login Mode / Roles</label>
                   <div class="col-sm-12">
-                    <select name="role" id="role" class="form-select" aria-label="Default select example">
+                    <select name="role" id="role" class="form-select" aria-label="Default select example" required>
                       <option value="" disabled selected>-- Login Mode / Roles --</option>
                       <option value="ADMIN">ADMIN</option>
                       <option value="USER">USER</option>
@@ -247,14 +246,14 @@
                       <label for="yourEmail" class="form-label">Email</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text"  class="form-control" id="email" name="email" required autofocus="autofocus">
-                        <div class="invalid-feedback">Please choose a username.</div>
+                        <input type="text"  class="form-control" id="email" name="email"  autofocus="autofocus" required>
+                        <div id="emailError" class="invalid-feedback">Please enter a valid username.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password"  class="form-control" id="password" name="password" required autofocus="autofocus">
+                      <input type="password"  class="form-control" id="password" name="password"  autofocus="autofocus" required>
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 
