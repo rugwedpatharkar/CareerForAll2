@@ -7,6 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,23 +43,20 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class MainController {
 
-	
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private UserServiceImpl userServiceImpl;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder bp;
-	
+
 	@Autowired
 	private JobService jobService;
-	
+
 	@Autowired
 	private CompanyService companyService;
-	
-	
 
 	@Autowired
 	private InstituteService institueService;
@@ -173,6 +173,8 @@ public class MainController {
 	// Candidate COntroller
 	@GetMapping("/candidate_registration")
 	public String candidateregistration(Model model) {
+		List<Institute> institutes = institueService.getAllInstitute();
+		model.addAttribute("institutes", institutes);
 		Candidate candidate = new Candidate();
 		model.addAttribute("candidate", candidate);
 		return ("candidate_registration");
@@ -216,15 +218,13 @@ public class MainController {
 	// ************************ User Login And Registration  **************************
 
 	@GetMapping("/login")
-		public String loginHome(Model model)
-	{
-				return "login";
+	public String loginHome(Model model) {
+		return "login";
 	}
 
 	@GetMapping("/userhome")
-	public String userHome()
-	{
-		return "userhome"; 
+	public String userHome() {
+		return "userhome";
 	}
 	@GetMapping("/adminhome")
 	public String adminhome()
@@ -273,12 +273,29 @@ public class MainController {
 	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
 	// wagh)
 	// start
-	@GetMapping("/joblist")
-	public String getAllJobs(Model model) {
-		model.addAttribute("listJob", jobService.findJobList());
-		return "joblistfilters";
-	}
+//	@GetMapping("/joblist")
+//	public String getAllJobs(Model model) {
+//		model.addAttribute("listJob", jobService.findJobList());
+//		return "joblistfilters";
+//	}
 
+	
+
+    @GetMapping("/joblist")
+    public String getAllJobs(@RequestParam(defaultValue = "0") int page, Model model) {
+        int pageSize = 10; 
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<Job> jobPage = jobService.findJobList(pageable);
+
+        model.addAttribute("listJob", jobPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", jobPage.getTotalPages());
+
+        return "joblistfilters";
+    }
+	 
+	 
+	 
 	// filters for jobs on joblistfilters
 	@GetMapping("/joblistfilters")
 	public String getJobByCriteria(@RequestParam(value = "timeRange", required = false) String timeRange,
@@ -342,56 +359,66 @@ public class MainController {
 	public String applyFiltersOnCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
 			@RequestParam(required = false) String noofyearsworkex, @RequestParam(required = false) String workmode,
 			@RequestParam(required = false) String joborinternship, @RequestParam(required = false) String search,
-			Model model) {
+			Model model,@RequestParam(defaultValue = "0") int page) {
+		 int pageSize = 10;
 		Job position = jobService.getJobById(positionid);
 		model.addAttribute("position", position);
-
-		List<Candidate> eligibleCandidates;
+		Pageable pageable = PageRequest.of(page, pageSize);
+		Page<Candidate> eligibleCandidates;
 		if (noofyearsworkex != null && !noofyearsworkex.isEmpty() || workmode != null && !workmode.isEmpty()
 				|| joborinternship != null && !joborinternship.isEmpty()) {
 			eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength, noofyearsworkex,
-					workmode, joborinternship);
+					workmode, joborinternship,pageable);
 		} else {
-			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search);
+			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search,pageable);
 		}
 		model.addAttribute("listcandidate", eligibleCandidates);
 
 		return "candidatelistfilters";
 	}
- 
-	@GetMapping("/eligiblecandidates/{positionid}/{minKeywordLength}")
-	public String showEligibleCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
-			Model model) {
-		Job position = jobService.getJobById(positionid);
-		model.addAttribute("position", position);
-		List<Candidate> eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength);
-		model.addAttribute("listcandidate", eligibleCandidates);
-		return "candidatelistfilters";
-	}
 
-	// candidates mapping to jobs
-	 
-	@PostMapping("/mapcandidatetojob/{positionid}/{minKeywordLength}")
-	    public String mapCandidatestoJob( @PathVariable int minKeywordLength,
-				Model model,
-				@RequestParam("positionid") int positionid,
-	            @RequestParam("candidateids") List<Long> candidateids) {
-	        Job job = jobService.getJobbyId(positionid);
-	        List<Candidate> selectedCandidates = candidateService.getCandidatesByIds(candidateids);
 
-	        for (Candidate candidate : selectedCandidates) {
-	            JobCandidate jobCandidate = new JobCandidate();
-	            jobCandidate.setJob(job);
-	            jobCandidate.setCandidate(candidate);
-	            jobCandidateService.saveJobCandidate(jobCandidate);
-	            Job position = jobService.getJobById(positionid);
-	    		model.addAttribute("position", position);
-	    		List<Candidate> eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength);
-	    		model.addAttribute("listcandidate", eligibleCandidates);
-	        }
- 
+	 @GetMapping("/eligiblecandidates/{positionid}/{minKeywordLength}")
+	    public String showEligibleCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
+	                                         @RequestParam(defaultValue = "0") int page, Model model) {
+	        int pageSize = 10; // Number of candidates to display per page1
+	        Job position = jobService.getJobById(positionid);
+	        model.addAttribute("position", position);
+
+	        Pageable pageable = PageRequest.of(page, pageSize);
+	        Page<Candidate> eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength, pageable);
+
+	        model.addAttribute("listcandidate", eligibleCandidates);
+	        model.addAttribute("currentPage", page);
+	        model.addAttribute("totalPages", eligibleCandidates.getTotalPages());
+
 	        return "candidatelistfilters";
 	    }
+
+	// candidates mapping to jobs
+
+	@PostMapping("/mapcandidatetojob/{positionid}/{minKeywordLength}")
+	public String mapCandidatestoJob(@PathVariable int minKeywordLength, Model model,
+			@RequestParam("positionid") int positionid, @RequestParam("candidateids") List<Long> candidateids,@RequestParam(defaultValue = "0") int page) {
+		int pageSize = 10;
+		Job job = jobService.getJobbyId(positionid);
+        Pageable pageable = PageRequest.of(page, pageSize);
+
+		List<Candidate> selectedCandidates = candidateService.getCandidatesByIds(candidateids);
+
+		for (Candidate candidate : selectedCandidates) {
+			JobCandidate jobCandidate = new JobCandidate();
+			jobCandidate.setJob(job);
+			jobCandidate.setCandidate(candidate);
+			jobCandidateService.saveJobCandidate(jobCandidate);
+			Job position = jobService.getJobById(positionid);
+			model.addAttribute("position", position);
+			Page<Candidate> eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength,pageable);
+			model.addAttribute("listcandidate", eligibleCandidates);
+		}
+
+		return "candidatelistfilters";
+	}
 	// end
 	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
 	// wagh)

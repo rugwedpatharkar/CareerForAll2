@@ -12,7 +12,7 @@ import com.placementportal.model.User;
 public class CustomUserDetails implements UserDetails {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 7434207092826051442L;
 	private User user;

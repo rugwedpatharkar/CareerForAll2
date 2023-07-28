@@ -1,15 +1,16 @@
 package com.placementportal.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.placementportal.model.Candidate;
-import com.placementportal.model.Company;
 import com.placementportal.model.Job;
 import com.placementportal.repository.CandidateRepository;
 import com.placementportal.repository.JobRepository;
@@ -61,10 +62,10 @@ public class CandidateService {
 		return candidateRepository.findCandidatesByPrimarySkills(keyword);
 	}
 
-	public List<Candidate> searchEligibleCandidates(int positionid, int minKeywordLength, String search) {
+	public Page<Candidate> searchEligibleCandidates(int positionid, int minKeywordLength, String search,Pageable pageable) {
 		Job job = jobRepository.findById(positionid).orElse(null);
 		if (job == null) {
-			return Collections.emptyList();
+			  return Page.empty(); 
 		}
 
 		String[] jobKeywords = job.getDescription().split(" ");
@@ -79,21 +80,24 @@ public class CandidateService {
 
 		eligibleCandidates = searchCandidates(eligibleCandidates, search);
 
-		return eligibleCandidates;
+		  int start = (int) pageable.getOffset();
+	        int end = Math.min((start + pageable.getPageSize()), eligibleCandidates.size());
+	        return new PageImpl<>(eligibleCandidates.subList(start, end), pageable, eligibleCandidates.size());
 	}
 
 	public List<Candidate> searchCandidates(List<Candidate> candidates, String search) {
 		List<Candidate> listcandidate = candidateRepository.findCandidatesByKeyword("%" + search.toLowerCase() + "%");
 		return listcandidate;
 	}
-	 public Candidate getCandidateById(Long candidateid) {
-	        return candidateRepository.findById(candidateid)
-	                .orElseThrow(() -> new IllegalArgumentException("Candidate not found with ID: " + candidateid));
-	    }
 
-	    public List<Candidate> getCandidatesByIds(List<Long> candidateids) {
-	        return candidateRepository.findAllById(candidateids);
-	    }
+	public Candidate getCandidateById(Long candidateid) {
+		return candidateRepository.findById(candidateid)
+				.orElseThrow(() -> new IllegalArgumentException("Candidate not found with ID: " + candidateid));
+	}
+
+	public List<Candidate> getCandidatesByIds(List<Long> candidateids) {
+		return candidateRepository.findAllById(candidateids);
+	}
 	// end
 	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
 	// wagh)
