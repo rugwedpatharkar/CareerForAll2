@@ -39,7 +39,6 @@ public class MyConfig {
 		return dao;
 	}
 
-<<<<<<< HEAD
 	// configure methods
 
 	@Bean
@@ -58,7 +57,6 @@ public class MyConfig {
 
 		return http.build();
 	}
-=======
 		
 	//configure methods
 	
@@ -87,6 +85,5 @@ public class MyConfig {
 		 
 	        return http.build();
 	    }
->>>>>>> branch 'main' of https://github.com/rugwedpatharkar/CareerForAll2.git
 
 }

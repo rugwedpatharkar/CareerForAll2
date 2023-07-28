@@ -226,9 +226,6 @@ public class MainController {
 	public String userHome() {
 		return "userhome";
 	}
-<<<<<<< HEAD
-
-=======
 	@GetMapping("/adminhome")
 	public String adminhome()
 	{
@@ -246,7 +243,6 @@ public class MainController {
 	}
 	
 	
->>>>>>> branch 'main' of https://github.com/rugwedpatharkar/CareerForAll2.git
 	// Registration Controller (Prasad)
 	@GetMapping("/register")
 	public String home() {
