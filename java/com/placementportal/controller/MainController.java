@@ -167,10 +167,11 @@ public class MainController {
 	@PostMapping("/saveInstitute")
 	public String saveInstitute(@ModelAttribute("institute") Institute institute) {
 		institueService.saveInstitute(institute);
-		return "redirect:/";
+		return "redirect:/institute_onboarding";
 	}
 
 	// Candidate COntroller
+	
 	@GetMapping("/candidate_registration")
 	public String candidateregistration(Model model) {
 		List<Institute> institutes = institueService.getAllInstitute();
@@ -183,7 +184,7 @@ public class MainController {
 	@PostMapping("/saveCandidate")
 	public String saveCandidate(@ModelAttribute("candidate") Candidate candidate) {
 		candidateService.saveCandidate(candidate);
-		return "redirect:/candidate_registration";
+		return "redirect:/CandidateList";
 	}
 	
 	@GetMapping("/CandidateList")
@@ -191,16 +192,18 @@ public class MainController {
 		model.addAttribute("listCandidates", candidateService.getAllCandidates());
 		return "CandidateList";
 	}
-
-	@GetMapping("/editCandiadte/{id}")
+	
+	@GetMapping("/editCandidate/{id}")
 	public String editCandidateForm(@PathVariable("id") Long id, Model model) {
+		List<Institute> institutes = institueService.getAllInstitute();
+		model.addAttribute("institutes", institutes);
 		Candidate candidate = candidateService.getCandidateById(id);
-		model.addAttribute("candidate",candidate);
+		model.addAttribute("candidate", candidate);
 		return "editCandidate";
 	}
 
 	@PostMapping("/updateCandidate")
-	public String updateCandiadte(@ModelAttribute("candidate") Candidate candidate) {
+	public String updateCandidate(@ModelAttribute("candidate") Candidate candidate) {
 		candidateService.saveCandidate(candidate);
 		return "redirect:/CandidateList";
 	}
