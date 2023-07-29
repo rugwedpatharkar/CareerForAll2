@@ -100,7 +100,6 @@ public class MainController {
 		return ("redirect:/CompanyList");
 	}
 
-
 	@GetMapping("/startup_onboarding")
 	public String startup_onboarding(Model model) {
 		Company company = new Company();
@@ -108,7 +107,6 @@ public class MainController {
 		return ("startup_onboarding");
 	}
 
-	
 	@GetMapping("/CompanyList")
 	public String showCompany(Model model) {
 		model.addAttribute("listCompanies", companyService.getAllCompanies());
@@ -171,7 +169,7 @@ public class MainController {
 	}
 
 	// Candidate COntroller
-	
+
 	@GetMapping("/candidate_registration")
 	public String candidateregistration(Model model) {
 		List<Institute> institutes = institueService.getAllInstitute();
@@ -186,13 +184,13 @@ public class MainController {
 		candidateService.saveCandidate(candidate);
 		return "redirect:/CandidateList";
 	}
-	
+
 	@GetMapping("/CandidateList")
 	public String showCandidate(Model model) {
 		model.addAttribute("listCandidates", candidateService.getAllCandidates());
 		return "CandidateList";
 	}
-	
+
 	@GetMapping("/editCandidate/{id}")
 	public String editCandidateForm(@PathVariable("id") Long id, Model model) {
 		List<Institute> institutes = institueService.getAllInstitute();
@@ -214,11 +212,8 @@ public class MainController {
 		return "redirect:/CandidateList";
 	}
 
-	
-	
-	
-
-	// ************************ User Login And Registration  **************************
+	// ************************ User Login And Registration
+	// **************************
 
 	@GetMapping("/login")
 	public String loginHome(Model model) {
@@ -229,23 +224,22 @@ public class MainController {
 	public String userHome() {
 		return "userhome";
 	}
+
 	@GetMapping("/adminhome")
-	public String adminhome()
-	{
-		return "adminhome"; 
+	public String adminhome() {
+		return "adminhome";
 	}
+
 	@GetMapping("/profile")
-	public String hrhome()
-	{
-		return "profile"; 
+	public String hrhome() {
+		return "profile";
 	}
+
 	@GetMapping("/pohome")
-	public String pohome()
-	{
-		return "pohome"; 
+	public String pohome() {
+		return "pohome";
 	}
-	
-	
+
 	// Registration Controller (Prasad)
 	@GetMapping("/register")
 	public String home() {
@@ -270,8 +264,9 @@ public class MainController {
 
 		return "redirect:/register?success";
 	}
-	
-	// ************************ End of User Login And Registration  **************************
+
+	// ************************ End of User Login And Registration
+	// **************************
 
 	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
 	// wagh)
@@ -282,23 +277,19 @@ public class MainController {
 //		return "joblistfilters";
 //	}
 
-	
+	@GetMapping("/joblist")
+	public String getAllJobs(@RequestParam(defaultValue = "0") int page, Model model) {
+		int pageSize = 10;
+		Pageable pageable = PageRequest.of(page, pageSize);
+		Page<Job> jobPage = jobService.findJobList(pageable);
 
-    @GetMapping("/joblist")
-    public String getAllJobs(@RequestParam(defaultValue = "0") int page, Model model) {
-        int pageSize = 10; 
-        Pageable pageable = PageRequest.of(page, pageSize);
-        Page<Job> jobPage = jobService.findJobList(pageable);
+		model.addAttribute("listJob", jobPage.getContent());
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", jobPage.getTotalPages());
 
-        model.addAttribute("listJob", jobPage.getContent());
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", jobPage.getTotalPages());
+		return "joblistfilters";
+	}
 
-        return "joblistfilters";
-    }
-	 
-	 
-	 
 	// filters for jobs on joblistfilters
 	@GetMapping("/joblistfilters")
 	public String getJobByCriteria(@RequestParam(value = "timeRange", required = false) String timeRange,
@@ -362,8 +353,8 @@ public class MainController {
 	public String applyFiltersOnCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
 			@RequestParam(required = false) String noofyearsworkex, @RequestParam(required = false) String workmode,
 			@RequestParam(required = false) String joborinternship, @RequestParam(required = false) String search,
-			Model model,@RequestParam(defaultValue = "0") int page) {
-		 int pageSize = 10;
+			Model model, @RequestParam(defaultValue = "0") int page) {
+		int pageSize = 10;
 		Job position = jobService.getJobById(positionid);
 		model.addAttribute("position", position);
 		Pageable pageable = PageRequest.of(page, pageSize);
@@ -371,41 +362,42 @@ public class MainController {
 		if (noofyearsworkex != null && !noofyearsworkex.isEmpty() || workmode != null && !workmode.isEmpty()
 				|| joborinternship != null && !joborinternship.isEmpty()) {
 			eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength, noofyearsworkex,
-					workmode, joborinternship,pageable);
+					workmode, joborinternship, pageable);
 		} else {
-			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search,pageable);
+			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search,
+					pageable);
 		}
 		model.addAttribute("listcandidate", eligibleCandidates);
 
 		return "candidatelistfilters";
 	}
 
+	@GetMapping("/eligiblecandidates/{positionid}/{minKeywordLength}")
+	public String showEligibleCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
+			@RequestParam(defaultValue = "0") int page, Model model) {
+		int pageSize = 10; // Number of candidates to display per page1
+		Job position = jobService.getJobById(positionid);
+		model.addAttribute("position", position);
 
-	 @GetMapping("/eligiblecandidates/{positionid}/{minKeywordLength}")
-	    public String showEligibleCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
-	                                         @RequestParam(defaultValue = "0") int page, Model model) {
-	        int pageSize = 10; // Number of candidates to display per page1
-	        Job position = jobService.getJobById(positionid);
-	        model.addAttribute("position", position);
+		Pageable pageable = PageRequest.of(page, pageSize);
+		Page<Candidate> eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength, pageable);
 
-	        Pageable pageable = PageRequest.of(page, pageSize);
-	        Page<Candidate> eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength, pageable);
+		model.addAttribute("listcandidate", eligibleCandidates);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", eligibleCandidates.getTotalPages());
 
-	        model.addAttribute("listcandidate", eligibleCandidates);
-	        model.addAttribute("currentPage", page);
-	        model.addAttribute("totalPages", eligibleCandidates.getTotalPages());
-
-	        return "candidatelistfilters";
-	    }
+		return "candidatelistfilters";
+	}
 
 	// candidates mapping to jobs
 
 	@PostMapping("/mapcandidatetojob/{positionid}/{minKeywordLength}")
 	public String mapCandidatestoJob(@PathVariable int minKeywordLength, Model model,
-			@RequestParam("positionid") int positionid, @RequestParam("candidateids") List<Long> candidateids,@RequestParam(defaultValue = "0") int page) {
+			@RequestParam("positionid") int positionid, @RequestParam("candidateids") List<Long> candidateids,
+			@RequestParam(defaultValue = "0") int page) {
 		int pageSize = 10;
 		Job job = jobService.getJobbyId(positionid);
-        Pageable pageable = PageRequest.of(page, pageSize);
+		Pageable pageable = PageRequest.of(page, pageSize);
 
 		List<Candidate> selectedCandidates = candidateService.getCandidatesByIds(candidateids);
 
@@ -416,7 +408,8 @@ public class MainController {
 			jobCandidateService.saveJobCandidate(jobCandidate);
 			Job position = jobService.getJobById(positionid);
 			model.addAttribute("position", position);
-			Page<Candidate> eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength,pageable);
+			Page<Candidate> eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength,
+					pageable);
 			model.addAttribute("listcandidate", eligibleCandidates);
 		}
 

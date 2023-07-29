@@ -40,16 +40,7 @@ public class CandidateService {
 		this.candidateRepository.deleteById(id);
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
 	// wagh)
 //start
@@ -62,10 +53,11 @@ public class CandidateService {
 		return candidateRepository.findCandidatesByPrimarySkills(keyword);
 	}
 
-	public Page<Candidate> searchEligibleCandidates(int positionid, int minKeywordLength, String search,Pageable pageable) {
+	public Page<Candidate> searchEligibleCandidates(int positionid, int minKeywordLength, String search,
+			Pageable pageable) {
 		Job job = jobRepository.findById(positionid).orElse(null);
 		if (job == null) {
-			  return Page.empty(); 
+			return Page.empty();
 		}
 
 		String[] jobKeywords = job.getDescription().split(" ");
@@ -80,9 +72,9 @@ public class CandidateService {
 
 		eligibleCandidates = searchCandidates(eligibleCandidates, search);
 
-		  int start = (int) pageable.getOffset();
-	        int end = Math.min((start + pageable.getPageSize()), eligibleCandidates.size());
-	        return new PageImpl<>(eligibleCandidates.subList(start, end), pageable, eligibleCandidates.size());
+		int start = (int) pageable.getOffset();
+		int end = Math.min((start + pageable.getPageSize()), eligibleCandidates.size());
+		return new PageImpl<>(eligibleCandidates.subList(start, end), pageable, eligibleCandidates.size());
 	}
 
 	public List<Candidate> searchCandidates(List<Candidate> candidates, String search) {
