@@ -14,10 +14,10 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @Configuration
 @EnableWebSecurity
 public class MyConfig {
-	
+
 	@Autowired
 	private AuthenticationSuccessHandler customAuthenticationSuccessHandler;
-	
+
 	@Bean
 	public UserDetailsService getUserDetailsService() {
 		return new CustomUserDetailsService();
@@ -38,7 +38,7 @@ public class MyConfig {
 		dao.setPasswordEncoder(getPassword());
 		return dao;
 	}
-		
+
 	//configure methods
 	
 	 @Bean

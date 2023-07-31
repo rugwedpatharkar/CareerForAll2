@@ -22,7 +22,7 @@
 	rel="stylesheet">
 	
 	 <!--dynamic table link-->
-<link th:href="@{/css/style.css}" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" />
 
 <!-- Vendor CSS Files -->
@@ -148,12 +148,12 @@
               <i class="bi bi-circle"></i><span>Candidate Form</span>
             </a>
           </li>
-
-             <li>
+           <li>
             <a th:href="@{/CandidateList}">
               <i class="bi bi-circle"></i><span>Candidate List</span>
             </a>
           </li>
+          
         </ul>
         </ul>
       </li>
@@ -198,9 +198,11 @@
       <div class="card-body">
         <h5 class="card-title">Matching the Best</h5>
 
-        <!-- General Form Elements -->
-        <form th:object="${candidate}" th:action="@{/updateCandidate}"  action="#" class="search-form" id="updatecandidate" name="updatecandidate" method="POST">
 
+        <!-- General Form Elements -->
+        
+
+<form th:object="${candidate}" th:action="@{/updateCandidate}"  action="#" class="search-form" id="updatecandidate" name="updatecandidate" method="POST">
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label required">Candidate Name</label>
             <div class="col-sm-10">
@@ -311,17 +313,17 @@
             </div>
           </div>
 
-          <fieldset class="row mb-3">
-            <legend class="col-form-label col-sm-2 pt-0 required" >Experience</legend>
+          <fieldset class="row mb-3" >
+            <legend class="col-form-label col-sm-2 pt-0 required">Experience</legend>
             <div class="col-sm-10">
               <div class="form-check">
-                <input class="form-check-input" th:field="*{experience}" name="experience" type="radio"  id="gridRadios1" value="Yes" checked>
+                <input class="form-check-input" th:field="*{experience}" name="experience" type="radio"  id="gridRadios1" value="Yes" checked required>
                 <label class="form-check-label" for="gridRadios1">
                   Yes
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" th:field="*{experience}"name="experience" type="radio"  id="gridRadios2" value="No">
+                <input class="form-check-input" th:field="*{experience}"name="experience" type="radio"  id="gridRadios2" value="No" required>
                 <label class="form-check-label" for="gridRadios2">
                   No
                 </label>
@@ -333,7 +335,7 @@
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label required" >No. of Years of Work-Experience</label>
             <div class="col-sm-10">
-              <input type="number" th:field="*{noofyearsworkex}" name="noofyearsworkex" class="form-control" min="0" max="55" required >
+              <input type="number" th:field="*{noofyearsworkex}" name="noofyearsworkex" class="form-control" min="0" max="55" value="0" required >
             </div>
           </div>
 
@@ -357,15 +359,15 @@
                   <legend class="col-form-label col-sm-2 pt-0 required" >Gender</legend>
                   <div class="col-sm-10">
                     <div class="form-check">
+                      <input class="form-check-input" th:field="*{gender}" type="radio" value="Male"required>
+                      <label class="form-check-label" for="gridRadios2">
+                        Male
+                      </label>
+                    </div>                  
+                    <div class="form-check">
                       <input class="form-check-input" th:field="*{gender}"type="radio" value="Female">
                       <label class="form-check-label" for="gridRadios1">
                        Female
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" th:field="*{gender}" type="radio" value="Male">
-                      <label class="form-check-label" for="gridRadios2">
-                        Male
                       </label>
                     </div>
                   </div>
@@ -374,7 +376,7 @@
           <div class="row mb-3">
             <label for="inputDate" class="col-sm-2 col-form-label required" >Candidate City</label>
             <div class="col-sm-10">
-              <select th:field="*{candidatecity}" name="candidatecity" class="form-select" aria-label="Default select example" >
+              <select th:field="*{candidatecity}" name="candidatecity" class="form-select" aria-label="Default select example" required>
                 <option value="" selected>-- select Candidate City --</option>
                 <option value="Local">Local</option>
                 <option value="City">Other City</option>
@@ -396,7 +398,7 @@
           <div class="row mb-3">
             <label for="inputDate" class="col-sm-2 col-form-label required" >Interested in Job / Internship</label>
             <div class="col-sm-10">
-              <select th:field="*{joborinternship}" name="joborinternship" class="form-select" aria-label="Default select example" >
+              <select th:field="*{joborinternship}" name="joborinternship" class="form-select" aria-label="Default select example" required>
                 <option value=""  selected>--select Job / Internship --</option>
                 <option value="Job">Job</option>
                 <option value="Internship">Internship</option>
@@ -409,10 +411,8 @@
             <div class="col-sm-10">
               <select  class="form-select" name="institutename" aria-label="Default select example" required>
                 <option value=""  selected>--select Institute Name --</option>
-                <option value="1">College 1</option>
-                <option value="2">College 2</option>
-                <option value="3">College 3</option>
-                <option value="4">College 4</option>
+                <option th:each="institute : ${institutes}" th:value="${institute.instituteid}"
+                    th:text="${institute.institutename}"></option>
               </select>
             </div>
           </div>
@@ -436,7 +436,7 @@
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label"> CTC Variable (INR LPA)</label>
             <div class="col-sm-10">
-              <input th:field="*{ctcvariable}" type="text" id="ctcVariable" name="ctcvariable" class="form-control" required>
+              <input th:field="*{ctcvariable}" type="text" id="ctcVariable" name="ctcvariable" class="form-control" >
               <div id="ctcVariableError" class="invalid-feedback">invalid</div>
             </div>
           </div>
@@ -444,7 +444,7 @@
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label">CTC Total (INR LPA)</label>
             <div class="col-sm-10">
-              <input th:field="*{ctctotal}" name="ctctotal" type="text" id="ctcTotal" class="form-control" required>
+              <input th:field="*{ctctotal}" name="ctctotal" type="text" id="ctcTotal" class="form-control" >
               <div id="ctcTotalError" class="invalid-feedback">invalid</div>
             </div>
           </div>
