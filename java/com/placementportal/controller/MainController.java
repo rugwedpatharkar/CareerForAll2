@@ -1,6 +1,7 @@
 package com.placementportal.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -102,6 +104,7 @@ public class MainController {
 
 
 	@GetMapping("/startup_onboarding")
+	@PreAuthorize("hasRole('HR')")
 	public String startup_onboarding(Model model) {
 		Company company = new Company();
 		model.addAttribute("company", company);
@@ -232,8 +235,11 @@ public class MainController {
 		return "adminhome"; 
 	}
 	@GetMapping("/profile")
-	public String hrhome()
+	public String hrhome(Model model, Principal principal)
 	{
+//		String name=principal.getName();
+//		User user=userRepository.findByName(name);
+//		model.addAttribute("username",user.getFullname());
 		return "profile"; 
 	}
 	@GetMapping("/pohome")
@@ -267,6 +273,16 @@ public class MainController {
 
 		return "redirect:/register?success";
 	}
+	
+//	 @GetMapping("/startup_onboarding")
+//	    @PreAuthorize("hasRole('HR')")
+//	    public String showStartupOnboardingPage() {
+//	        return "Welcome to the Startup Page!";
+//	    }
+	
+	
+	
+	
 	
 	// ************************ End of User Login And Registration  **************************
 
