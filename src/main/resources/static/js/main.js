@@ -596,44 +596,47 @@ function validateWebsite() {
 }
 // end of company website validation--------------
 
-//company linkedin validation--------------
+// Company LinkedIn validation
 var linkedinInput = document.getElementById("companyLinkedin");
-// Add an event listener to the LinkedIn input field
 linkedinInput.addEventListener("blur", validateLinkedin);
 
 function validateLinkedin() {
-  var linkedin = document.getElementById("companyLinkedin").value;
+  var linkedin = document.getElementById("companyLinkedin").value.trim(); // Trim the value to remove leading/trailing spaces
   var linkedinRegex = /^(http(s)?:\/\/)?([\w]+\.)?linkedin\.com\/company\/[\w-]+(\/.*)?$/;
   var companyLinkedinError = document.getElementById("companyLinkedinError");
-  if (!linkedinRegex.test(linkedin)) {
+
+  if (linkedin === "") {
+    companyLinkedinError.style.display = "none"; // Hide the error message if the field is empty
+    return true;
+  } else if (!linkedinRegex.test(linkedin)) {
     companyLinkedinError.style.display = "block";
     return false;
   } else {
-	companyLinkedinError.style.display = "none";
+    companyLinkedinError.style.display = "none";
     return true;
   }
 }
-//end of company linkedin validation------------
 
-//other link validation------------
+// Other link validation
 var relevantLinkInput = document.getElementById("relevantLink");
-
-// Add an event listener to the relevant link input field
 relevantLinkInput.addEventListener("blur", validateRelevantLink);
 
 function validateRelevantLink() {
-  var relevantLink = document.getElementById("relevantLink").value;
+  var relevantLink = document.getElementById("relevantLink").value.trim(); // Trim the value to remove leading/trailing spaces
   var urlRegex = /^(http(s)?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w- ;,./?%&=]*)?$/i;
   var relevantLinkError = document.getElementById("relevantLinkError");
-  if (!urlRegex.test(relevantLink)) {
+
+  if (relevantLink === "") {
+    relevantLinkError.style.display = "none"; // Hide the error message if the field is empty
+    return true;
+  } else if (!urlRegex.test(relevantLink)) {
     relevantLinkError.style.display = "block";
     return false;
   } else {
-	relevantLinkError.style.display = "none";
+    relevantLinkError.style.display = "none";
     return true;
   }
 }
-//end of other link validation--------
 
 //future date validation---------------
  // Get the current date in the format yyyy-mm-dd

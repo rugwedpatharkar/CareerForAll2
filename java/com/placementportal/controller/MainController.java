@@ -129,6 +129,7 @@ public class MainController {
 		companyService.saveCompany(company);
 		return "redirect:/CompanyList";
 	}
+	
 
 	@GetMapping("/deleteCompany/{id}")
 	public String deleteCompany(@PathVariable(value = "id") Long id) {
@@ -182,7 +183,7 @@ public class MainController {
 		model.addAttribute("candidate", candidate);
 		return ("candidate_registration");
 	}
-
+	
 	@PostMapping("/saveCandidate")
 	public String saveCandidate(@ModelAttribute("candidate") Candidate candidate) {
 		candidateService.saveCandidate(candidate);
@@ -203,13 +204,12 @@ public class MainController {
 		model.addAttribute("candidate", candidate);
 		return "editCandidate";
 	}
-
 	@PostMapping("/updateCandidate")
 	public String updateCandidate(@ModelAttribute("candidate") Candidate candidate) {
 		candidateService.saveCandidate(candidate);
 		return "redirect:/CandidateList";
 	}
-
+	
 	@GetMapping("/deleteCandidate/{id}")
 	public String deleteCandidate(@PathVariable(value = "id") Long id) {
 		this.candidateService.deleteCandidateById(id);
