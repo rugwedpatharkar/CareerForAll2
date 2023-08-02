@@ -89,6 +89,7 @@ public class MainController {
 	}
 
 	@GetMapping("/jobopening")
+	@PreAuthorize("hasRole('HR')")
 	public ModelAndView jobopening() {
 		ModelAndView mav = new ModelAndView("jobopening");
 		return mav;

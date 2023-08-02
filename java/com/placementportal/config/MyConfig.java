@@ -50,7 +50,7 @@ public class MyConfig {
 		 .requestMatchers("/user/userhome.html").hasRole("USER")
 		 .requestMatchers("/placementofficer/pohome.html").hasRole("PO")
 		 .requestMatchers("/profile.html").hasRole("HR")
-		 .requestMatchers("/jobopening").hasRole("HR")
+		 .requestMatchers("/jobopening.html").hasRole("HR")
 		 .requestMatchers("/**").permitAll()
 		 .anyRequest().authenticated())
 		 .formLogin((form) -> form
@@ -61,7 +61,6 @@ public class MyConfig {
 		)
 		 .logout((logout) -> logout.permitAll())
          .exceptionHandling().accessDeniedPage("/access-denied");
-		 
 		 
 		 
 		 http.authenticationProvider(daoAuthenticationProvider());
