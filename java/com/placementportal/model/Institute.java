@@ -18,6 +18,7 @@ public class Institute {
 	private Long instituteid;
 	private String institutename;
 	private String brandname;
+	private String email;
 	private Date startdate;
 	private String state;
 	private String maincampuscity;
@@ -60,6 +61,14 @@ public class Institute {
 
 	public void setInstitutename(String institutename) {
 		this.institutename = institutename;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getBrandname() {
