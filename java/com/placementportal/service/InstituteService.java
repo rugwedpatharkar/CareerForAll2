@@ -17,13 +17,20 @@ public class InstituteService {
 	private InstituteRepository instituteRepository;
 
 	public List<Institute> getAllInstitute() {
-
 		return instituteRepository.findAll();
 	}
 
 	public void saveInstitute(Institute institute) {
-
 		instituteRepository.save(institute);
+	}
+	
+	public Institute getInstituteById(Long instituteid) {
+		return instituteRepository.findById(instituteid).orElse(null);
+	}
+
+	public void deleteInstituteById(Long id) {
+		this.instituteRepository.deleteById(id);
+
 	}
 	
 	
@@ -35,9 +42,6 @@ public class InstituteService {
 		return instituteRepository.findAllById(instituteIds);
 	}
 
-	public Institute getInstituteById(Long instituteid) {
-		return instituteRepository.findById(instituteid).orElse(null);
-	}
 
 	public List<Institute> getInstitutesByIds(List<Long> instituteids) {
 		return instituteRepository.findAllById(instituteids);

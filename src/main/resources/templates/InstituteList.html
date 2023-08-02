@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Login -Placement Portal</title>
+  <title>Placement Portal</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -87,8 +87,7 @@
 
   <aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
-
+    <ul class="sidebar-nav" id="sidebar-nav"> 
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-journal-text"></i><span>Startups</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -101,7 +100,7 @@
               <i class="bi bi-circle "></i><span>Onboarding</span>
             </a>
           </li>
-           <li>
+       	   <li>
             <a th:href="@{/CompanyList}">
               <i class="bi bi-circle"></i><span>Startup List</span>
             </a>
@@ -121,142 +120,71 @@
           </ul>
         </ul>
         </li>
-          
-      
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-journal-text"></i><span>Institute</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-         
-       <ul>
-          <li>
-            <a th:href="@{/institute_onboarding}">
-              <i class="bi bi-circle"></i><span>Onboarding</span>
-            </a>
-          </li>
-          
-         <li>
-            <a th:href="@{/InstituteList}">
-              <i class="bi bi-circle"></i><span>Institute List</span>
-            </a>
-          </li>          
-
-          <li>
-            <a th:href="@{/candidate_registration}">
-              <i class="bi bi-circle"></i><span>Candidate Form</span>
-            </a>
-          </li>
-          
-         <li>
-            <a th:href="@{/CandidateList}">
-              <i class="bi bi-circle"></i><span>Candidate List</span>
-            </a>
-          </li>
-          
-        </ul>
-        </ul>
-      </li>
-     
- <li class="nav-heading">Pages</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" th:href="@{/register}">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" th:href="@{/login}">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
-        </a>
-      </li><!-- End Login Page Nav -->
-
+   
     </ul>
 
   </aside>
 
-  <main id="main" class="main">
+  
+
+ <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Dashboard</h1>
+      <h1>Institute List</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item"><a href="index.html">Institute</a></li>
+          <li class="breadcrumb-item active">Institute List</li>
         </ol>
       </nav>
-    </div>
+    </div><!-- End Page Title -->
 
-<section class="section register min-vh-90 d-flex flex-column align-items-center justify-content-center py-4">
-       
-          <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-4 d-flex flex-column align-items-center justify-content-center">
+    
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
 
-              
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Institute</h5>
+             
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr >
+                    <th scope="col">#</th>
+                    <th scope="col">Institute Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Founder</th>
+                    <th scope="col">Actions</th>
+<!--                     <th scope="col">Corporate Presentation</th> -->
+                  </tr>
+                </thead>
+               <tbody>
+				    <tr th:each="institute, instituteStat : ${listInstitutes}">
+				        <th th:utext="${instituteStat.count}"></th>
+				        <td th:text="${institute.institutename}"></td>
+				        <td th:text="${institute.email}"></td>
+				        <td th:text="${institute.state}"></td>
+				        <td th:text="${institute.foundername}"></td>
+				        <td>
+				            <a th:href="@{/editInstitute/{id}(id=${institute.instituteid})}" class="btn btn-primary">Update</a>
+				            <a th:href="@{/deleteInstitute/{id}(id=${institute.instituteid})}" class="btn btn-danger mx-2">Delete</a>
+				        </td>
+				    </tr>
+				</tbody>
 
-              <div class="card mb-3">
-
-                <div class="card-body">
-
-                  <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                    <p class="text-center small">Enter your user name and password to login</p>
-                  </div>
-
-                  <form th:action="@{/login}" method="post" class="row g-3 needs-validation" novalidate>
-					<!-- Error Message -->
-					<div th:if="${param.error}" class="alert alert-danger">
-							Invalid Username and Password
-					</div>
-					<div th:if="${param.logout}" class="alert alert-success">
-							You have been logged out  
-					</div>
-					
-                    <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="username" required>
-                        <div class="invalid-feedback">Please enter your username.</div>
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="password" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                      </div>
-                    </div>
-                    
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
-                    </div>
-                    
-                    <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a th:href="@{/register}">Create an account</a></p>
-                    </div>
-                    
-                  </form>
-
-                </div>
-              </div>
-
+              </table>
+              <!-- End Table with stripped rows -->
+			  
             </div>
           </div>
 
-      </section>
-             
-
-  </main>
+        </div>
+      </div>
+    </section>
+  </main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

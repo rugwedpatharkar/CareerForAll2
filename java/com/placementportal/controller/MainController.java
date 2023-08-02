@@ -139,27 +139,11 @@ public class MainController {
 		return "redirect:/CompanyList";
 	}
 
-//	@Autowired
-//	private CompanyService companyService;
-
-	// List of companies
-//	@GetMapping("/CompanyList")
-//	public String showCompany(Model model) {
-//		model.addAttribute("listCompanies",companyService.getAllCompanies());
-//		return "CompanyList";
-//	}
-//	@GetMapping("/")
-//	public String startupOnboarding(Model model) {
-//		Company company = new Company();
-//		model.addAttribute("company", company);
-//		return("startup_onboarding");
-//	}
-//	@PostMapping("/saveCompany")
-//	public String saveCompany(@ModelAttribute("company") Company company) {
-//		companyService.saveCompany(company);
-//		return("redirect:/");
-//	}
 	// ---------------------end of startup onboarding------------------------
+
+	
+	
+	// ---------------------Institute onboarding-----------------------
 	// Institute Controller
 	@GetMapping("/institute_onboarding")
 	public String institute_onboarding(Model model) {
@@ -173,6 +157,35 @@ public class MainController {
 		instituteService.saveInstitute(institute);
 		return "redirect:/institute_onboarding";
 	}
+	
+	@GetMapping("/InstituteList")
+	public String showInstitute(Model model) {
+		model.addAttribute("listInstitutes", instituteService.getAllInstitute());
+		return "InstituteList";
+	}
+
+	@GetMapping("/editInstitute/{id}")
+	public String editInstituteForm(@PathVariable("id") Long id, Model model) {
+		Institute institute = instituteService.getInstituteById(id);
+		model.addAttribute("institute", institute);
+		return "editInstitute";
+	}
+
+	@PostMapping("/updateInstitute")
+	public String updateInstitute(@ModelAttribute("institute") Institute institute) {
+		instituteService.saveInstitute(institute);
+		return "redirect:/InstituteList";
+	}
+
+
+	@GetMapping("/deleteInstitute/{id}")
+	public String deleteInstitute(@PathVariable(value = "id") Long id) {
+		this.instituteService.deleteInstituteById(id);
+		return "redirect:/InstituteList";
+	}
+
+
+	// ---------------------end of Institute onboarding------------------------
 
 	// Candidate COntroller
 
