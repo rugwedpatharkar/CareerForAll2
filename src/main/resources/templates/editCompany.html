@@ -124,58 +124,7 @@
           </ul>
         </ul>
         </li>
-          
-      
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-journal-text"></i><span>Institute</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-         
-       <ul>
-          <li>
-            <a th:href="@{/institute_onboarding}">
-              <i class="bi bi-circle"></i><span>Onboarding</span>
-            </a>
-          </li>
-
-          <li>
-            <a th:href="@{/candidate_registration}">
-              <i class="bi bi-circle"></i><span>Candidate Form</span>
-            </a>
-          </li>
-         
-         <li>
-            <a th:href="@{/CandidateList}">
-              <i class="bi bi-circle"></i><span>Candidate List</span>
-            </a>
-          </li>
   
-        </ul>
-        </ul>
-      </li>
-      
-
-      
-
- <li class="nav-heading">Pages</li>
-
-     
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" th:href="@{/register}">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" th:href="@{/login}">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
-        </a>
-      </li><!-- End Login Page Nav -->
-
     </ul>
 
   </aside>
@@ -197,6 +146,7 @@
       <div class="card-body">
         <h5 class="card-title">Who's who!</h5>
         <!-- General Form Elements -->
+        
         <form th:object="${company}" th:action="@{/updateCompany}"  action="#" class="search-form" id="updatestartup" name="updatestartup" method="POST" >
                             <div class="row mb-3">
                                 <label for="inputText" class="col-sm-2 col-form-label required">Company Name</label>

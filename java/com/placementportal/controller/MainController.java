@@ -2,6 +2,7 @@ package com.placementportal.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -88,6 +90,7 @@ public class MainController {
 	}
 
 	@GetMapping("/jobopening")
+	@PreAuthorize("hasRole('HR')")
 	public ModelAndView jobopening() {
 		ModelAndView mav = new ModelAndView("jobopening");
 		return mav;
@@ -102,6 +105,7 @@ public class MainController {
 	}
 
 	@GetMapping("/startup_onboarding")
+	@PreAuthorize("hasRole('HR')")
 	public String startup_onboarding(Model model) {
 		Company company = new Company();
 		model.addAttribute("company", company);
@@ -126,6 +130,7 @@ public class MainController {
 		companyService.saveCompany(company);
 		return "redirect:/CompanyList";
 	}
+	
 
 	@GetMapping("/deleteCompany/{id}")
 	public String deleteCompany(@PathVariable(value = "id") Long id) {
@@ -179,7 +184,7 @@ public class MainController {
 		model.addAttribute("candidate", candidate);
 		return ("candidate_registration");
 	}
-
+	
 	@PostMapping("/saveCandidate")
 	public String saveCandidate(@ModelAttribute("candidate") Candidate candidate) {
 		candidateService.saveCandidate(candidate);
@@ -200,13 +205,12 @@ public class MainController {
 		model.addAttribute("candidate", candidate);
 		return "editCandidate";
 	}
-
 	@PostMapping("/updateCandidate")
 	public String updateCandidate(@ModelAttribute("candidate") Candidate candidate) {
 		candidateService.saveCandidate(candidate);
 		return "redirect:/CandidateList";
 	}
-
+	
 	@GetMapping("/deleteCandidate/{id}")
 	public String deleteCandidate(@PathVariable(value = "id") Long id) {
 		this.candidateService.deleteCandidateById(id);
@@ -232,8 +236,12 @@ public class MainController {
 	}
 
 	@GetMapping("/profile")
-	public String hrhome() {
-		return "profile";
+	public String hrhome(Model model, Principal principal)
+	{
+//		String name=principal.getName();
+//		User user=userRepository.findByName(name);
+//		model.addAttribute("username",user.getFullname());
+		return "profile";   
 	}
 
 	@GetMapping("/pohome")
@@ -269,6 +277,8 @@ public class MainController {
 	// ************************ End of User Login And Registration
 	// **************************
 
+	// ************************ End of User Login And Registration **************************
+		
 	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
 	// wagh)
 	// start
