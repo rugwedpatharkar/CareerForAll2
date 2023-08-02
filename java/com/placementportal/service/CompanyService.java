@@ -30,4 +30,12 @@ public class CompanyService {
 
 	}
 
+	public Company findCompanyById(Long companyid) {
+		return companyRepository.findById(companyid).orElse(null);
+	}
+
+	public Company getCompanyByCompanyid(Long companyid) {
+		return companyRepository.findById(companyid)
+				.orElseThrow(() -> new IllegalArgumentException("Company not found with ID: " + companyid));
+	}
 }

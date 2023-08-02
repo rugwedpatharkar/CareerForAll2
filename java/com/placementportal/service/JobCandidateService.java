@@ -1,8 +1,15 @@
 package com.placementportal.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.placementportal.model.Company;
+import com.placementportal.model.Job;
 import com.placementportal.model.JobCandidate;
 import com.placementportal.repository.JobCandidateRepository;
 
@@ -16,4 +23,12 @@ public class JobCandidateService {
 		return jobCandidateRepository.save(jobCandidate);
 	}
 
+	public Page<JobCandidate> getJobCandidatesByCompanyAndJob(Company company, Job job, Pageable pageable) {
+		return jobCandidateRepository.findByCompanyAndJob(company, job, pageable);
+	}
+
+	@Transactional
+	public void deleteByJobCandidateIdIn(List<Long> jobcandidateids) {
+		jobCandidateRepository.deleteByJobcandidateidIn(jobcandidateids);
+	}
 }

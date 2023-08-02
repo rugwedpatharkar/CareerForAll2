@@ -3,6 +3,7 @@ package com.placementportal.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.placementportal.model.Candidate;
 import com.placementportal.model.Job;
+import com.placementportal.model.JobCandidate;
 import com.placementportal.repository.CandidateRepository;
 import com.placementportal.repository.JobRepository;
 
@@ -47,6 +49,12 @@ public class CandidateService {
 	public Optional<Candidate> getFileById(Long canidate_id) {
 		return candidateRepository.findById(canidate_id);
 
+	}
+
+	public List<Candidate> getCandidatesByJobCandidates(List<JobCandidate> jobCandidates) {
+		List<Long> candidateIds = jobCandidates.stream().map(JobCandidate::getCandidate).map(Candidate::getCandidateid)
+				.collect(Collectors.toList());
+		return candidateRepository.findAllById(candidateIds);
 	}
 
 	public List<Candidate> findCandidatesByPrimarySkills(String keyword) {
@@ -90,6 +98,7 @@ public class CandidateService {
 	public List<Candidate> getCandidatesByIds(List<Long> candidateids) {
 		return candidateRepository.findAllById(candidateids);
 	}
+
 	// end
 	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
 	// wagh)

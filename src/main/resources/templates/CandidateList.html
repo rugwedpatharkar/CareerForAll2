@@ -116,11 +116,11 @@
             </a>
           </li>
           
-           <li>
-            <a th:href="@{/joblistfilters}">
+            <li>
+            <a th:href="@{/joblist/{companyid}(companyid=1)}">
               <i class="bi bi-circle"></i><span>Job List</span>
             </a>
-          </li>
+          </li>  
           
           </ul>
         </ul>
@@ -207,7 +207,7 @@
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
-                  <tr >
+                  <tr>
                     <th scope="col">#</th>
                     <th scope="col">Candidate Name</th>
                     <th scope="col">Email</th>
