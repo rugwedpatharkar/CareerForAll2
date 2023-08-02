@@ -369,7 +369,7 @@
             <td th:text="${c.candidatecity}"></td>
             <td th:text="${c.noofyearsworkex}"></td>
             <td><a class="btn btn-primary"
-                    th:href="@{/candidatelistfilters/{candidateid}(candidateid=${c.candidateid})}"
+                    th:href="@{/cvdownload/{candidateid}(candidateid=${c.candidateid})}"
                     style="width:90px; height:25px;  padding-top: 2px; font-size: 12px;">Download</a></td>
             <!-- Add hidden input field for instituteid -->
             <input type="hidden" name="instituteids" th:value="${c.institutename.instituteid}">
