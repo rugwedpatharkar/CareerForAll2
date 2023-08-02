@@ -560,12 +560,14 @@ cvInput.addEventListener('change', (event) => {
    var cvUploadError2 = document.getElementById("cvUploadError2");
    cvUploadError2.style.display = "block";
    cvInput.value = '';
+   event.preventDefault();
    return;
  } else if (file.size > 2000000) {
    // Display the "The selected file is too large." error message
    var cvUploadError3 = document.getElementById("cvUploadError3");
    cvUploadError3.style.display = "block";
    cvInput.value = '';
+   event.preventDefault();
    return;
  }
 });//---------------------- end validate CV UPload

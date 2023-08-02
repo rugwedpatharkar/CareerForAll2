@@ -182,13 +182,18 @@
               </div>
             </div>
             
+            
              <div class="row mb-3">
               <label for="inputEmail" class="col-sm-2 col-form-label required">Brand Name</label>
               <div class="col-sm-10">
-                <input type="text"  th:field="*{brandname}" class="form-control" required>
+                <input type="text"  th:field="*{brandname}" id="brandName" class="form-control" required>
+                <div id="brandNameError" class="invalid-feedback">
+                   Please enter a valid brand name.
+                </div>  
               </div>
             </div>
 
+            
             
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label required">Start Date</label>
@@ -201,7 +206,7 @@
             <div class="row mb-3">
               <label for="inputNumber" class="col-sm-2 col-form-label required">State</label>
               <div class="col-sm-10">
-                <select th:field="*{state}" class="form-select" id="state" aria-label="Default select example">
+                <select th:field="*{state}" class="form-select" id="state" aria-label="Default select example" required>
               
     <!--- India states -->
       <option value="">Select State</option>
@@ -251,7 +256,7 @@
             <div class="row mb-3">
               <label for="inputNumber" class="col-sm-2 col-form-label required">Main Campus - City</label>
               <div class="col-sm-10">
-                <select th:field="*{maincampuscity}" class="form-select" aria-label="Default select example" id="city">
+                <select th:field="*{maincampuscity}" class="form-select" aria-label="Default select example" id="city" required>
                   <option value="">Select City</option>
 
    <script>
@@ -372,15 +377,22 @@
             <div class="row mb-3">
               <label for="inputDate" class="col-sm-2 col-form-label">Other Campus Cities (if any)</label>
               <div class="col-sm-10">
-                <input type="text" th:field="*{othercampuscity}" class="form-control">
+                <input type="text" th:field="*{othercampuscity}" id="otherCampuscity" class="form-control">
+                <div id="otherCampuscityError" class="invalid-feedback">
+                   Please enter a valid brand name.
+                </div>  
               </div>
             </div>
+
 
 
             <div class="row mb-3">
               <label for="inputTime" class="col-sm-2 col-form-label required">Founder Name</label>
               <div class="col-sm-10">
-                <input type="text" th:field="*{foundername}" class="form-control" required>
+                <input type="text" th:field="*{foundername}" id="founderName"class="form-control" required>
+                <div id="founderNameError" class="invalid-feedback">
+                   Please enter a valid founder name.
+                </div>              
               </div>
             </div>
 
@@ -388,9 +400,14 @@
             <div class="row mb-3">
               <label for="inputColor" class="col-sm-2 col-form-label required">Director/Principal</label>
               <div class="col-sm-10">
-                <input type="text" th:field="*{directororprinciple}" class="form-control" required>
+                <input type="text" th:field="*{directororprinciple}" id="principalName" class="form-control" required>
+                <div id="principalNameError" class="invalid-feedback">
+                   Please enter a valid name.
+                </div>              
               </div>
             </div>
+            
+            
 
             <h5 class="card-title">Your Indentity is Our Priority</h5>
 
@@ -399,30 +416,51 @@
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label required">Company - Website</label>
               <div class="col-sm-10">
-                <input type="url" th:field="*{companywebsite}" class="form-control" >
+                <input type="url" th:field="*{companywebsite}" id="companyWebsite"class="form-control" >
+                <div id="companyWebsiteError" class="invalid-feedback">
+                   Please enter a valid url.
+                </div>                              
               </div>
             </div>
 
             <div class="row mb-3">
-              <label for="inputPassword" class="col-sm-2 col-form-label">Company - Linkedin</label>
+              <label for="inputPassword" class="col-sm-2 col-form-label">Company - LinkedIn</label>
               <div class="col-sm-10">
-                <input type="url"  th:field="*{companylinkedin}" class="form-control">
+                <input type="url"  th:field="*{companylinkedin}" id="companyLinkedin"class="form-control">
+                <div id="companyLinkedinError" class="invalid-feedback">
+                   Please enter a valid linkedIn url.
+                </div> 
               </div>
             </div>
-
+            
+ 
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label">Any other relevant link</label>
               <div class="col-sm-10">
-                <input type="url" th:field="*{anyotherrelevantlink}" class="form-control">
+                <input type="url" th:field="*{anyotherrelevantlink}" id="otherLinks" class="form-control">
+                <div id="otherLinksError" class="invalid-feedback">
+                   Please enter a valid url.
+                </div>                 
               </div>
             </div>
-
+ 
             <div class="row mb-3">
               <label for="inputNumber" class="col-sm-2 col-form-label required">Corporate Presentation</label>
               <div class="col-sm-10">
-                <input class="form-control" type="file" th:field="*{corporatepresentation}" id="formFile" required>
+                <input class="form-control" type="file" th:field="*{corporatepresentation}" id="formFile" accept=".pdf,.doc,.docx" max-size="2000000" required>
+              <div id="presentationError1" class="invalid-feedback">
+                Please select a file.
+              </div>
+              <div id="presentationError2" class="invalid-feedback">
+                Please select a valid file type for the CV.(pdf,doc,docx,txt,rtf,jpg)
+              </div>
+              <div id="presentationError3" class="invalid-feedback">
+                The selected file is too large. Please select a file with a size smaller than 2MB.
+              </div>
               </div>
             </div>
+
+
 
             <div class="row mb-3">
               <label for="inputNumber" class="col-sm-2 col-form-label">Any other file upload </label>
@@ -430,6 +468,7 @@
                 <input class="form-control" type="file"  th:field="*{anyotherfileupload}" id="formFile">
               </div>
             </div>
+
 
             <div class="row mb-3">
               <label for="inputDate" class="col-sm-2 col-form-label required">Specialization</label>
@@ -460,9 +499,13 @@
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label required">No. of Campuses</label>
               <div class="col-sm-10">
-                <input type="number" th:field="*{noofcampuses}" class="form-control" required>
+                <input type="number" th:field="*{noofcampuses}" id="noOfCampuses" class="form-control" required>
+				<div id="noOfCampusesError" class="invalid-feedback">
+          		  Please enter a valid number of campuses (maximum 50).
+        		</div>   
               </div>
-            </div>
+            </div>         
+            
 
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label required">Median CTC</label>
@@ -579,6 +622,181 @@
 		integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
 		crossorigin="anonymous"></script>
 	<script th:src="@{/js/main.js}"></script>
+	
+	
+	            <script>
+          //--------------------validate Institute name (with numbers)
+            var nameInput = document.getElementById("instituteName");
+            nameInput.addEventListener("input", validateInstituteName);
+            function validateInstituteName() {
+             var name = document.getElementById("instituteName").value;
+             var nameRegex =/^[A-Za-z0-9\s\-()&.,']+$/;
+             var instituteNameError = document.getElementById("instituteNameError");
+             if (!nameRegex.test(name)) {
+            instituteNameError.style.display = "block";
+               return false;
+             } else {
+            instituteNameError.style.display = "none";
+               return true;
+             }
+            }//-----------------------------end of validate Candidate name       
+            
+            //--------------------validate brand name (with numbers)
+            var nameInput = document.getElementById("brandName");
+            nameInput.addEventListener("input", validateBrandName);
+            function validateBrandName() {
+             var name = document.getElementById("brandName").value;
+             var nameRegex =/^[A-Za-z0-9\s\-()&.,'!]{2,100}$/;
+             var instituteNameError = document.getElementById("brandNameError");
+             if (!nameRegex.test(name)) {
+            	 brandNameError.style.display = "block";
+               return false;
+             } else {
+            	 brandNameError.style.display = "none";
+               return true;
+             }
+            }//-----------------------------end of validate brand name        
+            
+            //--------------------validate other campus city name
+            var nameInput = document.getElementById("otherCampuscity");
+            nameInput.addEventListener("input", validateCampusCity);
+            function validateCampusCity() {
+             var name = document.getElementById("otherCampuscity").value;
+             var nameRegex =/^[A-Za-z\s.'-]*$/;
+             var instituteNameError = document.getElementById("otherCampuscityError");
+             if (!nameRegex.test(name)) {
+            	 otherCampuscityError.style.display = "block";
+               return false;
+             } else {
+            	 otherCampuscityError.style.display = "none";
+               return true;
+             }
+            }//------------------------------- other campus city name end
+            
+        	//--------------------validate founder name 
+        	var nameInput = document.getElementById("founderName");
+        	nameInput.addEventListener("input", validatefounderName);
+        	function validatefounderName() {
+        	 var name = document.getElementById("founderName").value;
+        	 var nameRegex =/^[a-zA-Z\ \s]*$/;
+        	 var founderNameError = document.getElementById("founderNameError");
+        	 if (!nameRegex.test(name)) {
+        	founderNameError.style.display = "block";
+        	   return false;
+        	 } else {
+        		 founderNameError.style.display = "none";
+        	   return true;
+        	 }
+        	}//-----------------------------end of validate founder name
+            
+        	//--------------------validate principal or director name 
+        	var nameInput = document.getElementById("principalName");
+        	nameInput.addEventListener("input", validatePrincipalName);
+        	function validatePrincipalName() {
+        	 var name = document.getElementById("principalName").value;
+        	 var nameRegex =/^[a-zA-Z\ \s]*$/;
+        	 var principalNameError = document.getElementById("principalNameError");
+        	 if (!nameRegex.test(name)) {
+        		 principalNameError.style.display = "block";
+        	   return false;
+        	 } else {
+        		 principalNameError.style.display = "none";
+        	   return true;
+        	 }
+        	}//-----------------------------end of validate principal or director name 
+        	
+        	
+        	//--------------------validate Company website Link
+        	var nameInput = document.getElementById("companyWebsite");
+        	nameInput.addEventListener("input", validateCompanyWebsite);
+        	function validateCompanyWebsite() {
+        	 var name = document.getElementById("companyWebsite").value;
+        	 var nameRegex =/^(https?:\/\/)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/\S*)?$/;
+        	 var companyWebsiteError = document.getElementById("companyWebsiteError");
+        	 if (!nameRegex.test(name)) {
+        		 companyWebsiteError.style.display = "block";
+        	   return false;
+        	 } else {
+        		 companyWebsiteError.style.display = "none";
+        	   return true;
+        	 }
+        	}//-----------------------------end of validate Company website Link
+        	
+        	//--------------------validate Linkedin
+        	var nameInput = document.getElementById("companyLinkedin");
+        	nameInput.addEventListener("input", validateCompanyLinkedin);
+        	function validateCompanyLinkedin() {
+        	 var name = document.getElementById("companyLinkedin").value;
+        	 var nameRegex =/^(https?:\/\/)?(www\.)?linkedin\.com\/(?:(?:in\/[\w%.-]+)|(?:company\/[\w%.-]+)|(?:school\/[\w%.-]+)|(?:showcase\/[\w%.-]+)|(?:topic\/[\w%.-]+)|(?:pulse\/[\w%.-]+)|(?:[\w%.-]+\/detail\/\S+))\/?$/;
+        	 var companyLinkedinError = document.getElementById("companyLinkedinError");
+        	 if (!nameRegex.test(name)) {
+        		 companyLinkedinError.style.display = "block";
+        	   return false;
+        	 } else {
+        		 companyLinkedinError.style.display = "none";
+        	   return true;
+        	 }
+        	}//-----------------------------end of validate Linkedin
+
+        	//--------------------validate otherLinks name 
+        	var nameInput = document.getElementById("otherLinks");
+        	nameInput.addEventListener("input", validateCompanyWebsite);
+        	function validateCompanyWebsite() {
+        	 var name = document.getElementById("otherLinks").value;
+        	 var nameRegex =/^(https?:\/\/)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\/?[\S]*$/;
+        	 var otherLinksError = document.getElementById("otherLinksError");
+        	 if (!nameRegex.test(name)) {
+        		 otherLinksError.style.display = "block";
+        	   return false;
+        	 } else {
+        		 otherLinksError.style.display = "none";
+        	   return true;
+        	 }
+        	}//-----------------------------end of validate otherlinks 
+
+        	//---------------------------------validate file UPload
+        	const cvInput = document.getElementById('formFile');
+        	formFile.addEventListener('change', (event) => {
+        	 const file = event.target.files[0];
+        	 const allowedExtensions = /(\.pdf|\.doc|\.docx)$/i;
+        	 document.getElementById("presentationError1").style.display = "none";
+        	 document.getElementById("presentationError2").style.display = "none";
+        	 document.getElementById("presentationError1").style.display = "none";
+        	 if (!file) {
+        	     presentationError1.style.display = "block";
+        	     formFile.value = ''; // Clear the input field
+        	     return;
+        	 } else if (!allowedExtensions.test(file.name)) {
+        	     formFile.value = ''; // Clear the input field
+        	     presentationError2.style.display = "block";
+        	     event.preventDefault(); // Prevent file upload
+        	     return;
+        	 } else if (file.size > 2000000) {
+        	     formFile.value = ''; // Clear the input field
+        	     presentationError3.style.display = "block";
+        	     event.preventDefault(); // Prevent file upload
+        	     return;
+        	 }
+        	});//---------------------- end validate file UPload
+        	
+            //--------------------validate No. of Campuses 
+            var noOfCampusesInput = document.getElementById("noOfCampuses");
+            noOfCampusesInput.addEventListener("input", validateNoOfCampuses);    
+            function validateNoOfCampuses() {
+                var noOfCampuses = parseInt(document.getElementById("noOfCampuses").value);
+                var noOfCampusesError = document.getElementById("noOfCampusesError");
+                if (isNaN(noOfCampuses) || noOfCampuses < 1 || noOfCampuses > 50) {
+                    noOfCampusesError.style.display = "block";
+                    return false;
+                } else {
+                    noOfCampusesError.style.display = "none";
+                    return true;
+                }
+            }
+            //-------------------------------end of validate No. of Campuses
+        	
+            </script>
+	
 
 </body>
 
