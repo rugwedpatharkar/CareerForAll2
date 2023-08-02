@@ -40,10 +40,10 @@ public class MyConfig {
 	}
 
 	//configure methods
-	
+
 	 @Bean
 	    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-	        
+
 		 http.csrf().disable()
 		 .authorizeHttpRequests((requests) -> requests
 		 .requestMatchers("/admin/adminhome.html").hasRole("ADMIN")
@@ -61,10 +61,10 @@ public class MyConfig {
 		)
 		 .logout((logout) -> logout.permitAll())
          .exceptionHandling().accessDeniedPage("/access-denied");
-		 
-		 
+
+
 		 http.authenticationProvider(daoAuthenticationProvider());
-		 
+
 	        return http.build();
 	    }
 

@@ -25,7 +25,10 @@ public class InstituteService {
 
 		instituteRepository.save(institute);
 	}
-
+	
+	
+	// *******************  JoblistFilters and CandidateListfilters and mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh) *********************
+//start
 	public List<Institute> getInstitutesByJobCandidates(List<JobCandidate> jobCandidates) {
 		List<Long> instituteIds = jobCandidates.stream().map(JobCandidate::getInstitute).map(Institute::getInstituteid)
 				.collect(Collectors.toList());
@@ -39,4 +42,7 @@ public class InstituteService {
 	public List<Institute> getInstitutesByIds(List<Long> instituteids) {
 		return instituteRepository.findAllById(instituteids);
 	}
+	//end
+	// *******************  JoblistFilters and CandidateListfilters and mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh) *********************
+
 }

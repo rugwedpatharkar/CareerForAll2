@@ -37,12 +37,12 @@ public class CandidateService {
 	public Candidate getCandidateById(Long id) {
 		return candidateRepository.findById(id).orElse(null);
 	}
-	
+
 	public void deleteCandidateById(Long id) {
 		this.candidateRepository.deleteById(id);
 	}
 
-	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay wagh)
+	// *******************  JoblistFilters and CandidateListfilters and mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh) *********************
 //start
 	public Optional<Candidate> getFileById(Long canidate_id) {
 		return candidateRepository.findById(canidate_id);
@@ -88,17 +88,12 @@ public class CandidateService {
 		return listcandidate;
 	}
 
-//	public Candidate getCandidateById(Long candidateid) {
-//		return candidateRepository.findById(candidateid)
-//				.orElseThrow(() -> new IllegalArgumentException("Candidate not found with ID: " + candidateid));
-//	}
 
 	public List<Candidate> getCandidatesByIds(List<Long> candidateids) {
 		return candidateRepository.findAllById(candidateids);
 	}
-
 	// end
-	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
-	// wagh)
+
+		// *******************  JoblistFilters and CandidateListfilters and mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh) *********************
 
 }

@@ -1,8 +1,8 @@
 package com.placementportal.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -130,7 +130,7 @@ public class MainController {
 		companyService.saveCompany(company);
 		return "redirect:/CompanyList";
 	}
-	
+
 
 	@GetMapping("/deleteCompany/{id}")
 	public String deleteCompany(@PathVariable(value = "id") Long id) {
@@ -184,7 +184,7 @@ public class MainController {
 		model.addAttribute("candidate", candidate);
 		return ("candidate_registration");
 	}
-	
+
 	@PostMapping("/saveCandidate")
 	public String saveCandidate(@ModelAttribute("candidate") Candidate candidate) {
 		candidateService.saveCandidate(candidate);
@@ -210,7 +210,7 @@ public class MainController {
 		candidateService.saveCandidate(candidate);
 		return "redirect:/CandidateList";
 	}
-	
+
 	@GetMapping("/deleteCandidate/{id}")
 	public String deleteCandidate(@PathVariable(value = "id") Long id) {
 		this.candidateService.deleteCandidateById(id);
@@ -241,7 +241,7 @@ public class MainController {
 //		String name=principal.getName();
 //		User user=userRepository.findByName(name);
 //		model.addAttribute("username",user.getFullname());
-		return "profile";   
+		return "profile";
 	}
 
 	@GetMapping("/pohome")
@@ -278,9 +278,9 @@ public class MainController {
 	// **************************
 
 	// ************************ End of User Login And Registration **************************
-		
-	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
-	// wagh)
+
+
+	// *******************  JoblistFilters and CandidateListfilters and mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh) *********************
 	// start
 	// Show job list on joblistfilters
 	@GetMapping("/joblist/{companyid}")
@@ -402,6 +402,7 @@ public class MainController {
 		return "candidatelistfilters";
 	}
 
+	//map candidates to job on candidatelistfilters
 	@PostMapping("/mapcandidatetojob/{positionid}/{companyid}/{minKeywordLength}")
 	public String mapCandidatesToJob(@PathVariable int minKeywordLength, Model model,
 			@RequestParam("positionid") int positionid, @RequestParam("companyid") Long companyid,
@@ -441,6 +442,7 @@ public class MainController {
 		return "candidatelistfilters";
 	}
 
+	//show list of mapped candidates to job on mappedcandidatelist
 	@GetMapping("/mappedcandidatelist/{companyid}/{positionid}")
 	public String getJobCandidatesByCompanyidAndPositionid(@PathVariable Long companyid, @PathVariable int positionid,
 			@RequestParam(defaultValue = "0") int page, Model model) {
@@ -448,7 +450,9 @@ public class MainController {
 		fetchJobCandidates(companyid, positionid, page, model);
 		return "mappedcandidateslist";
 	}
-
+	
+	
+	//delete mapped candidates to jobs
 	@PostMapping("/deletecandidates")
 	public String deleteSelectedCandidates(@RequestParam("jobcandidateids") List<Long> jobcandidateids,
 			@RequestParam("companyid") Long companyid, @RequestParam("positionid") int positionid,
@@ -460,7 +464,7 @@ public class MainController {
 		return "mappedcandidateslist";
 	}
 
-	// Common method to fetch job candidates
+	// Common method to fetch jobcandidates
 	private void fetchJobCandidates(Long companyid, int positionid, int page, Model model) {
 		int pageSize = 10;
 		Pageable pageable = PageRequest.of(page, pageSize);
@@ -485,7 +489,6 @@ public class MainController {
 	}
 
 	// end
-	// JoblistFilters and CandidateListfilters Code (Rugwed patharkar , Chinmay
-	// wagh)
 
+	// *******************  JoblistFilters and CandidateListfilters and mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh) *********************
 }
