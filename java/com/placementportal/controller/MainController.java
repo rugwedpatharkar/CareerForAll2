@@ -335,30 +335,42 @@ public class MainController {
 	}
 
 	// CV download of candidates on candidatelistfilters
-	@GetMapping("/cvdownload/{candidateid}")
-	public ResponseEntity<Resource> downloadFile1(@PathVariable long candidateid) throws IOException {
-		Optional<Candidate> fileEntityOptional = candidateService.getFileById(candidateid);
-		if (fileEntityOptional.isPresent()) {
-			Candidate candidate = fileEntityOptional.get();
-			ByteArrayResource resource = new ByteArrayResource(candidate.getCvupload());
+//	@GetMapping("/cvdownload/{candidateid}")
+//	public ResponseEntity<Resource> downloadFile1(@PathVariable long candidateid) throws IOException {
+//		Optional<Candidate> fileEntityOptional = candidateService.getFileById(candidateid);
+//		if (fileEntityOptional.isPresent()) {
+//			Candidate candidate = fileEntityOptional.get();
+//			ByteArrayResource resource = new ByteArrayResource(candidate.getCvupload());
+//
+//			return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION)
+//					.contentType(MediaType.APPLICATION_OCTET_STREAM).contentLength(candidate.getCvupload().length)
+//					.body(resource);
+//		}
+//		return ResponseEntity.notFound().build();
+//	}
+	 @GetMapping("/cvdownload/{candidateid}")
+	    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long candidateid) throws IOException {
+	        Optional<Candidate> candidateOptional = candidateService.getFileById(candidateid);
+	        if (candidateOptional.isPresent()) {
+	            Candidate candidate = candidateOptional.get();
+	            byte[] cvupload = candidate.getCvupload();
 
-			return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION)
-					.contentType(MediaType.APPLICATION_OCTET_STREAM).contentLength(candidate.getCvupload().length)
-					.body(resource);
-		}
-		return ResponseEntity.notFound().build();
-	}
+	          
 
-	@GetMapping(value = "/cvdownload/{candidateid}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	@ResponseBody
-	public byte[] downloadFileAsAttachment(@PathVariable Long candidateid) throws IOException {
-		Optional<Candidate> fileEntityOptional = candidateService.getFileById(candidateid);
-		if (fileEntityOptional.isPresent()) {
-			Candidate candidate = fileEntityOptional.get();
-			return candidate.getCvupload();
-		}
-		return null;
-	}
+	            ByteArrayResource resource = new ByteArrayResource(cvupload);
+
+	            HttpHeaders headers = new HttpHeaders();
+	            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + candidate.getCandidatename() + ".pdf");
+
+	            return ResponseEntity.ok()
+	                    .headers(headers)
+	                    .contentType(MediaType.APPLICATION_PDF)
+	                    .contentLength(cvupload.length)
+	                    .body(resource);
+	        } else {
+	            return ResponseEntity.notFound().build();
+	        }
+	    }
 
 	// shows eligible candidate lists
 	@GetMapping("/eligiblecandidates/{positionid}/{minKeywordLength}")
@@ -474,9 +486,6 @@ public class MainController {
 		Job job = jobService.getJobByPositionid(positionid);
 
 		if (company == null || job == null) {
-			// Handle error if needed
-			// You can return a different view to show an error message or handle it as per
-			// your application logic.
 			return;
 		}
 

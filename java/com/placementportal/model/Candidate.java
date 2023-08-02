@@ -3,12 +3,14 @@ package com.placementportal.model;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -22,8 +24,10 @@ public class Candidate {
 
 	private String email;
 
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
 	private byte[] cvupload;
-
+	  
 	private byte[] otherrelevantupload;
 
 	private String primaryskills;
