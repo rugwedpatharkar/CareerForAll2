@@ -116,11 +116,11 @@
             </a>
           </li>
           
-           <li>
-            <a th:href="@{/joblist}">
+      <li>
+            <a th:href="@{/joblist/{companyid}(companyid=1)}">
               <i class="bi bi-circle"></i><span>Job List</span>
             </a>
-          </li>
+          </li>    
           </ul>
         </ul>
         </li>
@@ -192,8 +192,9 @@
 			<h1>Company Name</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item">Home</li>
-					<li class="breadcrumb-item active">Management</li>
+					<li class="breadcrumb-item">Filter Job List </li>
+					<li class="breadcrumb-item active">Filter Candidate List</li>
+				    <li class="breadcrumb-item">List of Mapped Candidates to Job</li>
 				</ol>
 			</nav>
 		</div>
@@ -344,8 +345,8 @@
 						<hr style="width: 100%; text-align: center; margin-left: 0">
 
 						<h5 class="card-title" style="padding-top: 5px;">Candidate List</span></h5>
-					<form id="mapcandidateform" th:action="@{/mapcandidatetojob/{positionid}/{minKeywordLength}(minKeywordLength=3)}" th:object="${selectedCandidatesForm}" method="post">
-
+<form id="mapcandidateform" th:action="@{/mapcandidatetojob/{positionid}/{companyid}/{minKeywordLength}(minKeywordLength=3)}"
+    th:object="${selectedCandidatesForm}" method="post">
 						<table class="table">
 							<thead>
 								<tr>
@@ -359,17 +360,21 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="c : ${listcandidate}">
-									<td><input class="form-check-input" type="checkbox"  
-										name="candidateids"  th:value="${c.candidateid}"></td>
-									<td th:text="${c.candidatename}"></td>
-									<td th:text="${c.primaryskills}"></td>
-									<td th:text="${c.secondaryskills}"></td>
-									<td th:text="${c.candidatecity}"></td>
-									<td th:text="${c.noofyearsworkex}"></td>
-									<td><a class="btn btn-primary" th:href="@{/candidatelistfilters/{candidateid}(candidateid=${c.candidateid})}"style="width:90px; height:25px;  padding-top: 2px; font-size: 12px";>Download</a></td>
-								</tr>
-							</tbody>
+        <tr th:each="c, i : ${listcandidate}">
+            <td><input class="form-check-input candidate-checkbox" type="checkbox"  
+                    name="candidateids" th:value="${c.candidateid}"></td>
+            <td th:text="${c.candidatename}"></td>
+            <td th:text="${c.primaryskills}"></td>
+            <td th:text="${c.secondaryskills}"></td>
+            <td th:text="${c.candidatecity}"></td>
+            <td th:text="${c.noofyearsworkex}"></td>
+            <td><a class="btn btn-primary"
+                    th:href="@{/cvdownload/{candidateid}(candidateid=${c.candidateid})}"
+                    style="width:90px; height:25px;  padding-top: 2px; font-size: 12px;">Download</a></td>
+            <!-- Add hidden input field for instituteid -->
+            <input type="hidden" name="instituteids" th:value="${c.institutename.instituteid}">
+        </tr>
+    </tbody>
 						</table>
 						 <div if="${listcandidate.totalPages > 1}">
         <ul class="pagination">
@@ -393,12 +398,16 @@
         </ul>
     </div>
 					 <input type="hidden"name="positionid"  th:value="${position.positionid}">
+					 <input type="hidden" name="companyid"  th:value="${position.company.companyid}">
 					
 						</form>
 						<div class="row mb-3">
 							<div class="col-sm-10">
-								<button type="submit" class="btn btn-success" form="mapcandidateform" style="width:90px; height:25px;  padding-top: 2px; font-size: 12px";>Map Candidate</button>
+								<button type="submit" class="btn btn-success" form="mapcandidateform" style="width:90px; height:25px;  padding-top: 2px; font-size: 12px">Map Candidate</button>
+			<a th:href="@{/mappedcandidatelist/{companyid}/{positionid}(companyid=1,  positionid=${position.positionid})}" class="btn btn-success" form="mapcandidateform" style=" height:25px; padding-top: 2px; font-size: 12px; background-color:#0d6efd">Mapped Candidate List</a>
+
 							</div>
+							
 						
 						</div>
 						
@@ -537,5 +546,52 @@
 }
 
   </style>
-  
+ 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const candidateCheckboxes = document.querySelectorAll(".candidate-checkbox");
+        const mapCandidatesBtn = document.getElementById("mapCandidatesBtn");
+
+        mapCandidatesBtn.addEventListener("click", function () {
+            const formData = new FormData();
+            const selectedCandidates = [];
+
+            candidateCheckboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    const candidateId = checkbox.value;
+                    const instituteId = checkbox.parentElement.querySelector("input[name='institutes']").value;
+
+                    formData.append("candidateids", candidateId);
+                    formData.append("instituteids", instituteId);
+
+                    selectedCandidates.push(candidateId);
+                }
+            });
+
+            if (selectedCandidates.length === 0) {
+                alert("Please select at least one candidate to map.");
+                return;
+            }
+
+            formData.append("positionid", document.querySelector("input[name='positionid']").value);
+
+            // Make the AJAX call to submit the form data
+            fetch("/mapcandidatetojob/" + positionid + "/3", {
+                method: "POST",
+                body: formData
+            }).then((response) => {
+                // Handle the response if needed
+                if (response.ok) {
+                    // Optional: Reload the page or perform other actions
+                    location.reload();
+                } else {
+                    alert("Failed to map candidates.");
+                }
+            }).catch((error) => {
+                alert("An error occurred while mapping candidates.");
+            });
+        });
+    });
+</script>
+
 </html>

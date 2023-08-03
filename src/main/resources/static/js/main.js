@@ -929,7 +929,6 @@ items.forEach(item => {
 })
 
 //-------------------------------User Email Validation -----------------
-
 var emailInput = document.getElementById("email");
 
 // Add an event listener to the email input field

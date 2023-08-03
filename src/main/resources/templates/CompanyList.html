@@ -167,10 +167,10 @@
           </li>
           
            <li>
-            <a th:href="@{/joblistfilters}">
+            <a th:href="@{/joblist/{companyid}(companyid=1)}">
               <i class="bi bi-circle"></i><span>Job List</span>
             </a>
-          </li>
+          </li> 
           
           </ul>
         </ul>
@@ -213,7 +213,6 @@
                     <th scope="col">Email</th>
                     <th scope="col">Head Office</th>
                     <th scope="col">Actions</th>
-<!--                     <th scope="col">Corporate Presentation</th> -->
                   </tr>
                 </thead>
                <tbody>

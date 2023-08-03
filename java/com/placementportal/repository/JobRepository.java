@@ -1,5 +1,7 @@
 package com.placementportal.repository;
+
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,22 +13,26 @@ import com.placementportal.model.Job;
 
 public interface JobRepository extends JpaRepository<Job, Integer> {
 
-    @Query("SELECT j FROM Job j WHERE j.country = :country "
-            + "AND j.state = :state "
-            + "AND j.city = :city "
-            + "OR j.noworkexperience = :noworkexperience "
-            + "OR j.workmode = :workmode "
-            + "OR j.positiontype = :positiontype")
-    Page<Job> findJobByIgnoreCase(@Param("country") String country,
-                                  @Param("state") String state,
-                                  @Param("city") String city,
-                                  @Param("workmode") String workmode,
-                                  @Param("noworkexperience") int noworkexperience,
-                                  @Param("positiontype") String positiontype,
-                                  Pageable pageable);
+	@Query("SELECT j FROM Job j WHERE j.company.companyid = :companyid " + "AND j.postedon >= :postedOn")
+	Page<Job> findJobsByCompanyidAndPostedOnGreaterThanEqual(@Param("companyid") Long companyid,
+			@Param("postedOn") Date postedOn, Pageable pageable);
 
-    @Query("SELECT j FROM Job j WHERE LOWER(CONCAT(j.position, j.description, j.designation)) LIKE %:keyword%")
-    Page<Job> findJobByIgnoreCase(@Param("keyword") String keyword, Pageable pageable);
+	@Query("SELECT j FROM Job j WHERE j.company.companyid = :companyid " + "AND j.country = :country "
+			+ "AND j.state = :state " + "AND j.city = :city " + "OR j.noworkexperience = :noworkexperience "
+			+ "OR j.workmode = :workmode " + "OR j.positiontype = :positiontype")
+	Page<Job> findJobByCompanyidAndIgnoreCase(@Param("companyid") Long companyid, @Param("country") String country,
+			@Param("state") String state, @Param("city") String city, @Param("workmode") String workmode,
+			@Param("noworkexperience") int noworkexperience, @Param("positiontype") String positiontype,
+			Pageable pageable);
 
-    Page<Job> findAllByPostedonGreaterThanEqual(Date postedon, Pageable pageable);
+	@Query("SELECT j FROM Job j WHERE j.company.companyid = :companyid "
+			+ "AND LOWER(CONCAT(j.position, j.description, j.designation)) LIKE %:keyword%")
+	Page<Job> findJobByCompanyidAndIgnoreCase(@Param("companyid") Long companyid, @Param("keyword") String keyword,
+			Pageable pageable);
+
+	@Query("SELECT j FROM Job j WHERE j.company.companyid = :companyid")
+	Page<Job> findJobsByCompanyid(@Param("companyid") Long companyid, Pageable pageable);
+
+	List<Job> findByCompanyCompanyid(Long companyid);
+
 }

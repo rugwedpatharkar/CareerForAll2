@@ -25,12 +25,16 @@ public class JobCandidate {
 	@JoinColumn(name = "candidateid")
 	private Candidate candidate;
 
-	@Override
-	public String toString() {
-		return "JobCandidate [jobcandidateid=" + jobcandidateid + ", job=" + job + ", candidate=" + candidate
-				+ ", getJobcandidateid()=" + getJobcandidateid() + ", getJob()=" + getJob() + ", getCandidate()="
-				+ getCandidate() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+	@ManyToOne
+	@JoinColumn(name = "companyid")
+	private Company company;
+
+	@ManyToOne
+	@JoinColumn(name = "instituteid")
+	private Institute institute;
+
+	public JobCandidate() {
+		super();
 	}
 
 	public Long getJobcandidateid() {
@@ -57,8 +61,29 @@ public class JobCandidate {
 		this.candidate = candidate;
 	}
 
-	public JobCandidate() {
-		super();
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	public Institute getInstitute() {
+		return institute;
+	}
+
+	public void setInstitute(Institute institute) {
+		this.institute = institute;
+	}
+
+	@Override
+	public String toString() {
+		return "JobCandidate [jobcandidateid=" + jobcandidateid + ", job=" + job + ", candidate=" + candidate
+				+ ", company=" + company + ", institute=" + institute + ", getJobcandidateid()=" + getJobcandidateid()
+				+ ", getJob()=" + getJob() + ", getCandidate()=" + getCandidate() + ", getCompany()=" + getCompany()
+				+ ", getInstitute()=" + getInstitute() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
 	}
 
 }
