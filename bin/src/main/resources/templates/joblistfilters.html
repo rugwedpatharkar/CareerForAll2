@@ -76,13 +76,67 @@
             <i class="bi bi-search"></i>
           </a>
         </li><!-- End Search Icon-->
+		<!-- Profile Nav Bar -->
+		<li class="nav-item dropdown pe-3">
 
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6><span th:text="${#authentication.name}"></span></h6>
+              <span>Web Designer</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a th:href=@{/logout} class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li>
+			<!-- End of Profile Nav Bar -->
         
 
           </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-      </ul>
+        
     </nav><!-- End Icons Navigation -->
 
   </header><!-- End Header -->
@@ -107,7 +161,11 @@
               <i class="bi bi-circle "></i><span>Onboarding</span>
             </a>
           </li>
-       
+           <li>
+            <a th:href="@{/CompanyList}">
+              <i class="bi bi-circle"></i><span>Startup List</span>
+            </a>
+          </li>
           <li>
             <a th:href="@{/jobopening}">
               <i class="bi bi-circle"></i><span>Job Posting</span>
@@ -115,64 +173,14 @@
           </li>
           
            <li>
-            <a th:href="@{/joblistfilters}">
+            <a th:href="@{/joblist/{companyid}(companyid=1)}">
               <i class="bi bi-circle"></i><span>Job List</span>
             </a>
-          </li>
-          
-             <li>
-            <a th:href="@{/joblistfilters}">
-              <i class="bi bi-circle"></i><span>Startup List</span>
-            </a>
-          </li>
-          
+          </li>        
           </ul>
         </ul>
         </li>
-          
-      
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-journal-text"></i><span>Institute</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-         
-       <ul>
-          <li>
-            <a th:href="@{/institute_onboarding}">
-              <i class="bi bi-circle"></i><span>Onboarding</span>
-            </a>
-          </li>
-
-          <li>
-            <a th:href="@{/candidate_registration}">
-              <i class="bi bi-circle"></i><span>Candidate Form</span>
-            </a>
-          </li>
-        </ul>
-        </ul>
-      </li>
-      
-
-      
-
- <li class="nav-heading">Pages</li>
-
-     
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" th:href="@{/register}">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" th:href="@{/login}">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
-        </a>
-      </li><!-- End Login Page Nav -->
+   
 
     </ul>
 
@@ -189,11 +197,14 @@
 			<h1>Company Name</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item">Home</li>
-					<li class="breadcrumb-item active">Management</li>
+					<li class="breadcrumb-item active">Filter Job List </li>
+					<li class="breadcrumb-item">Filter Candidate List</li>
+				    <li class="breadcrumb-item">List of Mapped Candidates to Job</li>
 				</ol>
 			</nav>
 		</div>
+		<section class="section dashboard">
+<form th:action="@{/joblistfilters}"id="jobfilter">
 
 	      	<div class="card info-card customers-card">
 				  				
@@ -205,31 +216,30 @@
  
 <!--changes to be done-->
 	
-<form th:action="@{/jobfilter}"id="jobfilter">
   			<div class="single-row">
           <div class="single-column">
               <div class="col-lx-3 col-lg-3 label"style="font-weight:600">Posted On :</div>
             
-        &emsp;<input class="form-check-input" type="radio" name="no_of_years_work_ex" value="2"> 
+        &emsp;<input class="form-check-input" type="radio" name="timeRange" value="past24hours"> 
               <label class="form-check-label" for="gridRadios1"> Past 24 hours</label>
                 
-        &ensp;<input class="form-check-input" type="radio" name="no_of_years_work_ex" value="4"> 
+        &ensp;<input class="form-check-input" type="radio" name="timeRange" value="pastweek"> 
               <label class="form-check-label" for="gridRadios2"> Past Week</label>
                 
-        &ensp;<input class="form-check-input" type="radio" name="no_of_years_work_ex" value="6"> 
+        &ensp;<input class="form-check-input" type="radio" name="timeRange" value="pastmonth"> 
               <label class="form-check-label" for="gridRadios2">Past Month</label>
-                
-        &ensp;<input class="form-check-input" type="radio" name="no_of_years_work_ex" value="6"> 
-              <label class="form-check-label" for="gridRadios2">Anytime</label>
+              
+               
+       
                 
               </div>
     <div class="single-column">
             <div class="col-lx-3 col-lg-3 label"style="font-weight:600">Position Type :</div>
             
-          &emsp;<input class="form-check-input" type="radio"  value="Job"name="position_type"> 
+          &emsp;<input class="form-check-input" type="radio"  value="Job"name="positiontype"> 
               <label class="form-check-label" for="gridRadios1">Job</label>
 								
-          &ensp;<input class="form-check-input" type="radio"   value="Internship"name="position_type"> 
+          &ensp;<input class="form-check-input" type="radio"   value="Internship"name="positiontype"> 
               <label class="form-check-label" for="gridRadios2">Internship</label>
 
 							</div>
@@ -255,13 +265,13 @@
               <div class="single-column">
               <div class="col-lx-3 col-lg-3 label"style="font-weight:600">Work Mode :</div>
                   
-        &emsp;<input class="form-check-input" type="radio" value="Work From Home" name="work_mode"> 
+        &emsp;<input class="form-check-input" type="radio" value="Work From Home" name="workmode"> 
               <label class="form-check-label" >Work From Home</label>
               
-        &ensp;<input class="form-check-input" type="radio" value="Work From Office" name="work_mode"> 
+        &ensp;<input class="form-check-input" type="radio" value="Work From Office" name="workmode"> 
               <label class="form-check-label" >Work From Office</label>
               
-        &ensp;<input class="form-check-input" type="radio" value="Hybrid" name="work_mode"> 
+        &ensp;<input class="form-check-input" type="radio" value="Hybrid" name="workmode"> 
               <label class="form-check-label" >Hybrid</label>
 								
 			</div>
@@ -271,7 +281,7 @@
           <div class="single-row">    
        
           <div class="col-lx-3 col-lg-3 label ">Location :
-   &emsp;<select class="form-select" name="country"  id="country-dropdown" style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline" aria-label="Default select example">
+   &emsp;<select class="form-select"  name="country" id="country-dropdown" style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline" aria-label="Default select example">
                        <option value="" disabled selected>-- Please select country --</option>
          </select> 
            &emsp;<select class="form-select" name="state"  id="state-Dropdown" style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline" aria-label="Default select example">
@@ -283,54 +293,49 @@
                 </select>
 
                 </div>
-            
-       
-           
-						</div>
-						</form>
+       	</div>
+						
 <div class="single-row">    
              
-						<form th:action="@{/joblistfilters}">
                         <label class="col-lx-3 col-lg-3 label"style="font-weight:600">Search Position :</label>
          <div class="select-btn"style="width: 280px; height:30px; padding:4px 0 4px 0; font-size:10px; display: inline">
 			 <input style="background: transparent; border: none; outline: none;"autocomplete="off" spellcheck="false" type="text" placeholder="Enter Details"name="keyword" >
-        					<button style="background: transparent; border: none; outline: none;" type="submit" title="Search"><i class="bi bi-search"></i></button>
 									
 								
-								</div>	</form>	
+								</div>	
                 </div>	
 						
 	 		          <div class="single-row" >
 				           <div class="col-sm-10">
 							   
     	                <input type="submit" value="Apply" class="btn btn-success"  form="jobfilter" style="width:60px; height:25px;  padding-top: 2px; font-size: 12px">
-								<a type="reset" th:href="@{/joblistfilters}" class="btn btn-primary"style="width:60px; height:25px;  padding-top: 2px; font-size: 12px">Reset</a> 
+								<a type="reset" th:href="@{/joblist}" class="btn btn-primary"style="width:60px; height:25px;  padding-top: 2px; font-size: 12px">Reset</a> 
 			          </div>
 						</div>
 						
 					
           <hr style="width: 100%; text-align: left; margin-left: 0;margin-top:20px">
 						
-
+<div class="card-body"style="width:1100px">
         <div class="single-row" >    
 
           <h5 class="card-title">
-            Position List<span style="margin-left:160px">Position Type</span><span style="margin-left:110px">Work Mode</span><span style="margin-left:110px"> Country</span><span  style="margin-left:110px"> State</span><span  style="margin-left:110px"> City</span>
+            Position List<span style="margin-left:100px">Position Type</span><span style="margin-left:105px">Work Mode</span><span style="margin-left:105px"> Country</span><span  style="margin-left:110px"> State</span><span  style="margin-left:110px"> City</span>
           </h5>
           <div class="tab-pane fade show active profile-overview"
-            th:each="j : ${listJob}" style="height: auto">
- <div class="single-column" style="display: inline;width:220px;margin:10px 0 10px 0">
-            <a th:href="@{/joblistfilters/{position_id}/{minKeywordLength}(position_id=${j.position_id}, minKeywordLength=3)}">
+            th:each="j : ${listJob}" style="height: auto"id="jobList">
+ <div class="single-column" style="display: inline;width:160px;margin:10px 0 10px 0">
+            <a th:href="@{/eligiblecandidates/{positionid}/{minKeywordLength}(positionid=${j.positionid}, minKeywordLength=3)}">
               <h5 th:text="${j.position}"
                 style="text-decoration: underline;font-size:13px"
                 class="form-check-label card-title"></h5>
             </a>
 </div> 
             <div class="single-column" style="display: inline;width:180px;text-align: center;margin:10px 0 10px 0">
-              <div class="col-lg-9 col-md-8" th:text="${j.position_type}"></div>
+              <div class="col-lg-9 col-md-8" th:text="${j.positiontype}"></div>
             </div>
             <div class="single-column" style="display: inline;width:200px;text-align: center;margin:10px 0 10px 0">
-              <div class="col-lg-9 col-md-8" th:text="${j.work_mode}"></div>
+              <div class="col-lg-9 col-md-8" th:text="${j.workmode}"></div>
             </div>
                 <div class="single-column"style="display: inline;width:160px;text-align: center;margin:10px 0 10px 0">
               <div class="col-lg-9 col-md-8" th:text="${j.country}"></div>
@@ -343,11 +348,38 @@
             </div>
             
           </div>
+            <!-- Add the pagination controls below the job list -->
+   
           </div>
+           <div class="single-row" style="text-align: center; margin: auto;width: 30%">  
+           <div if="${totalPages > 1}">
+        <ul class="pagination">
+            <li th:class="${currentPage == 0 ? 'page-item disabled' : 'page-item'}">
+                <a class="page-link" th:href="@{/joblist(page=0)}">First</a>
+            </li>
+            <li th:class="${currentPage > 0 ? 'page-item' : 'page-item disabled'}">
+                <a class="page-link" th:href="@{/joblist(page=${currentPage - 1})}">Previous</a>
+            </li>
+
+            <li th:each="page : ${#numbers.sequence(0, totalPages-1)}" th:class="${currentPage == page ? 'page-item active' : 'page-item'}">
+                <a class="page-link" th:href="@{/joblist(page=${page})}" th:text="${page + 1}"></a>
+            </li>
+
+            <li th:class="${currentPage < totalPages - 1 ? 'page-item' : 'page-item disabled'}">
+                <a class="page-link" th:href="@{/joblist(page=${currentPage + 1})}">Next</a>
+            </li>
+            <li th:class="${currentPage == totalPages - 1 ? 'page-item disabled' : 'page-item'}">
+                <a class="page-link" th:href="@{/joblist(page=${totalPages - 1})}">Last</a>
+            </li>
+        </ul>
+    </div>
+    </div>
+          </div>
+          
 </div>	
       
       </div>
-
+</form>	
     </section>
 
   </main>
@@ -441,40 +473,5 @@
 
 
   </style>
-  <script>
-
-    //filter.js
-     $(document).ready(function() {
-         $('#filterForm').change(function() {
-             var inStock = $('#inStockCheckbox').is(':checked');
-             var category = $('#categorySelect').val();
-    
-             $.ajax({
-                 type: 'POST',
-                 url: '/products/filter',
-                 data: {
-                     inStock: inStock,
-                     category: category
-                 },
-                 success: function(data) {
-                     updateProductTable(data);
-                 }
-             });
-         });
-    
-         function updateProductTable(data) {
-             var tbody = $('table tbody');
-             tbody.empty();
-    
-             $.each(data, function(index, product) {
-                 var row = $('<tr>');
-                 row.append($('<td>').text(product.name));
-                 row.append($('<td>').text(product.inStock));
-                 row.append($('<td>').text(product.category));
-                 tbody.append(row);
-             });
-         }
-     });
-    
-     </script>
+  
 </html>
