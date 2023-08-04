@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -42,6 +44,34 @@ public class Job {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date postedon;
+
+	@ManyToOne
+	@JoinColumn(name = "companyid")
+	private Company company;
+
+	@Override
+	public String toString() {
+		return "Job [positionid=" + positionid + ", position=" + position + ", designation=" + designation
+				+ ", functions=" + functions + ", department=" + department + ", country=" + country + ", state="
+				+ state + ", city=" + city + ", corearea=" + corearea + ", experience=" + experience
+				+ ", noworkexperience=" + noworkexperience + ", workmode=" + workmode + ", gender=" + gender
+				+ ", localcandidate=" + localcandidate + ", icteamhandling=" + icteamhandling + ", stipend=" + stipend
+				+ ", ctcvariable=" + ctcvariable + ", anynotableperk=" + anynotableperk + ", description=" + description
+				+ ", releventfile=" + Arrays.toString(releventfile) + ", anyrelevantlink=" + anyrelevantlink
+				+ ", positiontype=" + positiontype + ", postedon=" + postedon + ", company=" + company
+				+ ", getPositionid()=" + getPositionid() + ", getPosition()=" + getPosition() + ", getDesignation()="
+				+ getDesignation() + ", getFunctions()=" + getFunctions() + ", getDepartment()=" + getDepartment()
+				+ ", getCountry()=" + getCountry() + ", getState()=" + getState() + ", getCity()=" + getCity()
+				+ ", getCorearea()=" + getCorearea() + ", getExperience()=" + getExperience()
+				+ ", getNoworkexperience()=" + getNoworkexperience() + ", getWorkmode()=" + getWorkmode()
+				+ ", getGender()=" + getGender() + ", getLocalcandidate()=" + getLocalcandidate()
+				+ ", getIcteamhandling()=" + getIcteamhandling() + ", getStipend()=" + getStipend()
+				+ ", getCtcvariable()=" + getCtcvariable() + ", getAnynotableperk()=" + getAnynotableperk()
+				+ ", getDescription()=" + getDescription() + ", getReleventfile()=" + Arrays.toString(getReleventfile())
+				+ ", getAnyrelevantlink()=" + getAnyrelevantlink() + ", getPositiontype()=" + getPositiontype()
+				+ ", getPostedon()=" + getPostedon() + ", getCompany()=" + getCompany() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+	}
 
 	public int getPositionid() {
 		return positionid;
@@ -227,31 +257,16 @@ public class Job {
 		this.postedon = postedon;
 	}
 
-	public Job() {
-		super();
+	public Company getCompany() {
+		return company;
 	}
 
-	@Override
-	public String toString() {
-		return "Job [positionid=" + positionid + ", position=" + position + ", designation=" + designation
-				+ ", functions=" + functions + ", department=" + department + ", country=" + country + ", state="
-				+ state + ", city=" + city + ", corearea=" + corearea + ", experience=" + experience
-				+ ", noworkexperience=" + noworkexperience + ", workmode=" + workmode + ", gender=" + gender
-				+ ", localcandidate=" + localcandidate + ", icteamhandling=" + icteamhandling + ", stipend=" + stipend
-				+ ", ctcvariable=" + ctcvariable + ", anynotableperk=" + anynotableperk + ", description=" + description
-				+ ", releventfile=" + Arrays.toString(releventfile) + ", anyrelevantlink=" + anyrelevantlink
-				+ ", positiontype=" + positiontype + ", postedon=" + postedon + ", getPositionid()=" + getPositionid()
-				+ ", getPosition()=" + getPosition() + ", getDesignation()=" + getDesignation() + ", getFunctions()="
-				+ getFunctions() + ", getDepartment()=" + getDepartment() + ", getCountry()=" + getCountry()
-				+ ", getState()=" + getState() + ", getCity()=" + getCity() + ", getCorearea()=" + getCorearea()
-				+ ", getExperience()=" + getExperience() + ", getNoworkexperience()=" + getNoworkexperience()
-				+ ", getWorkmode()=" + getWorkmode() + ", getGender()=" + getGender() + ", getLocalcandidate()="
-				+ getLocalcandidate() + ", getIcteamhandling()=" + getIcteamhandling() + ", getStipend()="
-				+ getStipend() + ", getCtcvariable()=" + getCtcvariable() + ", getAnynotableperk()="
-				+ getAnynotableperk() + ", getDescription()=" + getDescription() + ", getReleventfile()="
-				+ Arrays.toString(getReleventfile()) + ", getAnyrelevantlink()=" + getAnyrelevantlink()
-				+ ", getPositiontype()=" + getPositiontype() + ", getPostedon()=" + getPostedon() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	public Job() {
+		super();
 	}
 
 }
