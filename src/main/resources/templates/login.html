@@ -143,9 +143,15 @@
 					<div th:if="${param.error}" class="alert alert-danger">
 							Invalid Username and Password
 					</div>
-					<div th:if="${param.logout}" class="alert alert-success">
-							You have been logged out  
+					<!-- Logout message -->
+					<div th:if="${param.logout}" class="logout-message">
+							You have been logged out.  
 					</div>
+					
+					<div th:if="${param.success}">
+   					 <div class="alert alert-info">You've Successfully Registered</div>
+					</div>
+					
 					
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>

@@ -284,7 +284,7 @@ public class MainController {
 			userRepository.save(user);
 		}
 
-		return "redirect:/register?success";
+		return "redirect:/login?success";
 	}
 
 	// ************************ End of User Login And Registration

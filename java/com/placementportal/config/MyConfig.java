@@ -63,11 +63,12 @@ public class MyConfig {
 		 .and()
          .formLogin()
          .loginPage("/login")
-         .successHandler(customAuthenticationSuccessHandler) // Redirect all users to a common profile page after login
+         .loginProcessingUrl("/login")
+         .successHandler(customAuthenticationSuccessHandler).permitAll() // Redirect all users to a common profile page after login
          .and()
          .logout()
          .logoutUrl("/logout")
-         .logoutSuccessUrl("/login")
+         .logoutSuccessUrl("/login").permitAll()
          .and()
          .exceptionHandling().accessDeniedPage("/access-denied");
 
