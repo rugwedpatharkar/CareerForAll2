@@ -74,68 +74,13 @@
             <i class="bi bi-search"></i>
           </a>
         </li><!-- End Search Icon-->
+
         
-        <!-- Profile Nav Bar -->
-		<li class="nav-item dropdown pe-3">
-
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"></span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6><span th:text="${#authentication.name}"></span></h6>
-              <span>Web Designer</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a th:href=@{/logout} class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
 
           </ul><!-- End Profile Dropdown Items -->
-        </li>
-			<!-- End of Profile Nav Bar -->
-      
-        
-	 </ul>
-	 
+        </li><!-- End Profile Nav -->
+
+      </ul>
     </nav><!-- End Icons Navigation -->
 
   </header><!-- End Header -->
@@ -183,14 +128,13 @@
   
 
  <main id="main" class="main">
-	
-	
+
     <div class="pagetitle">
-      <h1>Startup List</h1>
+      <h1>Institute List</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Startup</a></li>
-          <li class="breadcrumb-item active">Startup List</li>
+          <li class="breadcrumb-item"><a href="index.html">Institute</a></li>
+          <li class="breadcrumb-item active">Institute List</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -202,30 +146,31 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Startups</h5>
+              <h5 class="card-title">Institute</h5>
              
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
                   <tr >
                     <th scope="col">#</th>
-                    <th scope="col">Company Name</th>
-                    <th scope="col">Brand Name</th>
+                    <th scope="col">Institute Name</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Head Office</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Founder</th>
                     <th scope="col">Actions</th>
+<!--                     <th scope="col">Corporate Presentation</th> -->
                   </tr>
                 </thead>
                <tbody>
-				    <tr th:each="company, companyStat : ${listCompanies}">
-				        <th th:utext="${companyStat.count}"></th>
-				        <td th:text="${company.company_name}"></td>
-				        <td th:text="${company.brand_name}"></td>
-				        <td th:text="${company.companyemail}"></td>
-				        <td th:text="${company.head_office_country}"></td>
+				    <tr th:each="institute, instituteStat : ${listInstitutes}">
+				        <th th:utext="${instituteStat.count}"></th>
+				        <td th:text="${institute.institutename}"></td>
+				        <td th:text="${institute.email}"></td>
+				        <td th:text="${institute.state}"></td>
+				        <td th:text="${institute.foundername}"></td>
 				        <td>
-				            <a th:href="@{/editCompany/{id}(id=${company.companyid})}" class="btn btn-primary">Update</a>
-				            <a th:href="@{/deleteCompany/{id}(id=${company.companyid})}" class="btn btn-danger mx-2">Delete</a>
+				            <a th:href="@{/editInstitute/{id}(id=${institute.instituteid})}" class="btn btn-primary">Update</a>
+				            <a th:href="@{/deleteInstitute/{id}(id=${institute.instituteid})}" class="btn btn-danger mx-2">Delete</a>
 				        </td>
 				    </tr>
 				</tbody>
@@ -244,7 +189,6 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- Vendor JS Files -->
-
 	<script th:src="@{/vendor/apexcharts/apexcharts.min.js}"></script>
 	<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 	<script th:src="@{/vendor/chart.js/chart.umd.js}"></script>
@@ -277,7 +221,6 @@
 		integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
 		crossorigin="anonymous"></script>
 	<script th:src="@{/js/main.js}"></script>
-	
 
 </body>
 

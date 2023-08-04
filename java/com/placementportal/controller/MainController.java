@@ -103,7 +103,7 @@ public class MainController {
 		companyService.saveCompany(company);
 		return ("redirect:/CompanyList");
 	}
-
+	
 	@GetMapping("/startup_onboarding")
 	@PreAuthorize("hasRole('HR')")
 	public String startup_onboarding(Model model) {
@@ -111,13 +111,13 @@ public class MainController {
 		model.addAttribute("company", company);
 		return ("startup_onboarding");
 	}
-
+	// List of companies
 	@GetMapping("/CompanyList")
 	public String showCompany(Model model) {
 		model.addAttribute("listCompanies", companyService.getAllCompanies());
 		return "CompanyList";
 	}
-
+	//Update company
 	@GetMapping("/editCompany/{id}")
 	public String editCompanyForm(@PathVariable("id") Long id, Model model) {
 		Company company = companyService.getCompanyById(id);
@@ -130,8 +130,6 @@ public class MainController {
 		companyService.saveCompany(company);
 		return "redirect:/CompanyList";
 	}
-
-
 	@GetMapping("/deleteCompany/{id}")
 	public String deleteCompany(@PathVariable(value = "id") Long id) {
 		// call delete company method
