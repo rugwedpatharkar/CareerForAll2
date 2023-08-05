@@ -228,8 +228,8 @@ public class MainController {
 		return "redirect:/CandidateList";
 	}
 
-	// ************************ User Login And Registration
-	// **************************
+	// ************************ User Login And Registration **************************
+	
 
 	@GetMapping("/login")
 	public String loginHome(Model model) {
@@ -249,9 +249,6 @@ public class MainController {
 	@GetMapping("/profile")
 	public String hrhome(Model model, Principal principal)
 	{
-//		String name=principal.getName();
-//		User user=userRepository.findByName(name);
-//		model.addAttribute("username",user.getFullname());
 		return "profile";
 	}
 
@@ -284,9 +281,6 @@ public class MainController {
 
 		return "redirect:/login?success";
 	}
-
-	// ************************ End of User Login And Registration
-	// **************************
 
 	// ************************ End of User Login And Registration **************************
 
