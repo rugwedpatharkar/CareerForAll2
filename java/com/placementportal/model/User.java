@@ -22,8 +22,8 @@ public class User {
 	private String email;
 	private String password;
 	private String role;
-	
-	// *******- join tables -********** 
+
+	// *******- join tables -**********
 	@ManyToOne
 	@JoinColumn(name = "positionid")
 	private Job job;
@@ -39,9 +39,7 @@ public class User {
 	@ManyToOne
 	@JoinColumn(name = "instituteid")
 	private Institute institute;
-	
-	
-	
+
 	public int getId() {
 		return id;
 	}

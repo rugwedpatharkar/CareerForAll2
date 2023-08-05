@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.placementportal.model.Candidate;
@@ -103,7 +101,7 @@ public class MainController {
 		companyService.saveCompany(company);
 		return ("redirect:/CompanyList");
 	}
-	
+
 	@GetMapping("/startup_onboarding")
 	@PreAuthorize("hasRole('HR')")
 	public String startup_onboarding(Model model) {
@@ -111,13 +109,15 @@ public class MainController {
 		model.addAttribute("company", company);
 		return ("startup_onboarding");
 	}
+
 	// List of companies
 	@GetMapping("/CompanyList")
 	public String showCompany(Model model) {
 		model.addAttribute("listCompanies", companyService.getAllCompanies());
 		return "CompanyList";
 	}
-	//Update company
+
+	// Update company
 	@GetMapping("/editCompany/{id}")
 	public String editCompanyForm(@PathVariable("id") Long id, Model model) {
 		Company company = companyService.getCompanyById(id);
@@ -130,6 +130,7 @@ public class MainController {
 		companyService.saveCompany(company);
 		return "redirect:/CompanyList";
 	}
+
 	@GetMapping("/deleteCompany/{id}")
 	public String deleteCompany(@PathVariable(value = "id") Long id) {
 		// call delete company method
@@ -139,8 +140,6 @@ public class MainController {
 
 	// ---------------------end of startup onboarding------------------------
 
-	
-	
 	// ---------------------Institute onboarding-----------------------
 	// Institute Controller
 	@GetMapping("/institute_onboarding")
@@ -155,7 +154,7 @@ public class MainController {
 		instituteService.saveInstitute(institute);
 		return "redirect:/institute_onboarding";
 	}
-	
+
 	@GetMapping("/InstituteList")
 	public String showInstitute(Model model) {
 		model.addAttribute("listInstitutes", instituteService.getAllInstitute());
@@ -175,13 +174,11 @@ public class MainController {
 		return "redirect:/InstituteList";
 	}
 
-
 	@GetMapping("/deleteInstitute/{id}")
 	public String deleteInstitute(@PathVariable(value = "id") Long id) {
 		this.instituteService.deleteInstituteById(id);
 		return "redirect:/InstituteList";
 	}
-
 
 	// ---------------------end of Institute onboarding------------------------
 
@@ -216,6 +213,7 @@ public class MainController {
 		model.addAttribute("candidate", candidate);
 		return "editCandidate";
 	}
+
 	@PostMapping("/updateCandidate")
 	public String updateCandidate(@ModelAttribute("candidate") Candidate candidate) {
 		candidateService.saveCandidate(candidate);
@@ -228,8 +226,8 @@ public class MainController {
 		return "redirect:/CandidateList";
 	}
 
-	// ************************ User Login And Registration **************************
-	
+	// ************************ User Login And Registration
+	// **************************
 
 //	@GetMapping("/login")
 //	public String loginHome(Model model) {
@@ -247,8 +245,7 @@ public class MainController {
 	}
 
 	@GetMapping("/profile")
-	public String hrhome(Model model, Principal principal)
-	{
+	public String hrhome(Model model, Principal principal) {
 		return "profile";
 	}
 
@@ -282,10 +279,12 @@ public class MainController {
 		return "redirect:/index?success";
 	}
 
-	// ************************ End of User Login And Registration **************************
+	// ************************ End of User Login And Registration
+	// **************************
 
-
-	// *******************  JoblistFilters and CandidateListfilters and mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh) *********************
+	// ******************* JoblistFilters and CandidateListfilters and
+	// mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh)
+	// *********************
 	// start
 	// Show job list on joblistfilters
 	@GetMapping("/joblist/{companyid}")
@@ -353,29 +352,25 @@ public class MainController {
 //		}
 //		return ResponseEntity.notFound().build();
 //	}
-	 @GetMapping("/cvdownload/{candidateid}")
-	    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long candidateid) throws IOException {
-	        Optional<Candidate> candidateOptional = candidateService.getFileById(candidateid);
-	        if (candidateOptional.isPresent()) {
-	            Candidate candidate = candidateOptional.get();
-	            byte[] cvupload = candidate.getCvupload();
+	@GetMapping("/cvdownload/{candidateid}")
+	public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long candidateid) throws IOException {
+		Optional<Candidate> candidateOptional = candidateService.getFileById(candidateid);
+		if (candidateOptional.isPresent()) {
+			Candidate candidate = candidateOptional.get();
+			byte[] cvupload = candidate.getCvupload();
 
-	          
+			ByteArrayResource resource = new ByteArrayResource(cvupload);
 
-	            ByteArrayResource resource = new ByteArrayResource(cvupload);
+			HttpHeaders headers = new HttpHeaders();
+			headers.add(HttpHeaders.CONTENT_DISPOSITION,
+					"attachment; filename=" + candidate.getCandidatename() + ".pdf");
 
-	            HttpHeaders headers = new HttpHeaders();
-	            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + candidate.getCandidatename() + ".pdf");
-
-	            return ResponseEntity.ok()
-	                    .headers(headers)
-	                    .contentType(MediaType.APPLICATION_PDF)
-	                    .contentLength(cvupload.length)
-	                    .body(resource);
-	        } else {
-	            return ResponseEntity.notFound().build();
-	        }
-	    }
+			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
+					.contentLength(cvupload.length).body(resource);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 
 	// shows eligible candidate lists
 	@GetMapping("/eligiblecandidates/{positionid}/{minKeywordLength}")
@@ -419,7 +414,7 @@ public class MainController {
 		return "candidatelistfilters";
 	}
 
-	//map candidates to job on candidatelistfilters
+	// map candidates to job on candidatelistfilters
 	@PostMapping("/mapcandidatetojob/{positionid}/{companyid}/{minKeywordLength}")
 	public String mapCandidatesToJob(@PathVariable int minKeywordLength, Model model,
 			@RequestParam("positionid") int positionid, @RequestParam("companyid") Long companyid,
@@ -459,7 +454,7 @@ public class MainController {
 		return "candidatelistfilters";
 	}
 
-	//show list of mapped candidates to job on mappedcandidatelist
+	// show list of mapped candidates to job on mappedcandidatelist
 	@GetMapping("/mappedcandidatelist/{companyid}/{positionid}")
 	public String getJobCandidatesByCompanyidAndPositionid(@PathVariable Long companyid, @PathVariable int positionid,
 			@RequestParam(defaultValue = "0") int page, Model model) {
@@ -467,9 +462,8 @@ public class MainController {
 		fetchJobCandidates(companyid, positionid, page, model);
 		return "mappedcandidateslist";
 	}
-	
-	
-	//delete mapped candidates to jobs
+
+	// delete mapped candidates to jobs
 	@PostMapping("/deletecandidates")
 	public String deleteSelectedCandidates(@RequestParam("jobcandidateids") List<Long> jobcandidateids,
 			@RequestParam("companyid") Long companyid, @RequestParam("positionid") int positionid,
@@ -504,5 +498,7 @@ public class MainController {
 
 	// end
 
-	// *******************  JoblistFilters and CandidateListfilters and mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh) *********************
+	// ******************* JoblistFilters and CandidateListfilters and
+	// mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh)
+	// *********************
 }
