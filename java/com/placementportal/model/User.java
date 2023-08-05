@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,7 +22,26 @@ public class User {
 	private String email;
 	private String password;
 	private String role;
+	
+	// *******- join tables -********** 
+	@ManyToOne
+	@JoinColumn(name = "positionid")
+	private Job job;
 
+	@ManyToOne
+	@JoinColumn(name = "candidateid")
+	private Candidate candidate;
+
+	@ManyToOne
+	@JoinColumn(name = "companyid")
+	private Company company;
+
+	@ManyToOne
+	@JoinColumn(name = "instituteid")
+	private Institute institute;
+	
+	
+	
 	public int getId() {
 		return id;
 	}

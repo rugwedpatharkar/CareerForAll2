@@ -83,7 +83,7 @@ public class MainController {
 		return ("redirect:/jobopening");
 	}
 
-	@GetMapping("/index")
+	@GetMapping("/login")
 	public ModelAndView homepage() {
 		ModelAndView mav = new ModelAndView("index");
 		return mav;
@@ -231,10 +231,10 @@ public class MainController {
 	// ************************ User Login And Registration **************************
 	
 
-	@GetMapping("/login")
-	public String loginHome(Model model) {
-		return "login";
-	}
+//	@GetMapping("/login")
+//	public String loginHome(Model model) {
+//		return "login";
+//	}
 
 	@GetMapping("/userhome")
 	public String userHome() {
@@ -279,7 +279,7 @@ public class MainController {
 			userRepository.save(user);
 		}
 
-		return "redirect:/login?success";
+		return "redirect:/index?success";
 	}
 
 	// ************************ End of User Login And Registration **************************
