@@ -83,7 +83,7 @@
 
 		<div class="d-flex align-items-center justify-content-between">
 
-			<a th:href="@{/index}" class="logo d-flex align-items-center">
+			<a href="#" class="logo d-flex align-items-center">
 
 				<img src="assets/img/logo.png" alt="">
 
@@ -128,7 +128,7 @@
 
 							<h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
 
-							<p class="text-center small">Enter your user name and password to login</p>
+							<p class="text-center small">Enter your email and password to login</p>
 
 						</div>
 
@@ -153,7 +153,7 @@
 
 							<div class="col-12">
 
-								<label for="yourUsername" class="form-label">Username</label>
+								<label for="yourUsername" class="form-label">Email</label>
 
 								<div class="input-group has-validation">
 
@@ -161,7 +161,7 @@
 
 									<input type="text" name="username" class="form-control" id="username" required>
 
-									<div id="usernameError" class="invalid-feedback">Please enter your username.</div>
+									<div id="usernameError" class="invalid-feedback">Please enter your email.</div>
 
 								</div>
 
@@ -184,7 +184,7 @@
 								<div class="form-check">
 
 									<input class="form-check-input" type="checkbox" name="remember" value="true"
-										id="rememberMe" required>
+										id="rememberMe" >
 
 									<label class="form-check-label" for="rememberMe">Remember me</label>
 
