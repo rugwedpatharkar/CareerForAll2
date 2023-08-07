@@ -253,6 +253,10 @@ public class MainController {
 	public String pohome() {
 		return "pohome";
 	}
+	@GetMapping("/poaccountsetting")
+	public String poaccount() {
+		return "poaccountsetting";
+	}
 
 	// Registration Controller (Prasad)
 	@GetMapping("/register")

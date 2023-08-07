@@ -52,7 +52,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
      <i class="bi bi-list toggle-sidebar-btn" style="margin-left:-10px;margin-right:10px"></i>
-      <a th:href="@{/index}" class="logo d-flex align-items-center">
+      <a th:href="@{/pohome}" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">Placement Portal</span>
       </a>
@@ -75,7 +75,63 @@
           </a>
         </li><!-- End Search Icon-->
 
-        
+        <!-- Profile Nav Bar -->
+		<li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6><span th:text="${#authentication.name}"></span></h6>
+              <span>Web Designer</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a th:href=@{/logout} class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li>
+			<!-- End of Profile Nav Bar -->
 
           </ul><!-- End Profile Dropdown Items -->
         </li><!-- End Profile Nav -->
@@ -90,33 +146,34 @@
     <ul class="sidebar-nav" id="sidebar-nav"> 
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-journal-text"></i><span>Startups</span><i class="bi bi-chevron-down ms-auto"></i>
+        <i class="bi bi-journal-text"></i><span>Institute</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
          
-         <ul>   
-          <li>
-            <a th:href="@{/startup_onboarding}">
-              <i class="bi bi-circle "></i><span>Onboarding</span>
+         <ul> 
+         <li>
+            <a th:href="@{/pohome}">
+              <i class="bi bi-circle"></i><span>Home</span>
             </a>
-          </li>
-       	   <li>
-            <a th:href="@{/CompanyList}">
-              <i class="bi bi-circle"></i><span>Startup List</span>
-            </a>
-          </li>
+          </li>  
           <li>
-            <a th:href="@{/jobopening}">
-              <i class="bi bi-circle"></i><span>Job Posting</span>
+            <a th:href="@{/institute_onboarding}">
+              <i class="bi bi-circle"></i><span>Onboarding</span>
             </a>
           </li>
           
-           <li>
-            <a th:href="@{/joblist/{companyid}(companyid=1)}">
-              <i class="bi bi-circle"></i><span>Job List</span>
+          <li>
+            <a th:href="@{/candidate_registration}">
+              <i class="bi bi-circle"></i><span>Candidate Form</span>
             </a>
-          </li> 
+          </li>
           
+          <li>
+            <a th:href="@{/CandidateList}">
+              <i class="bi bi-circle"></i><span>Candidate List</span>
+            </a>
+          </li>
+                    
           </ul>
         </ul>
         </li>

@@ -52,7 +52,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
      <i class="bi bi-list toggle-sidebar-btn" style="margin-left:-10px;margin-right:10px"></i>
-      <a th:href="@{/index}" class="logo d-flex align-items-center">
+      <a th:href="@{/pohome}" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">Placement Portal</span>
       </a>
@@ -150,9 +150,19 @@
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
          
        <ul>
+       <li>
+            <a th:href="@{/pohome}">
+              <i class="bi bi-circle"></i><span>Home</span>
+            </a>
+          </li> 
           <li>
             <a th:href="@{/institute_onboarding}">
               <i class="bi bi-circle"></i><span>Onboarding</span>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/InstituteList}">
+              <i class="bi bi-circle"></i><span>Institute List</span>
             </a>
           </li>
 
@@ -161,12 +171,7 @@
               <i class="bi bi-circle"></i><span>Candidate Form</span>
             </a>
           </li>
-         
-         <li>
-            <a th:href="@{/CandidateList}">
-              <i class="bi bi-circle"></i><span>Candidate List</span>
-            </a>
-          </li>
+          
   
         </ul>
         </ul>
