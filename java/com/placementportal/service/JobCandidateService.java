@@ -19,12 +19,12 @@ public class JobCandidateService {
 	@Autowired
 	private JobCandidateRepository jobCandidateRepository;
 
-	
-	// *******************  JoblistFilters and CandidateListfilters and mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh) *********************
+	// ******************* JoblistFilters and CandidateListfilters and
+	// mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh)
+	// *********************
 
-	
-	//start
-	
+	// start
+
 	public JobCandidate saveJobCandidate(JobCandidate jobCandidate) {
 		return jobCandidateRepository.save(jobCandidate);
 	}
@@ -37,7 +37,9 @@ public class JobCandidateService {
 	public void deleteByJobCandidateIdIn(List<Long> jobcandidateids) {
 		jobCandidateRepository.deleteByJobcandidateidIn(jobcandidateids);
 	}
-	//end
-	// *******************  JoblistFilters and CandidateListfilters and mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh) *********************
+	// end
+	// ******************* JoblistFilters and CandidateListfilters and
+	// mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh)
+	// *********************
 
 }

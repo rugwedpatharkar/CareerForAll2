@@ -42,7 +42,9 @@ public class CandidateService {
 		this.candidateRepository.deleteById(id);
 	}
 
-	// *******************  JoblistFilters and CandidateListfilters and mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh) *********************
+	// ******************* JoblistFilters and CandidateListfilters and
+	// mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh)
+	// *********************
 //start
 	public Optional<Candidate> getFileById(Long canidate_id) {
 		return candidateRepository.findById(canidate_id);
@@ -88,12 +90,13 @@ public class CandidateService {
 		return listcandidate;
 	}
 
-
 	public List<Candidate> getCandidatesByIds(List<Long> candidateids) {
 		return candidateRepository.findAllById(candidateids);
 	}
 	// end
 
-		// *******************  JoblistFilters and CandidateListfilters and mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh) *********************
+	// ******************* JoblistFilters and CandidateListfilters and
+	// mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh)
+	// *********************
 
 }
