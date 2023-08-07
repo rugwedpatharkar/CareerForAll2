@@ -248,6 +248,11 @@ public class MainController {
 	public String hrhome(Model model, Principal principal) {
 		return "profile";
 	}
+	@GetMapping("/hraccountsetting")
+	public String hraccount() {
+		return "hraccountsetting";
+	}
+	
 
 	@GetMapping("/pohome")
 	public String pohome() {
