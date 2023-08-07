@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.placementportal.model.Candidate;
+import com.placementportal.model.User;
 
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
 	@Query("SELECT c FROM Candidate c WHERE  c.candidatename = :candidatename "
@@ -23,4 +24,5 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
 	@Query("SELECT c FROM Candidate c WHERE c.primaryskills LIKE %:keyword%")
 	List<Candidate> findCandidatesByPrimarySkills(@Param("keyword") String keyword);
 
+	
 }

@@ -25,7 +25,7 @@ public class CandidateService {
 
 	@Autowired
 	private JobRepository jobRepository;
-
+	
 	public List<Candidate> getAllCandidates() {
 		return candidateRepository.findAll();
 	}
