@@ -238,10 +238,18 @@ public class MainController {
 	public String userHome() {
 		return "userhome";
 	}
+	@GetMapping("/useraccountsetting")
+	public String useraccount() {
+		return "useraccountsetting";
+	}
 
 	@GetMapping("/adminhome")
 	public String adminhome() {
 		return "adminhome";
+	}
+	@GetMapping("/adminaccountsetting")
+	public String adminaccount() {
+		return "adminaccountsetting";
 	}
 
 	@GetMapping("/profile")
