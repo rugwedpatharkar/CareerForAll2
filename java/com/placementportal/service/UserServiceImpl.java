@@ -11,6 +11,10 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository urepo;
+	
+	public UserServiceImpl(UserRepository urepo) {
+		this.urepo = urepo;
+	}
 
 	@Override
 	public User findUserByEmail(String email) {
