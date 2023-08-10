@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.placementportal.model.Candidate;
 import com.placementportal.model.Company;
@@ -97,6 +98,12 @@ public class MainController {
 	// ---------------------startup onboarding------------------------
 	// Company Controllers
 	@PostMapping("/saveCompany")
+	
+    public String saveCompany(@ModelAttribute("company") Company company, RedirectAttributes redirectAttributes) {
+        companyService.saveCompany(company);
+        redirectAttributes.addFlashAttribute("message", "Company added successfully!");
+        return "redirect:/CompanyList";
+    }
 	public String saveCompany(@ModelAttribute("company") Company company) {
 		companyService.saveCompany(company);
 		return ("redirect:/CompanyList");
@@ -126,15 +133,17 @@ public class MainController {
 	}
 
 	@PostMapping("/updateCompany")
-	public String updateCompany(@ModelAttribute("company") Company company) {
+	public String updateCompany(@ModelAttribute("company") Company company,RedirectAttributes redirectAttributes) {
 		companyService.saveCompany(company);
+		redirectAttributes.addFlashAttribute("umessage", "Company updated successfully!");
 		return "redirect:/CompanyList";
 	}
 
 	@GetMapping("/deleteCompany/{id}")
-	public String deleteCompany(@PathVariable(value = "id") Long id) {
+	public String deleteCompany(@PathVariable(value = "id") Long id,RedirectAttributes redirectAttributes) {
 		// call delete company method
 		this.companyService.deleteCompanyById(id);
+		redirectAttributes.addFlashAttribute("dmessage", "Company deleted successfully!");
 		return "redirect:/CompanyList";
 	}
 

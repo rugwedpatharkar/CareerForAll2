@@ -323,8 +323,8 @@
 //--------------------
 
 var emailInput1 = document.getElementById("email");
-
-// Add an event listener to the email input field
+if(emailInput1 !== null){
+	// Add an event listener to the email input field
 emailInput1.addEventListener("input", validateEmail);
 
 function validateEmail() {
@@ -338,6 +338,8 @@ function validateEmail() {
     emailError.style.display = "none";
     return true;
   }
+}
+
 }
 
 //---------------
@@ -361,7 +363,7 @@ function validateEmail() {
 //----------------------------------------------------------Startup Onboarding & Startup List JS-------------------------------------
 //country state city dropdowns-----------------------------------------------
 // Function to get the access token from site for API request
-async function getAccessToken() {
+/*async function getAccessToken() {
   const response = await fetch('https://www.universal-tutorial.com/api/getaccesstoken', {
     headers: {
       'Accept': 'application/json',
@@ -371,6 +373,31 @@ async function getAccessToken() {
   });
   const data = await response.json();
   return data.auth_token;
+}*/
+var res = 0;
+async function getAccessToken() {
+  try {
+    const response = await fetch('https://www.universal-tutorial.com/api/getaccesstoken', {
+      headers: {
+        'Accept': 'application/json',
+        'api-token': 'umiCzZgdo_PBAgBq33MRiXwJmpqGzWUrDLpaYvaOz1Q_z5gb4zzoIRjd3zWawdTTuO0',
+        'user-email': 'techentrepreneurs13@gmail.com'
+      }
+    });
+
+    if (!response.ok) {
+      // The request was not successful, handle the error here
+      throw new Error('Failed to fetch access token.');
+    }
+
+    const data = await response.json();
+    res = 1;
+    return data.auth_token;
+  } catch (error) {
+    // Handle any other errors that may occur during the fetch process
+    console.error('Error occurred while fetching access token:', error);
+    return null; // or throw the error further to handle it at a higher level
+  }
 }
 
 // Function to populate the countries dropdown
@@ -385,13 +412,15 @@ async function populateCountriesDropdown() {
   .then(response => response.json())
   .then(data => {
     const countryDropdown = document.getElementById('country-dropdown');
-    countryDropdown.innerHTML = '<option value="" disabled selected>-- Please select country --</option>';
+    if(countryDropdown !== null){
+		countryDropdown.innerHTML = '<option value="" disabled selected>-- Please select country --</option>';
     data.forEach(country => {
       const option = document.createElement('option');
       option.value = country.country_name;
       option.textContent = country.country_name;
       countryDropdown.appendChild(option);
     });
+	}
   })
   .catch(error => console.error(error));
 }
@@ -401,7 +430,8 @@ async function populateStatesDropdown() {
   const tok = await getAccessToken(); 
   const countryDropdown = document.getElementById('country-dropdown');
   const stateDropdown = document.getElementById('state-Dropdown');
-  countryDropdown.addEventListener('change', async () => {
+  if(countryDropdown !== null){
+	  countryDropdown.addEventListener('change', async () => {
     const countryName = countryDropdown.value;
     const response = await fetch(`https://www.universal-tutorial.com/api/states/${countryName}`, {
       headers: {
@@ -418,14 +448,16 @@ async function populateStatesDropdown() {
       stateDropdown.appendChild(option);
     });
   });
+  }
 }
 
 // Function to populate cities based on the selected state
 async function populateCitiesDropdown() {
   const tok = await getAccessToken(); 
   const stateDropdown = document.getElementById("state-Dropdown");
-  const cityDropdown = document.getElementById("city-Dropdown");  
-  stateDropdown.addEventListener("change", async (event) => {
+  const cityDropdown = document.getElementById("city-Dropdown");
+  if(stateDropdown !== null){
+	  stateDropdown.addEventListener("change", async (event) => {
     const selectedState = event.target.value;
     const response = await fetch(`https://www.universal-tutorial.com/api/cities/${selectedState}`, {
       headers: {
@@ -442,6 +474,7 @@ async function populateCitiesDropdown() {
       cityDropdown.add(option);
     });
   });
+  } 
 }
 // Call the functions to populate the dropdowns
 populateCountriesDropdown();
@@ -450,8 +483,8 @@ populateCitiesDropdown();
 //end of country state city dropdowns-----------------------------------------------
 //------------------company email validation----------------
 var emailInput = document.getElementById("companyEmail");
-
-// Add an event listener to the email input field
+if(emailInput !== null){
+	// Add an event listener to the email input field
 emailInput.addEventListener("input", validateCompanyEmail);
 
 function validateCompanyEmail() {
@@ -466,9 +499,12 @@ function validateCompanyEmail() {
     return true;
   }
 }
+}
 //------------------end of company email validation----------------
 //validation of presentation file--------------------
-document.getElementById('presentation').addEventListener('change', validateFile);
+var presentation = document.getElementById('presentation');
+if(presentation !== null){
+	presentation.addEventListener('change', validateFile);
 var presentationSizeError = document.getElementById("presentationSizeError");
 var presentationTypeError = document.getElementById("presentationTypeError");
 function validateFile() {
@@ -494,10 +530,13 @@ function validateFile() {
 	presentationTypeError.style.display = "none";
     return true;
 }
+}
 //end of validation of presentation file--------------------
 
 //other file validation--------------------------
-document.getElementById('otherfile').addEventListener('change', validateOtherFile);
+var otherfile = document.getElementById('otherfile');
+if(otherfile !== null){
+	otherfile.addEventListener('change', validateOtherFile);
 var otherfileSizeError = document.getElementById("otherfileSizeError");
 var otherfileTypeError = document.getElementById("otherfileTypeError");
 function validateOtherFile() {
@@ -523,21 +562,25 @@ function validateOtherFile() {
 	otherfileTypeError.style.display = "none";
     return true;
 }
+}
 //end of other file validation----------------------
 //auto increment companyId--------
  var nameInput = document.getElementById("companyId");
- nameInput.addEventListener("input", incrementInput);
+ if(nameInput !== null){
+	 nameInput.addEventListener("input", incrementInput);
 	function incrementInput() {
 		console.log("incrementInput called");
   var input = document.getElementById("companyId");
   input.value++;
 }
+ }
 //end of autoincrement companyId-------
 
 //---------------validate Company name (with numbers)---------------
-var nameInput = document.getElementById("companyName");
-// Add an event listener to the name input field
-nameInput.addEventListener("input", validateCompanyName);
+var companynameInput = document.getElementById("companyName");
+if(companynameInput !== null){
+	// Add an event listener to the name input field
+companynameInput.addEventListener("input", validateCompanyName);
 function validateCompanyName() {
 	//console.log("validate companyname called");
   var name = document.getElementById("companyName").value;
@@ -552,11 +595,13 @@ function validateCompanyName() {
     return true;
   }
 }
+}
 //end of validate company name--------
 
 //validate Brand name (with numbers)-------
 var nameInput = document.getElementById("brandName");
-// Add an event listener to the name input field
+if(nameInput !== null){
+	// Add an event listener to the name input field
 nameInput.addEventListener("input", validateBrandName);
 
 function validateBrandName() {
@@ -572,13 +617,14 @@ function validateBrandName() {
     return true;
   }
 }
+}
 //end of validate Brand name--------
 
 //founder name validation (without numbers)---------------
-var nameInput = document.getElementById("founderName");
-
-// Add an event listener to the name input field
-nameInput.addEventListener("input", validateFounderName);
+var foundernameInput = document.getElementById("founderName");
+if(foundernameInput !== null){
+	// Add an event listener to the name input field
+foundernameInput.addEventListener("input", validateFounderName);
 
 function validateFounderName() {
   var name = document.getElementById("founderName").value;
@@ -592,12 +638,13 @@ function validateFounderName() {
     return true;
   }
 }
+}
 //end of founder name valdation----------------
 
 //ceo/md name validation (without numbers)---------------
 var nameInput = document.getElementById("ceoName");
-
-// Add an event listener to the name input field
+if(nameInput !== null){
+	// Add an event listener to the name input field
 nameInput.addEventListener("input", validateCeoName);
 
 function validateCeoName() {
@@ -612,12 +659,14 @@ function validateCeoName() {
     return true;
   }
 }
+}
+
 //end of ceo/md name valdation----------------
 
 //company website validation------------
 var websiteInput = document.getElementById("companyWebsite");
-
-// Add an event listener to the company website input field
+if(websiteInput !== null){
+	// Add an event listener to the company website input field
 websiteInput.addEventListener("blur", validateWebsite);
 
 function validateWebsite() {
@@ -632,11 +681,13 @@ function validateWebsite() {
     return true;
   }
 }
+}
 // end of company website validation--------------
 
 // Company LinkedIn validation
 var linkedinInput = document.getElementById("companyLinkedin");
-linkedinInput.addEventListener("blur", validateLinkedin);
+if(linkedinInput !== null){
+	linkedinInput.addEventListener("blur", validateLinkedin);
 
 function validateLinkedin() {
   var linkedin = document.getElementById("companyLinkedin").value.trim(); // Trim the value to remove leading/trailing spaces
@@ -654,10 +705,13 @@ function validateLinkedin() {
     return true;
   }
 }
+}
+
 
 // Other link validation
 var relevantLinkInput = document.getElementById("relevantLink");
-relevantLinkInput.addEventListener("blur", validateRelevantLink);
+if(relevantLinkInput !== null){
+	relevantLinkInput.addEventListener("blur", validateRelevantLink);
 
 function validateRelevantLink() {
   var relevantLink = document.getElementById("relevantLink").value.trim(); // Trim the value to remove leading/trailing spaces
@@ -675,58 +729,33 @@ function validateRelevantLink() {
     return true;
   }
 }
+}
 
 //future date validation---------------
  // Get the current date in the format yyyy-mm-dd
   const currentDate = new Date().toISOString().split('T')[0];
   // Set the max attribute of the input element to the current date
-  document.querySelector('#startDate').setAttribute('max', currentDate);
+  var startdate = document.querySelector('#startDate');
+  if(startdate !== null){
+	startdate.setAttribute('max', currentDate);  
+  }
 //end of future date validation----------
-
-//add other country dropdown-------------
-//var other = document.getElementById("otherCountryDropdown");
-//// Add an event listener to the relevant link input field
-//other.addEventListener("blur", showOtherOption);
-//
-//function showOtherOption() {
-//	//console.log("otherdrop called");
-//  var dropdown = document.getElementById("otherCountryDropdown");
-//  var otherOptionDiv = document.getElementById("otherCountryOption");
-//  if (dropdown.value === "other") {
-//    otherOptionDiv.style.display = "block";
-//  } else {
-//    otherOptionDiv.style.display = "none";
-//  }
-//}
-//end of add other country dropdown-----------
-
-//other city--------------
-//var other = document.getElementById("cityDropdown");
-//		// Add an event listener to the relevant link input field
-//		other.addEventListener("blur", showOtherCityOption);
-//		function showOtherCityOption() {
-//		  	var dropdown = document.getElementById("cityDropdown");
-//		  	var otherOptionDiv = document.getElementById("otherCityOption");
-//		  	if (dropdown.value === "other") {
-//		    otherOptionDiv.style.display = "block";
-//		  	} else {
-//		    otherOptionDiv.style.display = "none";
-//			}
-//  		}
-//end of other city-------------
 
 //reset form-----------
 var reset = document.getElementById("resetForm");
-// Add an event listener to the relevant link input field
+if(reset !== null){
+	// Add an event listener to the relevant link input field
 reset.addEventListener("blur", resetForm);
 function resetForm() {
   document.getElementById("StartupOnboarding").reset();
+}
 }
 //end of reset form---------------
 
 //Validate submission------------------
 const form = document.getElementById('onboarding'); // replace 'myForm' with the ID of your form element 
-form.addEventListener('submit', function(event) {
+if(form !== null){
+	form.addEventListener('submit', function(event) {
   const presentationValid = validateFile();
   if (!presentationValid) {
     event.preventDefault();
@@ -773,6 +802,8 @@ form.addEventListener('submit', function(event) {
     return;
   }
 });
+}
+
 //End of validate submission----------------
 
 /*
@@ -946,10 +977,11 @@ $("#inputState").change(function(){
 });
 const selectBtn = document.querySelector(".select-btn"),
       items = document.querySelectorAll(".item");
-
-selectBtn.addEventListener("click", () => {
+if(selectBtn !== null){
+	selectBtn.addEventListener("click", () => {
     selectBtn.classList.toggle("open");
 });
+}
 
 items.forEach(item => {
     item.addEventListener("click", () => {
@@ -968,6 +1000,23 @@ items.forEach(item => {
 
 //-------------------------------User Email Validation -----------------
 
+if(emailInput !== null){
+	// Add an event listener to the email input field
+emailInput.addEventListener("input", validateUserEmail);
+
+function validateUserEmail() {
+  var email = document.getElementById("email").value;
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email regex
+  var userEmailError = document.getElementById("emailError");
+  if (!emailRegex.test(email)) {
+    userEmailError.style.display = "block";
+    return false;
+  } else {
+    userEmailError.style.display = "none";
+    return true;
+  }
+}
+}//github.com/rugwedpatharkar/CareerForAll2.git
 //------------------End Of User Email Validation----------------
 
 // ---------------------User Logout validation ----------------
