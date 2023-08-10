@@ -12,6 +12,11 @@ import com.placementportal.repository.CompanyRepository;
 public class CompanyService {
 	@Autowired
 	private CompanyRepository companyRepository;
+	
+	public CompanyService(CompanyRepository companyRepository) {
+		
+		this.companyRepository = companyRepository;
+	}
 
 	public List<Company> getAllCompanies() {
 		return companyRepository.findAll();
@@ -29,10 +34,11 @@ public class CompanyService {
 		this.companyRepository.deleteById(id);
 
 	}
-	
-	
-	// *******************  JoblistFilters and CandidateListfilters and mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh) *********************
-	//start
+
+	// ******************* JoblistFilters and CandidateListfilters and
+	// mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh)
+	// *********************
+	// start
 	public Company findCompanyById(Long companyid) {
 		return companyRepository.findById(companyid).orElse(null);
 	}
@@ -41,9 +47,11 @@ public class CompanyService {
 		return companyRepository.findById(companyid)
 				.orElseThrow(() -> new IllegalArgumentException("Company not found with ID: " + companyid));
 	}
-	
+
 	// end
 
-		// *******************  JoblistFilters and CandidateListfilters and mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh) *********************
+	// ******************* JoblistFilters and CandidateListfilters and
+	// mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh)
+	// *********************
 
 }

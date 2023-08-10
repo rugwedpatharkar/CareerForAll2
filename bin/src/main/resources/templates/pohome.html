@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Users / Profile </title>
+  <title>Users / TPO / Profile - Placement Portal</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -43,6 +43,39 @@
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
+  <!-- Company Pages  -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+        
+        <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-journal-text"></i><span>Institute</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+         
+       <ul>
+          <li>
+            <a th:href="@{/institute_onboarding}">
+              <i class="bi bi-circle"></i><span>Onboarding</span>
+            </a>
+          </li>
+
+          <li>
+            <a th:href="@{/candidate_registration}">
+              <i class="bi bi-circle"></i><span>Candidate Form</span>
+            </a>
+          </li>
+        </ul>
+        </ul>
+      </li>
+     
+    </ul>
+
+  </aside>
+  
+  <!-- End Of Company Pages  -->
+  
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="#" class="logo d-flex align-items-center">
@@ -70,6 +103,7 @@
 
         </li><!-- End Notification Nav -->
 
+
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -87,7 +121,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="#">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -117,7 +151,7 @@
             </li>
 
             <li>
-              <a th:href=@{/logout} class="dropdown-item d-flex align-items-center" href="/index">
+              <a th:href=@{/logout} class="dropdown-item d-flex align-items-center" href="#">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -151,19 +185,18 @@
           <span>Contact</span>
         </a>
       </li><!-- End Contact Page Nav -->
-
-      </ul>
+    </ul>
 
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Profile</h1>
+      <h1> TPO Profile</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Users</li>
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item">TPO</li>
           <li class="breadcrumb-item active">Profile</li>
         </ol>
       </nav>
@@ -228,6 +261,25 @@
                   </div>
 
                   <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Institute</div>
+                    <div class="col-lg-9 col-md-8">Lueilwitz, Wisoky and Leuschke</div>
+                  </div>
+				  
+				  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Country</div>
+                    <div class="col-lg-9 col-md-8">USA</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">State</div>
+                    <div class="col-lg-9 col-md-8">USA</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">City</div>
+                    <div class="col-lg-9 col-md-8"> New York</div>
+                  </div>
+
+                  <div class="row">
                     <div class="col-lg-3 col-md-4 label">Email</div>
                     <div class="col-lg-9 col-md-8">k.anderson@example.com</div>
                   </div>
@@ -264,9 +316,43 @@
                     </div>
 
                     <div class="row mb-3">
+                      <label for="company" class="col-md-4 col-lg-3 col-form-label">Institute</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="company" type="text" class="form-control" id="company" value="Lueilwitz, Wisoky and Leuschke">
+                      </div>
+                    </div>
+					
+					<div class="row mb-3">
+                      <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="country" type="text" class="form-control" id="Country" value="USA">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="Country" class="col-md-4 col-lg-3 col-form-label">State</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="country" type="text" class="form-control" id="Country" value="USA">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Address" class="col-md-4 col-lg-3 col-form-label">City</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="address" type="text" class="form-control" id="Address" value="A108 Adam Street, New York, NY 535022">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
                       <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                       <div class="col-md-8 col-lg-9">
                         <input name="email" type="email" class="form-control" id="Email" value="k.anderson@example.com">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin Profile</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="linkedin" type="text" class="form-control" id="Linkedin" value="https://linkedin.com/#">
                       </div>
                     </div>
 

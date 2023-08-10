@@ -52,7 +52,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
      <i class="bi bi-list toggle-sidebar-btn" style="margin-left:-10px;margin-right:10px"></i>
-      <a th:href="@{/pohome}" class="logo d-flex align-items-center">
+      <a th:href="@{/index}" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">Placement Portal</span>
       </a>
@@ -74,8 +74,7 @@
             <i class="bi bi-search"></i>
           </a>
         </li><!-- End Search Icon-->
-
-        <!-- Profile Nav Bar -->
+		<!-- Profile Nav Bar -->
 		<li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -132,52 +131,86 @@
           </ul><!-- End Profile Dropdown Items -->
         </li>
 			<!-- End of Profile Nav Bar -->
+        
 
           </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-      </ul>
+        
     </nav><!-- End Icons Navigation -->
 
   </header><!-- End Header -->
 
-  <aside id="sidebar" class="sidebar">
+ <aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav" id="sidebar-nav"> 
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+
+    
+    
+
+    
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-journal-text"></i><span>Institute</span><i class="bi bi-chevron-down ms-auto"></i>
+        <i class="bi bi-journal-text"></i><span>Startups</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
          
-         <ul> 
-         <li>
-            <a th:href="@{/pohome}">
-              <i class="bi bi-circle"></i><span>Home</span>
+         <ul>   
+          <li>
+            <a th:href="@{/startup_onboarding}">
+              <i class="bi bi-circle "></i><span>Onboarding</span>
+            </a>
+          </li>
+       	   <li>
+            <a th:href="@{/CompanyList}">
+              <i class="bi bi-circle"></i><span>Startup List</span>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/jobopening}">
+              <i class="bi bi-circle"></i><span>Job Posting</span>
+            </a>
+          </li>
+          
+            <li>
+            <a th:href="@{/joblist/{companyid}(companyid=1)}">
+              <i class="bi bi-circle"></i><span>Job List</span>
             </a>
           </li>  
+          
+          </ul>
+        </ul>
+        </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-journal-text"></i><span>Institute</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+         
+       <ul>
           <li>
             <a th:href="@{/institute_onboarding}">
               <i class="bi bi-circle"></i><span>Onboarding</span>
             </a>
           </li>
-          
+
           <li>
             <a th:href="@{/candidate_registration}">
               <i class="bi bi-circle"></i><span>Candidate Form</span>
             </a>
           </li>
-          
-          <li>
+         
+         <li>
             <a th:href="@{/CandidateList}">
               <i class="bi bi-circle"></i><span>Candidate List</span>
             </a>
           </li>
-                    
-          </ul>
+  
         </ul>
-        </li>
-   
+        </ul>
+      </li>
+      
+
     </ul>
 
   </aside>
@@ -187,11 +220,11 @@
  <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Institute List</h1>
+      <h1>Candidate List</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Institute</a></li>
-          <li class="breadcrumb-item active">Institute List</li>
+          <li class="breadcrumb-item active">Candidate List</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -208,26 +241,24 @@
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
-                  <tr >
+                  <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Institute Name</th>
+                    <th scope="col">Candidate Name</th>
                     <th scope="col">Email</th>
-                    <th scope="col">State</th>
-                    <th scope="col">Founder</th>
+                    <th scope="col">Primary Skills</th>
                     <th scope="col">Actions</th>
 <!--                     <th scope="col">Corporate Presentation</th> -->
                   </tr>
                 </thead>
                <tbody>
-				    <tr th:each="institute, instituteStat : ${listInstitutes}">
-				        <th th:utext="${instituteStat.count}"></th>
-				        <td th:text="${institute.institutename}"></td>
-				        <td th:text="${institute.email}"></td>
-				        <td th:text="${institute.state}"></td>
-				        <td th:text="${institute.foundername}"></td>
+				    <tr th:each="candidate, candidateStat : ${listCandidates}">
+				        <th th:utext="${candidateStat.count}"></th>
+				        <td th:text="${candidate.candidatename}"></td>
+				        <td th:text="${candidate.email}"></td>
+				        <td th:text="${candidate.primaryskills}"></td>
 				        <td>
-				            <a th:href="@{/editInstitute/{id}(id=${institute.instituteid})}" class="btn btn-primary">Update</a>
-				            <a th:href="@{/deleteInstitute/{id}(id=${institute.instituteid})}" class="btn btn-danger mx-2">Delete</a>
+				             <a th:href="@{/editCandidate/{id}(id=${candidate.candidateid})}" class="btn btn-primary">Update</a>
+				            <a th:href="@{/deleteCandidate/{id}(id=${candidate.candidateid})}" class="btn btn-danger mx-2">Delete</a>
 				        </td>
 				    </tr>
 				</tbody>

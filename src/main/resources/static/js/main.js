@@ -320,6 +320,44 @@
 
 })();
 
+//--------------------
+
+var emailInput1 = document.getElementById("email");
+
+// Add an event listener to the email input field
+emailInput1.addEventListener("input", validateEmail);
+
+function validateEmail() {
+  var email = document.getElementById("email").value;
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email regex
+  var emailError = document.getElementById("emailError");
+  if (!emailRegex.test(email)) {
+    emailError.style.display = "block";
+    return false;
+  } else {
+    emailError.style.display = "none";
+    return true;
+  }
+}
+
+//---------------
+
+ // Wait for the DOM to be fully loaded
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get the logout message element
+            const logoutMessage = document.querySelector(".logoutMessage");
+
+            // If the logout message element exists, hide it after 2 seconds
+            if (logoutMessage) {
+                setTimeout(function() {
+                    logoutMessage.style.display = "none";
+                }, 2000);
+            }
+        });
+
+//---------------------
+
+
 //----------------------------------------------------------Startup Onboarding & Startup List JS-------------------------------------
 //country state city dropdowns-----------------------------------------------
 // Function to get the access token from site for API request
@@ -959,8 +997,8 @@ items.forEach(item => {
 })
 
 //-------------------------------User Email Validation -----------------
-var emailInput = document.getElementById("email");
 
+<<<<<<< HEAD
 if(emailInput !== null){
 	// Add an event listener to the email input field
 emailInput.addEventListener("input", validateUserEmail);
@@ -978,11 +1016,14 @@ function validateUserEmail() {
   }
 }
 }
+=======
+>>>>>>> branch 'main' of https://github.com/rugwedpatharkar/CareerForAll2.git
 //------------------End Of User Email Validation----------------
 
+// ---------------------User Logout validation ----------------
 
 
-
+// ---------------------User Logout validation ----------------
 
 
 

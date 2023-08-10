@@ -74,25 +74,75 @@
             <i class="bi bi-search"></i>
           </a>
         </li><!-- End Search Icon-->
-
         
+        <!-- Profile Nav Bar -->
+		<li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6><span th:text="${#authentication.name}"></span></h6>
+              <span>Web Designer</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a th:href=@{/logout} class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
 
           </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-      </ul>
+        </li>
+			<!-- End of Profile Nav Bar -->
+      
+        
+	 </ul>
+	 
     </nav><!-- End Icons Navigation -->
 
   </header><!-- End Header -->
 
   <aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
-
-    
-    
-
-    
+    <ul class="sidebar-nav" id="sidebar-nav"> 
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-journal-text"></i><span>Startups</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -105,7 +155,11 @@
               <i class="bi bi-circle "></i><span>Onboarding</span>
             </a>
           </li>
-       
+       	   <li>
+            <a th:href="@{/CompanyList}">
+              <i class="bi bi-circle"></i><span>Startup List</span>
+            </a>
+          </li>
           <li>
             <a th:href="@{/jobopening}">
               <i class="bi bi-circle"></i><span>Job Posting</span>
@@ -113,64 +167,15 @@
           </li>
           
            <li>
-            <a th:href="@{/joblistfilters}">
+            <a th:href="@{/joblist/{companyid}(companyid=1)}">
               <i class="bi bi-circle"></i><span>Job List</span>
             </a>
-          </li>
+          </li> 
           
           </ul>
         </ul>
         </li>
-          
-      
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-journal-text"></i><span>Institute</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-         
-       <ul>
-          <li>
-            <a th:href="@{/institute_onboarding}">
-              <i class="bi bi-circle"></i><span>Onboarding</span>
-            </a>
-          </li>
-
-          <li>
-            <a th:href="@{/candidate_registration}">
-              <i class="bi bi-circle"></i><span>Candidate Form</span>
-            </a>
-          </li>
-             <li>
-            <a th:href="@{/joblistfilters}">
-              <i class="bi bi-circle"></i><span>Job List</span>
-            </a>
-          </li>
-        </ul>
-        </ul>
-      </li>
-      
-
-      
-
- <li class="nav-heading">Pages</li>
-
-     
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" th:href="@{/register}">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" th:href="@{/login}">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
-        </a>
-      </li><!-- End Login Page Nav -->
-
+   
     </ul>
 
   </aside>
@@ -189,6 +194,7 @@
       </nav>
     </div><!-- End Page Title -->
 
+    
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
@@ -204,30 +210,34 @@
                     <th scope="col">#</th>
                     <th scope="col">Company Name</th>
                     <th scope="col">Brand Name</th>
-                    <th scope="col">Start Date</th>
-<!--                     <th scope="col">Corporate Presentation</th> -->
+                    <th scope="col">Email</th>
+                    <th scope="col">Head Office</th>
+                    <th scope="col">Actions</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr th:each="company, companyStat : ${listCompanies}">
-                    <th th:utext="${companyStat.count}"></th>
-                    <td th:text="${company.company_name}"></td>
-                    <td th:text="${company.brand_name}"></td>
-					<td th:text="${company.start_date}"></td>
-<!-- 					<td th:text="${company.corporate_presentation}"></td> -->
-                  </tr>
-                  
-                </tbody>
+               <tbody>
+				    <tr th:each="company, companyStat : ${listCompanies}">
+				        <th th:utext="${companyStat.count}"></th>
+				        <td th:text="${company.company_name}"></td>
+				        <td th:text="${company.brand_name}"></td>
+				        <td th:text="${company.companyemail}"></td>
+				        <td th:text="${company.head_office_country}"></td>
+				        <td>
+				            <a th:href="@{/editCompany/{id}(id=${company.companyid})}" class="btn btn-primary">Update</a>
+				            <a th:href="@{/deleteCompany/{id}(id=${company.companyid})}" class="btn btn-danger mx-2">Delete</a>
+				        </td>
+				    </tr>
+				</tbody>
+
               </table>
               <!-- End Table with stripped rows -->
-
+			  
             </div>
           </div>
 
         </div>
       </div>
     </section>
-
   </main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

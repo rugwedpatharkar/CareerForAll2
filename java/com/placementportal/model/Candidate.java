@@ -27,7 +27,7 @@ public class Candidate {
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] cvupload;
-	  
+
 	private byte[] otherrelevantupload;
 
 	private String primaryskills;

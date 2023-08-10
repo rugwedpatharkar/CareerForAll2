@@ -30,6 +30,7 @@
 <link th:href="@{/vendor/quill/quill.bubble.css}" rel="stylesheet">
 <link th:href="@{/vendor/remixicon/remixicon.css}" rel="stylesheet">
 <link th:href="@{/vendor/simple-datatables/style.css}" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Template Main CSS File -->
 <link th:href="@{/css/style.css}" rel="stylesheet">
@@ -104,25 +105,22 @@
               <i class="bi bi-circle "></i><span>Onboarding</span>
             </a>
           </li>
-       
+       	   <li>
+            <a th:href="@{/CompanyList}">
+              <i class="bi bi-circle"></i><span>Startup List</span>
+            </a>
+          </li>
           <li>
             <a th:href="@{/jobopening}">
               <i class="bi bi-circle"></i><span>Job Posting</span>
             </a>
           </li>
           
-           <li>
-            <a th:href="@{/joblistfilters}">
+      <li>
+            <a th:href="@{/joblist/{companyid}(companyid=1)}">
               <i class="bi bi-circle"></i><span>Job List</span>
             </a>
-          </li>
-          
-             <li>
-            <a th:href="@{/joblistfilters}">
-              <i class="bi bi-circle"></i><span>Startup List</span>
-            </a>
-          </li>
-          
+          </li>    
           </ul>
         </ul>
         </li>
@@ -144,6 +142,11 @@
           <li>
             <a th:href="@{/candidate_registration}">
               <i class="bi bi-circle"></i><span>Candidate Form</span>
+            </a>
+          </li>
+            <li>
+            <a th:href="@{/CandidateList}">
+              <i class="bi bi-circle"></i><span>Candidate List</span>
             </a>
           </li>
         </ul>
@@ -189,15 +192,14 @@
 			<h1>Company Name</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item">Home</li>
-					<li class="breadcrumb-item active">Management</li>
+					<li class="breadcrumb-item">Filter Job List </li>
+					<li class="breadcrumb-item active">Filter Candidate List</li>
+				    <li class="breadcrumb-item">List of Mapped Candidates to Job</li>
 				</ol>
 			</nav>
 		</div>
 
 		<section class="section dashboard">
-		<form th:action="@{/candidatefilter}" id="candidateFilter" method+"Get">
-			<input type="hidden" th:value="${position.position_id}" name="position_id" >
 			<div class="card info-card customers-card">
 				<div class="card-body"style="margin:10px 0 -15px 0">
 
@@ -226,9 +228,9 @@
 							
 							<div class="row">
 								<div class="col-lx-3 col-lg-3 label"style="width:130px;font-weight:600">Work Mode :</div>
-								<div class="col-lx-3 col-lg-3" th:text="${position.work_mode}"></div>
+								<div class="col-lx-3 col-lg-3" th:text="${position.workmode}"></div>
 								<div class="col-lx-3 col-lg-3 label"style="width:130px;font-weight:600">Position Type :</div>
-								<div class="col-lx-3 col-lg-3" th:text="${position.position_type}"></div>
+								<div class="col-lx-3 col-lg-3" th:text="${position.positiontype}"></div>
 							</div>
 							
 							
@@ -247,29 +249,30 @@
  
 <!--changes to be done-->
 	
+		<form th:action="@{/candidatelistfilters/{positionid}/{minKeywordLength}(positionid=${position.positionid}, minKeywordLength=3)}" id="candidateFilter" method="get">
 
   			<div class="single-row">
 
         <div class="single-column">
 					<div class="col-lx-3 col-lg-3 label"style="font-weight:600">Preffered Work Mode :</div>
                   
-      &emsp;<input class="form-check-input" type="radio" value="Work From Home" name="work_mode"> 
+      &emsp;<input class="form-check-input" type="radio" value="Work From Home" name="workmode"> 
               <label class="form-check-label" >Work From Home</label>
               
-      &ensp;<input class="form-check-input" type="radio" value="Work From Office" name="work_mode"> 
+      &ensp;<input class="form-check-input" type="radio" value="Work From Office" name="workmode"> 
               <label class="form-check-label" >Work From Office</label>
               
-      &ensp;<input class="form-check-input" type="radio" value="Hybrid" name="work_mode"> 
+      &ensp;<input class="form-check-input" type="radio" value="Hybrid" name="workmode"> 
               <label class="form-check-label" >Hybrid</label>
               </div>
              
               <div class="single-column">
               <div class="col-lx-3 col-lg-3 label"style="font-weight:600">Preffered Position Type :</div>
             
-      &emsp;<input class="form-check-input" type="radio"  value="Job"name="job_or_internship"> 
+      &emsp;<input class="form-check-input" type="radio"  value="Job"name="joborinternship"> 
               <label class="form-check-label" for="gridRadios1">Job</label>
 								
-      &ensp;<input class="form-check-input" type="radio"   value="Internship"name="job_or_internship"> 
+      &ensp;<input class="form-check-input" type="radio"   value="Internship"name="joborinternship"> 
               <label class="form-check-label" for="gridRadios2">Internship</label>
 
              
@@ -284,25 +287,25 @@
           	<div class="single-row">
 
               <div class="single-column"style="width:55%">
-                 <div class="col-lx-3 col-lg-3 label "style="font-weight:600">Location :
-   &emsp;<select class="form-select"   id="country-dropdown" style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline" aria-label="Default select example">
+                   <div class="col-lx-3 col-lg-3 label ">Location :
+   &emsp;<select class="form-select"  name="country" id="country-dropdown" style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline" aria-label="Default select example">
                        <option value="" disabled selected>-- Please select country --</option>
          </select> 
-           &emsp;<select class="form-select" id="state-Dropdown" style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline" aria-label="Default select example">
+           &emsp;<select class="form-select" name="state"  id="state-Dropdown" style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline" aria-label="Default select example">
                     <option value="" disabled selected>-- Please select state --</option>
          </select> 
-                &ensp;<select class="form-select"  id="city-Dropdown" aria-label="Default select example"style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline">
+                &ensp;<select class="form-select" name="city" id="city-Dropdown" aria-label="Default select example"style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline">
                      <option value="" disabled selected>-- Please select state --</option>
 
                 </select>
-								
-						</div>
+
+                </div>
           </div>
 
               
           <div class="single-column"style="width:40%">
             <div class="col-lx-3 col-lg-3 label "style="font-weight:600">Preffered Work Experience :
-              <select class="form-select" name="no_of_years_work_ex"  aria-label="Default select example"style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline">
+              <select class="form-select" name="noofyearsworkex"  aria-label="Default select example"style="width: 170px; height:24px; padding-top: 4px; font-size:10px; display: inline">
 
                 <option disabled selected>Select Work Experience</option>
                 <option value="0">0</option>
@@ -316,39 +319,38 @@
 							</div>
             </div>
 						
-				</form>
+				
 			
 
                	<div class="single-row">
-								    <form th:action="@{/candidatelistfilters}" >
                         <label class="col-lx-3 col-lg-3 label"style="font-weight:600">Search Candidate (Name/Skill) :</label>
          <div class="select-btn"style="width: 280px; height:30px; padding:4px 0 4px 0; font-size:10px; display: inline">
-									<input style="background: transparent; border: none; outline: none;"autocomplete="off"
-										spellcheck="false" type="text" placeholder="Enter Details"name="keyword" >
-										<input type="hidden" th:value="${position.position_id}" name="position_id" >
-        					<button style="background: transparent; border: none; outline: none;" type="submit" title="Search"><i class="bi bi-search"></i></button>
+									<input style="background: transparent; border: none; outline: none;"
+										spellcheck="false" type="text" placeholder="Enter Details"name="search" >
+										
 								
-								</div>	</form>	
+								</div>	
                 </div>	
                 
 				
-     	
+     	</form>
 							
 	 		          <div class="single-row"style="margin-top:20px;">
 				           <div class="col-sm-10">
-    	                <input type="submit" value="Apply" class="btn btn-success"  form="candidateFilter" style="width:60px; height:25px;  padding-top: 2px; font-size: 12px";>
-				<form th:action="@{/candidatefilter}" method+"Get"><input type="hidden" th:value="${position.position_id}" name="position_id" ><input class="btn btn-primary"style="width:60px; height:25px;  padding-top: 2px; font-size: 12px"type="submit" value="Reset"></form>
+    	                <input type="submit" value="Apply" class="btn btn-success"  form="candidateFilter"id=" formSubmit" style="width:60px; height:25px;  padding-top: 2px; font-size: 12px";>
+    	                 <a th:href="@{/eligiblecandidates/{positionid}/{minKeywordLength}(positionid=${position.positionid}, minKeywordLength=3)}" class="btn btn-success" style="width:60px; height:25px; padding-top: 2px; font-size: 12px; background-color:#0d6efd">Reset</a>
 			          </div>
-						
-							 
+						</div>
+								
 						<hr style="width: 100%; text-align: center; margin-left: 0">
 
 						<h5 class="card-title" style="padding-top: 5px;">Candidate List</span></h5>
-
-						<table class="table table-hover">
+<form id="mapcandidateform" th:action="@{/mapcandidatetojob/{positionid}/{companyid}/{minKeywordLength}(minKeywordLength=3)}"
+    th:object="${selectedCandidatesForm}" method="post">
+						<table class="table">
 							<thead>
 								<tr>
-									<th scope="col">Select</th>
+									<th scope="col"style="margin-left=20px">Select</th>
 									<th scope="col">Name</th>
 									<th scope="col">Primary Skills</th>
 									<th scope="col">Secondary Skills</th>
@@ -358,25 +360,57 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="c : ${listcandidate}">
-									<th><input class="form-check-input" type="checkbox"
-										name="gridRadios" id="gridRadios1" value="option1"></th>
-									<td th:text="${c.candidate_name}"></td>
-									<td th:text="${c.primary_skills}"></td>
-									<td th:text="${c.secondary_skills}"></td>
-									<td th:text="${c.candidate_city}"></td>
-									<td th:text="${c.no_of_years_work_ex}"></td>
-									<td><a class="btn btn-primary" style="width:90px; height:25px;  padding-top: 2px; font-size: 12px";>Download</a></td>
-								</tr>
-							</tbody>
+        <tr th:each="c, i : ${listcandidate}">
+            <td><input class="form-check-input candidate-checkbox" type="checkbox"  
+                    name="candidateids" th:value="${c.candidateid}"></td>
+            <td th:text="${c.candidatename}"></td>
+            <td th:text="${c.primaryskills}"></td>
+            <td th:text="${c.secondaryskills}"></td>
+            <td th:text="${c.candidatecity}"></td>
+            <td th:text="${c.noofyearsworkex}"></td>
+            <td><a class="btn btn-primary"
+                    th:href="@{/cvdownload/{candidateid}(candidateid=${c.candidateid})}"
+                    style="width:90px; height:25px;  padding-top: 2px; font-size: 12px;">Download</a></td>
+            <!-- Add hidden input field for instituteid -->
+            <input type="hidden" name="instituteids" th:value="${c.institutename.instituteid}">
+        </tr>
+    </tbody>
 						</table>
+						 <div if="${listcandidate.totalPages > 1}">
+        <ul class="pagination">
+            <li th:class="${listcandidate.first ? 'page-item disabled' : 'page-item'}">
+                <a class="page-link" th:href="@{/eligiblecandidates/{positionid}/{minKeywordLength}(positionid=${position.positionid},  minKeywordLength=3, page=0)}">First</a>
+            </li>
+            <li th:class="${listcandidate.hasPrevious() ? 'page-item' : 'page-item disabled'}">
+                <a class="page-link" th:href="@{/eligiblecandidates/{positionid}/{minKeywordLength}(positionid=${position.positionid},  minKeywordLength=3, page=${listcandidate.number - 1})}">Previous</a>
+            </li>
 
+            <li th:each="page : ${#numbers.sequence(0, listcandidate.totalPages-1)}" th:class="${listcandidate.number == page ? 'page-item active' : 'page-item'}">
+                <a class="page-link" th:href="@{/eligiblecandidates/{positionid}/{minKeywordLength}(positionid=${position.positionid},  minKeywordLength=3, page=${page})}" th:text="${page + 1}"></a>
+            </li>
+
+            <li th:class="${listcandidate.hasNext() ? 'page-item' : 'page-item disabled'}">
+                <a class="page-link" th:href="@{/eligiblecandidates/{positionid}/{minKeywordLength}(positionid=${position.positionid},  minKeywordLength=3, page=${listcandidate.number + 1})}">Next</a>
+            </li>
+            <li th:class="${listcandidate.last ? 'page-item disabled' : 'page-item'}">
+                <a class="page-link" th:href="@{/eligiblecandidates/{positionid}/{minKeywordLength}(positionid=${position.positionid},  minKeywordLength=3, page=${listcandidate.totalPages - 1})}">Last</a>
+            </li>
+        </ul>
+    </div>
+					 <input type="hidden"name="positionid"  th:value="${position.positionid}">
+					 <input type="hidden" name="companyid"  th:value="${position.company.companyid}">
+					
+						</form>
 						<div class="row mb-3">
 							<div class="col-sm-10">
-								<button type="button" class="btn btn-success" style="width:90px; height:25px;  padding-top: 2px; font-size: 12px";>Map Candidate</button>
-							</div>
-						</div>
+								<button type="submit" class="btn btn-success" form="mapcandidateform" style="width:90px; height:25px;  padding-top: 2px; font-size: 12px">Map Candidate</button>
+			<a th:href="@{/mappedcandidatelist/{companyid}/{positionid}(companyid=1,  positionid=${position.positionid})}" class="btn btn-success" form="mapcandidateform" style=" height:25px; padding-top: 2px; font-size: 12px; background-color:#0d6efd">Mapped Candidate List</a>
 
+							</div>
+							
+						
+						</div>
+						
 						</div>
 					</div>
 				</div>
@@ -389,7 +423,6 @@
 
 	</main>
 
-  
 	<!-- Vendor JS Files -->
 	<script th:src="@{/vendor/apexcharts/apexcharts.min.js}"></script>
 	<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
@@ -478,6 +511,87 @@
    }
 
 
+
+
+
+/* Add the following CSS styles to your stylesheet */
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.page-item {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.page-item.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.page-item a {
+    display: block;
+    padding: 8px 12px;
+    background-color: #f2f2f2;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.page-item.active a {
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #007bff;
+}
+
   </style>
-  
+ 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const candidateCheckboxes = document.querySelectorAll(".candidate-checkbox");
+        const mapCandidatesBtn = document.getElementById("mapCandidatesBtn");
+
+        mapCandidatesBtn.addEventListener("click", function () {
+            const formData = new FormData();
+            const selectedCandidates = [];
+
+            candidateCheckboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    const candidateId = checkbox.value;
+                    const instituteId = checkbox.parentElement.querySelector("input[name='institutes']").value;
+
+                    formData.append("candidateids", candidateId);
+                    formData.append("instituteids", instituteId);
+
+                    selectedCandidates.push(candidateId);
+                }
+            });
+
+            if (selectedCandidates.length === 0) {
+                alert("Please select at least one candidate to map.");
+                return;
+            }
+
+            formData.append("positionid", document.querySelector("input[name='positionid']").value);
+
+            // Make the AJAX call to submit the form data
+            fetch("/mapcandidatetojob/" + positionid + "/3", {
+                method: "POST",
+                body: formData
+            }).then((response) => {
+                // Handle the response if needed
+                if (response.ok) {
+                    // Optional: Reload the page or perform other actions
+                    location.reload();
+                } else {
+                    alert("Failed to map candidates.");
+                }
+            }).catch((error) => {
+                alert("An error occurred while mapping candidates.");
+            });
+        });
+    });
+</script>
+
 </html>
