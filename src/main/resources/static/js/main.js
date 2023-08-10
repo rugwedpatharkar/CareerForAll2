@@ -323,8 +323,8 @@
 //--------------------
 
 var emailInput1 = document.getElementById("email");
-
-// Add an event listener to the email input field
+if(emailInput1 !== null){
+	// Add an event listener to the email input field
 emailInput1.addEventListener("input", validateEmail);
 
 function validateEmail() {
@@ -338,6 +338,8 @@ function validateEmail() {
     emailError.style.display = "none";
     return true;
   }
+}
+
 }
 
 //---------------
