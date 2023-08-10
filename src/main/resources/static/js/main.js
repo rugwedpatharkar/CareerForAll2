@@ -998,7 +998,6 @@ items.forEach(item => {
 
 //-------------------------------User Email Validation -----------------
 
-<<<<<<< HEAD
 if(emailInput !== null){
 	// Add an event listener to the email input field
 emailInput.addEventListener("input", validateUserEmail);
@@ -1015,9 +1014,7 @@ function validateUserEmail() {
     return true;
   }
 }
-}
-=======
->>>>>>> branch 'main' of https://github.com/rugwedpatharkar/CareerForAll2.git
+}//github.com/rugwedpatharkar/CareerForAll2.git
 //------------------End Of User Email Validation----------------
 
 // ---------------------User Logout validation ----------------
