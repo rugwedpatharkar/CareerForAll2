@@ -403,7 +403,7 @@ public class MainController {
 	@GetMapping("/eligiblecandidates/{positionid}/{minKeywordLength}")
 	public String showEligibleCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
 			@RequestParam(defaultValue = "0") int page, Model model) {
-		int pageSize = 10; // Number of candidates to display per page1
+		int pageSize = 5; // Number of candidates to display per page1
 		Job position = jobService.getJobbyId(positionid);
 		model.addAttribute("position", position);
 
