@@ -31,7 +31,7 @@ public class Institute {
 	private byte[] corporatepresentation;
 	private byte[] anyotherfileupload;
 	private String specialization;
-	private Integer batchsize;
+	private String batchsize;
 	private Integer noofcampuses;
 	private BigDecimal medianctc;
 	private BigDecimal averagectc;
@@ -175,11 +175,11 @@ public class Institute {
 		this.specialization = specialization;
 	}
 
-	public Integer getBatchsize() {
+	public String getBatchsize() {
 		return batchsize;
 	}
 
-	public void setBatchsize(Integer batchsize) {
+	public void setBatchsize(String batchsize) {
 		this.batchsize = batchsize;
 	}
 

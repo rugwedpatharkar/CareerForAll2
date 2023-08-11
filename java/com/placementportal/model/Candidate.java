@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +24,10 @@ public class Candidate {
 	private String candidatename;
 
 	private String email;
+	
+	@Column(columnDefinition = "TEXT")
+	private String educationalDetailsJson;
+
 
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
@@ -62,6 +67,33 @@ public class Candidate {
 		super();
 	}
 
+	public Candidate(Long candidateid, String candidatename, String email, String educationalDetailsJson,
+			byte[] cvupload, byte[] otherrelevantupload, String primaryskills, String secondaryskills,
+			String experience, String noofyearsworkex, String workmode, String gender, String candidatecity,
+			String icormanager, String joborinternship, Institute institutename, String ctcfixed,
+			BigDecimal ctcvariable, BigDecimal ctctotal) {
+		super();
+		this.candidateid = candidateid;
+		this.candidatename = candidatename;
+		this.email = email;
+		this.educationalDetailsJson = educationalDetailsJson;
+		this.cvupload = cvupload;
+		this.otherrelevantupload = otherrelevantupload;
+		this.primaryskills = primaryskills;
+		this.secondaryskills = secondaryskills;
+		this.experience = experience;
+		this.noofyearsworkex = noofyearsworkex;
+		this.workmode = workmode;
+		this.gender = gender;
+		this.candidatecity = candidatecity;
+		this.icormanager = icormanager;
+		this.joborinternship = joborinternship;
+		this.institutename = institutename;
+		this.ctcfixed = ctcfixed;
+		this.ctcvariable = ctcvariable;
+		this.ctctotal = ctctotal;
+	}
+
 	public Long getCandidateid() {
 		return candidateid;
 	}
@@ -84,6 +116,14 @@ public class Candidate {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getEducationalDetailsJson() {
+		return educationalDetailsJson;
+	}
+
+	public void setEducationalDetailsJson(String educationalDetailsJson) {
+		this.educationalDetailsJson = educationalDetailsJson;
 	}
 
 	public byte[] getCvupload() {
@@ -194,27 +234,6 @@ public class Candidate {
 		return ctcvariable;
 	}
 
-	@Override
-	public String toString() {
-		return "Candidate [candidateid=" + candidateid + ", candidatename=" + candidatename + ", email=" + email
-				+ ", cvupload=" + Arrays.toString(cvupload) + ", otherrelevantupload="
-				+ Arrays.toString(otherrelevantupload) + ", primaryskills=" + primaryskills + ", secondaryskills="
-				+ secondaryskills + ", experience=" + experience + ", noofyearsworkex=" + noofyearsworkex
-				+ ", workmode=" + workmode + ", gender=" + gender + ", candidatecity=" + candidatecity
-				+ ", icormanager=" + icormanager + ", joborinternship=" + joborinternship + ", institutename="
-				+ institutename + ", ctcfixed=" + ctcfixed + ", ctcvariable=" + ctcvariable + ", ctctotal=" + ctctotal
-				+ ", getCandidateid()=" + getCandidateid() + ", getCandidatename()=" + getCandidatename()
-				+ ", getEmail()=" + getEmail() + ", getCvupload()=" + Arrays.toString(getCvupload())
-				+ ", getOtherrelevantupload()=" + Arrays.toString(getOtherrelevantupload()) + ", getPrimaryskills()="
-				+ getPrimaryskills() + ", getSecondaryskills()=" + getSecondaryskills() + ", getExperience()="
-				+ getExperience() + ", getNoofyearsworkex()=" + getNoofyearsworkex() + ", getWorkmode()="
-				+ getWorkmode() + ", getGender()=" + getGender() + ", getCandidatecity()=" + getCandidatecity()
-				+ ", getIcormanager()=" + getIcormanager() + ", getJoborinternship()=" + getJoborinternship()
-				+ ", getInstitutename()=" + getInstitutename() + ", getCtcfixed()=" + getCtcfixed()
-				+ ", getCtcvariable()=" + getCtcvariable() + ", getCtctotal()=" + getCtctotal() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
-	}
-
 	public void setCtcvariable(BigDecimal ctcvariable) {
 		this.ctcvariable = ctcvariable;
 	}
@@ -226,5 +245,18 @@ public class Candidate {
 	public void setCtctotal(BigDecimal ctctotal) {
 		this.ctctotal = ctctotal;
 	}
+
+	@Override
+	public String toString() {
+		return "Candidate [candidateid=" + candidateid + ", candidatename=" + candidatename + ", email=" + email
+				+ ", educationalDetailsJson=" + educationalDetailsJson + ", cvupload=" + Arrays.toString(cvupload)
+				+ ", otherrelevantupload=" + Arrays.toString(otherrelevantupload) + ", primaryskills=" + primaryskills
+				+ ", secondaryskills=" + secondaryskills + ", experience=" + experience + ", noofyearsworkex="
+				+ noofyearsworkex + ", workmode=" + workmode + ", gender=" + gender + ", candidatecity=" + candidatecity
+				+ ", icormanager=" + icormanager + ", joborinternship=" + joborinternship + ", institutename="
+				+ institutename + ", ctcfixed=" + ctcfixed + ", ctcvariable=" + ctcvariable + ", ctctotal=" + ctctotal
+				+ "]";
+	}
+
 
 }

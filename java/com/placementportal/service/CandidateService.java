@@ -30,9 +30,15 @@ public class CandidateService {
 		return candidateRepository.findAll();
 	}
 
-	public void saveCandidate(Candidate candidate) {
-		this.candidateRepository.save(candidate);
+//	public void saveCandidate(Candidate candidate) {
+//		this.candidateRepository.save(candidate);
+//	}
+
+	public void saveCandidate(Candidate candidate, String educationalDetailsJson) {
+	    candidate.setEducationalDetailsJson(educationalDetailsJson);
+	    this.candidateRepository.save(candidate);
 	}
+
 
 	public Candidate getCandidateById(Long id) {
 		return candidateRepository.findById(id).orElse(null);
