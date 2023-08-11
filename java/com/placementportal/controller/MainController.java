@@ -203,9 +203,12 @@ public class MainController {
 	}
 
 	@PostMapping("/saveCandidate")
-	public String saveCandidate(@ModelAttribute("candidate") Candidate candidate) {
-		candidateService.saveCandidate(candidate);
-		return "redirect:/CandidateList";
+	public String saveCandidate(
+	        @ModelAttribute("candidate") Candidate candidate,
+	        @RequestParam("educationalDetailsJson") String educationalDetailsJson
+	) {
+	    candidateService.saveCandidate(candidate, educationalDetailsJson);
+	    return "redirect:/CandidateList";
 	}
 
 	@GetMapping("/CandidateList")
@@ -224,9 +227,11 @@ public class MainController {
 	}
 
 	@PostMapping("/updateCandidate")
-	public String updateCandidate(@ModelAttribute("candidate") Candidate candidate) {
-		candidateService.saveCandidate(candidate);
-		return "redirect:/CandidateList";
+	public String updateCandidate(@ModelAttribute("candidate") Candidate candidate,
+	        @RequestParam("educationalDetailsJson") String educationalDetailsJson
+	) {
+	    candidateService.saveCandidate(candidate, educationalDetailsJson);
+	    return "redirect:/CandidateList";
 	}
 
 	@GetMapping("/deleteCandidate/{id}")
@@ -403,7 +408,7 @@ public class MainController {
 	@GetMapping("/eligiblecandidates/{positionid}/{minKeywordLength}")
 	public String showEligibleCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
 			@RequestParam(defaultValue = "0") int page, Model model) {
-		int pageSize = 10; // Number of candidates to display per page1
+		int pageSize = 5; // Number of candidates to display per page1
 		Job position = jobService.getJobbyId(positionid);
 		model.addAttribute("position", position);
 

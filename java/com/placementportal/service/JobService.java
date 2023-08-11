@@ -41,7 +41,7 @@ public class JobService {
 	// *********************
 
 	// start
-
+//joblistfilters
 	public List<JobCandidate> getJobCandidatesByCompanyidAndPositionid(Long companyid, int positionid) {
 		return jobCandidateRepository.findByCompanyCompanyidAndJobPositionid(companyid, positionid);
 	}
@@ -95,7 +95,7 @@ public class JobService {
 		}
 		return findJobsByCompanyId(companyid, pageable);
 	}
-
+//candidatelistfilters
 	public Page<Candidate> findEligibleCandidates(int positionId, int minKeywordLength, Pageable pageable) {
 		Job job = jobRepository.findById(positionId).orElse(null);
 		if (job == null) {
