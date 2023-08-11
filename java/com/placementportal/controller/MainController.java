@@ -203,9 +203,12 @@ public class MainController {
 	}
 
 	@PostMapping("/saveCandidate")
-	public String saveCandidate(@ModelAttribute("candidate") Candidate candidate) {
-		candidateService.saveCandidate(candidate);
-		return "redirect:/CandidateList";
+	public String saveCandidate(
+	        @ModelAttribute("candidate") Candidate candidate,
+	        @RequestParam("educationalDetailsJson") String educationalDetailsJson
+	) {
+	    candidateService.saveCandidate(candidate, educationalDetailsJson);
+	    return "redirect:/CandidateList";
 	}
 
 	@GetMapping("/CandidateList")
@@ -224,9 +227,11 @@ public class MainController {
 	}
 
 	@PostMapping("/updateCandidate")
-	public String updateCandidate(@ModelAttribute("candidate") Candidate candidate) {
-		candidateService.saveCandidate(candidate);
-		return "redirect:/CandidateList";
+	public String updateCandidate(@ModelAttribute("candidate") Candidate candidate,
+	        @RequestParam("educationalDetailsJson") String educationalDetailsJson
+	) {
+	    candidateService.saveCandidate(candidate, educationalDetailsJson);
+	    return "redirect:/CandidateList";
 	}
 
 	@GetMapping("/deleteCandidate/{id}")
