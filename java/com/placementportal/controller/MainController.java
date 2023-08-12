@@ -310,6 +310,63 @@ public class MainController {
 
 		return "redirect:/login?success";
 	}
+	
+	// *************** ADMIN Controller **************************
+	
+	// Company Controllers
+		@PostMapping("/adminsaveCompany")
+		
+	    public String adminsaveCompany(@ModelAttribute("company") Company company, RedirectAttributes redirectAttributes) {
+	        companyService.saveCompany(company);
+	        redirectAttributes.addFlashAttribute("message", "Company added successfully!");
+	        return "redirect:/CompanyList";
+	    }
+		public String adminsaveCompany(@ModelAttribute("company") Company company) {
+			companyService.saveCompany(company);
+			return ("redirect:/CompanyList");
+		}
+
+		@GetMapping("/admincompany")
+		@PreAuthorize("hasRole('ADMIN')")
+		public String adminstartup_onboarding(Model model) {
+			Company company = new Company();
+			model.addAttribute("company", company);
+			return ("admincompany");
+		}
+
+		// List of companies
+		@GetMapping("/adminCompanyList")
+		public String adminshowCompany(Model model) {
+			model.addAttribute("listCompanies", companyService.getAllCompanies());
+			return "adminCompanyList";
+		}
+
+		// Update company
+		@GetMapping("/admineditCompany/{id}")
+		public String admineditCompanyForm(@PathVariable("id") Long id, Model model) {
+			Company company = companyService.getCompanyById(id);
+			model.addAttribute("company", company);
+			return "admineditCompany";
+		}
+
+		@PostMapping("/adminupdateCompany")
+		public String adminupdateCompany(@ModelAttribute("company") Company company,RedirectAttributes redirectAttributes) {
+			companyService.saveCompany(company);
+			redirectAttributes.addFlashAttribute("umessage", "Company updated successfully!");
+			return "redirect:/adminCompanyList";
+		}
+
+		@GetMapping("/admindeleteCompany/{id}")
+		public String admindeleteCompany(@PathVariable(value = "id") Long id,RedirectAttributes redirectAttributes) {
+			// call delete company method
+			this.companyService.deleteCompanyById(id);
+			redirectAttributes.addFlashAttribute("dmessage", "Company deleted successfully!");
+			return "redirect:/adminCompanyList";
+		}
+	
+	
+	
+	// ***************** End Admin Controller
 
 	// ************************ End of User Login And Registration
 	// **************************
