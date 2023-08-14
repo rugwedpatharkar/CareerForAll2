@@ -22,7 +22,7 @@ public interface JobRepository extends JpaRepository<Job, Integer> {
 			+ "OR j.workmode = :workmode " + "OR j.positiontype = :positiontype")
 	Page<Job> findJobByCompanyidAndIgnoreCase(@Param("companyid") Long companyid, @Param("country") String country,
 			@Param("state") String state, @Param("city") String city, @Param("workmode") String workmode,
-			@Param("noworkexperience") int noworkexperience, @Param("positiontype") String positiontype,
+			@Param("noworkexperience") String noworkexperience, @Param("positiontype") String positiontype,
 			Pageable pageable);
 
 	@Query("SELECT j FROM Job j WHERE j.company.companyid = :companyid "

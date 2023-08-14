@@ -243,31 +243,11 @@
                                     </div>
                                 </div>
                             </div>
-                            
-<!--                             <div class="row mb-3"> -->
-<!--                                 <label for="inputText" class="col-sm-2 col-form-label required">Email<span class=""></span></label> -->
-<!--                                 <div class="col-sm-7"> -->
-<!--                                     <input type="text" class="form-control" id="positionemail" name="positionemail" required> -->
-                                       
-<!--                                     <div id="positionEmailError" class="invalid-feedback"> -->
-<!--                                         Please enter a valid Email Id. -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
+                                              
                          
-									<div class="row mb-3">
-            <label for="inputText" class="col-sm-2 col-form-label required">Email</label>
-            <div class="col-sm-10">
-              <input type="email" name="positionemail" id="positionemail" class="form-control " spellcheck="false" required>            
-              <div id="positionEmailError" class="invalid-feedback">
-                Please enter a valid candidate Email.
-              </div>           
-            </div>
-          </div>
-                
                  <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label required">Country</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-7">
                                     <select class="form-select" aria-label="Default select example" id="country-dropdown"
                                         name="country-dropdown" required>
                                         <option value="" disabled selected>-- Please select country --</option>
@@ -277,7 +257,7 @@
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label required">State</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-7">
                                     <select class="form-select" aria-label="Default select example" id="state-Dropdown"
                                         name="state-Dropdown" required>
                                         <option value="" disabled selected>-- Please select state --</option>
@@ -286,7 +266,7 @@
                             </div>
                              <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label required">City</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-7">
                                     <select class="form-select" aria-label="Default select example" id="city-Dropdown"
                                         name="city-Dropdown" required>
                                         <option value="" disabled selected>-- Please select city --</option>
@@ -303,20 +283,21 @@
 <div class="row mb-3">
                                 <label for="inputText" class="col-sm-2 col-form-label required">Core Area<span class=""></span></label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control"  name="corearea">
+                                    <input type="text" class="form-control"  id="corearea" name="corearea" required>
                                     <div id="coreareaError" class="invalid-feedback">
                                         Please enter a valid Core Area.
                                     </div>
                                 </div>
                             </div>
                                         
-                     
+                
                   
                 <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label required">Work Experience</label>
+                  <label class="col-sm-2 col-form-label required">Work Experience(Years)</label>
                   <div class="col-sm-4">
-                    <select class="form-select" aria-label="Default select example" name="noworkexperience">
-                      <option selected>-- Please select Range --</option>
+                    <select class="form-select" aria-label="Default select example" name="noworkexperience" required>
+<!--                       <option selected>-- Please select Range --</option> -->
+                      <option value="" disabled selected>-- Please select Range --</option>
                       <option value="1">0-2</option>
                       <option value="2">2-4</option>
                       <option value="3">4-6</option>
@@ -343,8 +324,9 @@
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label required">Work Mode</label>
                   <div class="col-sm-4">
-                    <select class="form-select" aria-label="Default select example" name="workmode">
-                      <option selected>-- Please select mode --</option>
+                    <select class="form-select" aria-label="Default select example" name="workmode" required>
+<!--                       <option selected>-- Please select mode --</option> -->
+                      <option value="" disabled selected>-- Please select mode --</option>
                       <option value="Work From Home">Work From Home</option>
                       <option value="Work From Office">Work From Office</option>
                       <option value="Hybrid">Hybrid</option>
@@ -355,8 +337,9 @@
                <div class="row mb-3">
                   <label class="col-sm-2 col-form-label required">Local Candidate<span class=""></span></label>
                   <div class="col-sm-4">
-                    <select class="form-select" aria-label="Default select example" name="localcandidate">
-                      <option selected>--select Yes/No--</option>
+                    <select class="form-select" aria-label="Default select example" name="localcandidate" required>
+<!--                       <option selected>--select Yes/No--</option> -->
+                      <option value="" disabled selected>--select Yes/No--</option>
                       <option value="Yes">Yes</option>
                       <option value="No">No</option>
                       </select>
@@ -367,9 +350,10 @@
                   <label class="col-sm-2 col-form-label">IC or Team Handling</label>
                   <div class="col-sm-4">
                     <select class="form-select" aria-label="Default select example"name="icteamhandling" >
-                      <option selected>--select--</option>
-                      <option value="1">IC</option>
-                      <option value="2">Team Handling</option>
+<!--                       <option selected>--select--</option> -->
+                      <option value="" disabled selected>--select--</option>
+                      <option value="IC">IC</option>
+                      <option value="Team Handling">Team Handling</option>
                       
                     </select>
                   </div>
@@ -415,8 +399,8 @@
                
                 <div class="row mb-3">
                   <label for="inputText" class="col-sm-2 col-form-label required">Any notable perks<span class=""></span></label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="anynotableperk" name="anynotableperk">
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control" id="anynotableperk" name="anynotableperk" required>
                     <div id="anynotableperkError" class="invalid-feedback">
                                         Please enter a valid notable perk.
                     </div>
@@ -431,22 +415,21 @@
      
                     <div class="row mb-3">
                                 <label for="inputText" class="col-sm-2 col-form-label required">Job Description<span class=""></span></label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="area" name="description">
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="description" name="description" required>
+                                    
                                     <div id="descriptionError" class="invalid-feedback">
                                         Please enter a valid Job Description.
                                     </div>
                                 </div>
                             </div>
-<!--                 <div class="row mb-3"> -->
-<!--                   <label for="inputNumber" class="col-sm-2 col-form-label">Any other relevant file</label> -->
-<!--                   <div class="col-sm-10"> -->
-<!--                     <input class="form-control" type="file" id="formFile" name="relevantfile"> -->
-<!--                   </div> -->
-<!--                 </div> -->
+                            
+                           
+               
+
                 <div class="row mb-3">
                   <label for="inputNumber" class="col-sm-2 col-form-label">Any other relevant file</label>
-                  <div class="col-sm-10">
+                  <div class="col-sm-8">
                     <input class="form-control" type="file" id="releventfile" name="relevantfile" accept=".pdf, .doc, .docx, .txt, .jpg, .jpeg, .png" maxlength="2097152">
                  <small class="form-text text-muted">Maximum file size: 2 MB (.pdf,.doc,.docx,.txt,.jpg,.jpeg,.png allowed)</small>
                   <div id="releventfileSizeError" class="invalid-feedback">
@@ -473,9 +456,10 @@
               
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label required">Job/Internship<span class=""></span></label>
-                  <div class="col-sm-6">
-                    <select class="form-select" aria-label="Default select example" name="positiontype">
-                      <option selected>--Select Option--</option>
+                  <div class="col-sm-8">
+                    <select class="form-select" aria-label="Default select example" id="positiontype" name="positiontype" required>
+<!--                       <option selected>--Select Option--</option> -->
+                      <option value="" disabled selected>--Select Option--</option>
                       <option value="Job">Job</option>
                       <option value="Internship">Internship</option>
                     </select>

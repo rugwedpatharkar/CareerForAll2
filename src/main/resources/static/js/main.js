@@ -937,6 +937,26 @@ function validatecorearea() {
 }
 //end of Core Area valdation----------------
 
+//---------------validate Job Description (with numbers)---------------
+var nameInput = document.getElementById("description");
+// Add an event listener to the description input field
+nameInput.addEventListener("input", validatedescription);
+function validatedescription() {
+	//console.log("validate department called");
+  var name = document.getElementById("description").value;
+  var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+(([',. -][a-zA-Z ])?[a-zA-Z0-9]*)*$/;
+  var descriptionError = document.getElementById("descriptionError");
+  if (!nameRegex.test(name)) {
+//    alert("Please enter a valid anynotableperk.");
+	descriptionError.style.display = "block";
+    return false;
+  } else {
+	descriptionError.style.display = "none";
+    return true;
+  }
+}
+//end of validate description--------
+
 //---------------validate any notable perk (with numbers)---------------
 var nameInput = document.getElementById("anynotableperk");
 // Add an event listener to the anynotableperk input field
@@ -1040,6 +1060,14 @@ if(form !== null){
     event.preventDefault();
     return;
     }
+    
+    const descriptionValid = validatedescription();
+  if (!descriptionValid) {
+    event.preventDefault();
+    return;
+    } 
+    
+   
     const releventfileValid = validatereleventfile();
   if (!releventfileValid) {
     event.preventDefault();
