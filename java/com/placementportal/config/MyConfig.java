@@ -71,5 +71,4 @@ public class MyConfig {
 
 		return http.build();
 	}
-
 }

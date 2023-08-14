@@ -651,6 +651,7 @@ public class MainController {
 	
 	public String deletePosition(@PathVariable(value = "id") int id,RedirectAttributes redirectAttributes) {
 		// call delete Position method
+		
 		this.jobService.deletePositionById(id);
 		redirectAttributes.addFlashAttribute("dmessage", "Position deleted successfully!");
 		return "redirect:/positionlist";
