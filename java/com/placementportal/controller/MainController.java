@@ -648,6 +648,7 @@ public class MainController {
 	
 	
 	@GetMapping("/deletePosition/{id}")
+	
 	public String deletePosition(@PathVariable(value = "id") int id,RedirectAttributes redirectAttributes) {
 		// call delete Position method
 		this.jobService.deletePositionById(id);
