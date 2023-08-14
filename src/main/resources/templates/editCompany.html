@@ -40,8 +40,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
 <!-- Iconscout Link For Icons -->
-<link rel="stylesheet"
-	href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
 </head>
 
@@ -159,9 +158,9 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="inputText" class="col-sm-2 col-form-label required">Brand Name</label>
+                                <label for="inputText" class="col-sm-2 col-form-label ">Brand Name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" th:field="*{brand_name}" class="form-control" id="brandName" name="brandName" required>
+                                    <input type="text" th:field="*{brand_name}" class="form-control" id="brandName" name="brandName" >
                                     <div id="brandNameError" class="invalid-feedback">
                                         Please enter a valid brand name.
                                     </div>
@@ -179,12 +178,9 @@
                             <div class="row mb-3">
                                 <label for="inputDate" class="col-sm-2 col-form-label required">Start Date</label>
                                 <div class="col-sm-10">
-                                    <input type="date" th:field="*{start_date}" class="form-control" id="startDate" required max="">
+                                    <input type="date" th:field="*{start_date}" class="form-control" id="startDate" pattern="\d{4}-\d{2}-\d{2}" required max="" value="{{ company.start_date }}">
                                 </div>
                             </div>
-                            
-                            
-                            
                      		 <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label required">Head Office - Country</label>
                                 <div class="col-sm-10">
@@ -265,9 +261,9 @@
 		                  </div>
 <!-- 		                  we can use JavaScript FileReader API to read the content of the file and display it in a new window or tab for the user to view or download. -->
 		                  <div class="row mb-3">
-							    <label for="inputNumber" class="col-sm-2 col-form-label required">Corporate Presentation</label>
+							    <label for="inputNumber" class="col-sm-2 col-form-label ">Corporate Presentation</label>
 							    <div class="col-sm-10">
-							        <input th:field="*{corporate_presentation}" class="form-control" type="file" id="presentation" name="presentation" accept=".pdf, .ppt, .pptx, .doc" required maxlength="2097152">
+							        <input th:field="*{corporate_presentation}" class="form-control" type="file" id="presentation" name="presentation" accept=".pdf, .ppt, .pptx, .doc"  maxlength="2097152">
 							        <small class="form-text text-muted">Maximum file size: 2 MB (.pdf,.ppt,.pptx,.doc allowed)</small>
 							        <div id="presentationSizeError" class="invalid-feedback">
                                         File size is too large. Maximum file size is 2 MB.
@@ -324,28 +320,83 @@
 		                  <div class="row mb-3">
 		                      <label class="col-sm-2 col-form-label required">Sector</label>
 		                      <div class="col-sm-10">
-		                          <select th:field="*{sector}" class="form-select" aria-label="Default select example" required>
-		                              <option value="" disabled selected>-- Please select sector --</option>
-		                              <option value="1">
-		                                  IT</option>
-		                              <option value="2">
-		                                  Marketing</option>
-		                              <option value="3">
-		                                  Sales</option>
-		                          </select>
+		                         <select th:field="*{sector}" class="form-select" aria-label="Default select example" required>
+		                        	<option value="" disabled selected>-- Please select sector --</option>
+									<option value="1">IT</option>
+									<option value="2">Marketing</option>
+									<option value="3">Sales</option>
+									<option value="4">Operations</option>
+									<option value="5">Finance</option>
+									<option value="6">Human Resources (HR)</option>
+									<option value="8">Customer Service</option>
+									<option value="9">Supply Chain and Logistics</option>
+									<option value="10">Legal and Compliance</option>
+									<option value="7">Research and Development (R&D)</option>
+									<option value="11">Quality Assurance</option>
+									<option value="12">Public Relations (PR)</option>
+									<option value="13">Environmental, Social, and Governance (ESG)</option>
+									<option value="14">Administration</option>
+									<option value="15">Executive Management</option>
+		                        </select>
 		                      </div>
 		                  </div>
 		                  <div class="row mb-3">
 		                      <label class="col-sm-2 col-form-label required">Industry</label>
 		                      <div class="col-sm-10">
 		                          <select th:field="*{industry}" class="form-select" aria-label="Default select example" required>
-		                              <option value="" disabled selected>-- Please select industry --</option>
-		                              <option value="1">
-		                                  IT</option>
-		                              <option value="2">
-		                                  Business</option>
-		                              <option value="3">
-		                                  Marketing</option>
+		                            <option value="" disabled selected>-- Please select industry --</option>
+		                          	<option value="1">IT</option>
+									<option value="2">Business</option>
+								    <option value="3">Marketing</option>
+								    <option value="4">Technology</option>
+								    <option value="5">Finance</option>
+								    <option value="6">Healthcare</option>
+								    <option value="7">Manufacturing</option>
+								    <option value="8">Retail</option>
+								    <option value="9">Energy</option>
+								    <option value="10">Telecommunications</option>
+								    <option value="11">Automotive</option>
+								    <option value="12">Aerospace</option>
+								    <option value="13">Consumer Goods</option>
+								    <option value="14">Entertainment and Media</option>
+								    <option value="15">Hospitality and Tourism</option>
+								    <option value="16">Real Estate</option>
+								    <option value="17">Education</option>
+								    <option value="18">Pharmaceuticals</option>
+								    <option value="19">Transportation and Logistics</option>
+								    <option value="20">Construction</option>
+								    <option value="21">Chemicals</option>
+								    <option value="22">Environmental Services</option>
+								    <option value="23">Professional Services</option>
+								    <option value="24">Agriculture</option>
+								    <option value="25">Food and Beverage</option>
+								    <option value="26">Fashion and Apparel</option>
+								    <option value="27">Banking</option>
+								    <option value="28">Insurance</option>
+								    <option value="29">Biotechnology</option>
+								    <option value="30">Mining</option>
+								    <option value="31">Renewable Energy</option>
+								    <option value="32">E-commerce</option>
+								    <option value="33">Gaming</option>
+								    <option value="34">Music and Entertainment</option>
+								    <option value="35">Travel and Tourism</option>
+								    <option value="36">Internet Services</option>
+								    <option value="37">Architecture and Design</option>
+								    <option value="38">Healthcare Services</option>
+								    <option value="39">Software Development</option>
+								    <option value="40">Social Media</option>
+								    <option value="41">Robotics and Automation</option>
+								    <option value="42">Renewable Energy</option>
+								    <option value="43">Sports and Recreation</option>
+								    <option value="44">Advertising and Marketing</option>
+								    <option value="45">Pharmaceuticals</option>
+								    <option value="46">Nanotechnology</option>
+								    <option value="47">Nonprofit and Social Services</option>
+								    <option value="48">Consulting</option>
+								    <option value="49">Health and Fitness</option>
+								    <option value="50">Online Education</option>
+								    <option value="51">Sustainable Products</option>
+								    <option value="52">Virtual Reality</option>
 		                          </select>
 		                      </div>
 		                  </div>
@@ -377,9 +428,9 @@
 		                      </div>
 		                  </div>
 		                  <div class="row mb-3">
-		                      <label for="inputText" class="col-sm-2 col-form-label required">Competitor</label>
+		                      <label for="inputText" class="col-sm-2 col-form-label ">Competitor</label>
 		                      <div class="col-sm-10">
-		                          <input type="text" th:field="*{competitor}" class="form-control" required>
+		                          <input type="text" th:field="*{competitor}" class="form-control" >
 		                      </div>
 		                  </div>
 		                  <h5 class="card-title">People Strategy</h5>
@@ -433,10 +484,16 @@
 		                          <input type="text" id="companyId" value="100" th:field="*{companyid}" class="form-control" readonly>
 		                      </div>
 		                  </div>
+		                  <div class="row mb-3">              
+<!--                   <div class="col-sm-10" style="text-align: center;margin-top:30px;"> -->
+<!--                     <button type="submit" class="btn btn-primary" style=" margin-left: 50px;">Save</button> -->
+<!--                     <button type="reset" class="btn btn-secondary" onclick="resetForm()">Clear</button> -->
+<!--                   </div> -->
+<!--                 </div> -->
 		                  <div class="d-flex justify-content-center mt-5">
-					 <button type="submit" class="btn btn-primary">Save</button>
-					  <button type="submit" class="btn btn-primary mx-5" id="resetForm" onclick="resetForm()">Reset</button>
-					</div>
+							 <button type="submit" class="btn btn-primary">save</button>
+							 <button type="submit" class="btn btn-secondary mx-5" id="resetform" onclick="resetform()">reset</button>
+						  </div>
                     </form><!-- End General Form Elements --><!-- End General Form Elements -->
                     <br>
 
