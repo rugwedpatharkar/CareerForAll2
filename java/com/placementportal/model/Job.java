@@ -28,10 +28,9 @@ public class Job {
 	private String state;
 	private String city;
 	private String corearea;
-	private String experience;
 	private int noworkexperience;
 	private String workmode;
-	private String gender;
+	private String positionemail;
 	private String localcandidate;
 	private String icteamhandling;
 	private int stipend;
@@ -53,8 +52,7 @@ public class Job {
 	public String toString() {
 		return "Job [positionid=" + positionid + ", position=" + position + ", designation=" + designation
 				+ ", functions=" + functions + ", department=" + department + ", country=" + country + ", state="
-				+ state + ", city=" + city + ", corearea=" + corearea + ", experience=" + experience
-				+ ", noworkexperience=" + noworkexperience + ", workmode=" + workmode + ", gender=" + gender
+				+ state + ", city=" + city + ", corearea=" + corearea + ", noworkexperience=" + noworkexperience + ", workmode=" + workmode + ", positionemail=" + positionemail
 				+ ", localcandidate=" + localcandidate + ", icteamhandling=" + icteamhandling + ", stipend=" + stipend
 				+ ", ctcvariable=" + ctcvariable + ", anynotableperk=" + anynotableperk + ", description=" + description
 				+ ", releventfile=" + Arrays.toString(releventfile) + ", anyrelevantlink=" + anyrelevantlink
@@ -62,9 +60,8 @@ public class Job {
 				+ ", getPositionid()=" + getPositionid() + ", getPosition()=" + getPosition() + ", getDesignation()="
 				+ getDesignation() + ", getFunctions()=" + getFunctions() + ", getDepartment()=" + getDepartment()
 				+ ", getCountry()=" + getCountry() + ", getState()=" + getState() + ", getCity()=" + getCity()
-				+ ", getCorearea()=" + getCorearea() + ", getExperience()=" + getExperience()
-				+ ", getNoworkexperience()=" + getNoworkexperience() + ", getWorkmode()=" + getWorkmode()
-				+ ", getGender()=" + getGender() + ", getLocalcandidate()=" + getLocalcandidate()
+				+ ", getCorearea()=" + getCorearea() + ", getNoworkexperience()=" + getNoworkexperience() + ", getWorkmode()=" + getWorkmode()
+				+ ", getpositionemail()=" + getpositionemail() + ", getLocalcandidate()=" + getLocalcandidate()
 				+ ", getIcteamhandling()=" + getIcteamhandling() + ", getStipend()=" + getStipend()
 				+ ", getCtcvariable()=" + getCtcvariable() + ", getAnynotableperk()=" + getAnynotableperk()
 				+ ", getDescription()=" + getDescription() + ", getReleventfile()=" + Arrays.toString(getReleventfile())
@@ -145,14 +142,6 @@ public class Job {
 		this.corearea = corearea;
 	}
 
-	public String getExperience() {
-		return experience;
-	}
-
-	public void setExperience(String experience) {
-		this.experience = experience;
-	}
-
 	public int getNoworkexperience() {
 		return noworkexperience;
 	}
@@ -169,12 +158,12 @@ public class Job {
 		this.workmode = workmode;
 	}
 
-	public String getGender() {
-		return gender;
+	public String getpositionemail() {
+		return positionemail;
 	}
 
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setpositionemail(String positionemail) {
+		this.positionemail = positionemail;
 	}
 
 	public String getLocalcandidate() {

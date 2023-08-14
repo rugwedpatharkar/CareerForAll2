@@ -49,10 +49,10 @@
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
-  <div class="d-flex align-items-center justify-content-between">
+ <div class="d-flex align-items-center justify-content-between">
      <i class="bi bi-list toggle-sidebar-btn" style="margin-left:-10px;margin-right:10px"></i>
-      <a href="#" class="logo d-flex align-items-center">
-        <img src="assets/img/logo.png" alt="">
+      <a th:href="@{/index}" class="logo d-flex align-items-center">
+        <img src="/img/logo.png" alt="">
         <span class="d-none d-lg-block">Placement Portal</span>
       </a>
      
@@ -73,71 +73,18 @@
             <i class="bi bi-search"></i>
           </a>
         </li><!-- End Search Icon-->
-		<!-- Profile Nav Bar -->
-		<li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"></span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6><span th:text="${#authentication.name}"></span></h6>
-              <span>Web Designer</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="/profile">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="/hraccountsetting">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a th:href=@{/logout} class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
-
-          </ul><!-- End Profile Dropdown Items -->
-        </li>
-			<!-- End of Profile Nav Bar -->
         
 
           </ul><!-- End Profile Dropdown Items -->
-        
+        </li><!-- End Profile Nav -->
+
+      </ul>
     </nav><!-- End Icons Navigation -->
 
   </header><!-- End Header -->
- <aside id="sidebar" class="sidebar">
+
+  <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -152,27 +99,28 @@
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
          
          <ul>   
-        
           <li>
             <a th:href="@{/startup_onboarding}">
               <i class="bi bi-circle "></i><span>Onboarding</span>
             </a>
           </li>
-           <li>
+       	   <li>
             <a th:href="@{/CompanyList}">
               <i class="bi bi-circle"></i><span>Startup List</span>
             </a>
           </li>
+          <li>
+            <a th:href="@{/jobopening}">
+              <i class="bi bi-circle"></i><span>Job Posting</span>
+            </a>
+          </li>
+          
            <li>
             <a th:href="@{/joblist/{companyid}(companyid=1)}">
               <i class="bi bi-circle"></i><span>Job List</span>
             </a>
-          </li> 
-          <li>
-            <a th:href="@{/positionlist}">
-              <i class="bi bi-circle"></i><span>Position List</span>
-            </a>
-          </li>
+          </li>  
+          
           </ul>
         </ul>
         </li>
@@ -181,62 +129,61 @@
 
   </aside>
 
+
   <main id="main" class="main">
+<div class="pagetitle">
 
     <div class="pagetitle">
       <h1>Startup</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Job Descriptions</li>
+          <li class="breadcrumb-item">Update Startup Form</li>
         </ol>
       </nav>
     </div>
 
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">	The Big Picture</h5>
-
-       
-<!--               <form th:action="@{saveJob}" method="POST" th:object="${position}"> -->
-              <form th:object="${job}" th:action="@{savePosition}"  action="#" class="search-form" id="myform" name="openings" method="POST" >
-                
-                <div class="row mb-3">
-                                <label for="inputText" class="col-sm-2 col-form-label required">Position<span class=""></span></label>
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="position" name="position" required>
-                                        
+        <h5 class="card-title">Who's who!</h5>
+        <!-- General Form Elements -->
+        
+        <form th:object="${job}" th:action="@{/updatePosition}"  action="#" class="search-form" id="updatePosition" name="updatePosition" method="POST" >
+                            <div class="row mb-3">
+                                <label for="inputText" class="col-sm-2 col-form-label required">Company Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" th:field="*{position}" class="form-control" id="position" name="position"
+                                        required>
                                     <div id="positionError" class="invalid-feedback">
-                                        Please enter a valid position.
+                                        Please enter a valid company name.
                                     </div>
                                 </div>
-                </div>
-                       
-                 
-                <div class="row mb-3">
+                            </div>
+                            <div class="row mb-3">
                                 <label for="inputText" class="col-sm-2 col-form-label required">Designation<span class=""></span></label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="designation" name="designation" required>
+                                    <input type="text" th:field="*{designation}" class="form-control" id="designation" name="designation" required>
                                        
                                     <div id="designationError" class="invalid-feedback">
                                         Please enter a valid designation.
                                     </div>
                                 </div>
                             </div> 
-                 <div class="row mb-3">
+                            
+                            <div class="row mb-3">
                                 <label for="inputText" class="col-sm-2 col-form-label required">Function<span class=""></span></label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="functions" name="functions" required>
+                                    <input type="text" th:field="*{functions}" class="form-control" id="functions" name="functions" required>
                                        
                                     <div id="functionError" class="invalid-feedback">
                                         Please enter a valid function.
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                             
-                <div class="row mb-3">
+                            <div class="row mb-3">
                                 <label for="inputText" class="col-sm-2 col-form-label required">Department<span class=""></span></label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control"  id="department" name="department" required>
+                                    <input type="text" th:field="*{department}" class="form-control"  id="department" name="department" required>
                                         
                                     <div id="departmentError" class="invalid-feedback">
                                         Please enter a valid department.
@@ -244,31 +191,20 @@
                                 </div>
                             </div>
                             
-<!--                             <div class="row mb-3"> -->
-<!--                                 <label for="inputText" class="col-sm-2 col-form-label required">Email<span class=""></span></label> -->
-<!--                                 <div class="col-sm-7"> -->
-<!--                                     <input type="text" class="form-control" id="positionemail" name="positionemail" required> -->
-                                       
-<!--                                     <div id="positionEmailError" class="invalid-feedback"> -->
-<!--                                         Please enter a valid Email Id. -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-                         
+                            
 									<div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label required">Email</label>
             <div class="col-sm-10">
-              <input type="email" name="positionemail" id="positionemail" class="form-control " spellcheck="false" required>            
+              <input type="email" th:field="*{positionemail}" name="positionemail" id="positionemail" class="form-control " spellcheck="false" required>            
               <div id="positionEmailError" class="invalid-feedback">
                 Please enter a valid candidate Email.
               </div>           
             </div>
           </div>
-                
-                 <div class="row mb-3">
+                            <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label required">Country</label>
                                 <div class="col-sm-10">
-                                    <select class="form-select" aria-label="Default select example" id="country-dropdown"
+                                    <select th:field="*{country}" class="form-select" aria-label="Default select example" id="country-dropdown"
                                         name="country-dropdown" required>
                                         <option value="" disabled selected>-- Please select country --</option>
                                        
@@ -278,7 +214,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label required">State</label>
                                 <div class="col-sm-10">
-                                    <select class="form-select" aria-label="Default select example" id="state-Dropdown"
+                                    <select th:field="*{state}" class="form-select" aria-label="Default select example" id="state-Dropdown"
                                         name="state-Dropdown" required>
                                         <option value="" disabled selected>-- Please select state --</option>
                                     </select>
@@ -287,36 +223,31 @@
                              <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label required">City</label>
                                 <div class="col-sm-10">
-                                    <select class="form-select" aria-label="Default select example" id="city-Dropdown"
+                                    <select th:field="*{city}" class="form-select" aria-label="Default select example" id="city-Dropdown"
                                         name="city-Dropdown" required>
                                         <option value="" disabled selected>-- Please select city --</option>
                                     </select>
                      
                                 </div>
                             </div>
-                
-
-
-          <h5 class="card-title">Do it Right the First Time!</h5>
-
-
-<div class="row mb-3">
+                            
+                             <h5 class="card-title">Do it Right the First Time!</h5>
+                            
+                            <div class="row mb-3">
                                 <label for="inputText" class="col-sm-2 col-form-label required">Core Area<span class=""></span></label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control"  name="corearea">
+                                    <input type="text" th:field="*{corearea}" class="form-control" id="corearea" name="corearea">
                                     <div id="coreareaError" class="invalid-feedback">
                                         Please enter a valid Core Area.
                                     </div>
                                 </div>
                             </div>
-                                        
-                     
-                  
-                <div class="row mb-3">
+		              
+		                    <div class="row mb-3">
                   <label class="col-sm-2 col-form-label required">Work Experience</label>
                   <div class="col-sm-4">
-                    <select class="form-select" aria-label="Default select example" name="noworkexperience">
-                      <option selected>-- Please select Range --</option>
+                    <select th:field="*{noworkexperience}" class="form-select" aria-label="Default select example" name="noworkexperience">
+<!--                       <option value="" disabled selected>-- Please select Range --</option> -->
                       <option value="1">0-2</option>
                       <option value="2">2-4</option>
                       <option value="3">4-6</option>
@@ -338,25 +269,24 @@
                     </select>
                   </div>
                 </div>
-                   
-                
-                <div class="row mb-3">
+		              
+		              <div class="row mb-3">
                   <label class="col-sm-2 col-form-label required">Work Mode</label>
                   <div class="col-sm-4">
-                    <select class="form-select" aria-label="Default select example" name="workmode">
-                      <option selected>-- Please select mode --</option>
+                    <select th:field="*{workmode}" class="form-select" aria-label="Default select example" id="workmode" name="workmode">
+                      <option value="" disabled selected>-- Please select Work mode --</option>
                       <option value="Work From Home">Work From Home</option>
                       <option value="Work From Office">Work From Office</option>
                       <option value="Hybrid">Hybrid</option>
                     </select>
                   </div>
                 </div>
-                
-               <div class="row mb-3">
+		              
+		              <div class="row mb-3">
                   <label class="col-sm-2 col-form-label required">Local Candidate<span class=""></span></label>
                   <div class="col-sm-4">
-                    <select class="form-select" aria-label="Default select example" name="localcandidate">
-                      <option selected>--select Yes/No--</option>
+                    <select th:field="*{localcandidate}" class="form-select" aria-label="Default select example" id="localcandidate" name="localcandidate">
+<!--                       <option selected>--select Yes/No--</option> -->
                       <option value="Yes">Yes</option>
                       <option value="No">No</option>
                       </select>
@@ -366,8 +296,8 @@
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">IC or Team Handling</label>
                   <div class="col-sm-4">
-                    <select class="form-select" aria-label="Default select example"name="icteamhandling" >
-                      <option selected>--select--</option>
+                    <select th:field="*{icteamhandling}" class="form-select" aria-label="Default select example" id="icteamhandling" name="icteamhandling" >
+<!--                       <option selected>--select--</option> -->
                       <option value="1">IC</option>
                       <option value="2">Team Handling</option>
                       
@@ -375,18 +305,13 @@
                   </div>
                 </div>
                 
+                <h5 class="card-title">Money Matter Matters!</h5>
                 
-
-
-          <h5 class="card-title">Money Matter Matters!</h5>
-
-
-
-             <div class="row mb-3">
+                <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Stipend(INR)</label>
                   <div class="col-sm-7">
-                    <select class="form-select" aria-label="Default select example" name="stipend">
-                     <option value="" disabled selected>-- Please select Stipend within the range --</option>
+                    <select th:field="*{stipend}" class="form-select" aria-label="Default select example" id="stipend" name="stipend">
+<!--                      <option value="" disabled selected>-- Please select Stipend within the range --</option> -->
                                       <option value="1">
 		                                  100000-200000</option>
 		                              <option value="2">
@@ -396,12 +321,12 @@
 		               </select>
                    </div>
                    </div>
-                   
+                
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">CTC Variable</label>
                   <div class="col-sm-7">
-                    <select class="form-select" aria-label="Default select example" name="ctcvariable">
-                     <option value="" disabled selected>--Please select CTC Variable--</option>
+                    <select th:field="*{ctcvariable}" class="form-select" aria-label="Default select example" id="ctcvariable" name="ctcvariable">
+<!--                      <option value="" disabled selected>--Please select CTC Variable--</option> -->
                       <option value="1">
 		                                  100000-200000</option>
 		                              <option value="2">
@@ -412,11 +337,10 @@
                   </div>
                 </div>
                 
-               
                 <div class="row mb-3">
                   <label for="inputText" class="col-sm-2 col-form-label required">Any notable perks<span class=""></span></label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="anynotableperk" name="anynotableperk">
+                    <input type="text" th:field="*{anynotableperk}" class="form-control" id="anynotableperk" name="anynotableperk">
                     <div id="anynotableperkError" class="invalid-feedback">
                                         Please enter a valid notable perk.
                     </div>
@@ -426,24 +350,16 @@
                  
           <h5 class="card-title">Single Version of Truth to Align 100%</h5>
 
-
-
-     
-                    <div class="row mb-3">
+                <div class="row mb-3">
                                 <label for="inputText" class="col-sm-2 col-form-label required">Job Description<span class=""></span></label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="area" name="description">
+                                    <input type="text" th:field="*{description}" class="form-control" id="area" name="description">
                                     <div id="descriptionError" class="invalid-feedback">
                                         Please enter a valid Job Description.
                                     </div>
                                 </div>
                             </div>
-<!--                 <div class="row mb-3"> -->
-<!--                   <label for="inputNumber" class="col-sm-2 col-form-label">Any other relevant file</label> -->
-<!--                   <div class="col-sm-10"> -->
-<!--                     <input class="form-control" type="file" id="formFile" name="relevantfile"> -->
-<!--                   </div> -->
-<!--                 </div> -->
+                
                 <div class="row mb-3">
                   <label for="inputNumber" class="col-sm-2 col-form-label">Any other relevant file</label>
                   <div class="col-sm-10">
@@ -458,30 +374,28 @@
                    </div>
                    </div>
                 
-						
                 <div class="row mb-3">
 		                      <label for="inputText" class="col-sm-2 col-form-label">Any Relevant link </label>
 		                      <div class="col-sm-8">
-		                          <input type="url" class="form-control" id="anyrelevantlink" name="anyrelevantlink">
+		                          <input th:field="*{anyrelevantlink}" type="url" class="form-control" id="anyrelevantlink" name="anyrelevantlink">
 		                          <div id="anyrelevantlinkError" class="invalid-feedback">
 		                              Please enter a valid link.
 		                          </div>
 		                      </div>
 		                  </div>
 		        
-                
-              
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label required">Job/Internship<span class=""></span></label>
                   <div class="col-sm-6">
-                    <select class="form-select" aria-label="Default select example" name="positiontype">
-                      <option selected>--Select Option--</option>
+                    <select th:field="*{positiontype}" class="form-select" aria-label="Default select example" id="positiontype" name="positiontype">
+<!--                       <option selected>--Select Option--</option> -->
                       <option value="Job">Job</option>
                       <option value="Internship">Internship</option>
                     </select>
                   </div>
                   </div>
-               <div class="row mb-3 d-none"><!-- to hide field d-none -->
+                  
+                  <div class="row mb-3 d-none"><!-- to hide field d-none -->
 		                      <label for="inputPassword" class="col-sm-2 col-form-label required">CompanyID</label>
 		                      <div class="col-sm-10">
 		                          <input type="text" id="companyId" value="100" class="form-control" readonly>
@@ -490,28 +404,23 @@
 		                  <div class="row mb-3 d-none"><!-- to hide field d-none -->
 		                      <label for="inputPassword" class="col-sm-2 col-form-label required">Position ID</label>
 		                      <div class="col-sm-10">
-		                          <input type="text" id="companyId" value="100" class="form-control" readonly>
+		                          <input type="text" id="companyId" value="100" th:field="*{positionid}" class="form-control" readonly>
 		                      </div>
 		                  </div>
-		                  <div class="row mb-3">
-            <div class="col-sm-10" style="text-align: center;margin-top:30px;">
-              <button type="submit" class="btn btn-primary" style=" margin-left: 50px;">Save</button>
-              <button type="reset" class="btn btn-secondary">Clear</button>
-            </div>
-          </div>
-                    
+		                  <div class="d-flex justify-content-center mt-5">
+					 <button type="submit" class="btn btn-primary">Save</button>
+					  <button type="submit" class="btn btn-primary mx-5" id="resetForm" onclick="resetForm()">Reset</button>
+					</div>
                     </form><!-- End General Form Elements --><!-- End General Form Elements -->
                     <br>
-            <!--   End General Form Elements -->
 
-
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+                    
 </div>
-
-      </div>
-    
-
-  </main>
-
+</div>
+</div>
+    </main>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- Vendor JS Files -->
