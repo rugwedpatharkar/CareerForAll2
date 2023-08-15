@@ -590,4 +590,76 @@ public class MainController {
 	// ******************* JoblistFilters and CandidateListfilters and
 	// mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh)
 	// *********************
+	
+	// Positionlist Code (Tanmayi)
+	// start
+	
+
+	
+
+
+
+
+	
+	///
+	@PostMapping("/savePosition")
+	public String savePosition(@ModelAttribute("job") Job job, RedirectAttributes redirectAttributes) {
+		jobService.savePosition(job);
+		redirectAttributes.addFlashAttribute("message", "Company added successfully!");
+		return ("redirect:/positionlist");
+	}
+    
+	public String savePosition(@ModelAttribute("job") Job job) {
+		jobService.savePosition(job);
+		return ("redirect:/positionlist");
+	}
+	
+    // @GetMapping("/jobopening")
+	@PreAuthorize("hasRole('HR')")
+	public String jobopening(Model model) {
+		Job job = new Job();
+		model.addAttribute("job", job);
+		return ("jobopening");
+	}
+
+	
+	// List of positions
+	@GetMapping("/positionlist")
+	public String showPosition(Model model) {
+		model.addAttribute("listJob", jobService.getAllPositions());
+		return "positionlist";
+	}
+	
+	
+	// Update position
+    @GetMapping("/editPosition/{id}")
+	public String editPositionForm(@PathVariable("id") int id, Model model) {
+		Job job = jobService.getPositionById(id);
+		model.addAttribute("job", job);
+		return "editPosition";
+	}
+    
+	@PostMapping("/updatePosition")
+	public String updatePosition(@ModelAttribute("job") Job job,RedirectAttributes redirectAttributes)  {
+		jobService.savePosition(job);
+		redirectAttributes.addFlashAttribute("umessage", "Position updated successfully!");
+		return "redirect:/positionlist";
+	}
+	
+	
+	@GetMapping("/deletePosition/{id}")
+	
+	public String deletePosition(@PathVariable(value = "id") int id,RedirectAttributes redirectAttributes) {
+		// call delete Position method
+		
+		this.jobService.deletePositionById(id);
+		redirectAttributes.addFlashAttribute("dmessage", "Position deleted successfully!");
+		return "redirect:/positionlist";
+	}
+
+	
+
+
+
 }
+
