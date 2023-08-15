@@ -178,4 +178,23 @@ public class JobService {
 	// mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh)
 	// *********************
 
+	//Tanmayi  job service
+	
+		 public List<Job> getAllPositions() {
+				return jobRepository.findAll();
+			}
+		 
+		 public void savePosition(Job job) {
+			 this.jobRepository.save(job);
+		 }
+		 
+		 
+		 public Job getPositionById(int id) {
+			 return jobRepository.findById(id).orElse(null);
+		 }
+		 
+		 public void deletePositionById(int id) {
+				this.jobRepository.deleteById(id);
+		 }
+		 
 }
