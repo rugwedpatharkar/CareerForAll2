@@ -192,6 +192,7 @@
 					<li class="breadcrumb-item">Filter Job List </li>
 					<li class="breadcrumb-item">Filter Candidate List</li>
 				    <li class="breadcrumb-item active">List of Mapped Candidates to Job</li>
+					<li class="breadcrumb-item">Profile of Shortlisted Candidates</li>				    
 				</ol>
 			</nav>
 		</div>
@@ -249,6 +250,7 @@
             <th>Select</th>
             <th>Candidate Name</th>
             <th>Institute Name</th>
+             <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -260,6 +262,9 @@
                 </td>
                 <td th:text="${jobCandidate.candidate.candidatename}"></td>
                 <td th:text="${jobCandidate.institute.institutename}"></td>
+                 <td>
+				  <a th:href="@{/candidate/{candidateid}/profile(candidateid=${jobCandidate.candidate.candidateid})}" target="_blank" class="btn btn-success" style="height:25px; padding-top: 2px; font-size: 12px; background-color:#0d6efd">View Profile</a>
+				 </td>
             </tr>
             <tr>
                
@@ -436,4 +441,11 @@
 }
 
   </style>
+   <script>
+        function openCandidateInfoInNewTab(candidateid) {
+            const url = '/candidate/' + candidateid;
+            window.open(url, '_blank');
+        }
+    </script>
+    
 </html>

@@ -99,6 +99,11 @@ public class CandidateService {
 	public List<Candidate> getCandidatesByIds(List<Long> candidateids) {
 		return candidateRepository.findAllById(candidateids);
 	}
+	
+	public Candidate getCandidateByCandidateid(Long candidateid) {
+		return candidateRepository.findById(candidateid).orElse(null);
+	}
+	
 	// end
 
 	// ******************* JoblistFilters and CandidateListfilters and

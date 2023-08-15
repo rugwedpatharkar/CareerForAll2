@@ -12,30 +12,51 @@ import org.springframework.data.repository.query.Param;
 import com.placementportal.model.Job;
 
 public interface JobRepository extends JpaRepository<Job, Integer> {
+//
+//	@Query("SELECT j FROM Job j WHERE j.company.companyid = :companyid " + "AND j.postedon >= :postedOn")
+//	Page<Job> findJobsByCompanyidAndPostedOnGreaterThanEqual(@Param("companyid") Long companyid,
+//			@Param("postedOn") Date postedOn, Pageable pageable);
+//
+//	
+//	
+//	  @Query("SELECT j FROM Job j WHERE " +
+//	            "(:companyid is null or j.company.companyid = :companyid) " +
+//	            "AND (:country is null or j.country = :country) " +
+//	            "AND (:state is null or j.state = :state) " +
+//	            "AND (:city is null or j.city = :city) " +
+//	            "AND (:workmode is null or j.workmode = :workmode) " +
+//	            "AND (:noworkexperience = -1 or j.noworkexperience = :noworkexperience) " +
+//	            "AND (:positiontype is null or j.positiontype = :positiontype)")
+//	
+//	Page<Job> findJobByCompanyidAndIgnoreCase(@Param("companyid") Long companyid,
+//            @Param("country") String country,
+//            @Param("state") String state,
+//            @Param("city") String city,
+//            @Param("workmode") String workmode,
+//            @Param("noworkexperience") Integer noworkexperience,
+//            @Param("positiontype") String positiontype,
+//            Pageable pageable);
 
-	@Query("SELECT j FROM Job j WHERE j.company.companyid = :companyid " + "AND j.postedon >= :postedOn")
-	Page<Job> findJobsByCompanyidAndPostedOnGreaterThanEqual(@Param("companyid") Long companyid,
-			@Param("postedOn") Date postedOn, Pageable pageable);
+	 
+    @Query("SELECT j FROM Job j WHERE " +
+            "(:companyid is null or j.company.companyid = :companyid) " +
+            "AND (:postedOn is null or j.postedon >= :postedOn) " +
+            "AND (:country is null or j.country = :country) " +
+            "AND (:state is null or j.state = :state) " +
+            "AND (:city is null or j.city = :city) " +
+            "AND (:workmode is null or j.workmode = :workmode) " +
+            "AND (:noworkexperience = -1 or j.noworkexperience = :noworkexperience) " +
+            "AND (:positiontype is null or j.positiontype = :positiontype)")
+    Page<Job> findJobByCompanyidAndIgnoreCase(@Param("companyid") Long companyid,
+                                  @Param("postedOn") Date postedOn,
+                                  @Param("country") String country,
+                                  @Param("state") String state,
+                                  @Param("city") String city,
+                                  @Param("workmode") String workmode,
+                                  @Param("noworkexperience") Integer noworkexperience,
+                                  @Param("positiontype") String positiontype,
+                                  Pageable pageable);
 
-	
-	
-	  @Query("SELECT j FROM Job j WHERE " +
-	            "(:companyid is null or j.company.companyid = :companyid) " +
-	            "AND (:country is null or j.country = :country) " +
-	            "AND (:state is null or j.state = :state) " +
-	            "AND (:city is null or j.city = :city) " +
-	            "AND (:workmode is null or j.workmode = :workmode) " +
-	            "AND (:noworkexperience = -1 or j.noworkexperience = :noworkexperience) " +
-	            "AND (:positiontype is null or j.positiontype = :positiontype)")
-	
-	Page<Job> findJobByCompanyidAndIgnoreCase(@Param("companyid") Long companyid,
-            @Param("country") String country,
-            @Param("state") String state,
-            @Param("city") String city,
-            @Param("workmode") String workmode,
-            @Param("noworkexperience") Integer noworkexperience,
-            @Param("positiontype") String positiontype,
-            Pageable pageable);
 
 
 	@Query("SELECT j FROM Job j WHERE j.company.companyid = :companyid "

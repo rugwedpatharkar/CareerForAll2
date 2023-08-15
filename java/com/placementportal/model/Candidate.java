@@ -42,7 +42,7 @@ public class Candidate {
 	private String experience;
 
 	private String noofyearsworkex;
-
+ 
 	private String workmode;
 
 	private String gender;
