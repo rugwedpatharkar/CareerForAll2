@@ -390,6 +390,7 @@ var companies = /*[[ ${companiesJson} ]]*/ []; // JSON array of company names
 var res = 0;
 async function getAccessToken() {
   try {
+	  console.log("accesstoken");
     const response = await fetch('https://www.universal-tutorial.com/api/getaccesstoken', {
       headers: {
         'Accept': 'application/json',
