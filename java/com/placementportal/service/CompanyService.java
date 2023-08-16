@@ -12,9 +12,9 @@ import com.placementportal.repository.CompanyRepository;
 public class CompanyService {
 	@Autowired
 	private CompanyRepository companyRepository;
-	
+
 	public CompanyService(CompanyRepository companyRepository) {
-		
+
 		this.companyRepository = companyRepository;
 	}
 

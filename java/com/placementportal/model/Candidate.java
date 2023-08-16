@@ -24,10 +24,9 @@ public class Candidate {
 	private String candidatename;
 
 	private String email;
-	
+
 	@Column(columnDefinition = "TEXT")
 	private String educationalDetailsJson;
-
 
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
@@ -42,7 +41,7 @@ public class Candidate {
 	private String experience;
 
 	private String noofyearsworkex;
- 
+
 	private String workmode;
 
 	private String gender;
@@ -257,6 +256,5 @@ public class Candidate {
 				+ institutename + ", ctcfixed=" + ctcfixed + ", ctcvariable=" + ctcvariable + ", ctctotal=" + ctctotal
 				+ "]";
 	}
-
 
 }
