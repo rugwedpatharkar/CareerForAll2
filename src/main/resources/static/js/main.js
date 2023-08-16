@@ -1,10 +1,4 @@
-/**
-* Template Name: NiceAdmin
-* Updated: Mar 09 2023 with Bootstrap v5.2.3
-* Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
+
 (function() {
   "use strict";
 
@@ -1143,6 +1137,8 @@ function validateUserEmail() {
 }
 }//github.com/rugwedpatharkar/CareerForAll2.git
 //------------------End Of User Email Validation----------------
+
+
 
 // ---------------------User Logout validation ----------------
 

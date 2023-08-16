@@ -38,8 +38,6 @@ import com.placementportal.service.InstituteService;
 import com.placementportal.service.JobCandidateService;
 import com.placementportal.service.JobService;
 import com.placementportal.service.UserServiceImpl;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpSession;
@@ -107,15 +105,15 @@ public class MainController {
 		model.addAttribute("company", company);
 		return ("startup_onboarding");
 	}
-	
+
 	// Save company
 	@PostMapping("/saveCompany")
-    public String saveCompany(@ModelAttribute("company") Company company, RedirectAttributes redirectAttributes) {
-        companyService.saveCompany(company);
-        redirectAttributes.addFlashAttribute("message", "Company added successfully!");
-        return "redirect:/CompanyList";
-    }
-	
+	public String saveCompany(@ModelAttribute("company") Company company, RedirectAttributes redirectAttributes) {
+		companyService.saveCompany(company);
+		redirectAttributes.addFlashAttribute("message", "Company added successfully!");
+		return "redirect:/CompanyList";
+	}
+
 	// List of companies
 	@GetMapping("/CompanyList")
 	public String showCompany(Model model) {
@@ -126,9 +124,9 @@ public class MainController {
 	// Update company
 	@GetMapping("/editCompany/{id}")
 	public String editCompanyForm(@PathVariable("id") Long id, Model model) {
-	    Company company = companyService.getCompanyById(id);
-	    model.addAttribute("company", company);
-	    return "editCompany";
+		Company company = companyService.getCompanyById(id);
+		model.addAttribute("company", company);
+		return "editCompany";
 	}
 
 	@PostMapping("/updateCompany")
@@ -137,7 +135,7 @@ public class MainController {
 		redirectAttributes.addFlashAttribute("umessage", "Company updated successfully!");
 		return "redirect:/CompanyList";
 	}
-	
+
 	// Delete company
 	@GetMapping("/deleteCompany/{id}")
 	public String deleteCompany(@PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
@@ -312,20 +310,19 @@ public class MainController {
 
 	// *************** ADMIN Controller **************************
 
-
 	// Admin-Company Controllers
-	
+
 	@GetMapping("/adminreg")
 	public String adminUser(Model model) {
-		model.addAttribute("user",  new User());
+		model.addAttribute("user", new User());
 		return "adminuser";
 	}
-	
+
 	@PostMapping("/adminreg")
 	public String adminReg(@ModelAttribute User user, HttpSession session) {
-		
+
 		userRepository.save(user);
-		
+
 		boolean u = userServiceImpl.checkEmail(user.getEmail());
 		if (u) {
 			System.out.println("Email id already exist");
@@ -341,14 +338,14 @@ public class MainController {
 
 		return "redirect:/adminhome?success";
 	}
-	
-		@PostMapping("/adminsaveCompany")
-	    public String adminsaveCompany(@ModelAttribute("company") Company company, RedirectAttributes redirectAttributes) {
-	        companyService.saveCompany(company);
-	        redirectAttributes.addFlashAttribute("message", "Company added successfully!");
-	        return "redirect:/CompanyList";
-	    }
-		
+
+	@PostMapping("/adminsaveCompany")
+	public String adminsaveCompany(@ModelAttribute("company") Company company, RedirectAttributes redirectAttributes) {
+		companyService.saveCompany(company);
+		redirectAttributes.addFlashAttribute("message", "Company added successfully!");
+		return "redirect:/CompanyList";
+	}
+
 	@GetMapping("/admincompany")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String adminstartup_onboarding(Model model) {
