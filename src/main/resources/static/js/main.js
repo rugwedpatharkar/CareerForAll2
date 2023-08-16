@@ -1146,6 +1146,3 @@ function validateUserEmail() {
 // ---------------------User Logout validation ----------------
 
 
-
-
-
