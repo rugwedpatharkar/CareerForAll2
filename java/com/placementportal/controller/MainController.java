@@ -388,7 +388,7 @@ public class MainController {
 
 		return "joblistfilters.html";
 	}
-
+ 
 	// filter jobs on joblistfilters
 	@GetMapping("/joblistfilters/{companyid}")
 	public String getJobByCriteria(@PathVariable Long companyid,
@@ -403,20 +403,21 @@ public class MainController {
 		if (timeRange != null && !timeRange.isEmpty()) {
 			switch (timeRange) {
 			case "past24hours":
-				jobPage = jobService.getJobsPostedPast24Hours(companyid, pageable);
+				jobPage = jobService.getJobsPostedPast24Hours(companyid, job, pageable);
 				break;
 			case "pastweek":
-				jobPage = jobService.getJobsPostedPastWeek(companyid, pageable);
+				jobPage = jobService.getJobsPostedPastWeek(companyid, job, pageable);
 				break;
 			case "pastmonth":
-				jobPage = jobService.getJobsPostedPastMonth(companyid, pageable);
+				jobPage = jobService.getJobsPostedPastMonth(companyid, job, pageable);
 				break;
 			default:
-				jobPage = jobService.findJobsByCompanyId(companyid, pageable);
+				jobPage = jobService.findJobByCompanyIdAndCriteria(companyid, job, pageable);
 			}
 		} else if (keyword != null && !keyword.isEmpty()) {
 			jobPage = jobService.jobSearchByCompanyId(companyid, keyword, pageable);
-		} else {
+		} 
+		else{
 			jobPage = jobService.findJobByCompanyIdAndCriteria(companyid, job, pageable);
 		}
 
@@ -479,7 +480,7 @@ public class MainController {
 		return "candidatelistfilters";
 	}
 
-	// filters for candidates on candidatelistfilters
+	// filters for candidates on candidate list filters
 	@GetMapping("/candidatelistfilters/{positionid}/{minKeywordLength}")
 	public String applyFiltersOnCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
 			@RequestParam(required = false) String noofyearsworkex, @RequestParam(required = false) String workmode,
@@ -490,10 +491,11 @@ public class MainController {
 		model.addAttribute("position", position);
 		Pageable pageable = PageRequest.of(page, pageSize);
 		Page<Candidate> eligibleCandidates;
-		if (noofyearsworkex != null && !noofyearsworkex.isEmpty() || workmode != null && !workmode.isEmpty()
-				|| joborinternship != null && !joborinternship.isEmpty()) {
+		if ( !noofyearsworkex.isEmpty() || !workmode.isEmpty() || !joborinternship.isEmpty() || !search.isEmpty()) {
 			eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength, noofyearsworkex,
 					workmode, joborinternship, pageable);
+			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search,
+					pageable);
 		} else {
 			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search,
 					pageable);
@@ -503,7 +505,7 @@ public class MainController {
 		return "candidatelistfilters";
 	}
 
-	// map candidates to job on candidatelistfilters
+	// map candidates to job on candidate list filters
 	@PostMapping("/mapcandidatetojob/{positionid}/{companyid}/{minKeywordLength}")
 	public String mapCandidatesToJob(@PathVariable int minKeywordLength, Model model,
 			@RequestParam("positionid") int positionid, @RequestParam("companyid") Long companyid,
@@ -542,7 +544,7 @@ public class MainController {
 
 		return "candidatelistfilters";
 	}
-
+ 
 	// show list of mapped candidates to job on mappedcandidatelist
 	@GetMapping("/mappedcandidatelist/{companyid}/{positionid}")
 	public String getJobCandidatesByCompanyidAndPositionid(@PathVariable Long companyid, @PathVariable int positionid,
@@ -584,7 +586,14 @@ public class MainController {
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", jobCandidatesPage.getTotalPages());
 	}
-
+	
+	//controller to show profile of shortlisted candidate
+	@GetMapping("/candidate/{candidateid}/profile")
+    public String getCandidateProfile(@PathVariable Long candidateid, Model model) {
+        Candidate candidate = candidateService.getCandidateByCandidateid(candidateid);
+            model.addAttribute("candidate", candidate);
+            return "shortlistedcandidateprofile"; // Thymeleaf template name
+        }
 	// end
 
 	// ******************* JoblistFilters and CandidateListfilters and

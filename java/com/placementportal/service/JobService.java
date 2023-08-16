@@ -50,34 +50,37 @@ public class JobService {
 		return jobRepository.findById(positionid).orElse(null);
 	}
 
-	public Page<Job> getJobsPostedPast24Hours(Long companyid, Pageable pageable) {
+	public Page<Job> getJobsPostedPast24Hours(Long companyid, Job job, Pageable pageable) {
 		Date now = new Date();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(now);
 		calendar.add(Calendar.DAY_OF_YEAR, -1);
 		Date past24Hours = calendar.getTime();
 
-		return jobRepository.findJobsByCompanyidAndPostedOnGreaterThanEqual(companyid, past24Hours, pageable);
+		return jobRepository.findJobByCompanyidAndIgnoreCase(companyid, past24Hours, job.getCountry(), job.getState(), job.getCity(),
+				job.getWorkmode(), job.getNoworkexperience(), job.getPositiontype(), pageable);
 	}
 
-	public Page<Job> getJobsPostedPastWeek(Long companyId, Pageable pageable) {
+	public Page<Job> getJobsPostedPastWeek(Long companyid, Job job, Pageable pageable) {
 		Date now = new Date();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(now);
 		calendar.add(Calendar.WEEK_OF_YEAR, -1);
 		Date pastWeek = calendar.getTime();
 
-		return jobRepository.findJobsByCompanyidAndPostedOnGreaterThanEqual(companyId, pastWeek, pageable);
+		return jobRepository.findJobByCompanyidAndIgnoreCase(companyid, pastWeek, job.getCountry(), job.getState(), job.getCity(),
+				job.getWorkmode(), job.getNoworkexperience(), job.getPositiontype(), pageable);
 	}
 
-	public Page<Job> getJobsPostedPastMonth(Long companyId, Pageable pageable) {
+	public Page<Job> getJobsPostedPastMonth(Long companyid, Job job, Pageable pageable) {
 		Date now = new Date();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(now);
 		calendar.add(Calendar.MONTH, -1);
 		Date pastMonth = calendar.getTime();
 
-		return jobRepository.findJobsByCompanyidAndPostedOnGreaterThanEqual(companyId, pastMonth, pageable);
+		return jobRepository.findJobByCompanyidAndIgnoreCase(companyid, pastMonth, job.getCountry(), job.getState(), job.getCity(),
+				job.getWorkmode(), job.getNoworkexperience(), job.getPositiontype(), pageable);
 	}
 
 	public Page<Job> findJobsByCompanyId(Long companyid, Pageable pageable) {
@@ -85,8 +88,11 @@ public class JobService {
 	}
 
 	public Page<Job> findJobByCompanyIdAndCriteria(Long companyid, Job job, Pageable pageable) {
-		return jobRepository.findJobByCompanyidAndIgnoreCase(companyid, job.getCountry(), job.getState(), job.getCity(),
+		
+		return jobRepository.findJobByCompanyidAndIgnoreCase(companyid, null, job.getCountry(), job.getState(), job.getCity(),
 				job.getWorkmode(), job.getNoworkexperience(), job.getPositiontype(), pageable);
+		
+
 	}
 
 	public Page<Job> jobSearchByCompanyId(Long companyid, String keyword, Pageable pageable) {
@@ -118,9 +124,9 @@ public class JobService {
 		return new PageImpl<>(eligibleCandidates.subList(start, end), pageable, eligibleCandidates.size());
 	}
 
-	public Page<Candidate> findEligibleCandidates(int positionId, int minKeywordLength, String noofyearsworkex,
+	public Page<Candidate> findEligibleCandidates(int positionid, int minKeywordLength, String noofyearsworkex,
 			String workmode, String joborinternship, Pageable pageable) {
-		Job job = jobRepository.findById(positionId).orElse(null);
+		Job job = jobRepository.findById(positionid).orElse(null);
 		if (job == null) {
 			return Page.empty();
 		}
@@ -143,24 +149,26 @@ public class JobService {
 
 	}
 
+	
 	private List<Candidate> filterCandidates(List<Candidate> candidates, String noofyearsworkex, String workmode,
 			String joborinternship) {
 		List<Candidate> listcandidate = new ArrayList<>(candidates);
-		if (StringUtils.isNotBlank(noofyearsworkex)) {
-			listcandidate.removeIf(candidate -> !candidate.getNoofyearsworkex().equals(noofyearsworkex));
-		}
+        if (StringUtils.isNotBlank(noofyearsworkex)) {
+        	listcandidate.removeIf(candidate -> !candidate.getNoofyearsworkex().equals(noofyearsworkex));
+        }
 
-		if (StringUtils.isNotBlank(workmode)) {
-			listcandidate.removeIf(candidate -> !candidate.getWorkmode().equalsIgnoreCase(workmode));
-		}
+        if (StringUtils.isNotBlank(workmode)) {
+        	listcandidate.removeIf(candidate -> !candidate.getWorkmode().equalsIgnoreCase(workmode));
+        }
 
-		if (StringUtils.isNotBlank(joborinternship)) {
-			listcandidate.removeIf(candidate -> !candidate.getJoborinternship().equalsIgnoreCase(joborinternship));
-		}
+        if (StringUtils.isNotBlank(joborinternship)) {
+        	listcandidate.removeIf(candidate -> !candidate.getJoborinternship().equalsIgnoreCase(joborinternship));
+        }
 
-		return listcandidate;
-	}
-
+        return candidates;
+    }
+	
+	
 	public Job getJobbyId(int positionid) {
 		return jobRepository.findById(positionid)
 				.orElseThrow(() -> new IllegalArgumentException("Job not found with ID: " + positionid));
