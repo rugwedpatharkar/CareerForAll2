@@ -311,13 +311,10 @@ public class MainController {
 	}
 
 	// *************** ADMIN Controller **************************
-<<<<<<< HEAD
-	
+
+
 	// Admin-Company Controllers
-=======
-
-	// Company Controllers
-
+	
 	@GetMapping("/adminreg")
 	public String adminUser(Model model) {
 		model.addAttribute("user",  new User());
@@ -345,9 +342,6 @@ public class MainController {
 		return "redirect:/adminhome?success";
 	}
 	
-	
-	
->>>>>>> branch 'main' of https://github.com/rugwedpatharkar/CareerForAll2.git
 		@PostMapping("/adminsaveCompany")
 	    public String adminsaveCompany(@ModelAttribute("company") Company company, RedirectAttributes redirectAttributes) {
 	        companyService.saveCompany(company);
