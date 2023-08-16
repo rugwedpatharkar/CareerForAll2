@@ -51,15 +51,16 @@ public class Job {
 	public String toString() {
 		return "Job [positionid=" + positionid + ", position=" + position + ", designation=" + designation
 				+ ", functions=" + functions + ", department=" + department + ", country=" + country + ", state="
-				+ state + ", city=" + city + ", corearea=" + corearea + ", noworkexperience=" + noworkexperience + ", workmode=" + workmode
-				+ ", localcandidate=" + localcandidate + ", icteamhandling=" + icteamhandling + ", stipend=" + stipend
-				+ ", ctcvariable=" + ctcvariable + ", anynotableperk=" + anynotableperk + ", description=" + description
-				+ ", releventfile=" + Arrays.toString(releventfile) + ", anyrelevantlink=" + anyrelevantlink
-				+ ", positiontype=" + positiontype + ", postedon=" + postedon + ", company=" + company
-				+ ", getPositionid()=" + getPositionid() + ", getPosition()=" + getPosition() + ", getDesignation()="
-				+ getDesignation() + ", getFunctions()=" + getFunctions() + ", getDepartment()=" + getDepartment()
-				+ ", getCountry()=" + getCountry() + ", getState()=" + getState() + ", getCity()=" + getCity()
-				+ ", getCorearea()=" + getCorearea() + ", getNoworkexperience()=" + getNoworkexperience() + ", getWorkmode()=" + getWorkmode() +", getLocalcandidate()=" + getLocalcandidate()
+				+ state + ", city=" + city + ", corearea=" + corearea + ", noworkexperience=" + noworkexperience
+				+ ", workmode=" + workmode + ", localcandidate=" + localcandidate + ", icteamhandling=" + icteamhandling
+				+ ", stipend=" + stipend + ", ctcvariable=" + ctcvariable + ", anynotableperk=" + anynotableperk
+				+ ", description=" + description + ", releventfile=" + Arrays.toString(releventfile)
+				+ ", anyrelevantlink=" + anyrelevantlink + ", positiontype=" + positiontype + ", postedon=" + postedon
+				+ ", company=" + company + ", getPositionid()=" + getPositionid() + ", getPosition()=" + getPosition()
+				+ ", getDesignation()=" + getDesignation() + ", getFunctions()=" + getFunctions() + ", getDepartment()="
+				+ getDepartment() + ", getCountry()=" + getCountry() + ", getState()=" + getState() + ", getCity()="
+				+ getCity() + ", getCorearea()=" + getCorearea() + ", getNoworkexperience()=" + getNoworkexperience()
+				+ ", getWorkmode()=" + getWorkmode() + ", getLocalcandidate()=" + getLocalcandidate()
 				+ ", getIcteamhandling()=" + getIcteamhandling() + ", getStipend()=" + getStipend()
 				+ ", getCtcvariable()=" + getCtcvariable() + ", getAnynotableperk()=" + getAnynotableperk()
 				+ ", getDescription()=" + getDescription() + ", getReleventfile()=" + Arrays.toString(getReleventfile())

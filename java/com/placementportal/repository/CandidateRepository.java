@@ -9,12 +9,10 @@ import org.springframework.data.repository.query.Param;
 import com.placementportal.model.Candidate;
 
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
-	@Query("SELECT c FROM Candidate c WHERE  c.candidatename = :candidatename "
-			+ "AND  c.candidatecity = :candidatecity " + "OR  c.noofyearsworkex= :noofyearsworkex "
-			+ "OR  c.workmode = :workmode " + "OR  c.joborinternship = :joborinternship ")
-
-	List<Candidate> findCandidateByIgnoreCase(@Param("candidatename") String candidatename,
-			@Param("candidatecity") String candidatecity, @Param("noofyearsworkex") String noofyearsworkex,
+	@Query("SELECT c FROM Candidate c WHERE " + "(:noofyearsworkex is null or c.noofyearsworkex = :noofyearsworkex) "
+			+ "AND (:workmode is null or c.workmode = :workmode) "
+			+ "AND (:joborinternship is null or c.joborinternship = :joborinternship)")
+	List<Candidate> findCandidatesByFilters(@Param("noofyearsworkex") String noofyearsworkex,
 			@Param("workmode") String workmode, @Param("joborinternship") String joborinternship);
 
 	@Query("SELECT c FROM Candidate c WHERE LOWER(CONCAT(c.candidatename, c.primaryskills, c.secondaryskills)) LIKE %:search%")

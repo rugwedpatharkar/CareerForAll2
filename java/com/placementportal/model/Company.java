@@ -90,7 +90,7 @@ public class Company {
 
 	@Column(nullable = false)
 	private int avg_tenure_of_employee;
-	
+
 	public String getCompanyemail() {
 		return companyemail;
 	}
@@ -98,7 +98,7 @@ public class Company {
 	public void setCompanyemail(String companyemail) {
 		this.companyemail = companyemail;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Company [companyid=" + companyid + ", company_name=" + company_name + ", brand_name=" + brand_name
