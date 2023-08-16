@@ -202,6 +202,7 @@
         
 
 <form th:object="${candidate}" th:action="@{/updateCandidate}"  action="#" class="search-form" id="updatecandidate" name="updatecandidate" method="POST">
+    
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label required">Candidate Name</label>
             <div class="col-sm-10">
@@ -252,6 +253,8 @@
 
 
           <!--   Dynamic table  starts  here             -->
+         
+
 
           <h5 class="card-title required">Educational Details</h5>
   
@@ -293,13 +296,14 @@
   
 
 
+
           <h5 class="card-title">Do it Right the First Time !</h5>
 
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label required" >Core Area / Primary Skills</label>
             <div class="col-sm-10">
               <input type="text" th:field="*{primaryskills}" id="primarySkills" name="primaryskills" class="form-control" required>
-              <div id="primarySkillError" class="invalid-feedback">invalid</div>
+              <div id="primarySkillError" class="invalid-feedback">Please enter valid primary skills</div>
                
             </div>
           </div>
@@ -308,7 +312,7 @@
             <label for="inputText" class="col-sm-2 col-form-label">Secondary Skills</label>
             <div class="col-sm-10">
               <input type="text" th:field="*{secondaryskills}" id="secondarySkills" name="secondaryskills" class="form-control">
-              <div id="secondarySkillError" class="invalid-feedback">invalid</div>
+              <div id="secondarySkillError" class="invalid-feedback">Please enter valid secondary skills</div>
             </div>
           </div>
 
@@ -378,7 +382,7 @@
               <select th:field="*{candidatecity}" name="candidatecity" class="form-select" aria-label="Default select example" required>
                 <option value="" selected>-- select Candidate City --</option>
                 <option value="Local">Local</option>
-                <option value="City">Other City</option>
+                <option value="Other City">Other City</option>
               </select>
             </div>
           </div>
@@ -408,7 +412,7 @@
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label required" >Institute Name</label>
             <div class="col-sm-10">
-              <select  class="form-select" name="institutename" aria-label="Default select example">
+              <select  class="form-select" name="institutename" aria-label="Default select example" required>
                 <option value=""  selected>--select Institute Name --</option>
                 <option th:each="institute : ${institutes}" th:value="${institute.instituteid}"
                     th:text="${institute.institutename}"></option>
@@ -447,12 +451,6 @@
               <div id="ctcTotalError" class="invalid-feedback">invalid</div>
             </div>
           </div>
-		 <div class="row mb-3 d-none"><!-- to hide field d-none -->
-		 	<label for="inputPassword" class="col-sm-2 col-form-label required">CandidateID</label>
-		    	<div class="col-sm-10">
-		        	<input type="text" id="candidateId" value="100" th:field="*{candidateid}" class="form-control" readonly>
-		        </div>
-		  </div>
 
 
           <div class="row mb-3">
@@ -523,8 +521,8 @@ inp.setAttribute('spellcheck', 'false');//---------------spell check ends
 //--------------------validate Candidate name (with numbers)
 var nameInput = document.getElementById("candidateName");
 //Add an event listener to the name input field
-nameInput.addEventListener("input", validateCompayName);
-function validateCompayName() {
+nameInput.addEventListener("input", validateCandidateName);
+function validateCandidateName() {
 	//console.log("validate Candidate called");
  var name = document.getElementById("candidateName").value;
  var nameRegex =/^[a-zA-Z\ \s]*$/;
@@ -543,8 +541,8 @@ candidateNameError.style.display = "block";
 
 //--------------------validate Candidate Email 
 var emailInput = document.getElementById("candidateEmail");
-emailInput.addEventListener("input", validateCompayEmail);
-function validateCompayEmail() {
+emailInput.addEventListener("input", validateCandidateEmail);
+function validateCandidateEmail() {
 	//console.log("validate Candidate called");
  var email = document.getElementById("candidateEmail").value;
  var emailRegex =/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/;
@@ -560,7 +558,7 @@ candidateEmailError.style.display = "block";
 
 
 //---------------------------------validate CV UPload
-//Get the file input element
+
 const cvInput = document.getElementById('cvUpload');
 //Add an event listener to the file input element
 cvInput.addEventListener('change', (event) => {
@@ -587,12 +585,14 @@ cvInput.addEventListener('change', (event) => {
    var cvUploadError2 = document.getElementById("cvUploadError2");
    cvUploadError2.style.display = "block";
    cvInput.value = '';
+   event.preventDefault();
    return;
  } else if (file.size > 2000000) {
    // Display the "The selected file is too large." error message
    var cvUploadError3 = document.getElementById("cvUploadError3");
    cvUploadError3.style.display = "block";
    cvInput.value = '';
+   event.preventDefault();
    return;
  }
 });//---------------------- end validate CV UPload
@@ -781,6 +781,41 @@ function create_tr(table_id) {
 	  }
 	}//--------------------------------Dynamic table ends here
 
+<!--	
+	function submitForm() {
+	    // Collect educational details and create JSON object
+	    const educationalDetails = [];
+	    const rows = document.querySelectorAll("#table_body tr");
+	    
+	    // Start iterating from the second row (skipping the first row)
+	    for (let i = 1; i < rows.length; i++) {
+	        const row = rows[i];
+	        const course = row.querySelector("input[name='Course[]']").value;
+	        const institute = row.querySelector("input[name='Institute[]']").value;
+	        const university = row.querySelector("input[name='University[]']").value;
+	        const percentage = row.querySelector("input[name='Percentage[]']").value;
+	        
+	        if (!course || !institute || !university || !percentage) {
+	            alert("All fields in row " + (i + 1) + " are mandatory. Please fill in all values.");
+	            return; // Prevent form submission
+	        }
+
+	        educationalDetails.push({
+	            course: course,
+	            institute: institute,
+	            university: university,
+	            percentage: percentage
+	        });
+	    }
+
+	    // Set the JSON value to the hidden input
+	    const jsonInput = document.getElementById("educationalDetailsJson");
+	    jsonInput.value = JSON.stringify(educationalDetails);
+
+	    // Submit the form
+	    document.getElementById("onboarding").submit();
+	}
+	-->
 
 	function submitForm() {
 	    // Validate all required fields
@@ -848,10 +883,10 @@ function create_tr(table_id) {
 	    document.getElementById("onboarding").submit();
 	}
 
+	
 
  </script>     
 	
 
 </body>
-
 </html>

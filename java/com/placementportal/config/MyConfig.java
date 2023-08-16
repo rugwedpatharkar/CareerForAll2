@@ -44,26 +44,22 @@ public class MyConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-		http.csrf().disable().authorizeHttpRequests()
-		.requestMatchers("/adminhome.html").hasRole("ADMIN")
-		.requestMatchers("/adminCompany.html").hasRole("ADMIN")
-		.requestMatchers("/adminCompanyList.html").hasRole("ADMIN")
-		.requestMatchers("/userhome.html").hasRole("USER")
-		.requestMatchers("/profile.html").hasRole("HR")
-		.requestMatchers("/startup_onboarding.html").hasRole("HR")
-		.requestMatchers("/CompanyList.html").hasRole("HR")
-		.requestMatchers("/editCompany.html").hasRole("HR")
-		.requestMatchers("/jobopening.html").hasRole("HR")
-		.requestMatchers("/joblistfilters.html").hasRole("HR")
-		.requestMatchers("/pohome.html").hasRole("PO")
-		.requestMatchers("/institute_onboarding.html").hasRole("PO")
-		.requestMatchers("/candidate_registration.html").hasRole("PO")
-		.requestMatchers("/CandidateList.html").hasRole("PO")
-		.requestMatchers("/editCandidate.html").hasRole("PO")
-		.requestMatchers("/**").permitAll()
-		.and().formLogin().loginPage("/login").loginProcessingUrl("/login")
-		.successHandler(customAuthenticationSuccessHandler).permitAll() // Redirect all users to a common
-		// profile page after login
+		http.csrf().disable().authorizeHttpRequests().requestMatchers("/adminhome.html").hasRole("ADMIN")
+				.requestMatchers("/adminCompany.html").hasRole("ADMIN").requestMatchers("/adminCompanyList.html")
+				.hasRole("ADMIN").requestMatchers("/userhome.html").hasRole("USER").requestMatchers("/profile.html")
+				.hasRole("HR").requestMatchers("/startup_onboarding.html").hasRole("HR")
+				.requestMatchers("/CompanyList.html").hasRole("HR").requestMatchers("/editCompany.html").hasRole("HR")
+				.requestMatchers("/jobopening.html").hasRole("HR").requestMatchers("/joblistfilters.html").hasRole("HR")
+				.requestMatchers("/pohome.html").hasRole("PO").requestMatchers("/institute_onboarding.html")
+				.hasRole("PO").requestMatchers("/candidate_registration.html").hasRole("PO")
+				.requestMatchers("/CandidateList.html").hasRole("PO").requestMatchers("/editCandidate.html")
+				.hasRole("PO").requestMatchers("/**").permitAll().and().formLogin().loginPage("/login")
+				.loginProcessingUrl("/login").successHandler(customAuthenticationSuccessHandler).permitAll() // Redirect
+																												// all
+																												// users
+																												// to a
+																												// common
+				// profile page after login
 				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/login").permitAll().and().exceptionHandling()
 				.accessDeniedPage("/access-denied");
 
@@ -71,5 +67,4 @@ public class MyConfig {
 
 		return http.build();
 	}
-
 }

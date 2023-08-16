@@ -342,7 +342,20 @@ function validateEmail() {
 
 }
 
-//---------------
+//---------------------------------------------------
+//  company names dropdown at adminuser.html
+//
+//---------------------------------------------------
+var companies = /*[[ ${companiesJson} ]]*/ []; // JSON array of company names
+        
+        var select = document.getElementById('companyname');
+        for (var i = 0; i < companies.length; i++) {
+            var option = document.createElement('option');
+            option.value = companies[i];
+            option.text = companies[i];
+            select.appendChild(option);
+
+//---------------------------------------------------
 
  // Wait for the DOM to be fully loaded
         document.addEventListener("DOMContentLoaded", function() {
@@ -801,6 +814,7 @@ if(form !== null){
     event.preventDefault();
     return;
   }
+  
 });
 }
 
@@ -810,9 +824,279 @@ if(form !== null){
 --------------------------------------------------end of customized js-------------------------------------------------------------
  //---------------------------------------------------end of Startup Onboarding & Startup List JS-------------------------------------
  */
+//Validations by Tanmayi
+//----------------------------------------------------------Startup Job Posting & Job List JS-------------------------------------
+
+//---------------validate Position (with numbers)---------------
+var nameInput = document.getElementById("position");
+// Add an event listener to the name input field
+nameInput.addEventListener("input", validateposition);
+function validateposition() {
+	//console.log("validate position called");
+  var name = document.getElementById("position").value;
+  var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+(([',. -][a-zA-Z ])?[a-zA-Z0-9]*)*$/;
+  var positionError = document.getElementById("positionError");
+  if (!nameRegex.test(name)) {
+//    alert("Please enter a valid position.");
+	positionError.style.display = "block";
+    return false;
+  } else {
+	positionError.style.display = "none";
+    return true;
+  }
+}
+//end of validate position--------
+
+//---------------validate designation (with numbers)---------------
+var nameInput = document.getElementById("designation");
+// Add an event listener to the name input field
+nameInput.addEventListener("input", validatedesignation);
+function validatedesignation() {
+	//console.log("validate designation called");
+  var name = document.getElementById("designation").value;
+  var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+(([',. -][a-zA-Z ])?[a-zA-Z0-9]*)*$/;
+  var designationError = document.getElementById("designationError");
+  if (!nameRegex.test(name)) {
+//    alert("Please enter a valid designation.");
+	designationError.style.display = "block";
+    return false;
+  } else {
+	designationError.style.display = "none";
+    return true;
+  }
+}
+//end of validate designation--------
+
+//---------------validate function (with numbers)---------------
+var nameInput = document.getElementById("functions");
+// Add an event listener to the name input field
+nameInput.addEventListener("input", validatefunction);
+function validatefunction() {
+	//console.log("validate function called");
+  var name = document.getElementById("functions").value;
+  var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+(([',. -][a-zA-Z ])?[a-zA-Z0-9]*)*$/;
+  var functionError = document.getElementById("functionError");
+  if (!nameRegex.test(name)) {
+//    alert("Please enter a valid function.");
+	functionError.style.display = "block";
+    return false;
+  } else {
+	functionError.style.display = "none";
+    return true;
+  }
+}
+//end of validate function--------
+
+//---------------validate department (with numbers)---------------
+var nameInput = document.getElementById("department");
+// Add an event listener to the name input field
+nameInput.addEventListener("input", validatedepartment);
+function validatedepartment() {
+	//console.log("validate department called");
+  var name = document.getElementById("department").value;
+  var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+(([',. -][a-zA-Z ])?[a-zA-Z0-9]*)*$/;
+  var departmentError = document.getElementById("departmentError");
+  if (!nameRegex.test(name)) {
+//    alert("Please enter a valid department.");
+	departmentError.style.display = "block";
+    return false;
+  } else {
+	departmentError.style.display = "none";
+    return true;
+  }
+}
+//end of validate department--------
+
+// Add an event listener to the email input field
+var emailInput = document.getElementById("positionemail");
+if(emailInput !== null){
+	// Add an event listener to the email input field
+emailInput.addEventListener("input", validatePositionEmail);
+
+function validatePositionEmail() {
+  var email = document.getElementById("positionemail").value;
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email regex
+  var positionEmailError = document.getElementById("positionEmailError");
+  if (!emailRegex.test(email)) {
+    positionEmailError.style.display = "block";
+    return false;
+  } else {
+    positionEmailError.style.display = "none";
+    return true;
+  }
+}
+}
+//------------------end of company email validation----------------
+
+//Core area validation (without numbers)---------------
+
+var coreareaInput = document.getElementById("corearea");
+if(coreareaInput !== null){
+	// Add an event listener to the corearea input field
+coreareaInput.addEventListener("input", validatecorearea);
+
+function validatecorearea() {
+  var name = document.getElementById("corearea").value;
+  var nameRegex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
+  var coreareaError = document.getElementById("coreareaError");
+  if (!nameRegex.test(name)) {
+    coreareaError.style.display = "block";
+    return false;
+  } else {
+	  coreareaError.style.display = "none";
+    return true;
+  }
+}
+}
+//end of Core Area valdation----------------
+
+//---------------validate Job Description (with numbers)---------------
+var nameInput = document.getElementById("description");
+// Add an event listener to the description input field
+nameInput.addEventListener("input", validatedescription);
+function validatedescription() {
+	//console.log("validate department called");
+  var name = document.getElementById("description").value;
+  var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+(([',. -][a-zA-Z ])?[a-zA-Z0-9]*)*$/;
+  var descriptionError = document.getElementById("descriptionError");
+  if (!nameRegex.test(name)) {
+//    alert("Please enter a valid anynotableperk.");
+	descriptionError.style.display = "block";
+    return false;
+  } else {
+	descriptionError.style.display = "none";
+    return true;
+  }
+}
+//end of validate description--------
+
+//---------------validate any notable perk (with numbers)---------------
+var nameInput = document.getElementById("anynotableperk");
+// Add an event listener to the anynotableperk input field
+nameInput.addEventListener("input", validateanynotableperk);
+function validateanynotableperk() {
+	//console.log("validate department called");
+  var name = document.getElementById("anynotableperk").value;
+  var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+(([',. -][a-zA-Z ])?[a-zA-Z0-9]*)*$/;
+  var anynotableperkError = document.getElementById("anynotableperkError");
+  if (!nameRegex.test(name)) {
+//    alert("Please enter a valid anynotableperk.");
+	anynotableperkError.style.display = "block";
+    return false;
+  } else {
+	anynotableperkError.style.display = "none";
+    return true;
+  }
+}
+//end of validate anynotableperk--------
+
+//other releventfile validation--------------------------
+var releventfile = document.getElementById('releventfile');
+if(releventfile !== null){
+	releventfile.addEventListener('change', validatereleventfile);
+var releventfileSizeError = document.getElementById("releventfileSizeError");
+var releventfileTypeError = document.getElementById("releventfileTypeError");
+function validatereleventfile() {
+    const fileInput = document.getElementById('releventfile');
+    const file = fileInput.files[0];
+    const fileSize = file.size;
+    const maxSize = 2097152; // 2 MB in bytes
+    const allowedTypes = ['pdf', 'ppt', 'pptx', 'doc'];
+    const fileType = file.name.split('.').pop();
+
+    if (fileSize > maxSize) {
+        releventfileSizeError.style.display = "block";
+        fileInput.value = ''; // Reset the file input element
+        return false;
+    }
+
+    if (!allowedTypes.includes(fileType)) {
+        releventfileTypeError.style.display = "block";
+        fileInput.value = ''; // Reset the file input element
+        return false;
+    }
+	releventfileSizeError.style.display = "none";
+	releventfileTypeError.style.display = "none";
+    return true;
+}
+}
+// Other anyrelevantlink validation
+var anyrelevantlinkInput = document.getElementById("anyrelevantlink");
+if(anyrelevantlinkInput !== null){
+	anyrelevantlinkInput.addEventListener("blur", validateanyrelevantlink);
+
+function validateanyrelevantlink() {
+  var anyrelevantlink = document.getElementById("anyrelevantlink").value.trim(); // Trim the value to remove leading/trailing spaces
+  var urlRegex = /^(http(s)?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w- ;,./?%&=]*)?$/i;
+  var anyrelevantlinkError = document.getElementById("anyrelevantlinkError");
+
+  if (anyrelevantlink === "") {
+    anyrelevantlinkError.style.display = "none"; // Hide the error message if the field is empty
+    return true;
+  } else if (!urlRegex.test(anyrelevantlink)) {
+    anyrelevantlinkError.style.display = "block";
+    return false;
+  } else {
+    anyrelevantlink.style.display = "none";
+    return true;
+  }
+}
+}
+//end of other file validation----------------------
+
+const myform = document.getElementById('openings'); // replace 'myForm' with the ID of your form element 
+if(form !== null){
+	form.addEventListener('submit', function(event) {
+  
+  const positionValid = validateposition();
+  if (!positionValid) {
+    event.preventDefault();
+    return;
+  }
+  const designationValid = validatedesignation();
+  if (!designationValid) {
+    event.preventDefault();
+    return;
+  }
+  const functionValid = validatefunction();
+  if (!functionValid) {
+    event.preventDefault();
+    return;
+  }
+  const departmentValid = validatedepartment();
+  if (!departmentValid) {
+    event.preventDefault();
+    return;
+  }
+  const anynotableperkValid = validateanynotableperk();
+  if (!anynotableperkValid) {
+    event.preventDefault();
+    return;
+    }
+    
+    const descriptionValid = validatedescription();
+  if (!descriptionValid) {
+    event.preventDefault();
+    return;
+    } 
+    
+   
+    const releventfileValid = validatereleventfile();
+  if (!releventfileValid) {
+    event.preventDefault();
+    return;
+  }
+    const anyrelevantlinkValid = validateanyrelevantlink();
+  if (!anyrelevantlinkValid) {
+    event.preventDefault();
+    return;
+  }
+});
+}
+
+//End of validate submission----------------
 
 
-/*Location state and city*/
   var AndraPradesh = ["Anantapur","Chittoor","East Godavari","Guntur","Kadapa","Krishna","Kurnool","Prakasam","Nellore","Srikakulam","Visakhapatnam","Vizianagaram","West Godavari"];
 var ArunachalPradesh = ["Anjaw","Changlang","Dibang Valley","East Kameng","East Siang","Kra Daadi","Kurung Kumey","Lohit","Longding","Lower Dibang Valley","Lower Subansiri","Namsai","Papum Pare","Siang","Tawang","Tirap","Upper Siang","Upper Subansiri","West Kameng","West Siang","Itanagar"];
 var Assam = ["Baksa","Barpeta","Biswanath","Bongaigaon","Cachar","Charaideo","Chirang","Darrang","Dhemaji","Dhubri","Dibrugarh","Goalpara","Golaghat","Hailakandi","Hojai","Jorhat","Kamrup Metropolitan","Kamrup (Rural)","Karbi Anglong","Karimganj","Kokrajhar","Lakhimpur","Majuli","Morigaon","Nagaon","Nalbari","Dima Hasao","Sivasagar","Sonitpur","South Salmara Mankachar","Tinsukia","Udalguri","West Karbi Anglong"];
@@ -1016,6 +1300,7 @@ function validateUserEmail() {
     return true;
   }
 }
+}
 }//github.com/rugwedpatharkar/CareerForAll2.git
 //------------------End Of User Email Validation----------------
 
@@ -1023,9 +1308,3 @@ function validateUserEmail() {
 
 
 // ---------------------User Logout validation ----------------
-
-
-
-
-
-

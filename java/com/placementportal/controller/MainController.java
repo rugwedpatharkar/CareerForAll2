@@ -2,7 +2,6 @@ package com.placementportal.controller;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +41,7 @@ import com.placementportal.service.UserServiceImpl;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -99,6 +99,7 @@ public class MainController {
 
 	// ---------------------startup onboarding------------------------
 	// Company Controllers
+
 	@GetMapping("/startup_onboarding")
 	@PreAuthorize("hasRole('HR')")
 	public String startup_onboarding(Model model) {
@@ -131,7 +132,7 @@ public class MainController {
 	}
 
 	@PostMapping("/updateCompany")
-	public String updateCompany(@ModelAttribute("company") Company company,RedirectAttributes redirectAttributes) {
+	public String updateCompany(@ModelAttribute("company") Company company, RedirectAttributes redirectAttributes) {
 		companyService.saveCompany(company);
 		redirectAttributes.addFlashAttribute("umessage", "Company updated successfully!");
 		return "redirect:/CompanyList";
@@ -139,7 +140,7 @@ public class MainController {
 	
 	// Delete company
 	@GetMapping("/deleteCompany/{id}")
-	public String deleteCompany(@PathVariable(value = "id") Long id,RedirectAttributes redirectAttributes) {
+	public String deleteCompany(@PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
 		// call delete company method
 		this.companyService.deleteCompanyById(id);
 		redirectAttributes.addFlashAttribute("dmessage", "Company deleted successfully!");
@@ -202,12 +203,10 @@ public class MainController {
 	}
 
 	@PostMapping("/saveCandidate")
-	public String saveCandidate(
-	        @ModelAttribute("candidate") Candidate candidate,
-	        @RequestParam("educationalDetailsJson") String educationalDetailsJson
-	) {
-	    candidateService.saveCandidate(candidate, educationalDetailsJson);
-	    return "redirect:/CandidateList";
+	public String saveCandidate(@ModelAttribute("candidate") Candidate candidate,
+			@RequestParam("educationalDetailsJson") String educationalDetailsJson) {
+		candidateService.saveCandidate(candidate, educationalDetailsJson);
+		return "redirect:/CandidateList";
 	}
 
 	@GetMapping("/CandidateList")
@@ -227,10 +226,9 @@ public class MainController {
 
 	@PostMapping("/updateCandidate")
 	public String updateCandidate(@ModelAttribute("candidate") Candidate candidate,
-	        @RequestParam("educationalDetailsJson") String educationalDetailsJson
-	) {
-	    candidateService.saveCandidate(candidate, educationalDetailsJson);
-	    return "redirect:/CandidateList";
+			@RequestParam("educationalDetailsJson") String educationalDetailsJson) {
+		candidateService.saveCandidate(candidate, educationalDetailsJson);
+		return "redirect:/CandidateList";
 	}
 
 	@GetMapping("/deleteCandidate/{id}")
@@ -251,6 +249,7 @@ public class MainController {
 	public String userHome() {
 		return "userhome";
 	}
+
 	@GetMapping("/useraccountsetting")
 	public String useraccount() {
 		return "useraccountsetting";
@@ -260,6 +259,7 @@ public class MainController {
 	public String adminhome() {
 		return "adminhome";
 	}
+
 	@GetMapping("/adminaccountsetting")
 	public String adminaccount() {
 		return "adminaccountsetting";
@@ -309,61 +309,91 @@ public class MainController {
 
 		return "redirect:/login?success";
 	}
-	
+
 	// *************** ADMIN Controller **************************
+<<<<<<< HEAD
 	
 	// Admin-Company Controllers
+=======
+
+	// Company Controllers
+
+	@GetMapping("/adminreg")
+	public String adminUser(Model model) {
+		model.addAttribute("user",  new User());
+		return "adminuser";
+	}
+	
+	@PostMapping("/adminreg")
+	public String adminReg(@ModelAttribute User user, HttpSession session) {
+		
+		userRepository.save(user);
+		
+		boolean u = userServiceImpl.checkEmail(user.getEmail());
+		if (u) {
+			System.out.println("Email id already exist");
+		} else {
+			System.out.println(user);
+			// password encryption
+			user.setPassword(bp.encode(user.getPassword()));
+			// user.setRole(user.getRole());
+
+			session.setAttribute("msg", "Registration  successfully!");
+			userRepository.save(user);
+		}
+
+		return "redirect:/adminhome?success";
+	}
+	
+	
+	
+>>>>>>> branch 'main' of https://github.com/rugwedpatharkar/CareerForAll2.git
 		@PostMapping("/adminsaveCompany")
 	    public String adminsaveCompany(@ModelAttribute("company") Company company, RedirectAttributes redirectAttributes) {
 	        companyService.saveCompany(company);
 	        redirectAttributes.addFlashAttribute("message", "Company added successfully!");
 	        return "redirect:/CompanyList";
 	    }
-		public String adminsaveCompany(@ModelAttribute("company") Company company) {
-			companyService.saveCompany(company);
-			return ("redirect:/CompanyList");
-		}
+		
+	@GetMapping("/admincompany")
+	@PreAuthorize("hasRole('ADMIN')")
+	public String adminstartup_onboarding(Model model) {
+		Company company = new Company();
+		model.addAttribute("company", company);
+		return ("admincompany");
+	}
 
-		@GetMapping("/admincompany")
-		@PreAuthorize("hasRole('ADMIN')")
-		public String adminstartup_onboarding(Model model) {
-			Company company = new Company();
-			model.addAttribute("company", company);
-			return ("admincompany");
-		}
+	// List of companies
+	@GetMapping("/adminCompanyList")
+	public String adminshowCompany(Model model) {
+		model.addAttribute("listCompanies", companyService.getAllCompanies());
+		return "adminCompanyList";
+	}
 
-		// List of companies
-		@GetMapping("/adminCompanyList")
-		public String adminshowCompany(Model model) {
-			model.addAttribute("listCompanies", companyService.getAllCompanies());
-			return "adminCompanyList";
-		}
+	// Update company
+	@GetMapping("/admineditCompany/{id}")
+	public String admineditCompanyForm(@PathVariable("id") Long id, Model model) {
+		Company company = companyService.getCompanyById(id);
+		model.addAttribute("company", company);
+		return "admineditCompany";
+	}
 
-		// Update company
-		@GetMapping("/admineditCompany/{id}")
-		public String admineditCompanyForm(@PathVariable("id") Long id, Model model) {
-			Company company = companyService.getCompanyById(id);
-			model.addAttribute("company", company);
-			return "admineditCompany";
-		}
+	@PostMapping("/adminupdateCompany")
+	public String adminupdateCompany(@ModelAttribute("company") Company company,
+			RedirectAttributes redirectAttributes) {
+		companyService.saveCompany(company);
+		redirectAttributes.addFlashAttribute("umessage", "Company updated successfully!");
+		return "redirect:/adminCompanyList";
+	}
 
-		@PostMapping("/adminupdateCompany")
-		public String adminupdateCompany(@ModelAttribute("company") Company company,RedirectAttributes redirectAttributes) {
-			companyService.saveCompany(company);
-			redirectAttributes.addFlashAttribute("umessage", "Company updated successfully!");
-			return "redirect:/adminCompanyList";
-		}
+	@GetMapping("/admindeleteCompany/{id}")
+	public String admindeleteCompany(@PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
+		// call delete company method
+		this.companyService.deleteCompanyById(id);
+		redirectAttributes.addFlashAttribute("dmessage", "Company deleted successfully!");
+		return "redirect:/adminCompanyList";
+	}
 
-		@GetMapping("/admindeleteCompany/{id}")
-		public String admindeleteCompany(@PathVariable(value = "id") Long id,RedirectAttributes redirectAttributes) {
-			// call delete company method
-			this.companyService.deleteCompanyById(id);
-			redirectAttributes.addFlashAttribute("dmessage", "Company deleted successfully!");
-			return "redirect:/adminCompanyList";
-		}
-	
-	
-	
 	// ***************** End Admin Controller
 
 	// ************************ End of User Login And Registration
@@ -401,16 +431,16 @@ public class MainController {
 		if (timeRange != null && !timeRange.isEmpty()) {
 			switch (timeRange) {
 			case "past24hours":
-				jobPage = jobService.getJobsPostedPast24Hours(companyid, pageable);
+				jobPage = jobService.getJobsPostedPast24Hours(companyid, job, pageable);
 				break;
 			case "pastweek":
-				jobPage = jobService.getJobsPostedPastWeek(companyid, pageable);
+				jobPage = jobService.getJobsPostedPastWeek(companyid, job, pageable);
 				break;
 			case "pastmonth":
-				jobPage = jobService.getJobsPostedPastMonth(companyid, pageable);
+				jobPage = jobService.getJobsPostedPastMonth(companyid, job, pageable);
 				break;
 			default:
-				jobPage = jobService.findJobsByCompanyId(companyid, pageable);
+				jobPage = jobService.findJobByCompanyIdAndCriteria(companyid, job, pageable);
 			}
 		} else if (keyword != null && !keyword.isEmpty()) {
 			jobPage = jobService.jobSearchByCompanyId(companyid, keyword, pageable);
@@ -468,7 +498,8 @@ public class MainController {
 		model.addAttribute("position", position);
 
 		Pageable pageable = PageRequest.of(page, pageSize);
-		Page<Candidate> eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength, pageable);
+		Page<Candidate> eligibleCandidates = candidateService.findEligibleCandidates(positionid, minKeywordLength,
+				pageable);
 
 		model.addAttribute("listcandidate", eligibleCandidates);
 		model.addAttribute("currentPage", page);
@@ -477,7 +508,30 @@ public class MainController {
 		return "candidatelistfilters";
 	}
 
-	// filters for candidates on candidatelistfilters
+	// filters for candidates on candidate list filters
+//	@GetMapping("/candidatelistfilters/{positionid}/{minKeywordLength}")
+//	public String applyFiltersOnCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
+//			@RequestParam(required = false) String noofyearsworkex, @RequestParam(required = false) String workmode,
+//			@RequestParam(required = false) String joborinternship, @RequestParam(required = false) String search,
+//			Model model, @RequestParam(defaultValue = "0") int page) {
+//		int pageSize = 10;
+//		Job position = jobService.getJobbyId(positionid);
+//		model.addAttribute("position", position);
+//		Pageable pageable = PageRequest.of(page, pageSize);
+//		Page<Candidate> eligibleCandidates;
+//		if (!noofyearsworkex.isEmpty() || !workmode.isEmpty() || !joborinternship.isEmpty() || !search.isEmpty()) {
+//			eligibleCandidates = candidateService.findEligibleCandidates(positionid, minKeywordLength, noofyearsworkex,
+//					workmode, joborinternship, pageable);
+//			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search,
+//					pageable);
+//		} else {
+//			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search,
+//					pageable);
+//		}
+//		model.addAttribute("listcandidate", eligibleCandidates);
+//
+//		return "candidatelistfilters";
+//	}
 	@GetMapping("/candidatelistfilters/{positionid}/{minKeywordLength}")
 	public String applyFiltersOnCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
 			@RequestParam(required = false) String noofyearsworkex, @RequestParam(required = false) String workmode,
@@ -488,54 +542,19 @@ public class MainController {
 		model.addAttribute("position", position);
 		Pageable pageable = PageRequest.of(page, pageSize);
 		Page<Candidate> eligibleCandidates;
-		if (noofyearsworkex != null && !noofyearsworkex.isEmpty() || workmode != null && !workmode.isEmpty()
-				|| joborinternship != null && !joborinternship.isEmpty()) {
-			eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength, noofyearsworkex,
+
+		if (StringUtils.isNotBlank(noofyearsworkex) || StringUtils.isNotBlank(workmode)
+				|| StringUtils.isNotBlank(joborinternship)) {
+			eligibleCandidates = candidateService.findEligibleCandidates(positionid, minKeywordLength, noofyearsworkex,
 					workmode, joborinternship, pageable);
+		} else if (StringUtils.isNotBlank(search)) {
+			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search,
+					pageable);
 		} else {
 			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search,
 					pageable);
 		}
-		model.addAttribute("listcandidate", eligibleCandidates);
 
-		return "candidatelistfilters";
-	}
-
-	// map candidates to job on candidatelistfilters
-	@PostMapping("/mapcandidatetojob/{positionid}/{companyid}/{minKeywordLength}")
-	public String mapCandidatesToJob(@PathVariable int minKeywordLength, Model model,
-			@RequestParam("positionid") int positionid, @RequestParam("companyid") Long companyid,
-			@RequestParam("candidateids") List<Long> candidateids, @RequestParam(defaultValue = "0") int page) {
-
-		int pageSize = 10;
-		Job job = jobService.getJobbyId(positionid);
-		Company company = companyService.getCompanyByCompanyid(companyid);
-		Pageable pageable = PageRequest.of(page, pageSize);
-
-		List<Candidate> selectedCandidates = candidateService.getCandidatesByIds(candidateids);
-		List<Institute> selectedInstitutes = new ArrayList<>();
-
-		// Fetch the corresponding institutes based on the selected candidates
-		for (Candidate candidate : selectedCandidates) {
-			Institute institute = candidate.getInstitutename();
-			selectedInstitutes.add(institute);
-		}
-
-		for (int i = 0; i < selectedCandidates.size(); i++) {
-			Candidate candidate = selectedCandidates.get(i);
-			Institute institute = selectedInstitutes.get(i);
-
-			JobCandidate jobCandidate = new JobCandidate();
-			jobCandidate.setJob(job);
-			jobCandidate.setCompany(company);
-			jobCandidate.setCandidate(candidate);
-			jobCandidate.setInstitute(institute);
-			jobCandidateService.saveJobCandidate(jobCandidate);
-		}
-
-		Job position = jobService.getJobbyId(positionid);
-		model.addAttribute("position", position);
-		Page<Candidate> eligibleCandidates = jobService.findEligibleCandidates(positionid, minKeywordLength, pageable);
 		model.addAttribute("listcandidate", eligibleCandidates);
 
 		return "candidatelistfilters";
@@ -583,9 +602,73 @@ public class MainController {
 		model.addAttribute("totalPages", jobCandidatesPage.getTotalPages());
 	}
 
+	// controller to show profile of shortlisted candidate
+	@GetMapping("/candidate/{candidateid}/profile")
+	public String getCandidateProfile(@PathVariable Long candidateid, Model model) {
+		Candidate candidate = candidateService.getCandidateByCandidateid(candidateid);
+		model.addAttribute("candidate", candidate);
+		return "shortlistedcandidateprofile"; // Thymeleaf template name
+	}
 	// end
 
 	// ******************* JoblistFilters and CandidateListfilters and
 	// mappedcandidatelist Code (Rugwed patharkar , Chinmay wagh)
 	// *********************
+
+	// Positionlist Code (Tanmayi)
+	// start
+
+	///
+	@PostMapping("/savePosition")
+	public String savePosition(@ModelAttribute("job") Job job, RedirectAttributes redirectAttributes) {
+		jobService.savePosition(job);
+		redirectAttributes.addFlashAttribute("message", "Company added successfully!");
+		return ("redirect:/positionlist");
+	}
+
+	public String savePosition(@ModelAttribute("job") Job job) {
+		jobService.savePosition(job);
+		return ("redirect:/positionlist");
+	}
+
+	// @GetMapping("/jobopening")
+	@PreAuthorize("hasRole('HR')")
+	public String jobopening(Model model) {
+		Job job = new Job();
+		model.addAttribute("job", job);
+		return ("jobopening");
+	}
+
+	// List of positions
+	@GetMapping("/positionlist")
+	public String showPosition(Model model) {
+		model.addAttribute("listJob", jobService.getAllPositions());
+		return "positionlist";
+	}
+
+	// Update position
+	@GetMapping("/editPosition/{id}")
+	public String editPositionForm(@PathVariable("id") int id, Model model) {
+		Job job = jobService.getPositionById(id);
+		model.addAttribute("job", job);
+		return "editPosition";
+	}
+
+	@PostMapping("/updatePosition")
+	public String updatePosition(@ModelAttribute("job") Job job, RedirectAttributes redirectAttributes) {
+		jobService.savePosition(job);
+		redirectAttributes.addFlashAttribute("umessage", "Position updated successfully!");
+		return "redirect:/positionlist";
+	}
+
+	@GetMapping("/deletePosition/{id}")
+
+	public String deletePosition(@PathVariable(value = "id") int id, RedirectAttributes redirectAttributes) {
+		// call delete Position method
+
+		this.jobService.deletePositionById(id);
+		redirectAttributes.addFlashAttribute("dmessage", "Position deleted successfully!");
+		return "redirect:/positionlist";
+	}
+
 }
