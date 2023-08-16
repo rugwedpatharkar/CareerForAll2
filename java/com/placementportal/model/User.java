@@ -21,7 +21,8 @@ public class User {
 	private String password;
 	private String role;
 
-	// *******- join tables -**********
+	private String companyname;
+	private String institutename;
 
 	public int getId() {
 		return id;
@@ -63,10 +64,43 @@ public class User {
 		this.role = role;
 	}
 
+	public String getCompanyname() {
+		return companyname;
+	}
+
+	public void setCompanyname(String companyname) {
+		this.companyname = companyname;
+	}
+
+	public String getInstitutename() {
+		return institutename;
+	}
+
+	public void setInstitutename(String institutename) {
+		this.institutename = institutename;
+	}
+
+	public User(int id, String fullname, String email, String password, String role, String companyname,
+			String institutename) {
+		super();
+		this.id = id;
+		this.fullname = fullname;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+		this.companyname = companyname;
+		this.institutename = institutename;
+	}
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", fullname=" + fullname + ", email=" + email + ", password=" + password + ", role="
-				+ role + "]";
+				+ role + ", companyname=" + companyname + ", institutename=" + institutename + "]";
 	}
 
 }

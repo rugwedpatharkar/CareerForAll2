@@ -336,7 +336,20 @@ function validateEmail() {
 
 }
 
-//---------------
+//---------------------------------------------------
+//  company names dropdown at adminuser.html
+//
+//---------------------------------------------------
+var companies = /*[[ ${companiesJson} ]]*/ []; // JSON array of company names
+        
+        var select = document.getElementById('companyname');
+        for (var i = 0; i < companies.length; i++) {
+            var option = document.createElement('option');
+            option.value = companies[i];
+            option.text = companies[i];
+            select.appendChild(option);
+
+//---------------------------------------------------
 
  // Wait for the DOM to be fully loaded
         document.addEventListener("DOMContentLoaded", function() {
@@ -371,6 +384,7 @@ function validateEmail() {
 var res = 0;
 async function getAccessToken() {
   try {
+	  console.log("accesstoken");
     const response = await fetch('https://www.universal-tutorial.com/api/getaccesstoken', {
       headers: {
         'Accept': 'application/json',
@@ -1281,4 +1295,7 @@ function validateUserEmail() {
     return true;
   }
 }
+
+}
+
 }
