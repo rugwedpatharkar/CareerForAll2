@@ -342,7 +342,20 @@ function validateEmail() {
 
 }
 
-//---------------
+//---------------------------------------------------
+//  company names dropdown at adminuser.html
+//
+//---------------------------------------------------
+var companies = /*[[ ${companiesJson} ]]*/ []; // JSON array of company names
+        
+        var select = document.getElementById('companyname');
+        for (var i = 0; i < companies.length; i++) {
+            var option = document.createElement('option');
+            option.value = companies[i];
+            option.text = companies[i];
+            select.appendChild(option);
+
+//---------------------------------------------------
 
  // Wait for the DOM to be fully loaded
         document.addEventListener("DOMContentLoaded", function() {
@@ -1286,6 +1299,7 @@ function validateUserEmail() {
     userEmailError.style.display = "none";
     return true;
   }
+}
 }
 }//github.com/rugwedpatharkar/CareerForAll2.git
 //------------------End Of User Email Validation----------------

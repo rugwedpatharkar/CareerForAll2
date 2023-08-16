@@ -314,6 +314,35 @@ public class MainController {
 	// *************** ADMIN Controller **************************
 	
 	// Company Controllers
+	@GetMapping("/adminreg")
+	public String adminUser(Model model) {
+		model.addAttribute("user",  new User());
+		return "adminuser";
+	}
+	
+	@PostMapping("/adminreg")
+	public String adminReg(@ModelAttribute User user, HttpSession session) {
+		
+		userRepository.save(user);
+		
+		boolean u = userServiceImpl.checkEmail(user.getEmail());
+		if (u) {
+			System.out.println("Email id already exist");
+		} else {
+			System.out.println(user);
+			// password encryption
+			user.setPassword(bp.encode(user.getPassword()));
+			// user.setRole(user.getRole());
+
+			session.setAttribute("msg", "Registration  successfully!");
+			userRepository.save(user);
+		}
+
+		return "redirect:/adminhome?success";
+	}
+	
+	
+	
 		@PostMapping("/adminsaveCompany")
 		
 	    public String adminsaveCompany(@ModelAttribute("company") Company company, RedirectAttributes redirectAttributes) {
