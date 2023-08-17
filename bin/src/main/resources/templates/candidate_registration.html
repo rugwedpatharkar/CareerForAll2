@@ -48,7 +48,7 @@
 <!-- Iconscout Link For Icons -->
 <link rel="stylesheet"
 	href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-
+	
 </head>
 
 <body>
@@ -86,7 +86,7 @@
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2"></span>
-          </a><!-- End Profile Iamge Icon -->
+          </a><!-- End Profile Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
@@ -257,9 +257,10 @@
 
           <!--   Dynamic table  starts  here             -->
 
-          <h5 class="card-title">Educational Details</h5>
+          <h5 class="card-title required">Educational Details</h5>
   
          <div class="row mb-3">
+<input type="hidden" th:field="*{educationalDetailsJson}" id="educationalDetailsJson" name="educationalDetailsJson">         
   <table  style="font-size: 16px; font-family: Open Sans, sans-serif;">
     <thead>
       <tr>
@@ -303,7 +304,7 @@
             <label for="inputText" class="col-sm-2 col-form-label required" >Core Area / Primary Skills</label>
             <div class="col-sm-10">
               <input type="text" th:field="*{primaryskills}" id="primarySkills" name="primaryskills" class="form-control" required>
-              <div id="primarySkillError" class="invalid-feedback">invalid</div>
+              <div id="primarySkillError" class="invalid-feedback">Please enter valid primary skills</div>
                
             </div>
           </div>
@@ -312,7 +313,7 @@
             <label for="inputText" class="col-sm-2 col-form-label">Secondary Skills</label>
             <div class="col-sm-10">
               <input type="text" th:field="*{secondaryskills}" id="secondarySkills" name="secondaryskills" class="form-control">
-              <div id="secondarySkillError" class="invalid-feedback">invalid</div>
+              <div id="secondarySkillError" class="invalid-feedback">Please enter valid secondary skills</div>
             </div>
           </div>
 
@@ -455,10 +456,11 @@
 
           <div class="row mb-3">
             <div class="col-sm-10" style="text-align: center;margin-top:30px;">
-              <button type="submit" class="btn btn-primary" style=" margin-left: 50px;">Save</button>
+              <button type="submit" class="btn btn-primary" style=" margin-left: 50px;" onclick="submitForm()">Save</button>
               <button type="reset" class="btn btn-secondary">Clear</button>
             </div>
           </div>
+
 
         </form><!-- End General Form Elements -->
 
@@ -520,8 +522,8 @@ inp.setAttribute('spellcheck', 'false');//---------------spell check ends
 //--------------------validate Candidate name (with numbers)
 var nameInput = document.getElementById("candidateName");
 //Add an event listener to the name input field
-nameInput.addEventListener("input", validateCompayName);
-function validateCompayName() {
+nameInput.addEventListener("input", validateCandidateName);
+function validateCandidateName() {
 	//console.log("validate Candidate called");
  var name = document.getElementById("candidateName").value;
  var nameRegex =/^[a-zA-Z\ \s]*$/;
@@ -540,8 +542,8 @@ candidateNameError.style.display = "block";
 
 //--------------------validate Candidate Email 
 var emailInput = document.getElementById("candidateEmail");
-emailInput.addEventListener("input", validateCompayEmail);
-function validateCompayEmail() {
+emailInput.addEventListener("input", validateCandidateEmail);
+function validateCandidateEmail() {
 	//console.log("validate Candidate called");
  var email = document.getElementById("candidateEmail").value;
  var emailRegex =/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/;
@@ -557,7 +559,7 @@ candidateEmailError.style.display = "block";
 
 
 //---------------------------------validate CV UPload
-//Get the file input element
+
 const cvInput = document.getElementById('cvUpload');
 //Add an event listener to the file input element
 cvInput.addEventListener('change', (event) => {
@@ -780,11 +782,115 @@ function create_tr(table_id) {
 	  }
 	}//--------------------------------Dynamic table ends here
 
+<!--	
+	function submitForm() {
+	    // Collect educational details and create JSON object
+	    const educationalDetails = [];
+	    const rows = document.querySelectorAll("#table_body tr");
+	    
+	    // Start iterating from the second row (skipping the first row)
+	    for (let i = 1; i < rows.length; i++) {
+	        const row = rows[i];
+	        const course = row.querySelector("input[name='Course[]']").value;
+	        const institute = row.querySelector("input[name='Institute[]']").value;
+	        const university = row.querySelector("input[name='University[]']").value;
+	        const percentage = row.querySelector("input[name='Percentage[]']").value;
+	        
+	        if (!course || !institute || !university || !percentage) {
+	            alert("All fields in row " + (i + 1) + " are mandatory. Please fill in all values.");
+	            return; // Prevent form submission
+	        }
 
+	        educationalDetails.push({
+	            course: course,
+	            institute: institute,
+	            university: university,
+	            percentage: percentage
+	        });
+	    }
+
+	    // Set the JSON value to the hidden input
+	    const jsonInput = document.getElementById("educationalDetailsJson");
+	    jsonInput.value = JSON.stringify(educationalDetails);
+
+	    // Submit the form
+	    document.getElementById("onboarding").submit();
+	}
+	-->
+
+	function submitForm() {
+	    // Validate all required fields
+	    const requiredInputs = document.querySelectorAll('input[required], select[required]');
+	    let isValid = true;
+
+	    requiredInputs.forEach(input => {
+	        if (!input.value.trim()) {
+	            isValid = false;
+	            if (!firstInvalidInput) {
+	                firstInvalidInput = input;
+	            }
+	        }
+	    });
+	    if (!isValid) {
+	        // Display an alert message for the first invalid input field
+	        if (firstInvalidInput) {
+	            const fieldName = firstInvalidInput.getAttribute('name');
+	            const errorMessageId = `${fieldName}Error`;
+	            const errorMessageElement = document.getElementById(errorMessageId);
+	            
+	            if (errorMessageElement) {
+	                alert(errorMessageElement.textContent);
+	            } else {
+	                alert('Please fill in all required fields.');
+	            }
+	        }
+	        // Prevent form submission if any required field is empty
+	        return false;
+	    }
+
+	    // Call your existing validation functions for other fields
+	    if (!validateCandidateName() || !validateCandidateEmail() || !validatePrimarySkill() || !validateSecondarySkill() || !validateCtcVariable() || !validateCtcTotal()) {
+	        // Prevent form submission if any other validation fails
+	        return false;
+	    }
+    
+	    // Collect educational details and create JSON object
+	    const educationalDetails = [];
+	    const rows = document.querySelectorAll("#table_body tr");
+
+	    // ... (rest of your code to collect educational details)
+	    	    // Start iterating from the second row (skipping the first row)
+	    for (let i = 1; i < rows.length; i++) {
+	        const row = rows[i];
+	        const course = row.querySelector("input[name='Course[]']").value;
+	        const institute = row.querySelector("input[name='Institute[]']").value;
+	        const university = row.querySelector("input[name='University[]']").value;
+	        const percentage = row.querySelector("input[name='Percentage[]']").value;
+	        
+	        educationalDetails.push({
+	            course: course,
+	            institute: institute,
+	            university: university,
+	            percentage: percentage
+	        });
+	    }
+
+
+	    // Set the JSON value to the hidden input
+	    const jsonInput = document.getElementById("educationalDetailsJson");
+	    jsonInput.value = JSON.stringify(educationalDetails);
+
+	    // Submit the form
+	    document.getElementById("onboarding").submit();
+	}
+
+	
 
  </script>     
 	
 
 </body>
+
+
 
 </html>

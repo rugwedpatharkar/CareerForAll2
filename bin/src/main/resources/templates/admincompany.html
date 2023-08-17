@@ -40,7 +40,8 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
 <!-- Iconscout Link For Icons -->
-<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+<link rel="stylesheet"
+	href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
 </head>
 
@@ -50,7 +51,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
  <div class="d-flex align-items-center justify-content-between">
      <i class="bi bi-list toggle-sidebar-btn" style="margin-left:-10px;margin-right:10px"></i>
-      <a th:href="@{/index}" class="logo d-flex align-items-center">
+      <a href="/adminhome" class="logo d-flex align-items-center">
         <img src="/img/logo.png" alt="">
         <span class="d-none d-lg-block">Placement Portal</span>
       </a>
@@ -72,71 +73,120 @@
             <i class="bi bi-search"></i>
           </a>
         </li><!-- End Search Icon-->
+		
+		<!-- Profile Nav Bar -->
+		<li class="nav-item dropdown pe-3">
 
-        
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6><span th:text="${#authentication.name}"></span></h6>
+              <span>Web Designer</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/adminhome">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/adminaccountsetting">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a th:href=@{/logout} class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
 
           </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-      </ul>
-    </nav><!-- End Icons Navigation -->
+        </li>
+			<!-- End of Profile Nav Bar -->
+          
+          </ul>
+          
+    </nav>
+    <!-- End Icons Navigation -->
 
   </header><!-- End Header -->
 
   <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
-
-    
-    
-
     
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-journal-text"></i><span>Startups</span><i class="bi bi-chevron-down ms-auto"></i>
+        <i class="bi bi-journal-text"></i><span>Admin </span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
          
-         <ul>   
-          <li>
-            <a th:href="@{/startup_onboarding}">
-              <i class="bi bi-circle "></i><span>Onboarding</span>
+         <ul> 
+           <li>
+            <a th:href="@{/adminhome}">
+              <i class="bi bi-circle "></i><span>Admin Home</span>
             </a>
           </li>
+          
        	   <li>
-            <a th:href="@{/CompanyList}">
-              <i class="bi bi-circle"></i><span>Startup List</span>
+            <a th:href="@{/adminCompanyList}">
+              <i class="bi bi-circle"></i><span>Company List</span>
             </a>
           </li>
           <li>
-            <a th:href="@{/jobopening}">
+            <a th:href="@{/adminjobopening}">
               <i class="bi bi-circle"></i><span>Job Posting</span>
             </a>
           </li>
-          
            <li>
-            <a th:href="@{/joblist/{companyid}(companyid=1)}">
+            <a th:href="@{/adminjoblist/{companyid}(companyid=1)}">
               <i class="bi bi-circle"></i><span>Job List</span>
             </a>
-          </li>  
-          
+          </li> 
           </ul>
         </ul>
         </li>
-  
+ 
     </ul>
 
   </aside>
-
 
   <main id="main" class="main">
 <div class="pagetitle">
 
     <div class="pagetitle">
-      <h1>Startup</h1>
+      <h1>Company</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Update Startup Form</li>
+          <li class="breadcrumb-item">Admin Company Form</li>
         </ol>
       </nav>
     </div>
@@ -145,8 +195,7 @@
       <div class="card-body">
         <h5 class="card-title">Who's who!</h5>
         <!-- General Form Elements -->
-        
-        <form th:object="${company}" th:action="@{/updateCompany}"  action="#" class="search-form" id="updatestartup" name="updatestartup" method="POST" >
+        <form th:object="${company}" th:action="@{adminsaveCompany}"  action="#" class="search-form" id="onboarding" name="onboarding" method="POST" >
                             <div class="row mb-3">
                                 <label for="inputText" class="col-sm-2 col-form-label required">Company Name</label>
                                 <div class="col-sm-10">
@@ -158,9 +207,9 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="inputText" class="col-sm-2 col-form-label ">Brand Name</label>
+                                <label for="inputText" class="col-sm-2 col-form-label required">Brand Name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" th:field="*{brand_name}" class="form-control" id="brandName" name="brandName" >
+                                    <input type="text" th:field="*{brand_name}" class="form-control" id="brandName" name="brandName" required>
                                     <div id="brandNameError" class="invalid-feedback">
                                         Please enter a valid brand name.
                                     </div>
@@ -178,9 +227,12 @@
                             <div class="row mb-3">
                                 <label for="inputDate" class="col-sm-2 col-form-label required">Start Date</label>
                                 <div class="col-sm-10">
-                                    <input type="date" th:field="*{start_date}" class="form-control" id="startDate" pattern="\d{4}-\d{2}-\d{2}" required max="" value="{{ company.start_date }}">
+                                    <input type="date" th:field="*{start_date}" class="form-control" id="startDate" required max="">
                                 </div>
                             </div>
+                            
+                            
+                            
                      		 <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label required">Head Office - Country</label>
                                 <div class="col-sm-10">
@@ -261,9 +313,9 @@
 		                  </div>
 <!-- 		                  we can use JavaScript FileReader API to read the content of the file and display it in a new window or tab for the user to view or download. -->
 		                  <div class="row mb-3">
-							    <label for="inputNumber" class="col-sm-2 col-form-label ">Corporate Presentation</label>
+							    <label for="inputNumber" class="col-sm-2 col-form-label required">Corporate Presentation</label>
 							    <div class="col-sm-10">
-							        <input th:field="*{corporate_presentation}" class="form-control" type="file" id="presentation" name="presentation" accept=".pdf, .ppt, .pptx, .doc"  maxlength="2097152">
+							        <input th:field="*{corporate_presentation}" class="form-control" type="file" id="presentation" name="presentation" accept=".pdf, .ppt, .pptx, .doc" required maxlength="2097152">
 							        <small class="form-text text-muted">Maximum file size: 2 MB (.pdf,.ppt,.pptx,.doc allowed)</small>
 							        <div id="presentationSizeError" class="invalid-feedback">
                                         File size is too large. Maximum file size is 2 MB.
@@ -320,83 +372,28 @@
 		                  <div class="row mb-3">
 		                      <label class="col-sm-2 col-form-label required">Sector</label>
 		                      <div class="col-sm-10">
-		                         <select th:field="*{sector}" class="form-select" aria-label="Default select example" required>
-		                        	<option value="" disabled selected>-- Please select sector --</option>
-									<option value="1">IT</option>
-									<option value="2">Marketing</option>
-									<option value="3">Sales</option>
-									<option value="4">Operations</option>
-									<option value="5">Finance</option>
-									<option value="6">Human Resources (HR)</option>
-									<option value="8">Customer Service</option>
-									<option value="9">Supply Chain and Logistics</option>
-									<option value="10">Legal and Compliance</option>
-									<option value="7">Research and Development (R&D)</option>
-									<option value="11">Quality Assurance</option>
-									<option value="12">Public Relations (PR)</option>
-									<option value="13">Environmental, Social, and Governance (ESG)</option>
-									<option value="14">Administration</option>
-									<option value="15">Executive Management</option>
-		                        </select>
+		                          <select th:field="*{sector}" class="form-select" aria-label="Default select example" required>
+		                              <option value="" disabled selected>-- Please select sector --</option>
+		                              <option value="1">
+		                                  IT</option>
+		                              <option value="2">
+		                                  Marketing</option>
+		                              <option value="3">
+		                                  Sales</option>
+		                          </select>
 		                      </div>
 		                  </div>
 		                  <div class="row mb-3">
 		                      <label class="col-sm-2 col-form-label required">Industry</label>
 		                      <div class="col-sm-10">
 		                          <select th:field="*{industry}" class="form-select" aria-label="Default select example" required>
-		                            <option value="" disabled selected>-- Please select industry --</option>
-		                          	<option value="1">IT</option>
-									<option value="2">Business</option>
-								    <option value="3">Marketing</option>
-								    <option value="4">Technology</option>
-								    <option value="5">Finance</option>
-								    <option value="6">Healthcare</option>
-								    <option value="7">Manufacturing</option>
-								    <option value="8">Retail</option>
-								    <option value="9">Energy</option>
-								    <option value="10">Telecommunications</option>
-								    <option value="11">Automotive</option>
-								    <option value="12">Aerospace</option>
-								    <option value="13">Consumer Goods</option>
-								    <option value="14">Entertainment and Media</option>
-								    <option value="15">Hospitality and Tourism</option>
-								    <option value="16">Real Estate</option>
-								    <option value="17">Education</option>
-								    <option value="18">Pharmaceuticals</option>
-								    <option value="19">Transportation and Logistics</option>
-								    <option value="20">Construction</option>
-								    <option value="21">Chemicals</option>
-								    <option value="22">Environmental Services</option>
-								    <option value="23">Professional Services</option>
-								    <option value="24">Agriculture</option>
-								    <option value="25">Food and Beverage</option>
-								    <option value="26">Fashion and Apparel</option>
-								    <option value="27">Banking</option>
-								    <option value="28">Insurance</option>
-								    <option value="29">Biotechnology</option>
-								    <option value="30">Mining</option>
-								    <option value="31">Renewable Energy</option>
-								    <option value="32">E-commerce</option>
-								    <option value="33">Gaming</option>
-								    <option value="34">Music and Entertainment</option>
-								    <option value="35">Travel and Tourism</option>
-								    <option value="36">Internet Services</option>
-								    <option value="37">Architecture and Design</option>
-								    <option value="38">Healthcare Services</option>
-								    <option value="39">Software Development</option>
-								    <option value="40">Social Media</option>
-								    <option value="41">Robotics and Automation</option>
-								    <option value="42">Renewable Energy</option>
-								    <option value="43">Sports and Recreation</option>
-								    <option value="44">Advertising and Marketing</option>
-								    <option value="45">Pharmaceuticals</option>
-								    <option value="46">Nanotechnology</option>
-								    <option value="47">Nonprofit and Social Services</option>
-								    <option value="48">Consulting</option>
-								    <option value="49">Health and Fitness</option>
-								    <option value="50">Online Education</option>
-								    <option value="51">Sustainable Products</option>
-								    <option value="52">Virtual Reality</option>
+		                              <option value="" disabled selected>-- Please select industry --</option>
+		                              <option value="1">
+		                                  IT</option>
+		                              <option value="2">
+		                                  Business</option>
+		                              <option value="3">
+		                                  Marketing</option>
 		                          </select>
 		                      </div>
 		                  </div>
@@ -428,9 +425,9 @@
 		                      </div>
 		                  </div>
 		                  <div class="row mb-3">
-		                      <label for="inputText" class="col-sm-2 col-form-label ">Competitor</label>
+		                      <label for="inputText" class="col-sm-2 col-form-label required">Competitor</label>
 		                      <div class="col-sm-10">
-		                          <input type="text" th:field="*{competitor}" class="form-control" >
+		                          <input type="text" th:field="*{competitor}" class="form-control" required>
 		                      </div>
 		                  </div>
 		                  <h5 class="card-title">People Strategy</h5>
@@ -484,16 +481,10 @@
 		                          <input type="text" id="companyId" value="100" th:field="*{companyid}" class="form-control" readonly>
 		                      </div>
 		                  </div>
-		                  <div class="row mb-3">              
-<!--                   <div class="col-sm-10" style="text-align: center;margin-top:30px;"> -->
-<!--                     <button type="submit" class="btn btn-primary" style=" margin-left: 50px;">Save</button> -->
-<!--                     <button type="reset" class="btn btn-secondary" onclick="resetForm()">Clear</button> -->
-<!--                   </div> -->
-<!--                 </div> -->
 		                  <div class="d-flex justify-content-center mt-5">
-							 <button type="submit" class="btn btn-primary">save</button>
-							 <button type="submit" class="btn btn-secondary mx-5" id="resetform" onclick="resetform()">reset</button>
-						  </div>
+					 <button type="submit" class="btn btn-primary">Save</button>
+					  <button type="submit" class="btn btn-primary mx-5" id="resetForm" onclick="resetForm()">Reset</button>
+					</div>
                     </form><!-- End General Form Elements --><!-- End General Form Elements -->
                     <br>
 
