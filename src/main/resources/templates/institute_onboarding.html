@@ -232,7 +232,7 @@
             <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label required">Start Date</label>
               <div class="col-sm-10">
-                <input type="date" th:field="*{startdate}"  class="form-control" required>
+                <input type="date" th:field="*{startdate}"  class="form-control" id="startDate" required>
               </div>
             </div>
 
@@ -691,22 +691,34 @@
 	<script th:src="@{/js/main.js}"></script>
 	
 	
-	            <script>
+	  <script>
           //--------------------validate Institute name (with numbers)
             var nameInput = document.getElementById("instituteName");
-            nameInput.addEventListener("input", validateInstituteName);
-            function validateInstituteName() {
-             var name = document.getElementById("instituteName").value;
-             var nameRegex =/^[A-Za-z0-9\s\-()&.,']+$/;
-             var instituteNameError = document.getElementById("instituteNameError");
-             if (!nameRegex.test(name)) {
-            instituteNameError.style.display = "block";
-               return false;
-             } else {
-            instituteNameError.style.display = "none";
-               return true;
-             }
-            }//-----------------------------end of validate Candidate name       
+			if (nameInput !== null) {
+			  // Add an event listener to the name input field
+			  nameInput.addEventListener("input", validateInstituteName);
+			
+			  function validateInstituteName() {
+			    var name = nameInput.value;
+			    var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+(([',. -][a-zA-Z ])?[a-zA-Z0-9]*)*$/;
+			    var instituteNameError = document.getElementById("instituteNameError");
+			    
+			    if (name.trim() === '') {
+			      instituteNameError.style.display = "none"; // Hide error when field is empty
+			      return true; // No error when field is empty
+			    }
+			    
+			    if (!nameRegex.test(name)) {
+			      instituteNameError.style.display = "block";
+			      return false;
+			    } else {
+			      instituteNameError.style.display = "none";
+			      return true;
+			    }
+			  }
+			}
+          
+            //-----------------------------end of validate institute name       
             
             //--------------------validate brand name (with numbers)
             var nameInput = document.getElementById("brandName");
@@ -880,6 +892,17 @@
                 }
             }
             //-------------------------------end of validate No. of Campuses
+            
+            
+//future date validation---------------
+ // Get the current date in the format yyyy-mm-dd
+  const currentDate = new Date().toISOString().split('T')[0];
+  // Set the max attribute of the input element to the current date
+  var startdate = document.querySelector('#startDate');
+  if(startdate !== null){
+	startdate.setAttribute('max', currentDate);  
+  }
+//end of future date validation----------
         	
             </script>
 	
