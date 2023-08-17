@@ -313,17 +313,24 @@ public class MainController {
 	// Admin-Company Controllers
 
 	@GetMapping("/adminreg")
-	public String adminUser(Model model) {
-		model.addAttribute("user", new User());
+	public String adminUser() {
+		
 		return "adminuser";
 	}
 
 	@PostMapping("/adminreg")
-	public String adminReg(@ModelAttribute User user, HttpSession session) {
-
-		userRepository.save(user);
+	public String adminReg(@ModelAttribute User user, Model model,HttpSession session) {
 
 		boolean u = userServiceImpl.checkEmail(user.getEmail());
+		// Companies
+		List<Company> companies = companyService.getAllCompanies();
+		model.addAttribute("companies", companies);
+		
+		//Institutes
+		List<Institute> institutes = instituteService.getAllInstitute();
+		model.addAttribute("institutes", institutes);
+		
+		model.addAttribute("user", new User());
 		if (u) {
 			System.out.println("Email id already exist");
 		} else {
@@ -336,6 +343,14 @@ public class MainController {
 			userRepository.save(user);
 		}
 
+//		User user = userServiceImpl.getUserById(userId);
+//        if ("HR".equals(user.getRole())) {
+//            company.setHrUser(user);
+//            return companyService.addCompany(company);
+//        } else {
+//            throw new RuntimeException("Only HR users can add companies.");
+//        }
+		
 		return "redirect:/adminhome?success";
 	}
 
