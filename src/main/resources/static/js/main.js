@@ -931,8 +931,8 @@ if(startupUpdateform !== null){
  //---------------------------------------------------end of Startup Onboarding & Startup List JS-------------------------------------
  */
 //----------institute----------
+
 //--------------------validate Institute name (with numbers)
-          
 			var nameInput = document.getElementById("instituteName");
 				if (nameInput !== null) {
 						//console.log("iname");
@@ -960,7 +960,6 @@ if(startupUpdateform !== null){
 			}
           
             //-----------------------------end of validate institute name       
-            
             //validate Brand name (with numbers)-------
 			var nameInput = document.getElementById("brandName");
 			if(nameInput !== null){
@@ -986,8 +985,6 @@ if(startupUpdateform !== null){
 			}
 			}
 			//end of validate Brand name--------
-           
-     		
             //--------------------validate Institute Email 
             var emailInput = document.getElementById("instituteEmail");
             if(emailInput !== null){
