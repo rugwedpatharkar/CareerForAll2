@@ -172,9 +172,9 @@
           <!-- General Form Elements -->
           <form th:object="${institute}" th:action="@{/updateInstitute}"  action="#" class="search-form" id="onboarding" name="onboarding" method="POST">
             <div class="row mb-3">
-              <label for="inputText" class="col-sm-2 col-form-label required">Institute Name (registerted)</label>
+              <label for="inputText" class="col-sm-2 col-form-label required">Institute Name (registered)</label>
               <div class="col-sm-10">
-                <input type="text" th:field="*{institutename}" class="form-control" id="instituteName" required>
+                <input type="text" th:field="*{institutename}" class="form-control" id="instituteName" name="instituteName" required>
                 <div id="instituteNameError" class="invalid-feedback">
                    Please enter a valid institute name.
                 </div>              
@@ -203,10 +203,10 @@
           </div>
              
             
-            <div class="row mb-3">
+           <div class="row mb-3">
               <label for="inputPassword" class="col-sm-2 col-form-label required">Start Date</label>
               <div class="col-sm-10">
-                <input type="date" th:field="*{startdate}"  class="form-control" required>
+                <input type="date" th:field="*{startdate}"  class="form-control" id="startDate" required>
               </div>
             </div>
 
@@ -659,40 +659,65 @@
 	<script th:src="@{/js/main.js}"></script>
 	
 	
-	            <script>
-          //--------------------validate Institute name (with numbers)
-            var nameInput = document.getElementById("instituteName");
-            nameInput.addEventListener("input", validateInstituteName);
-            function validateInstituteName() {
-             var name = document.getElementById("instituteName").value;
-             var nameRegex =/^[A-Za-z0-9\s\-()&.,']+$/;
-             var instituteNameError = document.getElementById("instituteNameError");
-             if (!nameRegex.test(name)) {
-            instituteNameError.style.display = "block";
-               return false;
-             } else {
-            instituteNameError.style.display = "none";
-               return true;
-             }
-            }//-----------------------------end of validate Candidate name       
+	<script>
+           //--------------------validate Institute name (with numbers)
+          
+			var nameInput = document.getElementById("instituteName");
+				if (nameInput !== null) {
+						console.log("iname");
+					  // Add an event listener to the name input field
+					  nameInput.addEventListener("input", validateInstituteName);
+					
+					  function validateInstituteName() {
+						    var name = document.getElementById("instituteName").value;
+						    var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+(([',. -][a-zA-Z ])?[a-zA-Z0-9]*)*$/;
+						    var instituteNameError = document.getElementById("instituteNameError");
+						    
+						    if (name.trim() === '') {
+						      instituteNameError.style.display = "none"; // Hide error when field is empty
+						      return true; // No error when field is empty
+						    }
+						    
+						    if (!nameRegex.test(name)) {
+						      instituteNameError.style.display = "block";
+						      return false;
+						    } else {
+						      instituteNameError.style.display = "none";
+						      return true;
+					    }
+				  }
+			}
+          
+            //-----------------------------end of validate institute name       
             
-            //--------------------validate brand name (with numbers)
-            var nameInput = document.getElementById("brandName");
-            nameInput.addEventListener("input", validateBrandName);
-            function validateBrandName() {
-             var name = document.getElementById("brandName").value;
-             var nameRegex =/^[A-Za-z0-9\s\-()&.,'!]{2,100}$/;
-             var instituteNameError = document.getElementById("brandNameError");
-             if (!nameRegex.test(name)) {
-            	 brandNameError.style.display = "block";
-               return false;
-             } else {
-            	 brandNameError.style.display = "none";
-               return true;
-             }
-            }//-----------------------------end of validate brand name        
-
-     
+            //validate Brand name (with numbers)-------
+			var nameInput = document.getElementById("brandName");
+			if(nameInput !== null){
+			console.log("bname");
+				// Add an event listener to the name input field
+			nameInput.addEventListener("input", validateBrandName);
+			
+			function validateBrandName() {
+				//console.log("validate brandname called");
+			  var name = document.getElementById("brandName").value;
+			  var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+(([',. -][a-zA-Z ])?[a-zA-Z0-9]*)*$/;
+			  var brandNameError = document.getElementById("brandNameError");
+			  if (name.trim() === '') {
+			      brandNameError.style.display = "none"; // Hide error when field is empty
+			      return true; // No error when field is empty
+			    }
+			  if (!nameRegex.test(name)) {
+			    brandNameError.style.display = "block";
+			    return false;
+			  } else {
+				brandNameError.style.display = "none";
+			    return true;
+			  }
+			}
+			}
+			//end of validate Brand name--------
+           
+     		
             //--------------------validate Institute Email 
             var emailInput = document.getElementById("instituteEmail");
             emailInput.addEventListener("input", validateInstituteEmail);
@@ -700,7 +725,10 @@
              var email = document.getElementById("instituteEmail").value;
              var emailRegex =/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/;
              var instituteEmailError = document.getElementById("instituteEmailError");
-             if (!emailRegex.test(email)) {
+             if (email === "") {
+			    instituteEmailError.style.display = "none"; // Hide the error message if the field is empty
+			    return true;
+			 } else if (!emailRegex.test(email)) {
             	 instituteEmailError.style.display = "block";
                return false;
              } else {
@@ -709,8 +737,15 @@
              }
             }//-----------------------------end of validate Institute Email
             
-            
-                       
+            //future date validation---------------
+			 // Get the current date in the format yyyy-mm-dd
+			  const currentDate = new Date().toISOString().split('T')[0];
+			  // Set the max attribute of the input element to the current date
+			  var startdate = document.querySelector('#startDate');
+			  if(startdate !== null){
+				startdate.setAttribute('max', currentDate);  
+			  }
+			//end of future date validation----------                                 
             //--------------------validate other campus city name
             var nameInput = document.getElementById("otherCampuscity");
             nameInput.addEventListener("input", validateCampusCity);
