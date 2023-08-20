@@ -2,6 +2,7 @@ package com.placementportal.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -90,7 +91,9 @@ public class MainController {
 
 	@GetMapping("/jobopening")
 	@PreAuthorize("hasRole('HR')")
-	public ModelAndView jobopening() {
+	public ModelAndView jobopening1(Model model) {
+		List<Company> company = companyService.getAllCompanies();
+		model.addAttribute("company", company);
 		ModelAndView mav = new ModelAndView("jobopening");
 		return mav;
 	}
@@ -546,6 +549,47 @@ public class MainController {
 					pageable);
 		}
 
+		model.addAttribute("listcandidate", eligibleCandidates);
+
+		return "candidatelistfilters";
+	}
+
+	// map candidates to job on candidatelistfilters
+	@PostMapping("/mapcandidatetojob/{positionid}/{companyid}/{minKeywordLength}")
+	public String mapCandidatesToJob(@PathVariable int minKeywordLength, Model model,
+			@RequestParam("positionid") int positionid, @RequestParam("companyid") Long companyid,
+			@RequestParam("candidateids") List<Long> candidateids, @RequestParam(defaultValue = "0") int page) {
+
+		int pageSize = 10;
+		Job job = jobService.getJobbyId(positionid);
+		Company company = companyService.getCompanyByCompanyid(companyid);
+		Pageable pageable = PageRequest.of(page, pageSize);
+
+		List<Candidate> selectedCandidates = candidateService.getCandidatesByIds(candidateids);
+		List<Institute> selectedInstitutes = new ArrayList<>();
+
+		// Fetch the corresponding institutes based on the selected candidates
+		for (Candidate candidate : selectedCandidates) {
+			Institute institute = candidate.getInstitutename();
+			selectedInstitutes.add(institute);
+		}
+
+		for (int i = 0; i < selectedCandidates.size(); i++) {
+			Candidate candidate = selectedCandidates.get(i);
+			Institute institute = selectedInstitutes.get(i);
+
+			JobCandidate jobCandidate = new JobCandidate();
+			jobCandidate.setJob(job);
+			jobCandidate.setCompany(company);
+			jobCandidate.setCandidate(candidate);
+			jobCandidate.setInstitute(institute);
+			jobCandidateService.saveJobCandidate(jobCandidate);
+		}
+
+		Job position = jobService.getJobbyId(positionid);
+		model.addAttribute("position", position);
+		Page<Candidate> eligibleCandidates = candidateService.findEligibleCandidates(positionid, minKeywordLength,
+				pageable);
 		model.addAttribute("listcandidate", eligibleCandidates);
 
 		return "candidatelistfilters";

@@ -181,87 +181,274 @@
 
   </aside>
 
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Institute</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">Candidate Form</li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Matching the Best</h5>
+
+
+        <!-- General Form Elements -->
+        
+
+<form th:object="${candidate}" th:action="@{/updateCandidate}"  action="#" class="search-form" id="updatecandidate" name="updatecandidate" method="POST">
+    
+          <div class="row mb-3">
+            <label for="inputText" class="col-sm-2 col-form-label required">Candidate Name</label>
+            <div class="col-sm-10">
+              <input type="text" th:value="${candidate.candidatename}" id="candidateName" name="candidatename" class="form-control " spellcheck="false" readonly>            
+              <div id="candidateNameError" class="invalid-feedback">
+                Please enter a valid candidate name.
+              </div>           
+            </div>
+          </div>
+          
+           <div class="row mb-3">
+            <label for="inputText" class="col-sm-2 col-form-label required">Email</label>
+            <div class="col-sm-10">
+              <input type="email" th:value="${candidate.email}" name="email" id="candidateEmail" class="form-control " spellcheck="false" readonly>            
+              <div id="candidateEmailError" class="invalid-feedback">
+                Please enter a valid candidate Email.
+              </div>           
+            </div>
+          </div>
+ 
+
+          <div class="row mb-3">
+            <label for="inputEmail" class="col-sm-2 col-form-label">CV Upload</label>
+            <div class="col-lx-3 col-lg-3 label"style="width:250px;font-weight:600"><a class="btn btn-primary"
+              th:href="@{/cvdownload/{candidateid}(candidateid=${candidate.candidateid})}"
+              style="height:30px;  padding-top: 2px; font-size: 16px;">CV Download</a></div>
+          </div>
+          
+          
+
+          <div class="row mb-3">
+            <label for="fileUpload" class="col-sm-2 col-form-label">Any other relevant information</label>
+            <div class="col-lx-3 col-lg-3 label"style="width:250px;font-weight:600"><a class="btn btn-primary"
+              th:href="@{/cvdownload/{candidateid}(candidateid=${candidate.candidateid})}"
+              style=" height:30px;  padding-top: 2px; font-size: 16px;">Download other Files</a></div>
+          </div>
+          
+
+
+          <!--   Dynamic table  starts  here             -->
+         
+
+
+          <h5 class="card-title required">Educational Details</h5>
+  
+         <div class="row mb-3">
+<input type="hidden"  id="educationalDetailsJson" name="educationalDetailsJson">         
+  <table  style="font-size: 16px; font-family: Open Sans, sans-serif;">
+    <thead>
+      <tr>
+        <th>Course</th>
+        <th>Institute</th>
+        <th>University</th>
+        <th>Percentage</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="table_body">
+      <tr>
+        <td>
+          <input type="text" name="Course[]" class="form-control" placeholder="Enter Course Name" style="font-size:0.9rem; color:black;">
+        </td>
+        <td>
+          <input type="text" name="Institute[]" class="form-control" placeholder="Enter Institute Name" style="font-size:0.9rem;">
+        </td>
+        <td>
+          <input type="text" name="University[]" class="form-control" placeholder="Enter University Name" style="font-size:0.9rem;">
+        </td>
+        <td>
+          <input type="text" name="Percentage[]" class="form-control" placeholder="Enter Percentage Here" style="font-size:0.9rem;">
+        </td>
+        <td>
+          <div class="action_container">
+            <button class="btn btn-primary" style="height: 32px; text-align: center; padding-top: 3px;" onclick="create_tr('table_body')">ADD</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
   
 
- <main id="main" class="main">
 
-   <div class="pagetitle">
-			<h1>Company Name</h1>
-			<nav>
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item">Filter Job List </li>
-					<li class="breadcrumb-item">Filter Candidate List</li>
-				    <li class="breadcrumb-item active">List of Shortlisted Candidates</li>
-					<li class="breadcrumb-item active">Profile of Shortlisted Candidates</li>
-				</ol>
-			</nav>
-		</div>
 
-    
-    <section class="section">
-		<div class="card info-card customers-card">
-				<div class="card-body"style="margin:10px 0 -15px 0">
+          <h5 class="card-title">Do it Right the First Time !</h5>
 
-					<div class="row">
-            <div class="tab-pane fade show active profile-overview">
-				<h5 class="card-title"style="padding:0 0 0 0;margin:0 0 0 12px "th:text="${candidate.candidatename}"></h5>
-			   
-            
-							<div class="row">
-								<div class="col-lx-3 col-lg-3 label "style="width:250px;font-weight:600">Email :</div>
-                <div class="col-lx-3 col-lg-3" th:text="${candidate.email}"></div>	
-                <div class="col-lx-3 col-lg-3 label"style="width:250px;font-weight:600">gender :</div>
-								<div class="col-lx-3 col-lg-3" th:text="${candidate.gender}"></div>				
-							</div>
-							
-							<div class="row">
-								<div class="col-lx-3 col-lg-3 label"style="width:250px;font-weight:600">Primary Skills :</div>
-								<div class="col-lx-3 col-lg-3" th:text="${candidate.primaryskills}"></div>
-								<div class="col-lx-3 col-lg-3 label"style="width:250px;font-weight:600">Secondary Skills :</div>
-								<div class="col-lx-3 col-lg-3" th:text="${candidate.secondaryskills}"></div>
-							</div>
-						
-							
-							<div class="row">
-								<div class="col-lx-3 col-lg-3 label"style="width:250px;font-weight:600">Preffered Work Mode :</div>
-								<div class="col-lx-3 col-lg-3" th:text="${candidate.workmode}"></div>
-								<div class="col-lx-3 col-lg-3 label"style="width:250px;font-weight:600">Preffered Job Type :</div>
-								<div class="col-lx-3 col-lg-3" th:text="${candidate.joborinternship}"></div>
-							</div>
-							
-						<div class="row">
-								<div class="col-lx-3 col-lg-3 label"style="width:250px;font-weight:600">Candidate City :</div>
-								<div class="col-lx-3 col-lg-3" th:text="${candidate.candidatecity}"></div>
-								<div class="col-lx-3 col-lg-3 label"style="width:250px;font-weight:600">IC or Manager :</div>
-								<div class="col-lx-3 col-lg-3" th:text="${candidate.icormanager}"></div>
-							</div>
-							
-							<div class="row">
-								<div class="col-lx-3 col-lg-3 label"style="width:250px;font-weight:600">CTC :</div>
-								<div class="col-lx-3 col-lg-3" th:text="${candidate.ctcfixed}"></div>
-								<div class="col-lx-3 col-lg-3 label"style="width:250px;font-weight:600">CTC Variable :</div>
-								<div class="col-lx-3 col-lg-3" th:text="${candidate.ctcvariable}"></div>
-							</div>
-							<div class="row">
-								<div class="col-lx-3 col-lg-3 label"style="width:250px;font-weight:600">CTC Total :</div>
-								<div class="col-lx-3 col-lg-3" th:text="${candidate.ctctotal}"></div>
-							</div>
-							<div class="row">
-								<div class="col-lx-3 col-lg-3 label"style="width:250px;font-weight:600"><a class="btn btn-primary"
-                    th:href="@{/cvdownload/{candidateid}(candidateid=${candidate.candidateid})}"
-                    style="height:30px;  padding-top: 2px; font-size: 16px;">CV Download</a></div>
-								<div class="col-lx-3 col-lg-3 label"style="width:250px;font-weight:600"><a class="btn btn-primary"
-                    th:href="@{/cvdownload/{candidateid}(candidateid=${candidate.candidateid})}"
-                    style=" height:30px;  padding-top: 2px; font-size: 16px;">Download other Files</a></div>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-      
-    </section>
-  </main><!-- End #main -->
+          <div class="row mb-3">
+            <label for="inputText" class="col-sm-2 col-form-label required" >Core Area / Primary Skills</label>
+            <div class="col-sm-10">
+              <input type="text"  id="primarySkills" name="primaryskills" class="form-control" required>
+              <div id="primarySkillError" class="invalid-feedback">Please enter valid primary skills</div>
+               
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <label for="inputText" class="col-sm-2 col-form-label">Secondary Skills</label>
+            <div class="col-sm-10">
+              <input type="text"  id="secondarySkills" name="secondaryskills" class="form-control">
+              <div id="secondarySkillError" class="invalid-feedback">Please enter valid secondary skills</div>
+            </div>
+          </div>
+
+          <fieldset class="row mb-3" >
+            <legend class="col-form-label col-sm-2 pt-0 required">Experience</legend>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input"  name="experience" type="radio"  id="gridRadios1" value="Yes" checked required>
+                <label class="form-check-label" for="gridRadios1">
+                  Yes
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" name="experience" type="radio"  id="gridRadios2" value="No" required>
+                <label class="form-check-label" for="gridRadios2">
+                  No
+                </label>
+              </div>
+            </div>
+          </fieldset>
+
+
+          <div class="row mb-3">
+            <label for="inputText" class="col-sm-2 col-form-label required" >No. of Years of Work-Experience</label>
+            <div class="col-sm-10">
+              <input type="number"  name="noofyearsworkex" class="form-control" min="0" max="55" value="0" required >
+            </div>
+          </div>
+
+
+          <div class="row mb-3">
+            <label for="inputDate" class="col-sm-2 col-form-label required" >Work Mode</label>
+            <div class="col-sm-10">
+              <select class="form-select" name="workmode" aria-label="Default select example" required>
+                <option value="" selected>-- select Work Mode --</option>
+                <option value="Work From Home">Work From Home</option>
+                <option value="Work From Office">Work From Office</option>
+                <option value="Hybrid">Hybrid</option>
+                      
+                      
+              </select>
+            </div>
+          </div>
+
+          
+          <fieldset class="row mb-3">
+                  <legend class="col-form-label col-sm-2 pt-0 required" >Gender</legend>
+                  <div class="col-sm-10">
+                    <div class="form-check">
+                      <input class="form-check-input" th:value="${candidate.gender}"  type="radio" >
+                     
+                    </div>
+                  </div>
+                  </fieldset>
+
+          <div class="row mb-3">
+            <label for="inputDate" class="col-sm-2 col-form-label required" >Candidate City</label>
+            <div class="col-sm-10">
+              <select  name="candidatecity" class="form-select" aria-label="Default select example" required>
+                <option value="" selected>-- select Candidate City --</option>
+                <option value="Local">Local</option>
+                <option value="Other City">Other City</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <label for="inputDate" class="col-sm-2 col-form-label">IC or Manager</label>
+            <div class="col-sm-10">
+              <select  name="icormanager" class="form-select" aria-label="Default select example">
+                <option value="" selected>-- select IC / Manager --</option>
+                <option value="IC">IC</option>
+                <option value="Manager">Manager</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <label for="inputDate" class="col-sm-2 col-form-label required" >Interested in Job / Internship</label>
+            <div class="col-sm-10">
+              <select  name="joborinternship" class="form-select" aria-label="Default select example" required>
+                <option value=""  selected>--select Job / Internship --</option>
+                <option value="Job">Job</option>
+                <option value="Internship">Internship</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <label for="inputText" class="col-sm-2 col-form-label required" >Institute Name</label>
+           
+          </div>
+
+          <h5 class="card-title">Expectations (only for Laterals)</h5>
+          <div class="row mb-3">
+            <label for="inputDate" class="col-sm-2 col-form-label">CTC Fixed (INR LPA)</label>
+            <div class="col-sm-10">
+              <select  name="ctcfixed" class="form-select" aria-label="Default select example">
+                <option value=""  selected>--select CTC Fixed (INR LPA) --</option>
+                <option value="2 LPA to 4 LPA">2 LPA to 4 LPA</option>
+                <option value="5 LPA to 10 LPA">5 LPA to 10 LPA</option>
+                <option value="12 LPA to 25 LPA">12 LPA to 25 LPA</option>
+                <option value="25 LPA and above">25 LPA and above</option>
+              </select>
+            </div>
+          </div>
+
+
+
+          <div class="row mb-3">
+            <label for="inputText" class="col-sm-2 col-form-label"> CTC Variable (INR LPA)</label>
+            <div class="col-sm-10">
+              <input  type="text" id="ctcVariable" name="ctcvariable" class="form-control" >
+              <div id="ctcVariableError" class="invalid-feedback">invalid</div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <label for="inputText" class="col-sm-2 col-form-label">CTC Total (INR LPA)</label>
+            <div class="col-sm-10">
+              <input  name="ctctotal" type="text" id="ctcTotal" class="form-control" >
+              <div id="ctcTotalError" class="invalid-feedback">invalid</div>
+            </div>
+          </div>
+
+		    <div class="row mb-3 d-none"><!-- to hide field d-none -->
+		        <label for="inputPassword" class="col-sm-2 col-form-label required">CandidateID</label>
+		        <div class="col-sm-10">
+		            <input type="text" id="candidateId"   class="form-control" readonly>
+		        </div>
+		    </div>
+		    <div class="row mb-3 d-none"><!-- to hide field d-none -->
+		        <label for="inputPassword" class="col-sm-2 col-form-label required">CandidateID</label>
+		        <div class="col-sm-10">
+		            <input type="text" id="candidateId"  class="form-control" readonly>
+		        </div>
+		    </div>
+
+        
+
+
+        </form><!-- End General Form Elements -->
+
+      </div>
+    </div>
+
+  </main>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -300,96 +487,5 @@
 	<script th:src="@{/js/main.js}"></script>
 
 </body>
-<style>
-	.card-body{
-		font-size:16px
-	}
-  .form-check-label {
-    display: inline;
-  }
-  
-  .col-form-label {
-    width: 100%;
-  }
-  
-  .single-row{
-    width: 100%;
-    clear: both;
-  }
- 
-  .single-column{
-    width: 50%;
-    float:left;
-  }
 
-  .single-column input{
-    width: 90;
-  }
-
-  .single-row {
-    margin: 0 0 0 0;
-    padding: 6px 0 6px 0;
-  }
-  
-  .label {
-    width: 24%;
-    display: inline;
-  }
-
-
-  .col-md-8 {
-    width: 100%;
-  }
-  
-  select {
-    display: inline;
-    cursor: pointer;
-  }
-
-  
-  .col-sm-10 {
-    display: inline;
-    width: 100%;
-   }
-
-
-
-
-
-/* Add the following CSS styles to your stylesheet */
-.pagination {
-    display: flex;
-    justify-content: center;
-}
-
-.page-item {
-    display: inline-block;
-    margin-right: 5px;
-}
-
-.page-item.disabled {
-    pointer-events: none;
-    opacity: 0.5;
-}
-
-.page-item a {
-    display: block;
-    padding: 8px 12px;
-    background-color: #f2f2f2;
-    text-decoration: none;
-    color: #333;
-    border: 1px solid #ccc;
-}
-
-.page-item.active a {
-    background-color: #007bff;
-    color: #fff;
-    border: 1px solid #007bff;
-}
-.row{
-	width:100%;
-	margin:15px 0 15px 0;
-	padding:0 0 0 0;
-}
-  </style>
 </html>
