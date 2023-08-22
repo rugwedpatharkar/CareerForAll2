@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.com">
 <style>
 	.card-body{
-		font-size:12px
+		font-size:10px
 	}
   .form-check-label {
     display: inline;
@@ -363,8 +363,8 @@
 	 		          <div class="single-row" >
 				           <div class="col-sm-10">
 							   
-    	                <input type="submit" value="Apply" class="btn btn-success"  form="jobfilter" style="width:60px; height:25px;  padding-top: 2px; font-size: 12px">
-								<a type="reset" th:href="@{/joblist/{companyid}(companyid=3)}" class="btn btn-primary"style="width:60px; height:25px;  padding-top: 2px; font-size: 12px">Reset</a> 
+    	                <input type="submit" value="Apply" class="btn btn-success"  form="jobfilter" style=" font-size: 10px">
+								<a type="reset" th:href="@{/joblist/{companyid}(companyid=3)}" class="btn btn-primary"style=" font-size: 10px">Reset</a> 
 			          </div>
 						</div>
 						
@@ -392,7 +392,7 @@
         <tr th:each="j : ${listJob}">
              <td>
 			 <a th:href="@{/eligiblecandidates/{positionid}/{minKeywordLength}(positionid=${j.positionid}, minKeywordLength=3)}">
-                     <div  style="text-decoration: underline;font-size:13px" th:text="${j.position}"></div>
+                     <div  style="text-decoration: underline;color:blue" th:text="${j.position}"></div>
              </a>
         	</td>
             <td th:text="${j.positiontype}"></td>
