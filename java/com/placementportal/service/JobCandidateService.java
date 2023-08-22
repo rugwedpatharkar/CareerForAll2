@@ -3,8 +3,6 @@ package com.placementportal.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,8 +27,8 @@ public class JobCandidateService {
 		return jobCandidateRepository.save(jobCandidate);
 	}
 
-	public Page<JobCandidate> getJobCandidatesByCompanyAndJob(Company company, Job job, Pageable pageable) {
-		return jobCandidateRepository.findByCompanyAndJob(company, job, pageable);
+	public List<JobCandidate> getJobCandidatesByCompanyAndJob(Company company, Job job) {
+		return jobCandidateRepository.findByCompanyAndJob(company, job);
 	}
 
 	@Transactional

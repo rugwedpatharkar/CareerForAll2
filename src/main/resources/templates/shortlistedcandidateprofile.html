@@ -117,7 +117,7 @@
           </li>
           
             <li>
-            <a th:href="@{/joblist/{companyid}(companyid=1)}">
+            <a th:href="@{/joblist/{companyid}(companyid=3)}">
               <i class="bi bi-circle"></i><span>Job List</span>
             </a>
           </li>  
@@ -200,12 +200,11 @@
         <!-- General Form Elements -->
         
 
-<form th:object="${candidate}" th:action="@{/updateCandidate}"  action="#" class="search-form" id="updatecandidate" name="updatecandidate" method="POST">
     
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label required">Candidate Name</label>
             <div class="col-sm-10">
-              <input type="text" th:value="${candidate.candidatename}" id="candidateName" name="candidatename" class="form-control " spellcheck="false" readonly>            
+              <input type="text" th:value="${candidate.candidatename}" id="candidateName" name="candidatename" class="form-control "  readonly>            
               <div id="candidateNameError" class="invalid-feedback">
                 Please enter a valid candidate name.
               </div>           
@@ -215,7 +214,7 @@
            <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label required">Email</label>
             <div class="col-sm-10">
-              <input type="email" th:value="${candidate.email}" name="email" id="candidateEmail" class="form-control " spellcheck="false" readonly>            
+              <input type="email" th:value="${candidate.email}" name="email" id="candidateEmail" class="form-control "  readonly>            
               <div id="candidateEmailError" class="invalid-feedback">
                 Please enter a valid candidate Email.
               </div>           
@@ -291,8 +290,7 @@
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label required" >Core Area / Primary Skills</label>
             <div class="col-sm-10">
-              <input type="text"  id="primarySkills" name="primaryskills" class="form-control" required>
-              <div id="primarySkillError" class="invalid-feedback">Please enter valid primary skills</div>
+              <input type="text"  id="primarySkills" th:value="${candidate.primaryskills}" name="primaryskills" class="form-control" readonly >
                
             </div>
           </div>
@@ -300,112 +298,76 @@
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label">Secondary Skills</label>
             <div class="col-sm-10">
-              <input type="text"  id="secondarySkills" name="secondaryskills" class="form-control">
-              <div id="secondarySkillError" class="invalid-feedback">Please enter valid secondary skills</div>
+              <input type="text"  id="secondarySkills" th:value="${candidate.secondaryskills}" name="secondaryskills" class="form-control"readonly>
             </div>
           </div>
 
-          <fieldset class="row mb-3" >
-            <legend class="col-form-label col-sm-2 pt-0 required">Experience</legend>
+           <div class="row mb-3">
+            <label for="inputText" class="col-sm-2 col-form-label">Experience</label>
             <div class="col-sm-10">
-              <div class="form-check">
-                <input class="form-check-input"  name="experience" type="radio"  id="gridRadios1" value="Yes" checked required>
-                <label class="form-check-label" for="gridRadios1">
-                  Yes
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" name="experience" type="radio"  id="gridRadios2" value="No" required>
-                <label class="form-check-label" for="gridRadios2">
-                  No
-                </label>
-              </div>
+              <input type="text"  id="experience" th:value="${candidate.experience}" name="experience" class="form-control"readonly>
             </div>
-          </fieldset>
+          </div>
 
 
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label required" >No. of Years of Work-Experience</label>
             <div class="col-sm-10">
-              <input type="number"  name="noofyearsworkex" class="form-control" min="0" max="55" value="0" required >
+              <input type="number"  name="noofyearsworkex"th:value="${candidate.noofyearsworkex}"  class="form-control" readonly>
             </div>
           </div>
 
 
-          <div class="row mb-3">
-            <label for="inputDate" class="col-sm-2 col-form-label required" >Work Mode</label>
+ 			<div class="row mb-3">
+            <label for="inputText" class="col-sm-2 col-form-label required" >Work Mode</label>
             <div class="col-sm-10">
-              <select class="form-select" name="workmode" aria-label="Default select example" required>
-                <option value="" selected>-- select Work Mode --</option>
-                <option value="Work From Home">Work From Home</option>
-                <option value="Work From Office">Work From Office</option>
-                <option value="Hybrid">Hybrid</option>
-                      
-                      
-              </select>
+              <input type="text" name="workmode" th:value="${candidate.workmode}"  class="form-control" readonly>
             </div>
           </div>
 
+         
+
+ 			<div class="row mb-3">
+            <label for="inputText" class="col-sm-2 col-form-label required" >Gender</label>
+            <div class="col-sm-10">
+              <input type="text" name="gender" th:value="${candidate.gender}"  class="form-control"readonly >
+            </div>
+          </div>
           
-          <fieldset class="row mb-3">
-                  <legend class="col-form-label col-sm-2 pt-0 required" >Gender</legend>
-                  <div class="col-sm-10">
-                    <div class="form-check">
-                      <input class="form-check-input" th:value="${candidate.gender}"  type="radio" >
-                     
-                    </div>
-                  </div>
-                  </fieldset>
-
-          <div class="row mb-3">
-            <label for="inputDate" class="col-sm-2 col-form-label required" >Candidate City</label>
+          
+ 			<div class="row mb-3">
+            <label for="inputText" class="col-sm-2 col-form-label required" >Candidate City</label>
             <div class="col-sm-10">
-              <select  name="candidatecity" class="form-select" aria-label="Default select example" required>
-                <option value="" selected>-- select Candidate City --</option>
-                <option value="Local">Local</option>
-                <option value="Other City">Other City</option>
-              </select>
+              <input type="text" name="candidatecity" th:value="${candidate.candidatecity}"  class="form-control" readonly>
             </div>
           </div>
+          
 
-          <div class="row mb-3">
+
+	<div class="row mb-3">
             <label for="inputDate" class="col-sm-2 col-form-label">IC or Manager</label>
             <div class="col-sm-10">
-              <select  name="icormanager" class="form-select" aria-label="Default select example">
-                <option value="" selected>-- select IC / Manager --</option>
-                <option value="IC">IC</option>
-                <option value="Manager">Manager</option>
-              </select>
+              <input type="text" name="icormanager" th:value="${candidate.icormanager}"  class="form-control" readonly>
             </div>
           </div>
+          
+        
 
           <div class="row mb-3">
             <label for="inputDate" class="col-sm-2 col-form-label required" >Interested in Job / Internship</label>
             <div class="col-sm-10">
-              <select  name="joborinternship" class="form-select" aria-label="Default select example" required>
-                <option value=""  selected>--select Job / Internship --</option>
-                <option value="Job">Job</option>
-                <option value="Internship">Internship</option>
-              </select>
+              <input type="text" name="joborinternship" th:value="${candidate.joborinternship}"  class="form-control" readonly>
+
             </div>
           </div>
 
-          <div class="row mb-3">
-            <label for="inputText" class="col-sm-2 col-form-label required" >Institute Name</label>
-           
-          </div>
+
 
           <h5 class="card-title">Expectations (only for Laterals)</h5>
           <div class="row mb-3">
             <label for="inputDate" class="col-sm-2 col-form-label">CTC Fixed (INR LPA)</label>
             <div class="col-sm-10">
-              <select  name="ctcfixed" class="form-select" aria-label="Default select example">
-                <option value=""  selected>--select CTC Fixed (INR LPA) --</option>
-                <option value="2 LPA to 4 LPA">2 LPA to 4 LPA</option>
-                <option value="5 LPA to 10 LPA">5 LPA to 10 LPA</option>
-                <option value="12 LPA to 25 LPA">12 LPA to 25 LPA</option>
-                <option value="25 LPA and above">25 LPA and above</option>
-              </select>
+                 <input type="text" name="ctcfixed" th:value="${candidate.ctcfixed}"  class="form-control" readonly>
             </div>
           </div>
 
@@ -414,16 +376,15 @@
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label"> CTC Variable (INR LPA)</label>
             <div class="col-sm-10">
-              <input  type="text" id="ctcVariable" name="ctcvariable" class="form-control" >
-              <div id="ctcVariableError" class="invalid-feedback">invalid</div>
+                 <input type="text" name="ctcvariable" th:value="${candidate.ctcvariable}"  class="form-control" readonly>
             </div>
           </div>
 
           <div class="row mb-3">
             <label for="inputText" class="col-sm-2 col-form-label">CTC Total (INR LPA)</label>
             <div class="col-sm-10">
-              <input  name="ctctotal" type="text" id="ctcTotal" class="form-control" >
-              <div id="ctcTotalError" class="invalid-feedback">invalid</div>
+		     <input type="text" name="ctctotal" th:value="${candidate.ctctotal}"  class="form-control" readonly>
+
             </div>
           </div>
 
