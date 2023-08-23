@@ -1,6 +1,6 @@
 package com.placementportal.model;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.Arrays;
 
 import jakarta.persistence.Column;
@@ -29,7 +29,15 @@ public class Company {
 	private String companyemail;
 
 	@Column(nullable = false)
-	private LocalDate start_date;
+	private Date start_date;
+
+	public Date getStart_date() {
+		return start_date;
+	}
+
+	public void setStart_date(Date start_date) {
+		this.start_date = start_date;
+	}
 
 	@Column(nullable = false)
 	private String head_office_country;
@@ -153,13 +161,13 @@ public class Company {
 		this.brand_name = brand_name;
 	}
 
-	public LocalDate getStart_date() {
-		return start_date;
-	}
-
-	public void setStart_date(LocalDate start_date) {
-		this.start_date = start_date;
-	}
+//	public Date getStart_date() {
+//		return start_date;
+//	}
+//
+//	public void setStart_date(Date start_date) {
+//		this.start_date = start_date;
+//	}
 
 	public String getHead_office_country() {
 		return head_office_country;

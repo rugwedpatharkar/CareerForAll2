@@ -6,9 +6,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.placementportal.model.Candidate;
@@ -66,12 +63,8 @@ public class CandidateService {
 		return candidateRepository.findCandidatesByPrimarySkills(keyword);
 	}
 
-	public Page<Candidate> searchEligibleCandidates(int positionid, int minKeywordLength, String search,
-			Pageable pageable) {
+	public List<Candidate> searchEligibleCandidates(int positionid, int minKeywordLength, String search) {
 		Job job = jobRepository.findById(positionid).orElse(null);
-		if (job == null) {
-			return Page.empty();
-		}
 
 		String[] jobKeywords = job.getDescription().split(" ");
 		List<Candidate> eligibleCandidates = new ArrayList<>();
@@ -83,11 +76,8 @@ public class CandidateService {
 			}
 		}
 
-		eligibleCandidates = searchCandidates(eligibleCandidates, search);
+		return eligibleCandidates = searchCandidates(eligibleCandidates, search);
 
-		int start = (int) pageable.getOffset();
-		int end = Math.min((start + pageable.getPageSize()), eligibleCandidates.size());
-		return new PageImpl<>(eligibleCandidates.subList(start, end), pageable, eligibleCandidates.size());
 	}
 
 	public List<Candidate> searchCandidates(List<Candidate> candidates, String search) {
@@ -100,11 +90,8 @@ public class CandidateService {
 	}
 
 	// candidatelistfilters
-	public Page<Candidate> findEligibleCandidates(int positionId, int minKeywordLength, Pageable pageable) {
+	public List<Candidate> findEligibleCandidates(int positionId, int minKeywordLength) {
 		Job job = jobRepository.findById(positionId).orElse(null);
-		if (job == null) {
-			return Page.empty(); // Return an empty page if the job is not found
-		}
 
 		String[] jobKeywords = job.getDescription().split(" ");
 		List<Candidate> eligibleCandidates = new ArrayList<>();
@@ -115,19 +102,13 @@ public class CandidateService {
 				eligibleCandidates.addAll(candidates);
 			}
 		}
+		return eligibleCandidates;
 
-		// Convert the list of candidates to a Page object
-		int start = (int) pageable.getOffset();
-		int end = Math.min((start + pageable.getPageSize()), eligibleCandidates.size());
-		return new PageImpl<>(eligibleCandidates.subList(start, end), pageable, eligibleCandidates.size());
 	}
 
-	public Page<Candidate> findEligibleCandidates(int positionid, int minKeywordLength, String noofyearsworkex,
-			String workmode, String joborinternship, Pageable pageable) {
+	public List<Candidate> findEligibleCandidates(int positionid, int minKeywordLength, String noofyearsworkex,
+			String workmode, String joborinternship) {
 		Job job = jobRepository.findById(positionid).orElse(null);
-		if (job == null) {
-			return Page.empty();
-		}
 
 		String[] jobKeywords = job.getDescription().split(" ");
 		List<Candidate> eligibleCandidates = new ArrayList<>();
@@ -139,11 +120,7 @@ public class CandidateService {
 			}
 		}
 
-		eligibleCandidates = filterCandidates(eligibleCandidates, noofyearsworkex, workmode, joborinternship);
-
-		int start = (int) pageable.getOffset();
-		int end = Math.min((start + pageable.getPageSize()), eligibleCandidates.size());
-		return new PageImpl<>(eligibleCandidates.subList(start, end), pageable, eligibleCandidates.size());
+		return eligibleCandidates = filterCandidates(eligibleCandidates, noofyearsworkex, workmode, joborinternship);
 
 	}
 

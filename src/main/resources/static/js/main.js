@@ -754,6 +754,7 @@ function validateRelevantLink() {
   // Set the max attribute of the input element to the current date
   var startdate = document.querySelector('#startDate');
   if(startdate !== null){
+	  console.log("sdate");
 	startdate.setAttribute('max', currentDate);  
   }
 //end of future date validation----------
@@ -929,7 +930,82 @@ if(startupUpdateform !== null){
 --------------------------------------------------end of customized js-------------------------------------------------------------
  //---------------------------------------------------end of Startup Onboarding & Startup List JS-------------------------------------
  */
+//----------institute----------
 
+//--------------------validate Institute name (with numbers)
+			var nameInput = document.getElementById("instituteName");
+				if (nameInput !== null) {
+						//console.log("iname");
+					  // Add an event listener to the name input field
+					  nameInput.addEventListener("input", validateInstituteName);
+					
+					  function validateInstituteName() {
+						    var name = document.getElementById("instituteName").value;
+						    var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+(([',. -][a-zA-Z ])?[a-zA-Z0-9]*)*$/;
+						    var instituteNameError = document.getElementById("instituteNameError");
+						    
+						    if (name.trim() === '') {
+						      instituteNameError.style.display = "none"; // Hide error when field is empty
+						      return true; // No error when field is empty
+						    }
+						    
+						    if (!nameRegex.test(name)) {
+						      instituteNameError.style.display = "block";
+						      return false;
+						    } else {
+						      instituteNameError.style.display = "none";
+						      return true;
+					    }
+				  }
+			}
+          
+            //-----------------------------end of validate institute name       
+            //validate Brand name (with numbers)-------
+			var nameInput = document.getElementById("brandName");
+			if(nameInput !== null){
+				// Add an event listener to the name input field
+			nameInput.addEventListener("input", validateBrandName);
+			
+			function validateBrandName() {
+				//console.log("validate brandname called");
+			  var name = document.getElementById("brandName").value;
+			  var nameRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+(([',. -][a-zA-Z ])?[a-zA-Z0-9]*)*$/;
+			  var brandNameError = document.getElementById("brandNameError");
+			  if (name.trim() === '') {
+			      brandNameError.style.display = "none"; // Hide error when field is empty
+			      return true; // No error when field is empty
+			    }
+			  if (!nameRegex.test(name)) {
+			    brandNameError.style.display = "block";
+			    return false;
+			  } else {
+				brandNameError.style.display = "none";
+			    return true;
+			  }
+			}
+			}
+			//end of validate Brand name--------
+            //--------------------validate Institute Email 
+            var emailInput = document.getElementById("instituteEmail");
+            if(emailInput !== null){
+            emailInput.addEventListener("input", validateInstituteEmail);
+            function validateInstituteEmail() {
+             var email = document.getElementById("instituteEmail").value;
+             var emailRegex =/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/;
+             var instituteEmailError = document.getElementById("instituteEmailError");
+             if (email === "") {
+			    instituteEmailError.style.display = "none"; // Hide the error message if the field is empty
+			    return true;
+			 } else if (!emailRegex.test(email)) {
+            	 instituteEmailError.style.display = "block";
+               return false;
+             } else {
+            	 instituteEmailError.style.display = "none";
+               return true;
+             }
+            }
+            }//-----------------------------end of validate Institute Email
+            
 
 /*Location state and city*/
   var AndraPradesh = ["Anantapur","Chittoor","East Godavari","Guntur","Kadapa","Krishna","Kurnool","Prakasam","Nellore","Srikakulam","Visakhapatnam","Vizianagaram","West Godavari"];

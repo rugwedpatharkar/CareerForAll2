@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.placementportal.model.Job;
@@ -41,7 +39,7 @@ public class JobService {
 		return jobRepository.findById(positionid).orElse(null);
 	}
 
-	public Page<Job> getJobsPostedPast24Hours(Long companyid, Job job, Pageable pageable) {
+	public List<Job> getJobsPostedPast24Hours(Long companyid, Job job) {
 		Date now = new Date();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(now);
@@ -49,10 +47,10 @@ public class JobService {
 		Date past24Hours = calendar.getTime();
 
 		return jobRepository.findJobByCompanyidAndIgnoreCase(companyid, past24Hours, job.getCountry(), job.getState(),
-				job.getCity(), job.getWorkmode(), job.getNoworkexperience(), job.getPositiontype(), pageable);
+				job.getCity(), job.getWorkmode(), job.getNoworkexperience(), job.getPositiontype());
 	}
 
-	public Page<Job> getJobsPostedPastWeek(Long companyid, Job job, Pageable pageable) {
+	public List<Job> getJobsPostedPastWeek(Long companyid, Job job) {
 		Date now = new Date();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(now);
@@ -60,10 +58,10 @@ public class JobService {
 		Date pastWeek = calendar.getTime();
 
 		return jobRepository.findJobByCompanyidAndIgnoreCase(companyid, pastWeek, job.getCountry(), job.getState(),
-				job.getCity(), job.getWorkmode(), job.getNoworkexperience(), job.getPositiontype(), pageable);
+				job.getCity(), job.getWorkmode(), job.getNoworkexperience(), job.getPositiontype());
 	}
 
-	public Page<Job> getJobsPostedPastMonth(Long companyid, Job job, Pageable pageable) {
+	public List<Job> getJobsPostedPastMonth(Long companyid, Job job) {
 		Date now = new Date();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(now);
@@ -71,25 +69,25 @@ public class JobService {
 		Date pastMonth = calendar.getTime();
 
 		return jobRepository.findJobByCompanyidAndIgnoreCase(companyid, pastMonth, job.getCountry(), job.getState(),
-				job.getCity(), job.getWorkmode(), job.getNoworkexperience(), job.getPositiontype(), pageable);
+				job.getCity(), job.getWorkmode(), job.getNoworkexperience(), job.getPositiontype());
 	}
 
-	public Page<Job> findJobsByCompanyId(Long companyid, Pageable pageable) {
-		return jobRepository.findJobsByCompanyid(companyid, pageable);
+	public List<Job> findJobsByCompanyId(Long companyid) {
+		return jobRepository.findJobsByCompanyid(companyid);
 	}
 
-	public Page<Job> findJobByCompanyIdAndCriteria(Long companyid, Job job, Pageable pageable) {
+	public List<Job> findJobByCompanyIdAndCriteria(Long companyid, Job job) {
 
 		return jobRepository.findJobByCompanyidAndIgnoreCase(companyid, null, job.getCountry(), job.getState(),
-				job.getCity(), job.getWorkmode(), job.getNoworkexperience(), job.getPositiontype(), pageable);
+				job.getCity(), job.getWorkmode(), job.getNoworkexperience(), job.getPositiontype());
 
 	}
 
-	public Page<Job> jobSearchByCompanyId(Long companyid, String keyword, Pageable pageable) {
+	public List<Job> jobSearchByCompanyId(Long companyid, String keyword) {
 		if (keyword != null) {
-			return jobRepository.findJobByCompanyidAndIgnoreCase(companyid, keyword, pageable);
+			return jobRepository.findJobByCompanyidAndIgnoreCase(companyid, keyword);
 		}
-		return findJobsByCompanyId(companyid, pageable);
+		return findJobsByCompanyId(companyid);
 	}
 
 	public Job getJobbyId(int positionid) {
