@@ -290,7 +290,7 @@ public class MainController {
 	}
 
 	@PostMapping("/register")
-	public String create(@ModelAttribute User user, HttpSession session) {
+	public String create(@ModelAttribute("users") User user, HttpSession session) {
 
 		boolean u = userServiceImpl.checkEmail(user.getEmail());
 		if (u) {
@@ -313,46 +313,49 @@ public class MainController {
 	// Admin-Company Controllers
 
 	@GetMapping("/adminreg")
-	public String adminUser() {
-		
+	public String adminUser(Model model) {
+		// Companies
+				List<Company> companies = companyService.getAllCompanies();
+				model.addAttribute("companies", companies);
+				
+				//Institutes
+				List<Institute> institutes = instituteService.getAllInstitute();
+				model.addAttribute("institutes", institutes);
+				
+				//Candidate
+				List<Candidate> candidates = candidateService.getAllCandidates();
+				model.addAttribute("candidates", candidates);
+				
 		return "adminuser";
 	}
 
 	@PostMapping("/adminreg")
-	public String adminReg(@ModelAttribute User user, Model model,HttpSession session) {
+	public String adminReg(@ModelAttribute("users") User user, Model model,HttpSession session) {
 
-		boolean u = userServiceImpl.checkEmail(user.getEmail());
-		// Companies
-		List<Company> companies = companyService.getAllCompanies();
-		model.addAttribute("companies", companies);
-		
-		//Institutes
-		List<Institute> institutes = instituteService.getAllInstitute();
-		model.addAttribute("institutes", institutes);
-		
-		model.addAttribute("user", new User());
-		if (u) {
-			System.out.println("Email id already exist");
-		} else {
-			System.out.println(user);
-			// password encryption
-			user.setPassword(bp.encode(user.getPassword()));
-			// user.setRole(user.getRole());
+		// Encrypt the password before saving
+        String encryptedPassword = bp.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
 
-			session.setAttribute("msg", "Registration  successfully!");
-			userRepository.save(user);
-		}
+        String selectedRole = user.getRole();
+        if (selectedRole.equals("HR")) {
+            Company selectedCompany = companyService.getCompanyById(user.getCompany_name().getCompanyid());
+            user.setCompany_name(selectedCompany);
+            user.setInstitutename(null);  // Set institute to null for HR role
+        } else if (selectedRole.equals("PO")) {
+            Institute selectedInstitute = instituteService.getInstituteById(user.getInstitutename().getInstituteid());
+            user.setInstitutename(selectedInstitute);
+            user.setCompany_name(null);  // Set company to null for PO role
+        } else {
+            user.setCompany_name(null);
+            user.setInstitutename(null);
+        }
 
-//		User user = userServiceImpl.getUserById(userId);
-//        if ("HR".equals(user.getRole())) {
-//            company.setHrUser(user);
-//            return companyService.addCompany(company);
-//        } else {
-//            throw new RuntimeException("Only HR users can add companies.");
-//        }
-		
-		return "redirect:/adminhome?success";
-	}
+        // Save the user
+        userServiceImpl.saveUser(user);
+
+        return "redirect:/adminhome?success"; // Redirect to login page after successful registration
+    }
+
 
 	@PostMapping("/adminsaveCompany")
 	public String adminsaveCompany(@ModelAttribute("company") Company company, RedirectAttributes redirectAttributes) {

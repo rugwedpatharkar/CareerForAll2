@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,11 +27,19 @@ public class User {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "companyid")
-	private Company company_name;
+	private Company  company_name;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "instituteid")
 	private Institute institutename;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "positionid")
+	private Job  position;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "candidateid")
+	private Candidate candidatename;
 
 	public int getId() {
 		return id;
@@ -72,11 +81,11 @@ public class User {
 		this.role = role;
 	}
 
-	public Company getCompanyname() {
+	public Company getCompany_name() {
 		return company_name;
 	}
 
-	public void setCompanyname(Company company_name) {
+	public void setCompany_name(Company company_name) {
 		this.company_name = company_name;
 	}
 
@@ -88,14 +97,31 @@ public class User {
 		this.institutename = institutename;
 	}
 
+	public Job getPosition() {
+		return position;
+	}
+
+	public void setPosition(Job position) {
+		this.position = position;
+	}
+
+	public Candidate getCandidatename() {
+		return candidatename;
+	}
+
+	public void setCandidatename(Candidate candidatename) {
+		this.candidatename = candidatename;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", fullname=" + fullname + ", email=" + email + ", password=" + password + ", role="
-				+ role + ", company_name=" + company_name + ", institutename=" + institutename + "]";
+				+ role + ", company_name=" + company_name + ", institutename=" + institutename + ", position="
+				+ position + ", candidatename=" + candidatename + "]";
 	}
 
 	public User(int id, String fullname, String email, String password, String role, Company company_name,
-			Institute institutename) {
+			Institute institutename, Job position, Candidate candidatename) {
 		super();
 		this.id = id;
 		this.fullname = fullname;
@@ -104,13 +130,14 @@ public class User {
 		this.role = role;
 		this.company_name = company_name;
 		this.institutename = institutename;
+		this.position = position;
+		this.candidatename = candidatename;
 	}
 
 	public User() {
 		super();
 		
 	}
-	
-	
 
+		
 }

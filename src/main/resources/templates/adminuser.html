@@ -178,7 +178,7 @@
 <!-- 				   <th:block th:text="${#session.removeAttribute('msg')}"></th:block> -->
 <!-- 				   </th:block> -->
 						
-                  <form class="row g-3 needs-validation" novalidate th:action="@{/adminreg}"  th:object="${users}" id="userreg" name="userreg" method="post">
+                  <form class="row g-3 needs-validation" novalidate th:action="@{/adminreg}"  method="post">
                     <div class="col-12">
                       <label for="yourName" class="form-label" >UserName</label>
                       <input type="text"  class="form-control" id="fullname" name="fullname"  autofocus="autofocus" required/>
@@ -189,7 +189,7 @@
                    	<div class="col-12">
                   <label for="role" class="col-sm-12 col-form-label">Login Mode / Roles</label>
                   <div class="col-sm-12">
-                    <select name="role" id="role" onchange="toggleDropdown(this.value)" class="form-select" aria-label="Default select example" required>
+                    <select name="role" id="role"  class="form-select" aria-label="Default select example" required onchange="toggleDropdown(this.value)">
                       <option value="" disabled selected>-- Login Mode / Roles --</option>
                       <option value="ADMIN">ADMIN</option>
                       <option value="USER">USER</option>
@@ -202,16 +202,17 @@
                    
                    <!-- Company/Institute Dropdown -->
                    
-                   <div id="dynamicDropdown" style="display: none;">
-        <label for="organization">Organization:</label>
-        <select id="organization" name="organization_id" class="form-select" aria-label="Default select example">
-            <option value="" selected>-- Select Organization --</option>
-            <option th:each="company : ${companies}" th:value="${company.companyid}" th:if="${selectedRole == 'HR'}"
-                    th:text="${company.company_name}"></option>
-            <option th:each="institute : ${institutes}" th:value="${institute.instituteid}" th:if="${selectedRole == 'PO'}"
-                    th:text="${institute.institutename}"></option>
-        </select>
-    </div>
+<!--                    <div id="dynamicDropdown" style="display: none;"> -->
+<!--         <label for="organization">Organization:</label> -->
+<!--         <select id="organization" name="organization_id" class="form-select" aria-label="Default select example"> -->
+<!--             <option value="" selected>-- Select Organization --</option> -->
+<!--             <option th:each="company : ${companies}" th:value="${company.companyid}" th:if="${selectedRole == 'HR'}" -->
+<!--                     th:text="${company.company_name}"></option> -->
+                    
+<!--             <option th:each="institute : ${institutes}" th:value="${institute.instituteid}" th:if="${selectedRole == 'PO'}" -->
+<!--                     th:text="${institute.institutename}"></option> -->
+<!--         </select> -->
+<!--     </div> -->
                    
                    
                    
@@ -231,19 +232,32 @@
 <!--                    <div id="error" class="invalid-feedback">Please add Company/Institute</div> -->
 <!--                   </div> -->
 <!--                 </div> -->
-                
-<!--                 	<div class="col-12"> -->
-<!--                   <label class="col-sm-12 col-form-label">Institute Name</label> -->
-<!--                   <div class="col-sm-12"> -->
+
+					<div class="col-12" id="companyDropdown" style="display: none;">
+                  <label for="company" class="col-sm-12 col-form-label">Company Name</label>
+                  <div class="col-sm-12">
                   
-<!--                     <select  class="form-select" name="institutename" aria-label="Default select example" > -->
-<!--                 <option value=""  selected>--select Institute Name --</option> -->
-<!--                 <option th:each="institute : ${institutes}" th:value="${institute.instituteid}" -->
-<!--                     th:text="${institute.institutename}"></option> -->
-<!--               </select> -->
-<!--                    <div id="error" class="invalid-feedback">Please add Institute Name</div> -->
-<!--                   </div> -->
-<!--                 </div> -->
+                    <select id="company" class="form-select" name="company_name" aria-label="Default select example" required="required">
+                <option value=""  selected> </option>
+                <option th:each="company : ${companies}" th:value="${company.companyid}"
+                    th:text="${company.company_name}"></option>
+              </select>
+                   <div id="error" class="invalid-feedback">Please add Institute Name</div>
+                  </div>
+                </div>
+                
+                	<div class="col-12" id="instituteDropdown" style="display: none;" >
+                  <label for="institute" class="col-sm-12 col-form-label">Institute Name</label>
+                  <div class="col-sm-12">
+                  
+                    <select  id="institute" class="form-select" name="instituteid" aria-label="Default select example" required="required">
+                <option value=""  selected></option>
+                <option th:each="institute : ${institutes}" th:value="${institute.instituteid}"
+                    th:text="${institute.institutename}"></option>
+              </select>
+                   <div id="error" class="invalid-feedback">Please add Institute Name</div>
+                  </div>
+                </div>
                    
 
                     <div class="col-12">
@@ -324,21 +338,45 @@
 		integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
 		crossorigin="anonymous"></script>
 	<script th:src="@{/js/main.js}"></script>
-	
-<!-- <!-- 	<script th:inline="javascript"> --> -->
-<!-- //     function toggleDropdown(selectedRole) { -->
-<!-- //         var dynamicDropdown = document.getElementById("dynamicDropdown"); -->
-        
-<!-- //         if (selectedRole === "HR") { -->
-<!-- //             dynamicDropdown.style.display = "block"; -->
-<!-- //         } else if (selectedRole === "PO") { -->
-<!-- //             dynamicDropdown.style.display = "block"; -->
-<!-- //         } else { -->
-<!-- //             dynamicDropdown.style.display = "none"; -->
-<!-- //         } -->
-<!-- //     } -->
-<!-- </script> -->
 
+
+<!-- <!-- <script> --> 
+<!-- //   function toggleDropdowns() { -->
+<!-- //     var roleSelect = document.getElementById("role"); -->
+<!-- //     var companyDropdown = document.getElementById("companyDropdown"); -->
+<!-- //     var instituteDropdown = document.getElementById("instituteDropdown"); -->
+
+<!-- //     var selectedRole = roleSelect.value; -->
+
+<!-- //     if (selectedRole === "HR") { -->
+<!-- //       companyDropdown.style.display = "block"; -->
+<!-- //       instituteDropdown.style.display = "none"; -->
+<!-- //     } else if (selectedRole === "PO") { -->
+<!-- //       companyDropdown.style.display = "none"; -->
+<!-- //       instituteDropdown.style.display = "block"; -->
+<!-- //     } else { -->
+<!-- //       companyDropdown.style.display = "none"; -->
+<!-- //       instituteDropdown.style.display = "none"; -->
+<!-- //     } -->
+<!-- //   } -->
+<!-- <!-- </script> --> 
+<script th:inline="javascript">
+    function toggleDropdown(selectedRole) {
+        var companyDropdown = document.getElementById("companyDropdown");
+        var instituteDropdown = document.getElementById("instituteDropdown");
+        
+        if (selectedRole === "HR") {
+            companyDropdown.style.display = "block";
+            instituteDropdown.style.display = "none";
+        } else if (selectedRole === "PO") {
+            companyDropdown.style.display = "none";
+            instituteDropdown.style.display = "block";
+        } else {
+            companyDropdown.style.display = "none";
+            instituteDropdown.style.display = "none";
+        }
+    }
+</script>
 </body>
 
 </html>

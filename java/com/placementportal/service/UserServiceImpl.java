@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.placementportal.model.Candidate;
 import com.placementportal.model.User;
 import com.placementportal.repository.UserRepository;
 
@@ -19,6 +21,8 @@ public class UserServiceImpl implements UserService {
 	public List<User> getAllInstituteList() {
 		return urepo.findAll();
 	}
+	
+		
 	public UserServiceImpl(UserRepository urepo) {
 		this.urepo = urepo;
 	}
@@ -33,6 +37,10 @@ public class UserServiceImpl implements UserService {
 	public boolean checkEmail(String email) {
 
 		return urepo.existsByEmail(email);
+	}
+	
+	public void saveUser(User user) {
+		this.urepo.save(user);
 	}
 
 //	public User login(String email, String password) {
