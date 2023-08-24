@@ -330,27 +330,24 @@ public class MainController {
 	}
 
 	@PostMapping("/adminreg")
-	public String adminReg(@ModelAttribute("users") User user, Model model,HttpSession session) {
+	public String adminUserReg(@ModelAttribute("users") User user, Model model,HttpSession session) {
 
 		// Encrypt the password before saving
         String encryptedPassword = bp.encode(user.getPassword());
         user.setPassword(encryptedPassword);
 
         String selectedRole = user.getRole();
+        
         if (selectedRole.equals("HR")) {
-            Company selectedCompany = companyService.getCompanyById(user.getCompany_name().getCompanyid());
+            Long companyId = user.getCompany_name().getCompanyid(); 
+            Company selectedCompany = companyService.getCompanyById(companyId);
             user.setCompany_name(selectedCompany);
-            user.setInstitutename(null);  // Set institute to null for HR role
         } else if (selectedRole.equals("PO")) {
-            Institute selectedInstitute = instituteService.getInstituteById(user.getInstitutename().getInstituteid());
+            Long instituteId = user.getInstitutename().getInstituteid(); 
+            Institute selectedInstitute = instituteService.getInstituteById(instituteId);
             user.setInstitutename(selectedInstitute);
-            user.setCompany_name(null);  // Set company to null for PO role
-        } else {
-            user.setCompany_name(null);
-            user.setInstitutename(null);
         }
-
-        // Save the user
+        
         userServiceImpl.saveUser(user);
 
         return "redirect:/adminhome?success"; // Redirect to login page after successful registration
