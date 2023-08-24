@@ -2,14 +2,12 @@ package com.placementportal.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -90,7 +88,9 @@ public class MainController {
 
 	@GetMapping("/jobopening")
 	@PreAuthorize("hasRole('HR')")
-	public ModelAndView jobopening() {
+	public ModelAndView jobopening1(Model model) {
+		List<Company> company = companyService.getAllCompanies();
+		model.addAttribute("company", company);
 		ModelAndView mav = new ModelAndView("jobopening");
 		return mav;
 	}
@@ -290,7 +290,7 @@ public class MainController {
 	}
 
 	@PostMapping("/register")
-	public String create(@ModelAttribute User user, HttpSession session) {
+	public String create(@ModelAttribute("users") User user, HttpSession session) {
 
 		boolean u = userServiceImpl.checkEmail(user.getEmail());
 		if (u) {
@@ -314,30 +314,48 @@ public class MainController {
 
 	@GetMapping("/adminreg")
 	public String adminUser(Model model) {
-		model.addAttribute("user", new User());
+		// Companies
+				List<Company> companies = companyService.getAllCompanies();
+				model.addAttribute("companies", companies);
+				
+				//Institutes
+				List<Institute> institutes = instituteService.getAllInstitute();
+				model.addAttribute("institutes", institutes);
+				
+				//Candidate
+				List<Candidate> candidates = candidateService.getAllCandidates();
+				model.addAttribute("candidates", candidates);
+				
 		return "adminuser";
 	}
 
 	@PostMapping("/adminreg")
-	public String adminReg(@ModelAttribute User user, HttpSession session) {
+	public String adminReg(@ModelAttribute("users") User user, Model model,HttpSession session) {
 
-		userRepository.save(user);
+		// Encrypt the password before saving
+        String encryptedPassword = bp.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
 
-		boolean u = userServiceImpl.checkEmail(user.getEmail());
-		if (u) {
-			System.out.println("Email id already exist");
-		} else {
-			System.out.println(user);
-			// password encryption
-			user.setPassword(bp.encode(user.getPassword()));
-			// user.setRole(user.getRole());
+        String selectedRole = user.getRole();
+        if (selectedRole.equals("HR")) {
+            Company selectedCompany = companyService.getCompanyById(user.getCompany_name().getCompanyid());
+            user.setCompany_name(selectedCompany);
+            user.setInstitutename(null);  // Set institute to null for HR role
+        } else if (selectedRole.equals("PO")) {
+            Institute selectedInstitute = instituteService.getInstituteById(user.getInstitutename().getInstituteid());
+            user.setInstitutename(selectedInstitute);
+            user.setCompany_name(null);  // Set company to null for PO role
+        } else {
+            user.setCompany_name(null);
+            user.setInstitutename(null);
+        }
 
-			session.setAttribute("msg", "Registration  successfully!");
-			userRepository.save(user);
-		}
+        // Save the user
+        userServiceImpl.saveUser(user);
 
-		return "redirect:/adminhome?success";
-	}
+        return "redirect:/adminhome?success"; // Redirect to login page after successful registration
+    }
+
 
 	@PostMapping("/adminsaveCompany")
 	public String adminsaveCompany(@ModelAttribute("company") Company company, RedirectAttributes redirectAttributes) {
@@ -396,15 +414,9 @@ public class MainController {
 	// start
 	// Show job list on joblistfilters
 	@GetMapping("/joblist/{companyid}")
-	public String getAllJobs(@PathVariable Long companyid, @RequestParam(defaultValue = "0") int page, Model model) {
-		int pageSize = 10;
-		Pageable pageable = PageRequest.of(page, pageSize);
-
-		Page<Job> jobPage = jobService.findJobsByCompanyId(companyid, pageable);
-		model.addAttribute("listJob", jobPage.getContent());
-		model.addAttribute("currentPage", page);
-		model.addAttribute("totalPages", jobPage.getTotalPages());
-
+	public String getAllJobs(@PathVariable Long companyid, Model model) {
+		List<Job> job = jobService.findJobsByCompanyId(companyid);
+		model.addAttribute("listJob", job);
 		return "joblistfilters.html";
 	}
 
@@ -413,35 +425,31 @@ public class MainController {
 	public String getJobByCriteria(@PathVariable Long companyid,
 			@RequestParam(value = "timeRange", required = false) String timeRange,
 			@RequestParam(value = "keyword", required = false) String keyword, @ModelAttribute("job") Job job,
-			@RequestParam(defaultValue = "0") int page, Model model) {
+			Model model) {
 
-		Page<Job> jobPage;
-		int pageSize = 10;
-		Pageable pageable = PageRequest.of(page, pageSize);
+		List<Job> jobs;
 
 		if (timeRange != null && !timeRange.isEmpty()) {
 			switch (timeRange) {
 			case "past24hours":
-				jobPage = jobService.getJobsPostedPast24Hours(companyid, job, pageable);
+				jobs = jobService.getJobsPostedPast24Hours(companyid, job);
 				break;
 			case "pastweek":
-				jobPage = jobService.getJobsPostedPastWeek(companyid, job, pageable);
+				jobs = jobService.getJobsPostedPastWeek(companyid, job);
 				break;
 			case "pastmonth":
-				jobPage = jobService.getJobsPostedPastMonth(companyid, job, pageable);
+				jobs = jobService.getJobsPostedPastMonth(companyid, job);
 				break;
 			default:
-				jobPage = jobService.findJobByCompanyIdAndCriteria(companyid, job, pageable);
+				jobs = jobService.findJobByCompanyIdAndCriteria(companyid, job);
 			}
 		} else if (keyword != null && !keyword.isEmpty()) {
-			jobPage = jobService.jobSearchByCompanyId(companyid, keyword, pageable);
+			jobs = jobService.jobSearchByCompanyId(companyid, keyword);
 		} else {
-			jobPage = jobService.findJobByCompanyIdAndCriteria(companyid, job, pageable);
+			jobs = jobService.findJobByCompanyIdAndCriteria(companyid, job);
 		}
 
-		model.addAttribute("listJob", jobPage.getContent());
-		model.addAttribute("currentPage", page);
-		model.addAttribute("totalPages", jobPage.getTotalPages());
+		model.addAttribute("listJob", jobs);
 
 		return "joblistfilters";
 	}
@@ -483,18 +491,14 @@ public class MainController {
 	// shows eligible candidate lists
 	@GetMapping("/eligiblecandidates/{positionid}/{minKeywordLength}")
 	public String showEligibleCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
-			@RequestParam(defaultValue = "0") int page, Model model) {
-		int pageSize = 5; // Number of candidates to display per page1
+			Model model) {
+
 		Job position = jobService.getJobbyId(positionid);
 		model.addAttribute("position", position);
 
-		Pageable pageable = PageRequest.of(page, pageSize);
-		Page<Candidate> eligibleCandidates = candidateService.findEligibleCandidates(positionid, minKeywordLength,
-				pageable);
+		List<Candidate> eligibleCandidates = candidateService.findEligibleCandidates(positionid, minKeywordLength);
 
 		model.addAttribute("listcandidate", eligibleCandidates);
-		model.addAttribute("currentPage", page);
-		model.addAttribute("totalPages", eligibleCandidates.getTotalPages());
 
 		return "candidatelistfilters";
 	}
@@ -508,16 +512,16 @@ public class MainController {
 //		int pageSize = 10;
 //		Job position = jobService.getJobbyId(positionid);
 //		model.addAttribute("position", position);
-//		Pageable pageable = PageRequest.of(page, pageSize);
+//		  = PageRequest.of(page, pageSize);
 //		Page<Candidate> eligibleCandidates;
 //		if (!noofyearsworkex.isEmpty() || !workmode.isEmpty() || !joborinternship.isEmpty() || !search.isEmpty()) {
 //			eligibleCandidates = candidateService.findEligibleCandidates(positionid, minKeywordLength, noofyearsworkex,
-//					workmode, joborinternship, pageable);
+//					workmode, joborinternship, );
 //			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search,
-//					pageable);
+//					);
 //		} else {
 //			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search,
-//					pageable);
+//					);
 //		}
 //		model.addAttribute("listcandidate", eligibleCandidates);
 //
@@ -527,25 +531,60 @@ public class MainController {
 	public String applyFiltersOnCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
 			@RequestParam(required = false) String noofyearsworkex, @RequestParam(required = false) String workmode,
 			@RequestParam(required = false) String joborinternship, @RequestParam(required = false) String search,
-			Model model, @RequestParam(defaultValue = "0") int page) {
-		int pageSize = 10;
+			Model model) {
 		Job position = jobService.getJobbyId(positionid);
 		model.addAttribute("position", position);
-		Pageable pageable = PageRequest.of(page, pageSize);
-		Page<Candidate> eligibleCandidates;
+
+		List<Candidate> eligibleCandidates;
 
 		if (StringUtils.isNotBlank(noofyearsworkex) || StringUtils.isNotBlank(workmode)
 				|| StringUtils.isNotBlank(joborinternship)) {
 			eligibleCandidates = candidateService.findEligibleCandidates(positionid, minKeywordLength, noofyearsworkex,
-					workmode, joborinternship, pageable);
+					workmode, joborinternship);
 		} else if (StringUtils.isNotBlank(search)) {
-			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search,
-					pageable);
+			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search);
 		} else {
-			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search,
-					pageable);
+			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search);
 		}
 
+		model.addAttribute("listcandidate", eligibleCandidates);
+
+		return "candidatelistfilters";
+	}
+
+	// map candidates to job on candidatelistfilters
+	@PostMapping("/mapcandidatetojob/{positionid}/{companyid}/{minKeywordLength}")
+	public String mapCandidatesToJob(@PathVariable int minKeywordLength, Model model,
+			@RequestParam("positionid") int positionid, @RequestParam("companyid") Long companyid,
+			@RequestParam("candidateids") List<Long> candidateids) {
+
+		Job job = jobService.getJobbyId(positionid);
+		Company company = companyService.getCompanyByCompanyid(companyid);
+
+		List<Candidate> selectedCandidates = candidateService.getCandidatesByIds(candidateids);
+		List<Institute> selectedInstitutes = new ArrayList<>();
+
+		// Fetch the corresponding institutes based on the selected candidates
+		for (Candidate candidate : selectedCandidates) {
+			Institute institute = candidate.getInstitutename();
+			selectedInstitutes.add(institute);
+		}
+
+		for (int i = 0; i < selectedCandidates.size(); i++) {
+			Candidate candidate = selectedCandidates.get(i);
+			Institute institute = selectedInstitutes.get(i);
+
+			JobCandidate jobCandidate = new JobCandidate();
+			jobCandidate.setJob(job);
+			jobCandidate.setCompany(company);
+			jobCandidate.setCandidate(candidate);
+			jobCandidate.setInstitute(institute);
+			jobCandidateService.saveJobCandidate(jobCandidate);
+		}
+
+		Job position = jobService.getJobbyId(positionid);
+		model.addAttribute("position", position);
+		List<Candidate> eligibleCandidates = candidateService.findEligibleCandidates(positionid, minKeywordLength);
 		model.addAttribute("listcandidate", eligibleCandidates);
 
 		return "candidatelistfilters";
@@ -554,28 +593,23 @@ public class MainController {
 	// show list of mapped candidates to job on mappedcandidatelist
 	@GetMapping("/mappedcandidatelist/{companyid}/{positionid}")
 	public String getJobCandidatesByCompanyidAndPositionid(@PathVariable Long companyid, @PathVariable int positionid,
-			@RequestParam(defaultValue = "0") int page, Model model) {
+			Model model) {
 		// Common logic to fetch job candidates
-		fetchJobCandidates(companyid, positionid, page, model);
+		fetchJobCandidates(companyid, positionid, model);
 		return "mappedcandidateslist";
 	}
 
 	// delete mapped candidates to jobs
 	@PostMapping("/deletecandidates")
 	public String deleteSelectedCandidates(@RequestParam("jobcandidateids") List<Long> jobcandidateids,
-			@RequestParam("companyid") Long companyid, @RequestParam("positionid") int positionid,
-			@RequestParam(defaultValue = "0") int page, Model model) {
+			@RequestParam("companyid") Long companyid, @RequestParam("positionid") int positionid, Model model) {
 		jobCandidateService.deleteByJobCandidateIdIn(jobcandidateids);
-
-		// Reuse the common logic to fetch job candidates after deletion
-		fetchJobCandidates(companyid, positionid, page, model);
+		fetchJobCandidates(companyid, positionid, model);
 		return "mappedcandidateslist";
 	}
 
 	// Common method to fetch jobcandidates
-	private void fetchJobCandidates(Long companyid, int positionid, int page, Model model) {
-		int pageSize = 10;
-		Pageable pageable = PageRequest.of(page, pageSize);
+	private void fetchJobCandidates(Long companyid, int positionid, Model model) {
 		Job position = jobService.getJobbyId(positionid);
 		model.addAttribute("position", position);
 		Company company = companyService.getCompanyByCompanyid(companyid);
@@ -585,12 +619,9 @@ public class MainController {
 			return;
 		}
 
-		Page<JobCandidate> jobCandidatesPage = jobCandidateService.getJobCandidatesByCompanyAndJob(company, job,
-				pageable);
+		List<JobCandidate> jobCandidates = jobCandidateService.getJobCandidatesByCompanyAndJob(company, job);
 
-		model.addAttribute("jobCandidates", jobCandidatesPage.getContent());
-		model.addAttribute("currentPage", page);
-		model.addAttribute("totalPages", jobCandidatesPage.getTotalPages());
+		model.addAttribute("jobCandidates", jobCandidates);
 	}
 
 	// controller to show profile of shortlisted candidate

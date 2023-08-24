@@ -1234,9 +1234,17 @@ function validateUserEmail() {
 
 
 
-// ---------------------User Logout validation ----------------
-
-
-// ---------------------User Logout validation ----------------
-
+// ---------------------Admin side CompanyNames Dropdown validation ----------------
+function toggleDropdown(selectedRole) {
+        var dynamicDropdown = document.getElementById("dynamicDropdown");
+        
+        if (selectedRole === "HR") {
+            dynamicDropdown.style.display = "block";
+        } else if (selectedRole === "PO") {
+            dynamicDropdown.style.display = "block";
+        } else {
+            dynamicDropdown.style.display = "none";
+        }
+    }
+//----------------------------------------------------------------------------------------
 
