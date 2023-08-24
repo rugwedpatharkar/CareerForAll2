@@ -924,6 +924,24 @@ if(startupUpdateform !== null){
 }
 
 //End of validate startup update submission----------------
+//----------startup success message alert------
+        setTimeout(function() {
+        	//console.log("settimeout"); //check
+            var successMessage = document.getElementById("onboardsuccess");
+            var CompanyUpdateSuccess = document.getElementById("companyUpdateSuccess");
+            var CompanyDeleteSuccess = document.getElementById("companyDeleteSuccess");
+            if (successMessage) {
+                successMessage.style.display = "none";
+            }
+            if (CompanyUpdateSuccess) {
+                CompanyUpdateSuccess.style.display = "none";
+            }
+            if (CompanyDeleteSuccess) {
+                CompanyDeleteSuccess.style.display = "none";
+            }
+        }, 2000); // 2000 milliseconds = 2 seconds
+//----------end of startup success message alert------
+
 
 
 /*

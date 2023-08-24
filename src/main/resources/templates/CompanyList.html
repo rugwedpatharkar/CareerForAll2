@@ -205,6 +205,16 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Startups</h5>
+              <!-- Display success message alert if applicable -->
+			    <div th:if="${message}" class="alert alert-success" id="onboardsuccess">
+			        <p th:text="${message}"></p>
+			    </div>
+			    <div th:if="${umessage}" class="alert alert-success" id="companyUpdateSuccess">
+			        <p th:text="${umessage}"></p>
+			    </div>
+			    <div th:if="${dmessage}" class="alert alert-success" id="companyDeleteSuccess">
+			        <p th:text="${dmessage}"></p>
+			    </div>
              
               <!-- Table with stripped rows -->
               <table class="table datatable">
