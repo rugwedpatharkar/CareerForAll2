@@ -45,6 +45,7 @@ public class MyConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.csrf().disable().authorizeHttpRequests().requestMatchers("/adminhome.html").hasRole("ADMIN")
+				.requestMatchers("/adminuser.html").hasRole("ADMIN")
 				.requestMatchers("/adminCompany.html").hasRole("ADMIN").requestMatchers("/adminCompanyList.html")
 				.hasRole("ADMIN").requestMatchers("/userhome.html").hasRole("USER").requestMatchers("/profile.html")
 				.hasRole("HR").requestMatchers("/startup_onboarding.html").hasRole("HR")

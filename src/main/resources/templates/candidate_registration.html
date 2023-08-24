@@ -789,41 +789,6 @@ function create_tr(table_id) {
 	  }
 	}//--------------------------------Dynamic table ends here
 
-<!--	
-	function submitForm() {
-	    // Collect educational details and create JSON object
-	    const educationalDetails = [];
-	    const rows = document.querySelectorAll("#table_body tr");
-	    
-	    // Start iterating from the second row (skipping the first row)
-	    for (let i = 1; i < rows.length; i++) {
-	        const row = rows[i];
-	        const course = row.querySelector("input[name='Course[]']").value;
-	        const institute = row.querySelector("input[name='Institute[]']").value;
-	        const university = row.querySelector("input[name='University[]']").value;
-	        const percentage = row.querySelector("input[name='Percentage[]']").value;
-	        
-	        if (!course || !institute || !university || !percentage) {
-	            alert("All fields in row " + (i + 1) + " are mandatory. Please fill in all values.");
-	            return; // Prevent form submission
-	        }
-
-	        educationalDetails.push({
-	            course: course,
-	            institute: institute,
-	            university: university,
-	            percentage: percentage
-	        });
-	    }
-
-	    // Set the JSON value to the hidden input
-	    const jsonInput = document.getElementById("educationalDetailsJson");
-	    jsonInput.value = JSON.stringify(educationalDetails);
-
-	    // Submit the form
-	    document.getElementById("onboarding").submit();
-	}
-	-->
 
 	function submitForm() {
 	    // Validate all required fields

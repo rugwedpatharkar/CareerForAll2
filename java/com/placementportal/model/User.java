@@ -2,9 +2,13 @@ package com.placementportal.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,9 +24,22 @@ public class User {
 	private String email;
 	private String password;
 	private String role;
-
-	private String companyname;
-	private String institutename;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "companyid")
+	private Company  company_name;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "instituteid")
+	private Institute institutename;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "positionid")
+	private Job  position;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "candidateid")
+	private Candidate candidatename;
 
 	public int getId() {
 		return id;
@@ -64,43 +81,63 @@ public class User {
 		this.role = role;
 	}
 
-	public String getCompanyname() {
-		return companyname;
+	public Company getCompany_name() {
+		return company_name;
 	}
 
-	public void setCompanyname(String companyname) {
-		this.companyname = companyname;
+	public void setCompany_name(Company company_name) {
+		this.company_name = company_name;
 	}
 
-	public String getInstitutename() {
+	public Institute getInstitutename() {
 		return institutename;
 	}
 
-	public void setInstitutename(String institutename) {
+	public void setInstitutename(Institute institutename) {
 		this.institutename = institutename;
 	}
 
-	public User(int id, String fullname, String email, String password, String role, String companyname,
-			String institutename) {
+	public Job getPosition() {
+		return position;
+	}
+
+	public void setPosition(Job position) {
+		this.position = position;
+	}
+
+	public Candidate getCandidatename() {
+		return candidatename;
+	}
+
+	public void setCandidatename(Candidate candidatename) {
+		this.candidatename = candidatename;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", fullname=" + fullname + ", email=" + email + ", password=" + password + ", role="
+				+ role + ", company_name=" + company_name + ", institutename=" + institutename + ", position="
+				+ position + ", candidatename=" + candidatename + "]";
+	}
+
+	public User(int id, String fullname, String email, String password, String role, Company company_name,
+			Institute institutename, Job position, Candidate candidatename) {
 		super();
 		this.id = id;
 		this.fullname = fullname;
 		this.email = email;
 		this.password = password;
 		this.role = role;
-		this.companyname = companyname;
+		this.company_name = company_name;
 		this.institutename = institutename;
+		this.position = position;
+		this.candidatename = candidatename;
 	}
 
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", fullname=" + fullname + ", email=" + email + ", password=" + password + ", role="
-				+ role + ", companyname=" + companyname + ", institutename=" + institutename + "]";
-	}
-
+		
 }

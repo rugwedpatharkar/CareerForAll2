@@ -130,7 +130,7 @@ public class MainController {
 	@PostMapping("/updateCompany")
 	public String updateCompany(@ModelAttribute("company") Company company, RedirectAttributes redirectAttributes) {
 		companyService.saveCompany(company);
-		redirectAttributes.addFlashAttribute("umessage", "Company updated successfully!");
+		redirectAttributes.addFlashAttribute("umessage", "Company updated successfully!"); //alert message
 		return "redirect:/CompanyList";
 	}
 
@@ -139,7 +139,7 @@ public class MainController {
 	public String deleteCompany(@PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
 		// call delete company method
 		this.companyService.deleteCompanyById(id);
-		redirectAttributes.addFlashAttribute("dmessage", "Company deleted successfully!");
+		redirectAttributes.addFlashAttribute("dmessage", "Company deleted successfully!");//alert message
 		return "redirect:/CompanyList";
 	}
 
@@ -288,7 +288,7 @@ public class MainController {
 	}
 
 	@PostMapping("/register")
-	public String create(@ModelAttribute User user, HttpSession session) {
+	public String create(@ModelAttribute("users") User user, HttpSession session) {
 
 		boolean u = userServiceImpl.checkEmail(user.getEmail());
 		if (u) {
@@ -312,30 +312,45 @@ public class MainController {
 
 	@GetMapping("/adminreg")
 	public String adminUser(Model model) {
-		model.addAttribute("user", new User());
+		// Companies
+				List<Company> companies = companyService.getAllCompanies();
+				model.addAttribute("companies", companies);
+				
+				//Institutes
+				List<Institute> institutes = instituteService.getAllInstitute();
+				model.addAttribute("institutes", institutes);
+				
+				//Candidate
+				List<Candidate> candidates = candidateService.getAllCandidates();
+				model.addAttribute("candidates", candidates);
+				
 		return "adminuser";
 	}
 
 	@PostMapping("/adminreg")
-	public String adminReg(@ModelAttribute User user, HttpSession session) {
+	public String adminUserReg(@ModelAttribute("users") User user, Model model,HttpSession session) {
 
-		userRepository.save(user);
+		// Encrypt the password before saving
+        String encryptedPassword = bp.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
 
-		boolean u = userServiceImpl.checkEmail(user.getEmail());
-		if (u) {
-			System.out.println("Email id already exist");
-		} else {
-			System.out.println(user);
-			// password encryption
-			user.setPassword(bp.encode(user.getPassword()));
-			// user.setRole(user.getRole());
+        String selectedRole = user.getRole();
+        
+        if (selectedRole.equals("HR")) {
+            Long companyId = user.getCompany_name().getCompanyid(); 
+            Company selectedCompany = companyService.getCompanyById(companyId);
+            user.setCompany_name(selectedCompany);
+        } else if (selectedRole.equals("PO")) {
+            Long instituteId = user.getInstitutename().getInstituteid(); 
+            Institute selectedInstitute = instituteService.getInstituteById(instituteId);
+            user.setInstitutename(selectedInstitute);
+        }
+        
+        userServiceImpl.saveUser(user);
 
-			session.setAttribute("msg", "Registration  successfully!");
-			userRepository.save(user);
-		}
+        return "redirect:/adminhome?success"; // Redirect to login page after successful registration
+    }
 
-		return "redirect:/adminhome?success";
-	}
 
 	@PostMapping("/adminsaveCompany")
 	public String adminsaveCompany(@ModelAttribute("company") Company company, RedirectAttributes redirectAttributes) {
