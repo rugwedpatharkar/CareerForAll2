@@ -498,30 +498,6 @@ public class MainController {
 		return "candidatelistfilters";
 	}
 
-//	@GetMapping("/candidatelistfilters/{positionid}/{minKeywordLength}")
-//	public String applyFiltersOnCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
-//			@RequestParam(required = false) String noofyearsworkex, @RequestParam(required = false) String workmode,
-//			@RequestParam(required = false) String joborinternship, @RequestParam(required = false) String search,
-//			Model model) {
-//		Job position = jobService.getJobbyId(positionid);
-//		model.addAttribute("position", position);
-//
-//		List<Candidate> eligibleCandidates;
-//
-//		if (StringUtils.isNotBlank(noofyearsworkex) || StringUtils.isNotBlank(workmode)
-//				|| StringUtils.isNotBlank(joborinternship)) {
-//			eligibleCandidates = candidateService.findEligibleCandidatesWithFilters(positionid, minKeywordLength, noofyearsworkex,
-//					workmode, joborinternship);
-//		} else if (StringUtils.isNotBlank(search)) {
-//			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search);
-//		} else {
-//			eligibleCandidates = candidateService.findEligibleCandidates(positionid, minKeywordLength);
-//		}
-//
-//		model.addAttribute("listcandidate", eligibleCandidates);
-//
-//		return "candidatelistfilters";
-//	}
 
 	@GetMapping("/candidatelistfilters/{positionid}/{minKeywordLength}")
 	public String showFilteredCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
@@ -588,7 +564,7 @@ public class MainController {
 		fetchJobCandidates(companyid, positionid, model);
 		return "mappedcandidateslist";
 	}
-
+ 
 	// delete mapped candidates to jobs
 	@PostMapping("/deletecandidates")
 	public String deleteSelectedCandidates(@RequestParam("jobcandidateids") List<Long> jobcandidateids,
@@ -597,7 +573,7 @@ public class MainController {
 		fetchJobCandidates(companyid, positionid, model);
 		return "mappedcandidateslist";
 	}
-
+ 
 	// Common method to fetch jobcandidates
 	private void fetchJobCandidates(Long companyid, int positionid, Model model) {
 		Job position = jobService.getJobbyId(positionid);
