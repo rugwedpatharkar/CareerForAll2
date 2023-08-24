@@ -27,10 +27,6 @@ public class CandidateService {
 		return candidateRepository.findAll();
 	}
 
-//	public void saveCandidate(Candidate candidate) {
-//		this.candidateRepository.save(candidate);
-//	}
-
 	public void saveCandidate(Candidate candidate, String educationalDetailsJson) {
 		candidate.setEducationalDetailsJson(educationalDetailsJson);
 		this.candidateRepository.save(candidate);
@@ -63,33 +59,10 @@ public class CandidateService {
 		return candidateRepository.findCandidatesByPrimarySkills(keyword);
 	}
 
-	public List<Candidate> searchEligibleCandidates(int positionid, int minKeywordLength, String search) {
-		Job job = jobRepository.findById(positionid).orElse(null);
-
-		String[] jobKeywords = job.getDescription().split(" ");
-		List<Candidate> eligibleCandidates = new ArrayList<>();
-
-		for (String keyword : jobKeywords) {
-			if (keyword.length() > minKeywordLength) {
-				List<Candidate> candidates = candidateRepository.findCandidatesByPrimarySkills(keyword);
-				eligibleCandidates.addAll(candidates);
-			}
-		}
-
-		return eligibleCandidates = searchCandidates(eligibleCandidates, search);
-
-	}
-
-	public List<Candidate> searchCandidates(List<Candidate> candidates, String search) {
-		List<Candidate> listcandidate = candidateRepository.findCandidatesByKeyword("%" + search.toLowerCase() + "%");
-		return listcandidate;
-	}
-
 	public List<Candidate> getCandidatesByIds(List<Long> candidateids) {
 		return candidateRepository.findAllById(candidateids);
 	}
 
-	// candidatelistfilters
 	public List<Candidate> findEligibleCandidates(int positionId, int minKeywordLength) {
 		Job job = jobRepository.findById(positionId).orElse(null);
 
@@ -106,45 +79,23 @@ public class CandidateService {
 
 	}
 
-	public List<Candidate> findEligibleCandidates(int positionid, int minKeywordLength, String noofyearsworkex,
-			String workmode, String joborinternship) {
-		Job job = jobRepository.findById(positionid).orElse(null);
+	public List<Candidate> applyFiltersAndSearch(List<Candidate> candidates, String noofyearsworkex, String workmode,
+			String joborinternship, String search) {
+		List<Candidate> filteredCandidates = new ArrayList<>(candidates);
 
-		String[] jobKeywords = job.getDescription().split(" ");
-		List<Candidate> eligibleCandidates = new ArrayList<>();
+		// Apply filters on filteredCandidates using custom queries
+		List<Candidate> filteredByFilters = candidateRepository.findEligibleCandidatesByFilters(noofyearsworkex,
+				workmode, joborinternship);
 
-		for (String keyword : jobKeywords) {
-			if (keyword.length() > minKeywordLength) {
-				List<Candidate> candidates = candidateRepository.findCandidatesByPrimarySkills(keyword);
-				eligibleCandidates.addAll(candidates);
-			}
+		filteredCandidates.retainAll(filteredByFilters); // Keep only candidates that satisfy filters
+
+		// Apply search on the remaining filtered candidates
+		if (search != null && !search.isEmpty()) {
+			List<Candidate> searchedCandidates = candidateRepository.findCandidatesByKeyword(search.toLowerCase());
+			filteredCandidates.retainAll(searchedCandidates); // Keep only candidates that match search
 		}
 
-		return eligibleCandidates = filterCandidates(eligibleCandidates, noofyearsworkex, workmode, joborinternship);
-
-	}
-
-//	private List<Candidate> filterCandidates(List<Candidate> candidates, String noofyearsworkex, String workmode,
-//			String joborinternship) {
-//		List<Candidate> listcandidate = new ArrayList<>(candidates);
-//		if (StringUtils.isNotBlank(noofyearsworkex)) {
-//			listcandidate.removeIf(candidate -> !candidate.getNoofyearsworkex().equals(noofyearsworkex));
-//		}
-//
-//		if (StringUtils.isNotBlank(workmode)) {
-//			listcandidate.removeIf(candidate -> !candidate.getWorkmode().equalsIgnoreCase(workmode));
-//		}
-//
-//		if (StringUtils.isNotBlank(joborinternship)) {
-//			listcandidate.removeIf(candidate -> !candidate.getJoborinternship().equalsIgnoreCase(joborinternship));
-//		}
-//
-//		return candidates;
-//	}
-
-	private List<Candidate> filterCandidates(List<Candidate> candidates, String noofyearsworkex, String workmode,
-			String joborinternship) {
-		return candidateRepository.findCandidatesByFilters(noofyearsworkex, workmode, joborinternship);
+		return filteredCandidates;
 	}
 
 	public Candidate getCandidateByCandidateid(Long candidateid) {

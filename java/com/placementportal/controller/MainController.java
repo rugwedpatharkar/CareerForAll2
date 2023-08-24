@@ -36,8 +36,6 @@ import com.placementportal.service.InstituteService;
 import com.placementportal.service.JobCandidateService;
 import com.placementportal.service.JobService;
 import com.placementportal.service.UserServiceImpl;
-
-import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -485,51 +483,46 @@ public class MainController {
 		return "candidatelistfilters";
 	}
 
-	// filters for candidates on candidate list filters
 //	@GetMapping("/candidatelistfilters/{positionid}/{minKeywordLength}")
 //	public String applyFiltersOnCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
 //			@RequestParam(required = false) String noofyearsworkex, @RequestParam(required = false) String workmode,
 //			@RequestParam(required = false) String joborinternship, @RequestParam(required = false) String search,
-//			Model model, @RequestParam(defaultValue = "0") int page) {
-//		int pageSize = 10;
+//			Model model) {
 //		Job position = jobService.getJobbyId(positionid);
 //		model.addAttribute("position", position);
-//		  = PageRequest.of(page, pageSize);
-//		Page<Candidate> eligibleCandidates;
-//		if (!noofyearsworkex.isEmpty() || !workmode.isEmpty() || !joborinternship.isEmpty() || !search.isEmpty()) {
-//			eligibleCandidates = candidateService.findEligibleCandidates(positionid, minKeywordLength, noofyearsworkex,
-//					workmode, joborinternship, );
-//			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search,
-//					);
+//
+//		List<Candidate> eligibleCandidates;
+//
+//		if (StringUtils.isNotBlank(noofyearsworkex) || StringUtils.isNotBlank(workmode)
+//				|| StringUtils.isNotBlank(joborinternship)) {
+//			eligibleCandidates = candidateService.findEligibleCandidatesWithFilters(positionid, minKeywordLength, noofyearsworkex,
+//					workmode, joborinternship);
+//		} else if (StringUtils.isNotBlank(search)) {
+//			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search);
 //		} else {
-//			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search,
-//					);
+//			eligibleCandidates = candidateService.findEligibleCandidates(positionid, minKeywordLength);
 //		}
+//
 //		model.addAttribute("listcandidate", eligibleCandidates);
 //
 //		return "candidatelistfilters";
 //	}
+
 	@GetMapping("/candidatelistfilters/{positionid}/{minKeywordLength}")
-	public String applyFiltersOnCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
-			@RequestParam(required = false) String noofyearsworkex, @RequestParam(required = false) String workmode,
-			@RequestParam(required = false) String joborinternship, @RequestParam(required = false) String search,
-			Model model) {
+	public String showFilteredCandidates(@PathVariable int positionid, @PathVariable int minKeywordLength,
+			@RequestParam(name = "noofyearsworkex", required = false) String noofyearsworkex,
+			@RequestParam(name = "workmode", required = false) String workmode,
+			@RequestParam(name = "joborinternship", required = false) String joborinternship,
+			@RequestParam(name = "search", required = false) String search, Model model) {
 		Job position = jobService.getJobbyId(positionid);
 		model.addAttribute("position", position);
 
-		List<Candidate> eligibleCandidates;
+		List<Candidate> eligibleCandidates = candidateService.findEligibleCandidates(positionid, minKeywordLength);
 
-		if (StringUtils.isNotBlank(noofyearsworkex) || StringUtils.isNotBlank(workmode)
-				|| StringUtils.isNotBlank(joborinternship)) {
-			eligibleCandidates = candidateService.findEligibleCandidates(positionid, minKeywordLength, noofyearsworkex,
-					workmode, joborinternship);
-		} else if (StringUtils.isNotBlank(search)) {
-			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search);
-		} else {
-			eligibleCandidates = candidateService.searchEligibleCandidates(positionid, minKeywordLength, search);
-		}
+		List<Candidate> filteredCandidates = candidateService.applyFiltersAndSearch(eligibleCandidates, noofyearsworkex,
+				workmode, joborinternship, search);
 
-		model.addAttribute("listcandidate", eligibleCandidates);
+		model.addAttribute("listcandidate", filteredCandidates);
 
 		return "candidatelistfilters";
 	}
