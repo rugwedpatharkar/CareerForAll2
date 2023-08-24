@@ -132,7 +132,7 @@ public class MainController {
 	@PostMapping("/updateCompany")
 	public String updateCompany(@ModelAttribute("company") Company company, RedirectAttributes redirectAttributes) {
 		companyService.saveCompany(company);
-		redirectAttributes.addFlashAttribute("umessage", "Company updated successfully!");
+		redirectAttributes.addFlashAttribute("umessage", "Company updated successfully!"); //alert
 		return "redirect:/CompanyList";
 	}
 
@@ -141,7 +141,7 @@ public class MainController {
 	public String deleteCompany(@PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
 		// call delete company method
 		this.companyService.deleteCompanyById(id);
-		redirectAttributes.addFlashAttribute("dmessage", "Company deleted successfully!");
+		redirectAttributes.addFlashAttribute("dmessage", "Company deleted successfully!");//alert
 		return "redirect:/CompanyList";
 	}
 

@@ -926,7 +926,7 @@ if(startupUpdateform !== null){
 //End of validate startup update submission----------------
 //----------startup success message alert------
         setTimeout(function() {
-        	//console.log("settimeout");
+        	//console.log("settimeout"); //chk
             var successMessage = document.getElementById("onboardsuccess");
             var CompanyUpdateSuccess = document.getElementById("companyUpdateSuccess");
             var CompanyDeleteSuccess = document.getElementById("companyDeleteSuccess");
